@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COEQWAL figure gallery</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:28px 24px; }
+  header h1 { margin:0 0 6px; font-size:26px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  header a { color:#fff; }
+  main { max-width:1080px; margin:0 auto; padding:24px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--line); padding-bottom:6px; margin:32px 0 12px; font-weight:normal; color:var(--accent); }
+  h3 { font-size:17px; margin:24px 0 10px; color:var(--accent); font-weight:normal; }
+  p { margin:0 0 14px; }
+  hr { border:none; border-top:1px solid var(--line); margin:24px 0; }
+  code { font:14px/1.4 Menlo, Consolas, monospace; background:#eef2f5; padding:1px 4px; border-radius:3px; }
+  pre { background:#eef2f5; border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }
+  pre code { background:none; padding:0; }
+  ul, ol { margin:0 0 14px; padding-left:22px; }
+  li { margin-bottom:6px; }
+  blockquote { border-left:3px solid var(--accent); margin:0 0 14px; padding:6px 14px; background:#fff; }
+  blockquote p { margin:0; }
+  table { border-collapse:collapse; width:100%; background:#fff; font-size:14px; margin:0 0 16px; }
+  th, td { border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top; }
+  th { background:#eef2f5; }
+  img.figure { max-width:100%; background:#fff; border:1px solid var(--line); border-radius:6px; padding:8px; }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin:36px auto 0; max-width:1080px; padding-left:24px; padding-right:24px; padding-bottom:24px; }
+  
+  .gallery { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:16px; margin-bottom:8px; }
+  .fig-card { background:#fff; border:1px solid var(--line); border-radius:6px; padding:12px; }
+  .fig-card img { width:100%; border:1px solid var(--line); border-radius:4px; background:#fff; }
+  .fig-title { margin:10px 0 4px; font-size:16px; color:var(--accent); }
+  .fig-card p { font-size:14px; margin:0 0 6px; }
+  .fig-demo { font-size:13.5px; }
+  .banner { background:#fff8e6; border:1px solid #d98e2b; border-radius:6px; padding:10px 14px; font-size:14px; margin-bottom:8px; }
+
+</style>
+</head>
+<body>
+<header>
+  <h1>COEQWAL figure gallery</h1>
+  <p>Snapshots of visualization work in progress, taken 2026-06-04. <a href="index.html">Back to working pages</a>.</p>
+</header>
+<main>
+<p class="intro" style="color:var(--muted); max-width:70ch;">Snapshots of the visualization work in progress — figures and interactive tools built around the COEQWAL scenario results. Some are candidates for the public website; others are working instruments or explorations kept for reference.</p>
+<div class="banner"><strong>All figures use synthetic rehearsal data</strong> — placeholder values with the right shape, not COEQWAL results. Snapshots taken 2026-06-04.</div>
+<h2>Climate vs operations decomposition</h2>
+<div class="gallery">
+<div class="fig-card">
+<img src="figures/ops_vs_climate_stepper.png" alt="Guided stepper">
+<div class="fig-title">Guided stepper</div>
+<p>The chosen direction for the public website. A guided three-step decomposition — today, then climate, then operations — in continuous tier space, one step per click.</p>
+<div class="fig-demo"><a href="demos/operations-vs-climate-stepper.html" target="_blank" rel="noopener">Try the live version</a></div>
+</div>
+<div class="fig-card">
+<img src="figures/ops_vs_climate_stepper_density.png" alt="Stepper, location-spread variant">
+<div class="fig-title">Stepper, location-spread variant</div>
+<p>A single animated column with one dot per location, vertical motion only, and trails marking the biggest movers.</p>
+<div class="fig-demo"><a href="demos/operations-vs-climate-stepper-density.html" target="_blank" rel="noopener">Try the live version</a></div>
+</div>
+<div class="fig-card">
+<img src="figures/ops_vs_climate_column_spread.png" alt="Scenario columns by climate">
+<div class="fig-title">Scenario columns by climate</div>
+<p>Four climate columns with all 24 strategies evenly slotted in each; vertical position is the continuous tier value. Hovering splits a dot into baseline + climate + operations; clicking pins it. Used as Figure 2 in the location brief prototype.</p>
+<div class="fig-demo"><a href="demos/operations-vs-climate-column-spread.html" target="_blank" rel="noopener">Try the live version</a></div>
+</div>
+<div class="fig-card">
+<img src="figures/ops_vs_climate_tiergrid.png" alt="Decomposition in waffle form">
+<div class="fig-title">Decomposition in waffle form</div>
+<p>The climate/operations decomposition told in the tier-grid waffle format, with arrows showing each move. Explored, then set aside — it flattens the journey the stepper tells.</p>
+</div>
+<div class="fig-card">
+<img src="figures/ops_vs_climate.png" alt="Decomposition bars (original)">
+<div class="fig-title">Decomposition bars (original)</div>
+<p>The original decomposition figure: per-sector change from baseline split into a climate effect and an operations effect, drawn as paired arrows.</p>
+</div>
+<div class="fig-card">
+<img src="figures/ops_vs_climate_v2.png" alt="Decomposition bars, site styling">
+<div class="fig-title">Decomposition bars, site styling</div>
+<p>The same decomposition restyled to match the COEQWAL website look.</p>
+</div>
+<div class="fig-card">
+<img src="figures/ops_vs_climate_decile_style.png" alt="Decomposition bars, decile styling">
+<div class="fig-title">Decomposition bars, decile styling</div>
+<p>Decomposition bars restyled after the site&#x27;s decile-bar look — a styling experiment.</p>
+</div>
+</div>
+<h2>Website component ports</h2>
+<div class="gallery">
+<div class="fig-card">
+<img src="figures/tier_grid.png" alt="Tier grid (&quot;See who benefits&quot;)">
+<div class="fig-title">Tier grid (&quot;See who benefits&quot;)</div>
+<p>Standalone version of the website&#x27;s equity waffle: triangles and squares by tier and result category, with compare-to-baseline and color-mode toggles.</p>
+<div class="fig-demo"><a href="demos/tier-grid.html" target="_blank" rel="noopener">Try the live version</a></div>
+</div>
+<div class="fig-card">
+<img src="figures/decile_bar_chart.png" alt="Decile bar">
+<div class="fig-title">Decile bar</div>
+<p>Standalone version of the website Distribution viewer&#x27;s single stacked decile bar, with controls for color scheme, width, and data.</p>
+</div>
+</div>
+<h2>The Landscape and related views</h2>
+<div class="gallery">
+<div class="fig-card">
+<img src="figures/landscape_tool.png" alt="Landscape explorer (analyst tool)">
+<div class="fig-title">Landscape explorer (analyst tool)</div>
+<p>The interactive landscape explorer: scenario performance against the baseline diagonal by sector, with scenario, climate-future, equity, overlay, and grouping controls.</p>
+</div>
+<div class="fig-card">
+<img src="figures/landscape_figure.png" alt="Landscape figure">
+<div class="fig-title">Landscape figure</div>
+<p>A fixed view of the landscape: one strategy (salmon-friendly flows) across all climates, sector means against the baseline diagonal.</p>
+</div>
+<div class="fig-card">
+<img src="figures/quadrant_plot.png" alt="Quadrant plot">
+<div class="fig-title">Quadrant plot</div>
+<p>Climate effect on one axis, strategy effect on the other, so each sector or location lands in one of four stories: climate worsens or improves, crossed with strategy worsens or improves.</p>
+</div>
+<div class="fig-card">
+<img src="figures/analytical_pathways.png" alt="Analytical pathways (reference page)">
+<div class="fig-title">Analytical pathways (reference page)</div>
+<p>A written page pairing the Landscape and the quadrant plot as two routes through the same decomposition.</p>
+</div>
+<div class="fig-card">
+<img src="figures/geometric_framework.png" alt="Geometric framework (reference page)">
+<div class="fig-title">Geometric framework (reference page)</div>
+<p>A written page on the geometry behind the landscape views: decomposition of means, variance, and distributional equity.</p>
+</div>
+</div>
+<h2>Map animations</h2>
+<div class="gallery">
+<div class="fig-card">
+<img src="figures/baseline_scatter_animation.png" alt="Map-to-scatter animation">
+<div class="fig-title">Map-to-scatter animation</div>
+<p>A California map of locations paired with a current-vs-alternative-operations scatter; animates between scenarios.</p>
+</div>
+<div class="fig-card">
+<img src="figures/scatter_animation_staged.png" alt="Map-to-scatter, staged variant">
+<div class="fig-title">Map-to-scatter, staged variant</div>
+<p>The same map-plus-scatter layout with a stepped presentation.</p>
+</div>
+</div>
+<h2>Orientation figures</h2>
+<div class="gallery">
+<div class="fig-card">
+<img src="figures/orientation_futures_figure.png" alt="Today, and the possible futures">
+<div class="fig-title">Today, and the possible futures</div>
+<p>The orientation schematic: today&#x27;s baseline, the climate anchors below it, and strategy ranges around each anchor. Concept geometry, no data.</p>
+</div>
+</div>
+</main>
+<footer>
+Curated from the working figure set; synthetic rehearsal data throughout. Questions: Eric Danner.
+</footer>
+</body>
+</html>

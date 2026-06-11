@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COEQWAL terminology and conventions</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:28px 24px; }
+  header h1 { margin:0 0 6px; font-size:26px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  header a { color:#fff; }
+  main { max-width:900px; margin:0 auto; padding:24px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--line); padding-bottom:6px; margin:32px 0 12px; font-weight:normal; color:var(--accent); }
+  h3 { font-size:17px; margin:24px 0 10px; color:var(--accent); font-weight:normal; }
+  p { margin:0 0 14px; }
+  hr { border:none; border-top:1px solid var(--line); margin:24px 0; }
+  code { font:14px/1.4 Menlo, Consolas, monospace; background:#eef2f5; padding:1px 4px; border-radius:3px; }
+  pre { background:#eef2f5; border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }
+  pre code { background:none; padding:0; }
+  ul, ol { margin:0 0 14px; padding-left:22px; }
+  li { margin-bottom:6px; }
+  blockquote { border-left:3px solid var(--accent); margin:0 0 14px; padding:6px 14px; background:#fff; }
+  blockquote p { margin:0; }
+  table { border-collapse:collapse; width:100%; background:#fff; font-size:14px; margin:0 0 16px; }
+  th, td { border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top; }
+  th { background:#eef2f5; }
+  img.figure { max-width:100%; background:#fff; border:1px solid var(--line); border-radius:6px; padding:8px; }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin:36px auto 0; max-width:900px; padding-left:24px; padding-right:24px; padding-bottom:24px; }
+  
+</style>
+</head>
+<body>
+<header>
+  <h1>COEQWAL terminology and conventions</h1>
+  <p>Canonical names and definitions — hydroclimates, scenarios, themes, sectors, tiers — for anyone writing or reviewing COEQWAL material. Source document last updated 2026-06-09. <a href="index.html">Back to working pages</a>.</p>
+</header>
+<main>
+<p><em>Generated from COEQWAL_Platform_Content_Summary. Source of truth: COEQWAL Platform Content Summary Google Sheet.</em> <em>Last updated: 2026-06-09</em></p>
+<hr>
+<h2 id="terminology">Terminology</h2>
+<blockquote><p><strong>Dispreferred term: "outcome."</strong> Avoid "outcome" in new writing for this project. Apply this preference going forward. The production codebase still uses "outcome" as its umbrella term — see § Codebase outcome codes below for the one-to-one mapping to editorial sector codes.</p></blockquote>
+<h3 id="landscape-umbrella-term">Landscape (umbrella term)</h3>
+<p>"Landscape" is the umbrella term across the <code>coeqwal-viz</code> repo.</p>
+<ul>
+<li><strong>COEQWAL Landscape</strong> — the conceptual frame. Described in <code>geometric_framework.html</code>.</li>
+<li><strong>Instantiations of the COEQWAL Landscape:</strong> - <code>landscape-tool.html</code> — the expert-facing interactive instantiation. (Formerly <code>scatter_sidebar.html</code>.) - <code>landscape-figure.html</code> — a deferred sibling, planned as the public-facing static instantiation.</li>
+</ul>
+<p>Both <code>landscape-tool</code> and <code>landscape-figure</code> are instantiations of the COEQWAL Landscape.</p>
+<hr>
+<h2 id="hydroclimates">Hydroclimates</h2>
+<table><thead><tr><th>Editorial Index</th><th>API id</th><th>Short Title</th><th>Temp Change</th><th>Precip Change</th><th>Source</th><th>Served?</th></tr></thead><tbody>
+<tr><td>0 (BL)</td><td>2</td><td>Historical</td><td>—</td><td>—</td><td>DWR DCR2023 baseline historical</td><td><strong>Served</strong> (baseline)</td></tr>
+<tr><td>1 (HC1)</td><td>3</td><td>Warmer and Drier I</td><td>+1.5°C</td><td>−3%</td><td>DWR WGEN 50th percentile LOC (CC50-2043)</td><td><strong>Served</strong></td></tr>
+<tr><td>2 (HC2)</td><td>4</td><td>Warmer and Drier II</td><td>+1.8°C</td><td>−9%</td><td>DWR WGEN 95th percentile LOC (CC95-2043)</td><td><strong>Served</strong></td></tr>
+<tr><td>3 (HC3)</td><td>—</td><td>Warmer and Drier III</td><td>+1.9°C</td><td>−7%</td><td>LOCA2 CMIP6 TaiESM1 SSP370</td><td>Run, <strong>not served</strong></td></tr>
+<tr><td>—</td><td>—</td><td>(editorial code TBD)</td><td>—</td><td>—</td><td>LOCA2 CMIP6 EC-Earth3-Veg SSP370</td><td>Run, <strong>not served</strong></td></tr>
+</tbody></table>
+<p><em>Served HC set (authority: live API + the team's Completed Scenario Listing, confirmed 2026-06-09): <strong>BL + HC1 + HC2 only</strong> — three hydroclimates, each paired with all 24 strategies (72 served scenario codes). The API exposes these as <code>hydroclimate_id</code> 2 / 3 / 4; that numbering is distinct from the editorial index in the first column. Two further <strong>real</strong> climates are run but <strong>not yet served</strong>: TaiESM1 (run names <code>cqlTAI</code>, s0107–s0131) — the model previously carrying the "HC3" editorial label — and EC-Earth3-Veg (<code>cqlECV</code>, s0133–s0157). When the API serves them they become new columns; their editorial codes are TBD.</em></p>
+<p><em>Correction (2026-06-09): an earlier version of this section listed "BL + HC1–HC3" as the canonical served set and described EC-Earth3-Veg as retired from the pipeline — both were stale. There is no served HC3; TaiESM1 and EC-Earth3-Veg are run-but-unserved per the 2026-06-06 listing. CESM2-LENS / "Warmer and Drier IV" remains explored-only and is not in the current run set.</em></p>
+<p><strong>CalSim 3 HC labels (coeqwal_cs3_scenario_listing):</strong></p>
+<ul>
+<li>0 (API id 2): <code>2023 DWR Historical Adjusted</code></li>
+<li>1 (API id 3): <code>2023DCR CC50-2043</code></li>
+<li>2 (API id 4): <code>2023DCR CC95-2043</code></li>
+<li>3 (not served): LOCA2-downscaled CMIP6 TaiESM1 (see table above)</li>
+</ul>
+<hr>
+<h2 id="scenarios-historical-hydroclimate">Scenarios (Historical Hydroclimate)</h2>
+<table><thead><tr><th>Model ID</th><th>Theme</th><th>Category</th><th>Short Title</th></tr></thead><tbody>
+<tr><td>s0020</td><td>ALL — <strong>BASELINE</strong></td><td>Current Operations</td><td>Current operations</td></tr>
+<tr><td>s0011</td><td>(BASELINE)</td><td>Current Operations</td><td>Current operations with historical land use</td></tr>
+<tr><td>s0021</td><td>(BASELINE)</td><td>Current Operations</td><td>Current operations without TUCPs</td></tr>
+<tr><td>s0024</td><td>(BASELINE)</td><td>Current Operations</td><td>Current USBR operations</td></tr>
+<tr><td>s0023</td><td>(BASELINE)</td><td>Current Operations</td><td>Current USBR operations without TUCPs</td></tr>
+<tr><td>s0025</td><td>Farms and groundwater</td><td>Managing Groundwater</td><td>GW pumping limits — San Joaquin Valley</td></tr>
+<tr><td>s0026</td><td>Farms and groundwater</td><td>Managing Groundwater</td><td>GW pumping limits + reduced crop acreage — SJV</td></tr>
+<tr><td>s0027</td><td>Farms and groundwater</td><td>Managing Groundwater</td><td>GW pumping limits — Central Valley</td></tr>
+<tr><td>s0028</td><td>Farms and groundwater</td><td>Managing Groundwater</td><td>GW pumping limits + reduced crop acreage — CV</td></tr>
+<tr><td>s0030</td><td>Environment</td><td>Enhancing river flows</td><td>No flow requirements</td></tr>
+<tr><td>s0046</td><td>Environment</td><td>Enhancing river flows</td><td>Functional environmental flows</td></tr>
+<tr><td>s0032</td><td>Environment; Farms and groundwater</td><td>Enhancing river flows</td><td>Functional env. flows + GW regulations</td></tr>
+<tr><td>s0031</td><td>Environment</td><td>Enhancing river flows</td><td>Salmon-friendly flows</td></tr>
+<tr><td>s0033</td><td>Environment; Farms and groundwater</td><td>Enhancing river flows</td><td>Salmon-friendly flows + GW regulations</td></tr>
+<tr><td>s0035</td><td>Community water systems</td><td>Prioritizing CWS</td><td>Prioritizing human health delivery levels</td></tr>
+<tr><td>s0036</td><td>Community water systems</td><td>Prioritizing CWS</td><td>Prioritizing functional delivery levels</td></tr>
+<tr><td>s0037</td><td>Community water systems</td><td>Prioritizing CWS</td><td>Prioritizing full demands</td></tr>
+<tr><td>s0040</td><td>Delta as Living Place</td><td>Improving Bay-Delta health</td><td>Reduce delta outflows (35% unimpaired)</td></tr>
+<tr><td>s0041</td><td>Delta as Living Place</td><td>Improving Bay-Delta health</td><td>Maintain delta outflows (45% unimpaired)</td></tr>
+<tr><td>s0042</td><td>Delta as Living Place; Environment</td><td>Improving Bay-Delta health</td><td>Increase delta outflows (55% unimpaired)</td></tr>
+<tr><td>s0039</td><td>Delta as Living Place; Environment</td><td>Improving Bay-Delta health</td><td>Increase delta outflows (65% unimpaired)</td></tr>
+<tr><td>s0044</td><td>Delta as Living Place</td><td>Sustaining In-Delta uses</td><td>Increase Shasta carry-over storage</td></tr>
+<tr><td>s0045</td><td>Delta as Living Place</td><td>Sustaining In-Delta uses</td><td>Relax Delta salinity standards</td></tr>
+<tr><td>s0065</td><td>Delta as Living Place</td><td>Improving Delta export reliability</td><td>Delta Conveyance Project</td></tr>
+</tbody></table>
+<p><strong>Baseline:</strong> <code>s0020</code> (Current operations, DWR 2023, recent land use, with TUCPs). All alternative scenarios are evaluated against s0020 paired with a Hydroclimate BL baseline.</p>
+<hr>
+<h2 id="themes">Themes</h2>
+<p>Themes split into <strong>use-case themes</strong> (sector-specific lenses) and <strong>cross-cutting themes</strong> (frames that apply across all sectors). This grouping matches the AC Workshop intro deck (slide 7).</p>
+<table><thead><tr><th>Group</th><th>Theme Name</th><th>Short Identifier</th><th>Description</th></tr></thead><tbody>
+<tr><td>Use case</td><td>Community water systems</td><td>Drinking water</td><td>Reliable access to safe drinking water for daily life, health, and essential services</td></tr>
+<tr><td>Use case</td><td>Farms and groundwater</td><td>Groundwater</td><td>Agricultural water deliveries sustaining food production while preventing aquifer overdraft</td></tr>
+<tr><td>Use case</td><td>Rivers, salmon and the Delta ecosystem</td><td>Environment</td><td>Flows needed for rivers, salmon, and the Delta estuary to remain functional and resilient</td></tr>
+<tr><td>Use case</td><td>The Delta as a living place</td><td>Delta</td><td>Delta as a place where communities, farms, and ecosystems coexist and thrive</td></tr>
+<tr><td>Cross-cutting</td><td>Drought and climate risk</td><td>Drought and climate</td><td>How the water system performs under drought stress, climate variability, and extreme conditions</td></tr>
+<tr><td>Cross-cutting</td><td>Water operations and impacts</td><td>Operations and impacts</td><td>How water management decisions affect trade-offs, equity, and resilience</td></tr>
+</tbody></table>
+<hr>
+<h2 id="operational-strategy-categories">Operational Strategy Categories</h2>
+<table><thead><tr><th>Category</th><th>Summary</th></tr></thead><tbody>
+<tr><td>Representing current operations</td><td>Laws, regulations, priorities, and decisions reflecting how California manages water today</td></tr>
+<tr><td>Prioritizing community water systems</td><td>Strategies to prioritize surface water deliveries to CWS (health, functional, and full-demand levels)</td></tr>
+<tr><td>Enhancing river flows for the environment</td><td>Adjusting reservoir releases to maintain environmental flows supporting ecosystem health</td></tr>
+<tr><td>Managing groundwater in a changing agricultural landscape</td><td>Strategies to meet SGMA goals; limiting GW pumping and reducing irrigated acreage</td></tr>
+<tr><td>Improving flows for the health of Bay Delta estuary</td><td>Modifying Delta outflows to improve Bay-Delta estuary health</td></tr>
+<tr><td>Sustaining uses in the Delta for communities and farms</td><td>Enhancing freshwater inflows in the Delta to maintain salinity for drinking water, recreation, and agriculture</td></tr>
+<tr><td>Improving reliability of Delta exports for farms and cities</td><td>Strategies to improve Delta export reliability, including Delta Conveyance Project</td></tr>
+</tbody></table>
+<hr>
+<h2 id="sectors-tiers">Sectors (Tiers)</h2>
+<table><thead><tr><th>Sector</th><th>Full Name</th><th>Tier Basis</th></tr></thead><tbody>
+<tr><td>CWS</td><td>Community Water Systems</td><td>% of M&amp;I target delivered, frequency of shortfalls</td></tr>
+<tr><td>AG</td><td>Agricultural Water</td><td>Impact of water shortages on agricultural revenue</td></tr>
+<tr><td>ENV</td><td>Environmental Flows</td><td>Extent modeled flows sustain ecological function vs. functional flow targets</td></tr>
+<tr><td>DELTA</td><td>Bay-Delta Estuary Ecology</td><td>Ecological indicators (SAV, salinity, turbidity, microhabitat)</td></tr>
+<tr><td>WRC</td><td>Winter-Run Chinook salmon</td><td>Population/abundance tiers, sourced from WRLCM model runs</td></tr>
+<tr><td>FW_EXP</td><td>Freshwater for Delta Exports</td><td>Salinity-penalized export volume at Banks and Jones pumping plants</td></tr>
+<tr><td>FW_DELTA_USES</td><td>Freshwater for In-Delta Uses (salinity)</td><td>Frequency western Delta salinity is below thresholds at Emmaton &amp; Jersey Point</td></tr>
+<tr><td>RES</td><td>Reservoir Storage</td><td>Frequency April storage exceeds historical percentile thresholds at key reservoirs</td></tr>
+<tr><td>GW</td><td>Groundwater Storage</td><td>Groundwater trend (stable/increasing vs. declining) and storage relative to reference</td></tr>
+</tbody></table>
+<hr>
+<h2 id="tier-definitions-universal-scale">Tier Definitions (Universal Scale)</h2>
+<table><thead><tr><th>Tier</th><th>Named Label</th><th>General Meaning</th></tr></thead><tbody>
+<tr><td>1</td><td>Optimal</td><td>Water supplies support strong, desired system performance</td></tr>
+<tr><td>2</td><td>Acceptable</td><td>Water supply shortages occur, but impacts remain manageable</td></tr>
+<tr><td>3</td><td>At-risk</td><td>Water supply shortages lead to significant impacts</td></tr>
+<tr><td>4</td><td>Critical</td><td>Severe water supply shortages threaten long-term viability</td></tr>
+</tbody></table>
+<p><em>Public-facing tier labels are <strong>Optimal / Acceptable / At-risk / Critical</strong> (per AC Workshop intro deck, slide 15). Earlier draft copy used "Suboptimal" for tier 2 — that has been retired. Groundwater storage retains a sector-specific tier-2 label of "Compromised"; flag for normalization.</em></p>
+<hr>
+<h2 id="codebase-outcome-codes-api-tier-indicators">Codebase outcome codes (API tier indicators)</h2>
+<p>The production codebase uses different short codes than the canonical sector codes above. These are the identifiers returned by the COEQWAL API and used in <code>apps/main/app/content/outcomes.ts</code>. The mapping is one-to-one with the nine canonical sectors:</p>
+<table><thead><tr><th>API code</th><th>Display name (codebase)</th><th>Editorial sector code</th><th>Editorial sector name</th></tr></thead><tbody>
+<tr><td>CWS_DEL</td><td>Community deliveries</td><td>CWS</td><td>Community Water Systems</td></tr>
+<tr><td>AG_REV</td><td>Agricultural revenue</td><td>AG</td><td>Agricultural Water</td></tr>
+<tr><td>ENV_FLOWS</td><td>Environmental flows</td><td>ENV</td><td>Environmental Flows</td></tr>
+<tr><td>RES_STOR</td><td>Reservoir storage</td><td>RES</td><td>Reservoir Storage</td></tr>
+<tr><td>GW_STOR</td><td>Groundwater storage</td><td>GW</td><td>Groundwater Storage</td></tr>
+<tr><td>DELTA_ECO</td><td>Delta estuary ecology</td><td>DELTA</td><td>Bay-Delta Estuary Ecology</td></tr>
+<tr><td>FW_EXP</td><td>Freshwater for Delta exports</td><td>FW_EXP</td><td>Freshwater for Delta Exports</td></tr>
+<tr><td>FW_DELTA_USES</td><td>Freshwater for in-Delta uses</td><td>FW_DELTA_USES</td><td>Freshwater for In-Delta Uses</td></tr>
+<tr><td>WRC_SALMON_AB</td><td>Winter-run salmon</td><td>WRC</td><td>Winter-Run Chinook salmon</td></tr>
+</tbody></table>
+<p>The codebase predates the editorial term shift from "outcome" to "sector." It uses "outcome" as the umbrella term and suffixed identifiers (CWS_DEL, AG_REV, RES_STOR, etc.). Editorial writing uses "sector" and bare codes (CWS, AG, RES, WRC).</p>
+<p>The codebase term is not being changed ahead of launch. Briefs that consume API data translate codebase identifiers to editorial labels at render time, using the display strings already defined in <code>outcomes.ts</code> as the source of truth. A codebase rename ("outcome" → "sector") is a deferred cleanup task, post-launch.</p>
+<p>API base: <code>https://api.coeqwal.org/api</code>. OpenAPI spec: <code>https://api.coeqwal.org/docs</code>.</p>
+<hr>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Period of record: 100-year simulation</li>
+<li>NOD = North of Delta; SOD = South of Delta</li>
+<li>TUCPs = Temporary Urgency Change Petitions</li>
+<li>SGMA = Sustainable Groundwater Management Act</li>
+<li>LOC = Level of Concern (DWR WGEN metric)</li>
+<li>All temperature and precipitation changes are 30-year mean values (2028–2057 vs. 1992–2021) over CV inflow basins</li>
+</ul>
+<hr>
+<h2 id="theme-brief-naming">Theme brief naming</h2>
+<p>Level 1 theme briefs use sentence case in both inline prose and Related-briefs lists. The two canonical full forms most prone to inconsistency:</p>
+<ul>
+<li>"Farms and groundwater" (not "Farms and Groundwater")</li>
+<li>"Rivers, salmon and the Delta ecosystem" (not "Rivers and Salmon and the Delta Ecosystem", and not "Rivers and Salmon and Delta Ecosystem")</li>
+</ul>
+<p>The other Level 1 names ("Community water systems", "The Delta as a living place") follow the same sentence-case rule.</p>
+<p>BASELINES is the exception — display form is all caps, set in italics when referenced inline (<em>BASELINES</em>). This signals its role as the system-wide foundational brief, distinct from theme briefs.</p>
+<p><strong>Card-short forms.</strong> In tight horizontal display contexts like the Findings tab card grid, theme brief titles may use a shorter display form. The canonical card-short forms are:</p>
+<ul>
+<li>"Farms and groundwater" (identical to the full form)</li>
+<li>"Rivers and salmon" (short form for ECO; the full form "Rivers, salmon and the Delta ecosystem" is used inline and in Related-briefs lists)</li>
+</ul>
+<p>The other two Level 1 themes fit the available card width without truncation and have no separate short form. Where present, the card teaser paragraph carries the longer framing that the short title doesn't.</p>
+<p>Convention established 2026-05-17 (LOI flow-review session).</p>
+</main>
+<footer>
+Generated from the project's conventions reference document; that document remains authoritative. Questions: Eric Danner.
+</footer>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COEQWAL brief publishing pipeline</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:28px 24px; }
+  header h1 { margin:0 0 6px; font-size:26px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  header a { color:#fff; }
+  main { max-width:820px; margin:0 auto; padding:24px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--line); padding-bottom:6px; margin:32px 0 12px; font-weight:normal; color:var(--accent); }
+  h3 { font-size:17px; margin:24px 0 10px; color:var(--accent); font-weight:normal; }
+  p { margin:0 0 14px; }
+  hr { border:none; border-top:1px solid var(--line); margin:24px 0; }
+  code { font:14px/1.4 Menlo, Consolas, monospace; background:#eef2f5; padding:1px 4px; border-radius:3px; }
+  pre { background:#eef2f5; border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }
+  pre code { background:none; padding:0; }
+  ul, ol { margin:0 0 14px; padding-left:22px; }
+  li { margin-bottom:6px; }
+  blockquote { border-left:3px solid var(--accent); margin:0 0 14px; padding:6px 14px; background:#fff; }
+  blockquote p { margin:0; }
+  table { border-collapse:collapse; width:100%; background:#fff; font-size:14px; margin:0 0 16px; }
+  th, td { border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top; }
+  th { background:#eef2f5; }
+  img.figure { max-width:100%; background:#fff; border:1px solid var(--line); border-radius:6px; padding:8px; }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin:36px auto 0; max-width:820px; padding-left:24px; padding-right:24px; padding-bottom:24px; }
+  
+</style>
+</head>
+<body>
+<header>
+  <h1>COEQWAL brief publishing pipeline</h1>
+  <p>How a published brief page gets from the data API to coeqwal.org. Source document last updated 2026-06-09. <a href="index.html">Back to working pages</a>.</p>
+</header>
+<main>
+<p><em>How a published brief page gets from the data API to coeqwal.org.</em> <em>Last updated: 2026-06-09</em></p>
+<hr>
+<h2 id="context">Context</h2>
+<p>The COEQWAL stack is described in <code>coeqwal_project_ecosystem.md</code> — a Next.js 15 static-export website, a FastAPI backend at <code>api.coeqwal.org</code>, and a PostgreSQL data platform feeding it. This document covers a narrower question: how individual brief pages (theme, LOI, strategy) are produced and published.</p>
+<p>Briefs are <strong>version-locked editorial artifacts</strong>. Once a brief version is published, its content does not change — even if the backend data does. A new version is cut explicitly, by the team, when the team decides one is needed.</p>
+<h2 id="pipeline">Pipeline</h2>
+<img class="figure" src="coeqwal_brief_build_pipeline.svg" alt="Brief publishing pipeline">
+<h2 id="what-each-box-does">What each box does</h2>
+<p><strong><code>api.coeqwal.org</code></strong> — the single source of truth for all COEQWAL data. Documented at <code>/docs</code> (OpenAPI). Briefs read from it once at publish time, never at view time.</p>
+<p><strong>Python build step (publish-time).</strong> When a new brief version is cut, the build step:</p>
+<ul>
+<li>fetches the scenarios, LOIs, sector tier results, and statistics the brief needs from the API</li>
+<li>renders the brief's figures as inline SVG</li>
+<li>fills the brief's HTML template with values and figures</li>
+<li>writes a JSON sidecar (<code>{brief-id}_v{N}.json</code>) capturing every value used in the brief, the scenario IDs, the API endpoints called, and the API response timestamp — the sidecar is the audit record</li>
+<li>outputs <code>{brief-id}_v{N}.html</code> + <code>{brief-id}_v{N}.json</code> into the website repo as static assets</li>
+</ul>
+<p><strong>Static brief (published artifact).</strong> A fully self-contained HTML file: text, figures, and styles inline. Served by the website with no server-side rendering and no runtime API calls. Works offline. Prints to PDF cleanly. Frozen until the next version is cut.</p>
+<p><strong>Live explorer (runtime).</strong> The interactive surface on the main site. Queries <code>api.coeqwal.org</code> on demand. Not produced by this pipeline; included in the diagram because briefs link into it.</p>
+<p><strong>§9 hand-off (user navigation).</strong> Each brief's §9 "Explore further" link is a deep link into the live explorer, pre-configured with the brief's scenario context. This is how a reader transitions from a frozen reference to live exploration.</p>
+<h2 id="where-the-brief-lives-in-the-website-repo">Where the brief lives in the website repo</h2>
+<p>The Python build step writes the brief HTML and JSON sidecar into the website repo as static assets. Likely path TBD with the web team. Candidate: <code>apps/main/public/briefs/{brief-id}_v{N}.{html,json}</code>. Next.js serves them as static files; no rendering happens at site build time.</p>
+<h2 id="versioning">Versioning</h2>
+<ul>
+<li>Brief files are named <code>{brief-id}_v{N}.html</code>. Version increments only when the team cuts a new version.</li>
+<li>The unversioned URL (e.g. <code>/briefs/baselines</code>) points to the highest published <code>v{N}</code>.</li>
+<li>Old versions remain reachable at their versioned URL — public, citable, frozen.</li>
+<li>If backend data changes (a tier result is revised, a scenario updated), affected briefs are flagged for review but do not auto-update.</li>
+</ul>
+<h2 id="what-is-not-in-this-pipeline">What is <em>not</em> in this pipeline</h2>
+<ul>
+<li><strong>Live data in the brief.</strong> Briefs never call the API at view time. If a value needs to be live, it belongs in the explorer.</li>
+<li><strong>Per-user customization.</strong> Briefs are the same for every reader.</li>
+<li><strong>Personalization, filters, interactivity.</strong> Those live in the explorer.</li>
+</ul>
+<h2 id="during-prototype-phase">During prototype phase</h2>
+<p>Eric is currently authoring brief content in HTML by hand, using MATLAB to look at the data. Values are typed in directly. This is fine for prototypes. When the Python build step is built, the same HTML templates can be parameterized and the manually-typed values come out of the JSON sidecar instead. The MATLAB pipeline is not in the production loop.</p>
+<p><strong>Provenance note (2026-06-03):</strong> the prototype CSV (<code>coeqwal-viz/data/coeqwal_data_hc_continuous.csv</code>) mixes real API-derived integer tiers with synthetic fractional values and a synthetic HC3 (gap-fill layers in <code>fetch_tier_data.m</code>). It is prototype-figure material only and is not an input to this pipeline. The production build step reads from the API exclusively.</p>
+<h2 id="build-approach-agreed-2026-06-04-build-started-2026-06-06">Build approach (agreed 2026-06-04; build started 2026-06-06)</h2>
+<p><strong>Status 2026-06-09: all three builder stages are built.</strong> Stage 1 (2026-06-06): cache-first API client, hydroclimate/brief config, data layer, verification stage, CLI (<code>build.py fetch | summary | verify</code>); real Folsom data cached (72 scenarios), headline numbers recomputed and independently verified. Stage 2 (2026-06-06 evening): Jinja2 template extracted from LOI brief v0.6 (<code>builder/templates/loi_brief.html.j2</code>), shared computed structure (<code>compute.py</code>), <code>build.py render</code> with rendered-output verification. Stage 3 (2026-06-06 night): JSON sidecar emission (<code>briefbuilder/sidecar.py</code>) per <code>builder/SIDECAR_SCHEMA.md</code>, emitted only on a passing build; <code>verify.verify_sidecar</code> independently recomputes every value and payload hash from the raw cache (tamper-tested). Dev briefs + sidecars for Folsom and Shasta build end-to-end from real cached data in <code>builder/output/</code>. Details in coeqwal-briefs NOTES 2026-06-06 and 2026-06-07.</p>
+<p>The build step proceeds now against the live API; the data-platform team's incoming results (per-location continuous tier values, hydroclimate set) land as data-only changes. Agreed shape:</p>
+<ol>
+<li><strong>Python package in the coeqwal-briefs repo</strong> — an API client that caches every raw response to disk (the cache is the sidecar's audit trail: endpoints, timestamps, payloads), a data layer assembling editorial structures, and Jinja2 templates derived from the LOI brief v0.6 HTML. No CSV inputs anywhere.</li>
+<li><strong>Structural mappings encoded once:</strong> strategies assembled across hydroclimates via <code>sibling_group</code>; hydroclimate codes mapped in one config table (<code>historical</code>→BL, <code>cc50</code>→HC1, <code>cc95</code>→HC2). Templates take the hydroclimate list as data — a new hydroclimate becomes a new column without a code change.</li>
+<li><strong>First milestone: Folsom LOI brief built end-to-end from real data</strong>, integer tiers and all. Headline counts recomputed from the real 72-scenario set; scenario names and descriptions from <code>/api/scenarios</code>. Figures render in the same tier-space geometry with dots at integer positions — coarse until continuous values arrive. v0.6 stays as the design reference for the continuous-data end state.</li>
+<li><strong>Verification stage from day one:</strong> every emitted number traced to a cached API response; prose claims (tier ranges, counts) recomputed at build time; the build fails on any mismatch.</li>
+<li><strong>When continuous tiers and the next hydroclimate land,</strong> only fixtures and data change; figure code and templates already handle them.</li>
+</ol>
+<p><del>Open design question: do real-data dev builds keep all nine sections with coarse integer figures (current lean), or hold the Section 4 figure until continuous data exists?</del> — resolved 2026-06-06 (Eric): all nine sections, Figure 2 rendered coarse at integer positions and clearly marked, so the full pipeline is exercised now and continuous data lands as a data-only change.</p>
+<h2 id="open-items">Open items</h2>
+<ul>
+<li><del>JSON sidecar schema per brief type</del> — <strong>schema v0.1 decided and emission built 2026-06-06.</strong> Schema at <code>coeqwal-briefs/builder/SIDECAR_SCHEMA.md</code>; Eric's review resolved same day (keep wildcard sources; numbers only, not generated prose; sidecar version 1:1 with the brief HTML; §1 exclude-BL counting signed off). Theme and strategy <code>subject</code> blocks remain to be exercised when those brief types reach the builder.</li>
+<li>Exact path in the website repo for the brief assets — confirm with web team</li>
+<li><del>Owner of the Python build step</del> — resolved 2026-06-06: it lives in the coeqwal-briefs repo at <code>builder/</code> (Eric's side, not the data-platform or website repo)</li>
+<li><del>Hydroclimate id mapping</del> — resolved 2026-06-06: <code>/api/scenarios</code> serves numeric <code>hydroclimate_id</code>; 2→historical, <strong>3→cc50, 4→cc95 confirmed</strong> via the team's Completed Scenario Listing spreadsheet (archived in <code>coeqwal-briefs/builder/reference/</code>). Encoded once in <code>builder/briefbuilder/config.py</code>.</li>
+<li><strong>Two further hydroclimates are run but not yet in the API</strong> (per the same listing, 2026-06-06): TaiESM1 (s0107–s0131) and EC-Earth3-Veg (s0133–s0157; s0148 skipped) — the library is heading to ~119 runs across 5 hydroclimates. Supersedes the 72-vs-96 question below: the column-count decision is now about 5 hydroclimates, and one strategy has a gap under EC-Earth3-Veg.</li>
+<li>§9 deep-link URL scheme — pending per <code>COEQWAL_Discoverability_Strategy.md</code> §5</li>
+<li>Hydroclimate reconciliation — <strong>investigated 2026-06-03, now two concrete gaps rather than a naming question.</strong> The API serves 24 strategies × 3 hydroclimates (<code>historical, cc50, cc95</code> = editorial BL, HC1, HC2) — 72 scenarios. Editorial HC3 and the briefs' 96-scenario framing have no counterpart in the modeled library; HC3 in the prototype CSV was synthesized. Decide: briefs drop to 3 hydroclimate columns, or a third warmer-drier run is added.</li>
+<li>Per-location <strong>continuous tier values do not exist in the platform</strong> — the API serves integer <code>tier_level</code> per location only. The continuous tier value underlying the brief figures (decomposition, Figure 2) is a prototype invention via MATLAB gap-fill. The build step needs either a real continuous-tier methodology served by the API (plausibly interpolating the same exceedance statistics the tier thresholds use) or a brief redesign around ordinal tiers. Per Eric (2026-06-04) the data-platform team already has continuous tier values and the hydroclimate set in progress; the build step should be written so these slot in as data-only changes.</li>
+</ul>
+<h2 id="cross-references">Cross-references</h2>
+<ul>
+<li><code>coeqwal_project_ecosystem.md</code> — production code and data infrastructure</li>
+<li><code>COEQWAL_Briefs_Concept.md</code> — brief implementation surface</li>
+<li><code>COEQWAL_Discoverability_Strategy.md</code> — citable-surface strategy</li>
+</ul>
+</main>
+<footer>
+Generated from the project's pipeline document; that document remains authoritative. Some entries reference internal project files and logs. Questions: Eric Danner.
+</footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" role="img" aria-labelledby="ttl desc">
+  <title id="ttl">COEQWAL brief publishing pipeline</title>
+  <desc id="desc">The API is the single source of truth. A Python build step fetches from it at publish time to produce a frozen static brief (HTML plus JSON sidecar). A live explorer queries the same API on demand. The brief's section 9 "Explore further" link hands users from the static brief into the live explorer.</desc>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3a4574"/>
+    </marker>
+    <marker id="ard" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a8a8a"/>
+    </marker>
+  </defs>
+
+  <style>
+    .box   { fill: #fdfbf5; stroke: #3a4574; stroke-width: 1.5; }
+    .lbl   { font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; fill: #1a1a1a; font-weight: 500; }
+    .sub   { font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; fill: #4a4a4a; }
+    .eyb   { font-family: 'DM Sans', system-ui, sans-serif; font-size: 10px; fill: #3a4574; letter-spacing: 0.16em; font-weight: 700; }
+    .edge  { stroke: #3a4574; stroke-width: 1.5; fill: none; }
+    .edged { stroke: #8a8a8a; stroke-width: 1.2; fill: none; stroke-dasharray: 5 4; }
+    .elbl  { font-family: 'DM Sans', sans-serif; font-size: 11px; fill: #4a4a4a; font-style: italic; }
+  </style>
+
+  <rect class="box" x="290" y="40" width="180" height="72" rx="6"/>
+  <text class="eyb" x="380" y="62" text-anchor="middle">DATA API</text>
+  <text class="lbl" x="380" y="84" text-anchor="middle">api.coeqwal.org</text>
+  <text class="sub" x="380" y="102" text-anchor="middle">single source of truth</text>
+
+  <path class="edge" d="M 380 112 L 380 150 L 170 150 L 170 178" marker-end="url(#ar)"/>
+  <path class="edge" d="M 380 112 L 380 150 L 590 150 L 590 178" marker-end="url(#ar)"/>
+
+  <rect class="box" x="70" y="180" width="200" height="90" rx="6"/>
+  <text class="eyb" x="170" y="202" text-anchor="middle">PUBLISH-TIME</text>
+  <text class="lbl" x="170" y="226" text-anchor="middle">Python build step</text>
+  <text class="sub" x="170" y="246" text-anchor="middle">fetch → render → template</text>
+  <text class="sub" x="170" y="262" text-anchor="middle">writes JSON sidecar</text>
+
+  <rect class="box" x="490" y="180" width="200" height="90" rx="6"/>
+  <text class="eyb" x="590" y="202" text-anchor="middle">RUNTIME</text>
+  <text class="lbl" x="590" y="226" text-anchor="middle">Live explorer</text>
+  <text class="sub" x="590" y="246" text-anchor="middle">interactive</text>
+  <text class="sub" x="590" y="262" text-anchor="middle">queries on demand</text>
+
+  <path class="edge" d="M 170 270 L 170 315" marker-end="url(#ar)"/>
+
+  <rect class="box" x="70" y="320" width="200" height="90" rx="6"/>
+  <text class="eyb" x="170" y="342" text-anchor="middle">PUBLISHED ARTIFACT</text>
+  <text class="lbl" x="170" y="366" text-anchor="middle">Static brief</text>
+  <text class="sub" x="170" y="386" text-anchor="middle">HTML + inline SVG</text>
+  <text class="sub" x="170" y="402" text-anchor="middle">+ JSON sidecar (frozen)</text>
+
+  <path class="edged" d="M 270 365 L 390 365 L 390 245 L 490 245" marker-end="url(#ard)"/>
+  <text class="elbl" x="330" y="358" text-anchor="middle">§9 "Explore further" link</text>
+
+  <g transform="translate(540, 410)">
+    <line x1="0" y1="0" x2="24" y2="0" stroke="#3a4574" stroke-width="1.5"/>
+    <text class="elbl" x="30" y="4">data flow</text>
+    <line x1="110" y1="0" x2="134" y2="0" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="5 4"/>
+    <text class="elbl" x="140" y="4">user navigation</text>
+  </g>
+</svg>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TierGrid — COEQWAL (standalone)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #edf2f7; color: #333; }
+
+  header { padding: 14px 24px 6px; }
+  header h1 { font-size: 16px; font-weight: 700; color: #193D6B; }
+  header p { font-size: 12px; color: #777; margin-top: 2px; }
+
+  #controls {
+    display: flex; gap: 18px; align-items: flex-start; padding: 12px 24px;
+    background: #fff; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+  }
+  .ctl { display: flex; flex-direction: column; gap: 4px; }
+  .ctl label { font-size: 12px; font-weight: 600; color: #555; }
+  .ctl select, .ctl input[type="number"] {
+    font-size: 13px; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px;
+  }
+  .toggles { display: flex; flex-direction: column; gap: 3px; }
+  .toggles label { font-size: 12px; font-weight: 500; color: #555; display: flex; gap: 6px; align-items: center; }
+  textarea {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px;
+    width: 280px; height: 96px; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;
+  }
+  button {
+    font-size: 13px; padding: 5px 12px; border: 1px solid #ccc; border-radius: 4px;
+    cursor: pointer; background: #fff; color: #333;
+  }
+  button:hover { background: #f0f4f8; border-color: #999; }
+
+  #chart-container { display: flex; justify-content: center; padding: 20px 24px; }
+  #chart-wrap {
+    width: 100%; max-width: 1400px; height: 620px; resize: both; overflow: hidden;
+    border: 1px solid #e2e8f0; border-radius: 6px; background: #f7fafc; position: relative;
+  }
+  svg { font-family: 'Segoe UI', system-ui, sans-serif; display: block; }
+
+  /* top-right comparison legend, matching the website */
+  #legend {
+    position: absolute; top: 12px; right: 14px;
+    background: rgba(255,255,255,0.95); border: 1px solid #e2e8f0; border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; display: flex; gap: 18px; align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  #legend .item { display: flex; gap: 7px; align-items: center; color: #4a5568; }
+  #legend svg { display: inline-block; }
+  .hint { font-size: 11px; color: #999; text-align: center; padding-bottom: 18px; }
+
+  .tooltip {
+    position: absolute; pointer-events: none; background: rgba(255,255,255,0.97);
+    border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; font-size: 11px;
+    line-height: 1.5; box-shadow: 0 4px 16px rgba(0,0,0,0.08); opacity: 0;
+    transition: opacity 150ms; z-index: 10; max-width: 260px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TierGrid — standalone sandbox</h1>
+  <p>Faithful port of the COEQWAL "See who benefits" equity grid. Toggle comparison, color mode, and data to explore options.</p>
+</header>
+
+<div id="controls">
+  <div class="ctl toggles">
+    <label>Mode</label>
+    <label><input type="checkbox" id="showComparison" checked> Compare to baseline</label>
+    <label><input type="checkbox" id="showLegend" checked> Show legend</label>
+  </div>
+
+  <div class="ctl">
+    <label for="colorMode">Color by</label>
+    <select id="colorMode">
+      <option value="tier" selected>tier</option>
+      <option value="category">category</option>
+    </select>
+  </div>
+
+  <div class="ctl">
+    <label for="seed">Random seed</label>
+    <input type="number" id="seed" value="7" style="width:80px;">
+  </div>
+
+  <div class="ctl">
+    <label for="data">Objectives (JSON array; leave blank to use generated sample)</label>
+    <textarea id="data" placeholder="[{&quot;category&quot;:&quot;...&quot;,&quot;tier&quot;:&quot;Tier 1&quot;,&quot;baselineTier&quot;:&quot;Tier 2&quot;,&quot;locationId&quot;:&quot;...&quot;,&quot;locationName&quot;:&quot;...&quot;}]"></textarea>
+  </div>
+
+  <div class="ctl">
+    <label>&nbsp;</label>
+    <button id="regen">Regenerate sample</button>
+    <button id="apply" style="margin-top:6px;">Apply JSON</button>
+    <button id="save" style="margin-top:6px;">Save SVG</button>
+  </div>
+</div>
+
+<div id="chart-container">
+  <div id="chart-wrap">
+    <svg id="chart"></svg>
+    <div id="legend">
+      <span class="item"><svg width="16" height="16" viewBox="0 0 16 16"><polygon points="8,1 1,15 15,15" fill="#bbbbbb" stroke="#fff" stroke-width="1"/></svg>Improved from baseline</span>
+      <span class="item"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="#bbbbbb" stroke="#fff" stroke-width="1"/></svg>No change</span>
+      <span class="item"><svg width="16" height="16" viewBox="0 0 16 16"><polygon points="8,15 1,1 15,1" fill="#bbbbbb" stroke="#fff" stroke-width="1"/></svg>Worsened from baseline</span>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+  </div>
+</div>
+<div class="hint">Drag the bottom-right corner to resize. Hover a glyph for details.</div>
+
+<script type="module">
+import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7/+esm';
+
+/* ──────────────────────────────────────────────────────────────
+   Constants (from TierGrid.tsx)
+   ────────────────────────────────────────────────────────────── */
+const MARGIN = { top: 50, right: 50, bottom: 100, left: 60 };
+const MAX_DOT_SIZE = 16;
+const MIN_DOT_SIZE = 4;
+const CELL_PADDING = 0;
+const MIN_CATEGORY_WIDTH = 80;
+
+const DEFAULT_TIER_COLORS = {
+  'Tier 1': '#1ca367',
+  'Tier 2': '#31b2c5',
+  'Tier 3': '#f2944f',
+  'Tier 4': '#ee5d32',
+};
+const TIERS = ['Tier 1', 'Tier 2', 'Tier 3', 'Tier 4'];
+
+// Nine outcome categories, in display order, matching the live site
+const CATEGORIES = [
+  'Community deliveries',
+  'Agricultural revenue',
+  'Environmental flows',
+  'Reservoir storage',
+  'Groundwater storage',
+  'Delta estuary ecology',
+  'Freshwater for Delta exports',
+  'Freshwater for in-Delta uses',
+  'Winter-run salmon',
+];
+
+/* ──────────────────────────────────────────────────────────────
+   Layout math (ported)
+   ────────────────────────────────────────────────────────────── */
+function calculateCategoryWidths(objectives, categories, gridWidth) {
+  const counts = new Map();
+  categories.forEach((c) => counts.set(c, objectives.filter((o) => o.category === c).length));
+  const total = [...counts.values()].reduce((s, n) => s + n, 0);
+
+  const proportional = new Map();
+  categories.forEach((c) => {
+    const proportion = total > 0 ? (counts.get(c) || 0) / total : 1 / categories.length;
+    proportional.set(c, gridWidth * proportion);
+  });
+
+  const needMin = [], aboveMin = [];
+  let totalMinWidth = 0;
+  categories.forEach((c) => {
+    if ((proportional.get(c) || 0) < MIN_CATEGORY_WIDTH) { needMin.push(c); totalMinWidth += MIN_CATEGORY_WIDTH; }
+    else aboveMin.push(c);
+  });
+
+  const finalW = new Map();
+  const remaining = gridWidth - totalMinWidth;
+  needMin.forEach((c) => finalW.set(c, MIN_CATEGORY_WIDTH));
+
+  if (aboveMin.length > 0) {
+    if (remaining > 0) {
+      const totalAbove = aboveMin.reduce((s, c) => s + (counts.get(c) || 0), 0);
+      aboveMin.forEach((c) => finalW.set(c, remaining * ((counts.get(c) || 0) / totalAbove)));
+    } else {
+      const scale = gridWidth / (totalMinWidth + aboveMin.length * MIN_CATEGORY_WIDTH);
+      needMin.forEach((c) => finalW.set(c, MIN_CATEGORY_WIDTH * scale));
+      aboveMin.forEach((c) => finalW.set(c, MIN_CATEGORY_WIDTH * scale));
+    }
+  }
+
+  const layouts = [];
+  let x = 0;
+  categories.forEach((c) => {
+    const w = finalW.get(c) || MIN_CATEGORY_WIDTH;
+    layouts.push({ category: c, width: w, startX: x });
+    x += w;
+  });
+  return layouts;
+}
+
+function calculateTierPositions(objectives, categories, tiers, width, height, showComparison) {
+  const gridWidth = width - MARGIN.left - MARGIN.right;
+  const gridHeight = height - MARGIN.top - MARGIN.bottom;
+
+  const layouts = calculateCategoryWidths(objectives, categories, gridWidth);
+  const catW = new Map(layouts.map((l) => [l.category, l.width]));
+  const catX = new Map(layouts.map((l) => [l.category, l.startX]));
+  const cellHeight = gridHeight / tiers.length;
+
+  const computeMaxDotSizeForCell = (count, cellWidth, ch) => {
+    if (count <= 0) return MAX_DOT_SIZE;
+    for (let size = MAX_DOT_SIZE; size >= MIN_DOT_SIZE; size -= 0.5) {
+      const spacing = size * 1.2;
+      const cols = Math.max(1, Math.floor((cellWidth - CELL_PADDING - size / 2) / spacing));
+      const rows = Math.ceil(count / cols);
+      if (rows * spacing + size / 2 <= ch - CELL_PADDING && cols * spacing + size / 2 <= cellWidth - CELL_PADDING) return size;
+    }
+    return MIN_DOT_SIZE;
+  };
+
+  let globalDotSize = MAX_DOT_SIZE;
+  tiers.forEach((tier) => categories.forEach((cat) => {
+    const count = objectives.filter((o) => o.tier === tier && o.category === cat).length;
+    if (count === 0) return;
+    globalDotSize = Math.min(globalDotSize, computeMaxDotSizeForCell(count, catW.get(cat) || 0, cellHeight));
+  }));
+  const globalSpacing = globalDotSize * 1.2;
+
+  const grouped = d3.group(objectives, (d) => d.tier, (d) => d.category);
+  const positions = [];
+
+  tiers.forEach((tier, tierIndex) => {
+    categories.forEach((cat) => {
+      const cellObjectives = grouped.get(tier)?.get(cat) || [];
+      if (cellObjectives.length === 0) return;
+
+      const sorted = [...cellObjectives].sort((a, b) => {
+        if (!showComparison) return 0;
+        const status = (o) => {
+          const t = parseInt(o.tier.replace('Tier ', ''));
+          const bt = parseInt(o.baselineTier.replace('Tier ', ''));
+          return t < bt ? 0 : t === bt ? 1 : 2;
+        };
+        return status(a) - status(b);
+      });
+
+      const cellWidth = catW.get(cat) || 0;
+      const cellStartX = catX.get(cat) || 0;
+      const dotSize = globalDotSize;
+      const spacing = globalSpacing;
+      const dotsPerRow = Math.max(1, Math.floor((cellWidth - CELL_PADDING - dotSize / 2) / spacing));
+
+      sorted.forEach((obj, idx) => {
+        const row = Math.floor(idx / dotsPerRow);
+        const col = idx % dotsPerRow;
+        const xRel = col * spacing + dotSize;
+        const yRel = row * spacing + dotSize;
+        const globalX = MARGIN.left + cellStartX + xRel - dotSize / 2;
+        const globalY = MARGIN.top + tierIndex * cellHeight + yRel - dotSize / 2;
+
+        let shape = 'rect';
+        if (showComparison && obj.baselineTier !== obj.tier) {
+          const t = parseInt(obj.tier.replace('Tier ', ''));
+          const bt = parseInt(obj.baselineTier.replace('Tier ', ''));
+          shape = t < bt ? 'triangle-up' : t > bt ? 'triangle-down' : 'rect';
+        }
+
+        positions.push({
+          id: `${obj.tierCode}:${obj.locationId}`,
+          x: globalX, y: globalY, width: dotSize, height: dotSize, obj, shape,
+        });
+      });
+    });
+  });
+
+  return { positions, layouts };
+}
+
+const categoryColorScale = d3.scaleOrdinal(d3.schemeTableau10);
+function getFillColor(obj, colorMode, tierColorMap) {
+  if (colorMode === 'category') return categoryColorScale(obj.category);
+  return tierColorMap[obj.tier] || '#999';
+}
+
+function shapePath(d) {
+  const cx = d.x + d.width / 2;
+  const cy = d.y + d.height / 2;
+  const size = d.width;
+  if (d.shape === 'triangle-up') {
+    const h = size * 0.866;
+    return `M ${cx},${cy - h / 2} L ${cx + size / 2},${cy + h / 2} L ${cx - size / 2},${cy + h / 2} Z`;
+  } else if (d.shape === 'triangle-down') {
+    const h = size * 0.866;
+    return `M ${cx},${cy + h / 2} L ${cx + size / 2},${cy - h / 2} L ${cx - size / 2},${cy - h / 2} Z`;
+  }
+  return `M ${d.x},${d.y} L ${d.x + d.width},${d.y} L ${d.x + d.width},${d.y + d.height} L ${d.x},${d.y + d.height} Z`;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Grid + label drawing (ported from drawTierGrid / drawCategoryLabels)
+   ────────────────────────────────────────────────────────────── */
+function drawGrid(svg, width, height, layouts, tiers) {
+  const gridWidth = width - MARGIN.left - MARGIN.right;
+  const gridHeight = height - MARGIN.top - MARGIN.bottom;
+  const tierHeight = gridHeight / tiers.length;
+  const g = svg.append('g').attr('class', 'grid-layer');
+
+  tiers.forEach((_, i) => {
+    g.append('line').attr('x1', MARGIN.left).attr('y1', MARGIN.top + i * tierHeight)
+      .attr('x2', MARGIN.left + gridWidth).attr('y2', MARGIN.top + i * tierHeight)
+      .attr('stroke', '#ddd').attr('stroke-width', 1);
+  });
+  g.append('line').attr('x1', MARGIN.left).attr('y1', MARGIN.top + gridHeight)
+    .attr('x2', MARGIN.left + gridWidth).attr('y2', MARGIN.top + gridHeight)
+    .attr('stroke', '#ddd').attr('stroke-width', 1);
+
+  layouts.forEach((l) => {
+    g.append('line').attr('x1', MARGIN.left + l.startX).attr('y1', MARGIN.top)
+      .attr('x2', MARGIN.left + l.startX).attr('y2', MARGIN.top + gridHeight)
+      .attr('stroke', '#ddd').attr('stroke-width', 1);
+  });
+  g.append('line').attr('x1', MARGIN.left + gridWidth).attr('y1', MARGIN.top)
+    .attr('x2', MARGIN.left + gridWidth).attr('y2', MARGIN.top + gridHeight)
+    .attr('stroke', '#ddd').attr('stroke-width', 1);
+
+  tiers.forEach((tier, i) => {
+    g.append('text').attr('x', MARGIN.left - 10).attr('y', MARGIN.top + i * tierHeight + tierHeight / 2)
+      .attr('text-anchor', 'end').attr('dominant-baseline', 'middle')
+      .style('font-size', '11px').style('fill', '#666').text(tier);
+  });
+}
+
+function drawCategoryLabels(svg, height, layouts) {
+  const gridHeight = height - MARGIN.top - MARGIN.bottom;
+  const layer = svg.append('g').attr('class', 'category-labels');
+  const maxCharsPerLine = 12;
+
+  layouts.forEach((l) => {
+    const x = MARGIN.left + l.startX + l.width / 2;
+    const y = MARGIN.top + gridHeight + 15;
+    const words = l.category.split(' ');
+    const lines = [];
+    let cur = '';
+    words.forEach((w) => {
+      const test = cur ? `${cur} ${w}` : w;
+      if (test.length <= maxCharsPerLine) cur = test;
+      else { if (cur) lines.push(cur); cur = w; }
+    });
+    if (cur) lines.push(cur);
+
+    const padding = 4;
+    const lineHeight = 11 * 1.2;
+    const rectH = lines.length * lineHeight + padding * 2;
+    const rectW = l.width * 0.9;
+    layer.append('rect').attr('x', x - rectW / 2).attr('y', y - padding)
+      .attr('width', rectW).attr('height', rectH).attr('rx', 4)
+      .attr('fill', '#f5f5f5').attr('stroke', '#ddd').attr('stroke-width', 1);
+
+    const text = layer.append('text').attr('x', x).attr('y', y)
+      .attr('text-anchor', 'middle').attr('dominant-baseline', 'hanging')
+      .style('font-size', '11px').style('fill', '#333');
+    lines.forEach((line, i) => {
+      text.append('tspan').attr('x', x).attr('dy', i === 0 ? 0 : '1.2em').text(line);
+    });
+  });
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Render
+   ────────────────────────────────────────────────────────────── */
+const svgEl = document.getElementById('chart');
+const wrap = document.getElementById('chart-wrap');
+const tooltip = document.getElementById('tooltip');
+let objectives = [];
+
+function render() {
+  const w = wrap.clientWidth, h = wrap.clientHeight;
+  if (w <= 0 || h <= 0) return;
+  const showComparison = document.getElementById('showComparison').checked;
+  const colorMode = document.getElementById('colorMode').value;
+
+  const svg = d3.select(svgEl).attr('width', w).attr('height', h)
+    .attr('viewBox', `0 0 ${w} ${h}`).attr('preserveAspectRatio', 'xMidYMid meet');
+  svg.selectAll('*').remove();
+  if (objectives.length === 0) return;
+
+  const { positions, layouts } = calculateTierPositions(objectives, CATEGORIES, TIERS, w, h, showComparison);
+  drawGrid(svg, w, h, layouts, TIERS);
+  drawCategoryLabels(svg, h, layouts);
+
+  const dots = svg.append('g').attr('class', 'dots-layer');
+  dots.selectAll('path').data(positions, (d) => d.id).enter().append('path')
+    .attr('d', shapePath)
+    .attr('fill', (d) => getFillColor(d.obj, colorMode, DEFAULT_TIER_COLORS))
+    .attr('fill-opacity', (d) => (showComparison && d.obj.baselineTier === d.obj.tier ? 0.2 : 1))
+    .attr('stroke', '#fff').attr('stroke-width', 0)
+    .on('mouseover', function (event, d) {
+      d3.select(this).attr('stroke-width', 2).attr('stroke', '#333');
+      const o = d.obj;
+      const baselineRow = showComparison
+        ? `<div style="display:flex;justify-content:space-between;gap:8px;margin-top:4px;"><span style="color:#718096;">Baseline:</span><span style="font-weight:600;color:#2d3748;">${o.baselineTier}</span></div>` : '';
+      tooltip.innerHTML =
+        `<div style="font-weight:600;margin-bottom:2px;color:#1a202c;font-size:13px;">${o.locationName}</div>` +
+        `<div style="color:#718096;margin-bottom:5px;">${o.category}</div>` +
+        `<div style="border-top:1px solid #e2e8f0;padding-top:5px;">` +
+        `<div style="display:flex;justify-content:space-between;gap:8px;"><span style="color:#718096;">Tier:</span><span style="font-weight:600;color:#2d3748;">${o.tier}</span></div>` +
+        baselineRow + `</div>`;
+      tooltip.style.opacity = '1';
+      const r = wrap.getBoundingClientRect();
+      tooltip.style.left = `${event.clientX - r.left + 12}px`;
+      tooltip.style.top = `${event.clientY - r.top + 12}px`;
+    })
+    .on('mousemove', function (event) {
+      const r = wrap.getBoundingClientRect();
+      tooltip.style.left = `${event.clientX - r.left + 12}px`;
+      tooltip.style.top = `${event.clientY - r.top + 12}px`;
+    })
+    .on('mouseout', function () {
+      d3.select(this).attr('stroke-width', 0);
+      tooltip.style.opacity = '0';
+    });
+
+  document.getElementById('legend').style.display =
+    (showComparison && document.getElementById('showLegend').checked) ? 'flex' : 'none';
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Sample data generator (representative of the live equity grid)
+   ────────────────────────────────────────────────────────────── */
+function mulberry32(seed) {
+  return function () {
+    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// per-category: location count + tier-weight bias (how skewed toward better/worse tiers)
+const CATEGORY_PROFILE = {
+  'Community deliveries':        { n: 60,  weights: [0.45, 0.20, 0.20, 0.15] },
+  'Agricultural revenue':        { n: 120, weights: [0.30, 0.35, 0.20, 0.15] },
+  'Environmental flows':         { n: 14,  weights: [0.00, 0.30, 0.45, 0.25] },
+  'Reservoir storage':          { n: 9,   weights: [0.05, 0.30, 0.35, 0.30] },
+  'Groundwater storage':         { n: 30,  weights: [0.10, 0.40, 0.30, 0.20] },
+  'Delta estuary ecology':       { n: 3,   weights: [0.00, 0.30, 0.40, 0.30] },
+  'Freshwater for Delta exports':{ n: 4,   weights: [0.00, 0.70, 0.00, 0.30] },
+  'Freshwater for in-Delta uses':{ n: 4,   weights: [0.00, 0.70, 0.00, 0.30] },
+  'Winter-run salmon':          { n: 3,   weights: [0.00, 0.40, 0.30, 0.30] },
+};
+const CATEGORY_CODE = {
+  'Community deliveries': 'CWS_DEL', 'Agricultural revenue': 'AG_REV',
+  'Environmental flows': 'ENV_FLOW', 'Reservoir storage': 'RES_STOR',
+  'Groundwater storage': 'GW_STOR', 'Delta estuary ecology': 'DELTA_ECO',
+  'Freshwater for Delta exports': 'DELTA_EXP', 'Freshwater for in-Delta uses': 'DELTA_USE',
+  'Winter-run salmon': 'SALMON',
+};
+
+function pickTier(rng, weights) {
+  const r = rng();
+  let acc = 0;
+  for (let i = 0; i < weights.length; i++) { acc += weights[i]; if (r <= acc) return i + 1; }
+  return weights.length;
+}
+
+function generateObjectives(seed) {
+  const rng = mulberry32(seed);
+  const out = [];
+  let id = 0;
+  CATEGORIES.forEach((cat) => {
+    const { n, weights } = CATEGORY_PROFILE[cat];
+    const code = CATEGORY_CODE[cat];
+    for (let i = 0; i < n; i++) {
+      const tierNum = pickTier(rng, weights);
+      // baseline within +/-1 tier of current, biased so most are "no change"
+      let delta = 0;
+      const rr = rng();
+      if (rr < 0.30) delta = -1;       // current better than baseline -> improved (triangle-up)
+      else if (rr < 0.55) delta = 1;   // current worse than baseline -> worsened (triangle-down)
+      let baseNum = Math.min(4, Math.max(1, tierNum + delta));
+      out.push({
+        id: id++,
+        category: cat,
+        tier: `Tier ${tierNum}`,
+        baselineTier: `Tier ${baseNum}`,
+        tierLevel: tierNum,
+        tierCode: code,
+        locationId: `${code}-${i}`,
+        locationName: `${cat} location ${i + 1}`,
+      });
+    }
+  });
+  return out;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Wiring
+   ────────────────────────────────────────────────────────────── */
+function loadSample() {
+  const seed = +document.getElementById('seed').value || 1;
+  objectives = generateObjectives(seed);
+  document.getElementById('data').value = '';
+  render();
+}
+
+['showComparison', 'showLegend', 'colorMode'].forEach((id) =>
+  document.getElementById(id).addEventListener('input', render));
+
+document.getElementById('regen').addEventListener('click', loadSample);
+document.getElementById('seed').addEventListener('change', loadSample);
+
+document.getElementById('apply').addEventListener('click', () => {
+  const ta = document.getElementById('data');
+  const raw = ta.value.trim();
+  if (!raw) { loadSample(); return; }
+  try {
+    const parsed = JSON.parse(raw);
+    objectives = parsed.map((o, i) => ({
+      id: o.id ?? i,
+      category: o.category,
+      tier: o.tier,
+      baselineTier: o.baselineTier ?? o.tier,
+      tierLevel: o.tierLevel ?? parseInt(String(o.tier).replace('Tier ', '')),
+      tierCode: o.tierCode ?? (CATEGORY_CODE[o.category] || 'NA'),
+      locationId: o.locationId ?? `loc-${i}`,
+      locationName: o.locationName ?? `Location ${i + 1}`,
+    }));
+    ta.style.borderColor = '#ccc';
+    render();
+  } catch (e) { ta.style.borderColor = '#ee5d32'; }
+});
+
+document.getElementById('save').addEventListener('click', () => {
+  const clone = svgEl.cloneNode(true);
+  clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  const blob = new Blob([new XMLSerializer().serializeToString(clone)], { type: 'image/svg+xml' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'tier-grid.svg';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+new ResizeObserver(render).observe(wrap);
+loadSample();
+</script>
+<div style="position:fixed;right:10px;bottom:10px;z-index:99999;background:#b3541e;color:#fff;font:12px/1.3 Helvetica,Arial,sans-serif;padding:5px 9px;border-radius:4px;opacity:.92;pointer-events:none;">Synthetic rehearsal data — not COEQWAL results</div>
+</body>
+</html>

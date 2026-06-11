@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operations and climate, scenario columns</title>
+<!--
+  Data: embedded JSON block (id="figure-data"), injected from the brief
+  builder's sidecar by update_column_spread_data.py (same folder). The
+  block IS the brief's audit record reshaped — refresh it after each
+  builder render rather than editing it by hand. Provenance (brief id,
+  build time, verification status) is shown under the figure.
+-->
+<style>
+  :root{
+    --ink:#2c2c2a; --muted:#5f5e5a; --faint:#888780; --line:#D3D1C7;
+    --gold:#BA7517; --gold-dk:#854F0B; --gray:#5F5E5A; --hl:#185FA5; --hl-dk:#0C447C;
+    --t1:#EAF3DE; --t2:#E1F5EE; --t3:#FAEEDA; --t4:#FCEBEB;
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  body{margin:0;background:#fdfdfb;color:var(--ink);font-family:var(--sans);line-height:1.6;}
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 24px 64px;}
+  h1{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 4px;}
+  .lede{font-family:var(--serif);font-size:16px;color:var(--ink);max-width:760px;margin:0 0 20px;}
+  .provenance{font-size:12px;color:var(--faint);margin:0 0 18px;}
+  .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;}
+  .controls .lbl{color:var(--muted);}
+  .controls button{font-family:var(--sans);font-size:13px;border:1px solid var(--line);background:#fff;color:var(--ink);
+    padding:5px 12px;border-radius:7px;cursor:pointer;}
+  .controls button:hover{background:#f3f1ea;}
+  .controls button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink);}
+  figure{margin:0;}
+  svg{width:100%;height:auto;display:block;}
+  .readout{min-height:22px;font-size:13px;color:var(--muted);margin:6px 2px 2px;}
+  .readout b{color:var(--ink);font-weight:600;}
+  figcaption{font-size:13px;color:var(--muted);max-width:840px;margin:12px 2px 0;line-height:1.55;}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+  h2{font-family:var(--serif);font-weight:600;font-size:18px;margin:40px 0 8px;}
+  table{border-collapse:collapse;font-size:13px;width:100%;max-width:680px;}
+  caption{text-align:left;font-size:13px;color:var(--muted);margin-bottom:8px;}
+  th,td{padding:5px 10px;border-bottom:1px solid var(--line);text-align:right;}
+  th[scope="col"]{border-bottom:1.5px solid var(--faint);}
+  th[scope="row"]{text-align:left;font-weight:400;color:var(--muted);}
+  tbody tr.is-gold th,tbody tr.is-gold td{background:#fbf2e2;color:var(--gold-dk);font-weight:600;}
+  tbody tr.is-hl th,tbody tr.is-hl td{background:#e7f0fb;}
+  tbody tr{cursor:pointer;}
+  td .cat{display:inline-block;width:8px;height:8px;border-radius:2px;margin-left:6px;vertical-align:-1px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1 id="h1">Operations and climate, scenario columns</h1>
+  <p class="lede">Each dot is one operational scenario. Within a hydroclimate column the scenarios are spread
+    evenly across the width and held in the same order in every column, so a scenario keeps its position
+    left to right and can be followed across the hydroclimates. Vertical position is the modeled
+    tier value.</p>
+  <p class="provenance" id="provenance"></p>
+
+  <div class="controls" role="group" aria-label="Order scenarios by" id="controls">
+    <span class="lbl">Order scenarios by:</span>
+  </div>
+
+  <figure>
+    <svg id="fig" viewBox="0 0 960 470" role="img" aria-label="">
+      <desc>Tier 1 (Optimal) at top, Tier 4 (Critical) at bottom. The full tier values are listed in the data table below.</desc>
+    </svg>
+    <div class="readout" id="readout" aria-live="polite"></div>
+    <figcaption id="cap"></figcaption>
+  </figure>
+
+  <h2>Tier values by scenario and hydroclimate</h2>
+  <table id="tbl">
+    <caption id="cap1"></caption>
+    <thead><tr id="thead1"></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <h2 id="h2decomp">Decomposition relative to current operations</h2>
+  <table id="tbl2">
+    <caption id="cap2"></caption>
+    <thead><tr id="thead2"></tr></thead>
+    <tbody id="tbody2"></tbody>
+  </table>
+
+</div>
+
+<script type="application/json" id="figure-data">
+{
+ "brief": "shasta-loi",
+ "title": "Shasta Reservoir",
+ "tier_name": "Reservoir storage",
+ "version": "dev",
+ "built_at": "2026-06-07T15:02:50Z",
+ "verification": "pass",
+ "tier_source": "Integer tier_level served by the API per location; continuous tier values not yet available. This dev build renders figures coarse, at integer tier positions.",
+ "source_sidecar": "coeqwal-briefs/builder/output/shasta-loi_dev.json",
+ "hydroclimates": [
+  {
+   "code": "BL",
+   "label": "Today's climate"
+  },
+  {
+   "code": "HC1",
+   "label": "Warmer and Drier I"
+  },
+  {
+   "code": "HC2",
+   "label": "Warmer and Drier II"
+  }
+ ],
+ "baseline_strategy": "s0020",
+ "scenarios": [
+  {
+   "id": "s0011",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0020",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0021",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0023",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0024",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0025",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "s0026",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "s0027",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "s0028",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "s0030",
+   "v": [
+    2,
+    2,
+    2
+   ]
+  },
+  {
+   "id": "s0031",
+   "v": [
+    3,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0032",
+   "v": [
+    3,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0033",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0035",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0036",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0037",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0039",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "s0040",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "s0041",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "s0042",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "s0044",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "s0045",
+   "v": [
+    2,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0046",
+   "v": [
+    3,
+    3,
+    3
+   ]
+  },
+  {
+   "id": "s0065",
+   "v": [
+    2,
+    2,
+    3
+   ]
+  }
+ ]
+}
+</script>
+
+<script>
+const P=JSON.parse(document.getElementById("figure-data").textContent);
+if(!P.scenarios){document.body.innerHTML="<div class='wrap'><p>No data injected — run update_column_spread_data.py.</p></div>";throw new Error("no data");}
+
+const HC=P.hydroclimates.map(h=>h.code);
+const HCLAB=P.hydroclimates.map(h=>h.label);
+const nHC=HC.length;
+const BASE=P.baseline_strategy;
+const DATA=P.scenarios.map(s=>({id:s.id,v:s.v,g:s.id===BASE}));
+const lastI=nHC-1;
+
+// header, provenance, captions
+document.getElementById("h1").textContent=`${P.tier_name} at ${P.title} — operations and climate`;
+document.title=`${P.title} — operations and climate, scenario columns`;
+document.getElementById("provenance").textContent=
+  `Data: ${P.source_sidecar} (brief "${P.brief}", ${P.version} build, built ${P.built_at}, `
+  +`verification ${P.verification}). ${P.tier_source}`;
+document.getElementById("cap").textContent=
+  `Figure. Modeled tier value for ${P.tier_name.toLowerCase()} at ${P.title} across ${DATA.length} modeled `
+  +`strategies and ${nHC} modeled hydroclimates, from the brief builder's audit record (real API data). `
+  +`The vertical axis is the modeled tier value, Tier 1 (Optimal) at top to Tier 4 (Critical) at bottom; `
+  +`horizontal bands mark the four tier categories. Hydroclimates: `
+  +P.hydroclimates.map(h=>`${h.code} = ${h.label}`).join("; ")+". "
+  +`Current operations (${BASE}) is shown in gold. Within each column, scenarios are spaced evenly across `
+  +`the width and kept in identical order, so a scenario occupies the same relative position in every `
+  +`column. This figure was designed for continuous tier values; until the data platform serves them, `
+  +`values sit at whole-number tier rows. Exact values are in the table below.`;
+document.getElementById("fig").setAttribute("aria-label",
+  `${nHC} hydroclimate columns for ${P.tier_name.toLowerCase()} at ${P.title}. Each column shows `
+  +`${DATA.length} operational scenarios at evenly spaced horizontal positions, placed vertically by `
+  +`modeled tier value. Current operations, scenario ${BASE}, is gold.`);
+document.getElementById("cap1").textContent=
+  `Modeled tier value (1 = Optimal, 4 = Critical) for each scenario under each hydroclimate. `
+  +`Rows in the same order as the figure; current operations (${BASE}) highlighted.`;
+document.getElementById("h2decomp").textContent=`Decomposition relative to current operations (${BASE})`;
+document.getElementById("thead1").innerHTML=
+  `<th scope="col" style="text-align:left">Scenario</th>`
+  +P.hydroclimates.map(h=>`<th scope="col">${h.label} (${h.code})</th>`).join("");
+document.getElementById("thead2").innerHTML=
+  `<th scope="col" style="text-align:left">Scenario</th>`
+  +P.hydroclimates.map(h=>`<th scope="col">Operations effect, ${h.code}</th>`).join("");
+
+// order controls (mean / baseline / warmest column)
+const ORDERS=[["mean","Average across hydroclimates"],["baseline",`${HCLAB[0]} (${HC[0]})`],
+              ["last",`${HCLAB[lastI]} (${HC[lastI]})`]];
+const controls=document.getElementById("controls");
+ORDERS.forEach(([key,label],i)=>{
+  const b=document.createElement("button");
+  b.dataset.order=key;b.textContent=label;b.setAttribute("aria-pressed",i===0?"true":"false");
+  controls.appendChild(b);
+});
+
+const NS="http://www.w3.org/2000/svg";
+const svg=document.getElementById("fig");
+const tbody=document.getElementById("tbody");
+const readout=document.getElementById("readout");
+const HINT=`Hover a dot to split its value into baseline + climate effect + operations effect; click a dot to pin it. Table rows show the split at ${HC[lastI]}.`;
+readout.textContent=HINT;
+
+// geometry
+const plotL=110, plotR=860, plotW=plotR-plotL, colW=plotW/nHC, pad=22, usable=colW-2*pad;
+const yTop=50, perTier=90;
+const tierFill=["#EAF3DE","#E1F5EE","#FAEEDA","#FCEBEB"];
+const tierName=["Optimal","Acceptable","At-risk","Critical"];
+function Y(v){v=Math.max(1,Math.min(4,v));return yTop+(v-1)*perTier;}
+function colLeft(i){return plotL+i*colW+pad;}
+function colCenter(i){return plotL+(i+0.5)*colW;}
+function slotX(i,slot,N){return colLeft(i)+(N>1?slot/(N-1):0.5)*usable;}
+function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+const fmtV=v=>Number.isInteger(v)?String(v):v.toFixed(2);
+
+let order="mean";
+let pinned=null;
+function restore(){ if(pinned)highlight(pinned.id,pinned.ci); else clearHL(); }
+function togglePin(id,ci){
+  if(pinned && pinned.id===id && pinned.ci===ci){ pinned=null; clearHL(); }
+  else { pinned={id:id,ci:ci}; highlight(id,ci); }
+}
+function sortKey(d){
+  if(order==="baseline")return d.v[0];
+  if(order==="last")return d.v[lastI];
+  return d.v.reduce((a,b)=>a+b,0)/d.v.length;
+}
+function ordered(){
+  return DATA.slice().sort((a,b)=> sortKey(a)-sortKey(b) || a.id.localeCompare(b.id));
+}
+
+function draw(){
+  [...svg.querySelectorAll("g,rect,line,text,circle,polyline,polygon")].forEach(n=>n.remove());
+
+  // tier bands
+  for(let k=0;k<4;k++){
+    svg.appendChild(el("rect",{x:plotL,y:yTop+k*perTier,width:plotW,height:perTier,fill:tierFill[k]}));
+  }
+  svg.appendChild(el("rect",{x:plotL,y:yTop,width:plotW,height:4*perTier,fill:"none",stroke:"#888780","stroke-width":0.5}));
+  // tier labels
+  for(let k=0;k<4;k++){
+    const yc=yTop+k*perTier+perTier/2;
+    let t=el("text",{x:plotL-10,y:yc-2,"text-anchor":"end","font-size":12,"font-weight":500,fill:"#2c2c2a"});t.textContent="Tier "+(k+1);svg.appendChild(t);
+    let s=el("text",{x:plotL-10,y:yc+12,"text-anchor":"end","font-size":11,fill:"#5f5e5a"});s.textContent=tierName[k];svg.appendChild(s);
+  }
+  // column separators + x labels
+  for(let i=1;i<nHC;i++){svg.appendChild(el("line",{x1:plotL+i*colW,y1:yTop,x2:plotL+i*colW,y2:yTop+4*perTier,stroke:"#D3D1C7","stroke-width":0.75}));}
+  for(let i=0;i<nHC;i++){
+    let t=el("text",{x:colCenter(i),y:yTop+4*perTier+24,"text-anchor":"middle","font-size":12,"font-weight":500,fill:"#2c2c2a"});t.textContent=HCLAB[i];svg.appendChild(t);
+    let s=el("text",{x:colCenter(i),y:yTop+4*perTier+39,"text-anchor":"middle","font-size":11,fill:"#5f5e5a"});s.textContent=HC[i];svg.appendChild(s);
+  }
+
+  const list=ordered();
+  const N=list.length;
+
+  // dot layer group
+  const g=el("g",{});svg.appendChild(g);
+
+  // store positions per id for hover connectors
+  const pos={};
+  list.forEach((d,slot)=>{ pos[d.id]=HC.map((_,i)=>[slotX(i,slot,N),Y(d.v[i])]); });
+
+  // draw non-gold dots
+  list.forEach((d,slot)=>{
+    if(d.g)return;
+    for(let i=0;i<nHC;i++){
+      const c=el("circle",{cx:pos[d.id][i][0],cy:pos[d.id][i][1],r:2.7,fill:"#5F5E5A","fill-opacity":0.6,"data-id":d.id,style:"cursor:pointer"});
+      c.addEventListener("mouseenter",()=>highlight(d.id,i));
+      c.addEventListener("mouseleave",restore);
+      c.addEventListener("click",ev=>{ev.stopPropagation();togglePin(d.id,i);});
+      g.appendChild(c);
+    }
+  });
+  // gold baseline-strategy line + dots on top
+  const gold=list.find(d=>d.g);
+  svg.appendChild(el("polyline",{points:pos[gold.id].map(p=>p.join(",")).join(" "),fill:"none",stroke:"#BA7517","stroke-width":2,"stroke-opacity":0.85}));
+  for(let i=0;i<nHC;i++){
+    const c=el("circle",{cx:pos[gold.id][i][0],cy:pos[gold.id][i][1],r:4,fill:"#BA7517","data-id":gold.id,style:"cursor:pointer"});
+    c.addEventListener("mouseenter",()=>highlight(gold.id,i));
+    c.addEventListener("mouseleave",restore);
+    c.addEventListener("click",ev=>{ev.stopPropagation();togglePin(gold.id,i);});
+    svg.appendChild(c);
+  }
+  // "now" ring on gold BL
+  svg.appendChild(el("circle",{cx:pos[gold.id][0][0],cy:pos[gold.id][0][1],r:8,fill:"none",stroke:"#2c2c2a","stroke-width":1.5}));
+  let nl=el("text",{x:pos[gold.id][0][0],y:pos[gold.id][0][1]-12,"text-anchor":"middle","font-size":11,"font-weight":500,fill:"#2c2c2a"});nl.textContent="now";svg.appendChild(nl);
+
+  svg._pos=pos;
+  buildTable(list);
+}
+
+function buildTable(list){
+  const goldRow=list.find(d=>d.g);
+  const fmt=v=>(v>=0?"+":"−")+fmtV(Math.abs(v));
+  function wire(tr,d){
+    tr.addEventListener("mouseenter",()=>highlight(d.id,lastI));
+    tr.addEventListener("mouseleave",restore);
+    tr.addEventListener("click",()=>togglePin(d.id,lastI));
+  }
+  tbody.innerHTML="";
+  list.forEach(d=>{
+    const tr=document.createElement("tr");
+    tr.className=d.g?"is-gold":"";
+    tr.dataset.id=d.id;
+    const label=d.g?`${BASE} — current operations`:d.id;
+    let html=`<th scope="row">${label}</th>`;
+    d.v.forEach(val=>{
+      const cat=Math.min(4,Math.floor(val));
+      const sw=["#1ca367","#31b2c5","#f2944f","#ee5d32"][cat-1];
+      html+=`<td>${fmtV(val)}<span class="cat" style="background:${sw}" title="Tier ${cat}"></span></td>`;
+    });
+    tr.innerHTML=html;
+    wire(tr,d);
+    tbody.appendChild(tr);
+  });
+  // decomposition table: explicit machine-readable statement of the split
+  const tbody2=document.getElementById("tbody2");
+  const cap2=document.getElementById("cap2");
+  cap2.textContent=`Operations effect for each scenario: its tier value minus current operations (${BASE}) `
+    +"under the same hydroclimate; positive means a worse (higher) tier value than current operations. "
+    +"The climate effect is the same for every scenario and is the change in "+BASE+" from its historical "
+    +"baseline: "+HC.slice(1).map((hc,i)=>`${hc} ${fmt(goldRow.v[i+1]-goldRow.v[0])}`).join(", ")
+    +` tier. Every value in the table above equals the ${BASE} baseline `
+    +`(${fmtV(goldRow.v[0])}) plus the climate effect plus the operations effect. Rows in the same order as the figure.`;
+  tbody2.innerHTML="";
+  list.forEach(d=>{
+    const tr=document.createElement("tr");
+    tr.className=d.g?"is-gold":"";
+    tr.dataset.id=d.id;
+    const label=d.g?`${BASE} — current operations`:d.id;
+    let html=`<th scope="row">${label}</th>`;
+    d.v.forEach((val,i)=>{ html+=`<td>${fmt(val-goldRow.v[i])}</td>`; });
+    tr.innerHTML=html;
+    wire(tr,d);
+    tbody2.appendChild(tr);
+  });
+}
+
+function highlight(id,ci){
+  if(ci===undefined)ci=lastI;
+  const pos=svg._pos; if(!pos)return;
+  const d=DATA.find(x=>x.id===id);
+  const gold=DATA.find(x=>x.id===BASE);
+  // dim all circles
+  svg.querySelectorAll("circle[data-id]").forEach(c=>{
+    if(c.getAttribute("data-id")===id){c.setAttribute("r",c.getAttribute("data-id")===BASE?5:4);c.setAttribute("fill-opacity","1");c.setAttribute("fill",d.g?"#BA7517":"#185FA5");}
+    else{
+      const isG=c.getAttribute("data-id")===BASE;
+      c.setAttribute("r",isG?4:2.7);
+      c.setAttribute("fill",isG?"#BA7517":"#5F5E5A");
+      c.setAttribute("fill-opacity",isG?"0.5":"0.18");
+    }
+  });
+  // connector
+  let con=svg.querySelector("#connector");
+  if(!con){con=el("polyline",{id:"connector",fill:"none","stroke-width":2,"stroke-linejoin":"round"});svg.appendChild(con);}
+  con.setAttribute("points",pos[id].map(p=>p.join(",")).join(" "));
+  con.setAttribute("stroke",d.g?"#BA7517":"#185FA5");
+  con.setAttribute("opacity","0.9");
+  // table
+  tbody.querySelectorAll("tr").forEach(tr=>tr.classList.toggle("is-hl",tr.dataset.id===id && !d.g));
+
+  // decomposition annotation: baseline anchor -> climate arrow -> operations arrow
+  let anno=svg.querySelector("#anno"); if(anno)anno.remove();
+  anno=el("g",{id:"anno"});svg.appendChild(anno);
+  const ax=pos[id][ci][0];
+  const aV=gold.v[0], cV=gold.v[ci], fV=d.v[ci];
+  const y1=Y(aV), y2=Y(cV), y3=Y(fV);
+  const clim=cV-aV, ops=fV-cV;
+  const onLeft = ax > plotR-150;
+  const tx = onLeft? ax-12 : ax+12;
+  const ta = onLeft? "end":"start";
+  const ARW="#444441";
+  function vArrow(yA,yB){
+    const dir=yB>yA?1:-1;
+    anno.appendChild(el("line",{x1:ax,y1:yA,x2:ax,y2:yB-7*dir,stroke:ARW,"stroke-width":1.5}));
+    anno.appendChild(el("polygon",{points:`${ax-4},${yB-8*dir} ${ax},${yB} ${ax+4},${yB-8*dir}`,fill:ARW}));
+  }
+  function note(y,s){
+    const t=el("text",{x:tx,y:y,"font-size":12,fill:ARW,"text-anchor":ta});
+    t.textContent=s;anno.appendChild(t);
+  }
+  anno.appendChild(el("circle",{cx:ax,cy:y1,r:5.5,fill:"#fdfdfb",stroke:"#5f5e5a","stroke-width":1.5}));
+  note(y1-11,`${HCLAB[0]} ${fmtV(aV)}`);
+  if(Math.abs(clim)>=0.03){
+    vArrow(y1+7*(clim>0?1:-1), y2);
+    note((y1+y2)/2+4,"Climate effect "+(clim>0?"+":"")+fmtV(clim));
+  }
+  const gx=pos[BASE][ci][0];
+  if(Math.abs(gx-ax)>1){anno.appendChild(el("line",{x1:Math.min(ax,gx),y1:y2,x2:Math.max(ax,gx),y2:y2,stroke:"#888780","stroke-width":1}));}
+  if(!d.g && Math.abs(ops)>=0.03){
+    const s=ops>0?1:-1;
+    vArrow(y2+3*s, y3-6*s);
+    note((y2+y3)/2+4,"Operations effect "+(ops>0?"+":"")+fmtV(ops));
+  }
+
+  // pinned marker ring
+  if(pinned && pinned.id===id && pinned.ci===ci){
+    anno.appendChild(el("circle",{cx:ax,cy:y3,r:9,fill:"none",stroke:d.g?"#BA7517":"#185FA5","stroke-width":1.5,"stroke-dasharray":"3 2"}));
+  }
+
+  // readout: the additive decomposition for this column
+  const name=d.g?`${BASE} (current operations)`:id;
+  const hcName=`${HCLAB[ci]} (${HC[ci]})`;
+  const pinNote=(pinned && pinned.id===id && pinned.ci===ci)?` &nbsp;·&nbsp; <span style="color:#888780">pinned — click the point again or the background to release</span>`:"";
+  readout.innerHTML=`<b>${name}</b> at ${hcName}: <b>${fmtV(fV)}</b> = baseline ${fmtV(aV)} ${clim>=0?"+":"−"} climate ${fmtV(Math.abs(clim))} ${ops>=0?"+":"−"} operations ${fmtV(Math.abs(ops))} &nbsp;·&nbsp; trajectory ${d.v.map(fmtV).join(" → ")}${pinNote}`;
+}
+function clearHL(){
+  svg.querySelectorAll("circle[data-id]").forEach(c=>{
+    const gold=c.getAttribute("data-id")===BASE;
+    c.setAttribute("r",gold?4:2.7);c.setAttribute("fill-opacity",gold?"1":"0.6");c.setAttribute("fill",gold?"#BA7517":"#5F5E5A");
+  });
+  const con=svg.querySelector("#connector"); if(con)con.setAttribute("opacity","0");
+  const an=svg.querySelector("#anno"); if(an)an.remove();
+  tbody.querySelectorAll("tr").forEach(tr=>tr.classList.remove("is-hl"));
+  readout.textContent=HINT;
+}
+svg.addEventListener("click",()=>{pinned=null;clearHL();});
+
+document.querySelectorAll(".controls button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    order=b.dataset.order;
+    document.querySelectorAll(".controls button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
+    draw();
+    if(pinned)highlight(pinned.id,pinned.ci);
+  });
+});
+
+draw();
+</script>
+<div style="position:fixed;right:10px;bottom:10px;z-index:99999;background:#b3541e;color:#fff;font:12px/1.3 Helvetica,Arial,sans-serif;padding:5px 9px;border-radius:4px;opacity:.92;pointer-events:none;">Synthetic rehearsal data — not COEQWAL results</div>
+</body>
+</html>
