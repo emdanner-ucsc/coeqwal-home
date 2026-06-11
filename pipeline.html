@@ -36,10 +36,10 @@
 <body>
 <header>
   <h1>COEQWAL brief publishing pipeline</h1>
-  <p>How a published brief page gets from the data API to coeqwal.org. Source document last updated 2026-06-09. <a href="index.html">Back to working pages</a>.</p>
+  <p>How a published brief page gets from the data API to coeqwal.org. Source document last updated 2026-06-11. <a href="index.html">Back to working pages</a>.</p>
 </header>
 <main>
-<p><em>How a published brief page gets from the data API to coeqwal.org.</em> <em>Last updated: 2026-06-09</em></p>
+<p><em>How a published brief page gets from the data API to coeqwal.org.</em> <em>Last updated: 2026-06-10</em></p>
 <hr>
 <h2 id="context">Context</h2>
 <p>The COEQWAL stack is described in <code>coeqwal_project_ecosystem.md</code> — a Next.js 15 static-export website, a FastAPI backend at <code>api.coeqwal.org</code>, and a PostgreSQL data platform feeding it. This document covers a narrower question: how individual brief pages (theme, LOI, strategy) are produced and published.</p>
@@ -88,6 +88,13 @@
 <li><strong>When continuous tiers and the next hydroclimate land,</strong> only fixtures and data change; figure code and templates already handle them.</li>
 </ol>
 <p><del>Open design question: do real-data dev builds keep all nine sections with coarse integer figures (current lean), or hold the Section 4 figure until continuous data exists?</del> — resolved 2026-06-06 (Eric): all nine sections, Figure 2 rendered coarse at integer positions and clearly marked, so the full pipeline is exercised now and continuous data lands as a data-only change.</p>
+<h2 id="data-evolution-and-the-august-lock-added-2026-06-10">Data evolution and the August lock (added 2026-06-10)</h2>
+<p>The API's data changes while the platform team finishes their work (examples from the 2026-06-10 audit: salmon abundance went from unserved to served; the community-water-systems location count moved from 124 to 75). The data is expected to <strong>lock in early August 2026</strong>; launch is September 3. Discipline until then:</p>
+<ul>
+<li><strong>Builds compare against dated snapshots, never against "the API."</strong> <code>builder/api_watch.py snapshot</code> saves the full API state (every scenario's tier and location data, plus the scenario and indicator lists) to <code>builder/snapshots/YYYY-MM-DD/</code> with a comparable fingerprint; <code>api_watch.py check</code> reports drift between the live API and the latest snapshot; <code>api_watch.py diff</code> compares two snapshots. Snapshots are committed, so the drift history lives in the repo. A weekly automated check reports drift; a manual check before any build session is cheap.</li>
+<li><strong>At the lock,</strong> one final snapshot is taken and labeled; from then through launch, all brief builds read from that snapshot only, making every build reproducible against a fixed reference.</li>
+<li><strong>Scheduling flag:</strong> the brief timeline's content freeze (July 29) currently precedes the estimated data lock (early August). Either the lock moves ahead of the final build week, or one planned regeneration-and-verify pass runs after the lock, before September 3. To be settled with the team.</li>
+</ul>
 <h2 id="open-items">Open items</h2>
 <ul>
 <li><del>JSON sidecar schema per brief type</del> — <strong>schema v0.1 decided and emission built 2026-06-06.</strong> Schema at <code>coeqwal-briefs/builder/SIDECAR_SCHEMA.md</code>; Eric's review resolved same day (keep wildcard sources; numbers only, not generated prose; sidecar version 1:1 with the brief HTML; §1 exclude-BL counting signed off). Theme and strategy <code>subject</code> blocks remain to be exercised when those brief types reach the builder.</li>
