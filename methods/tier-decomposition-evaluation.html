@@ -49,13 +49,14 @@
 <hr>
 <h2 id="1-what-the-decomposition-actually-claims">1. What the decomposition actually claims</h2>
 <p>Any scenario outcome's difference from today separates as:</p>
-<p>T(a, s, h) − B(s, BL)  =  [B(s, h) − B(s, BL)]  +  [T(a, s, h) − B(s, h)] total change    =          ΔHC            +           Δop</p>
+<pre><code>T(a, s, h) − B(s, BL)  =  [B(s, h) − B(s, BL)]  +  [T(a, s, h) − B(s, h)]
+       total change    =          ΔHC            +           Δop</code></pre>
 <p>ΔHC — the climate effect: how far the starting point moves when climate alone changes, operations held at current. Δop — the operations effect: what the strategy adds or subtracts, measured against the climate-projected baseline for the same climate.</p>
 <p>Three observations frame everything that follows.</p>
 <p><strong>The identity is exact by construction.</strong> The middle term B(s, h) is added and subtracted; the equation cannot fail. So "the parts sum to the total" is bookkeeping, not a finding about the water system, and should never be offered as evidence that the decomposition is physically meaningful.</p>
 <p><strong>Each component is a legitimate model contrast.</strong> ΔHC compares two full CalSim runs differing only in climate inputs; Δop compares two full runs differing only in operating rules. These paired contrasts are exactly the comparisons CalSim is built for and are the same contrasts the In-depth pathway offers. The decomposition's components are individually sound; the question is only whether presenting them <em>as a decomposition</em> invites wrong conclusions.</p>
 <p><strong>The interaction is folded into Δop.</strong> A strategy's effect measured under historical climate generally differs from its effect measured under a warmer-drier future. Call that difference the interaction:</p>
-<p>I(a, s, h)  =  Δop measured under h  −  Δop measured under BL</p>
+<pre><code>I(a, s, h)  =  Δop measured under h  −  Δop measured under BL</code></pre>
 <p>The decomposition does not display I; it resolves it by definition, by always measuring the strategy in the climate it would operate in. That is a defensible choice — arguably the right one — but it is a <em>choice</em>, and it is where most of the interpretive risk lives.</p>
 <h2 id="2-why-the-convention-is-defensible">2. Why the convention is defensible</h2>
 <p>The climate-first order has a principled basis, not just a narrative one. Climate is exogenous — the thing we cannot control — and operations are the choice variable (framing invariant §2). When evaluating a choice, the relevant question is what it does <em>in the world where it would apply</em>. A strategy intended for a warmer-drier future should be credited with its effect under that future, not under a climate that will no longer exist. Measuring Δop against the matched climate-projected baseline answers exactly that question. The reverse order (operations first, then climate) would attribute the interaction to the climate step instead, answering a question nobody is asking: "what would this strategy have done in the past, and how does climate change perturb that?"</p>
@@ -106,7 +107,7 @@
 </main>
 <footer>
 Working material; the cited repository documents remain canonical. Questions: Eric Danner.<br>
-Page generated 2026-06-12 17:24.
+Page generated 2026-06-12 17:26.
 </footer>
 </body>
 </html>
