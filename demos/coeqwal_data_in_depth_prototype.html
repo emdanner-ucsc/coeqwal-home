@@ -65,10 +65,15 @@ main{flex:1;padding:18px 26px 60px;min-width:0;max-width:1200px}
 .scenmenu{position:absolute;z-index:30;top:calc(100% + 4px);left:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px rgba(20,40,60,.16);padding:8px;width:430px;max-height:420px;overflow:auto;display:none}
 .scenmenu.open{display:block}
 .scenmenu .grp{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:700;padding:8px 8px 3px}
-.scenmenu button.opt{display:flex;width:100%;text-align:left;gap:8px;padding:6px 8px;border-radius:7px;font-size:.85rem;color:var(--ink2);align-items:baseline}
+.scenmenu button.opt{display:flex;width:100%;text-align:left;gap:8px;padding:6px 8px;border-radius:7px;font-size:.85rem;color:var(--ink2);align-items:center}
 .scenmenu button.opt:hover{background:var(--line2)}
 .scenmenu button.opt.sel{background:var(--accentbg);color:var(--accent);font-weight:600}
 .scenmenu button.opt .sid{font-size:.7rem;color:var(--ink3);margin-left:auto;flex:none}
+.scenmenu .menuhead{padding:6px 8px 9px;border-bottom:1px solid var(--line2);margin-bottom:5px;display:flex;flex-direction:column;gap:6px}
+.scenmenu .menucap{font-size:.73rem;color:var(--ink3)}
+.seg.small button{padding:3px 10px;font-size:.78rem}
+.tdot{width:9px;height:9px;border-radius:50%;flex:none;display:inline-block}
+.scenbtn{display:inline-flex;align-items:center;gap:7px}
 /* view bar */
 .viewbar{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
 .viewbar .spacer{flex:1}
@@ -626,7 +631,7 @@ const state={
  vid:"res_apr",view:"dist",distKind:"exceed",compare:"scen",
  scenSel:["s0020","s0046"],scenPin:"s0020",
  climSel:["hist","modhigh","extreme"],climPin:"hist",
- locSel:{},locPin:{},menuOpen:false
+ locSel:{},locPin:{},menuOpen:false,scenGroup:"theme"
 };
 for(const[g,grp]of Object.entries(LOCGROUPS)){
  state.locPin[g]=grp.items[0].id;
@@ -753,8 +758,36 @@ function renderRail(){
  }
  el.innerHTML=h;
 }
-function scenarioOptions(sel){
- return THEMES.map(t=>`<optgroup label="${esc(t.name)}">${SCENARIOS.filter(s=>s.theme===t.id).map(s=>`<option value="${s.id}" ${s.id===sel?"selected":""}>${esc(s.name)}</option>`).join("")}</optgroup>`).join("");
+/* ---------- tier-aware scenario menu (shared by all compare modes) ---------- */
+function scenTier(sid){ /* tier context = current outcome, pinned climate, pinned location */
+ return tierFor(TIERLINK[state.vid],sid,state.climPin,state.locPin[curVar().locg]);
+}
+function scenMenuHTML(mode){ /* mode "add": toggle into comparison · mode "pin": set pinned scenario */
+ const outcome=TIERLINK[state.vid],g=curVar().locg;
+ const locName=LOC(g,state.locPin[g]).n,climName=CLIM(state.climPin).name;
+ const isSel=id=>mode==="add"?state.scenSel.includes(id):state.scenPin===id;
+ const act=mode==="add"?"UI.addScen":"UI.pickPin";
+ const row=s=>{const t=scenTier(s.id);
+  return `<button class="opt ${isSel(s.id)?"sel":""}" title="${esc(s.desc)}&#10;Tier ${t.tier} — ${t.label} ('${esc(outcome)}' key outcome; synthetic)" onclick="${act}('${s.id}')"><span class="tdot" style="background:${t.color}"></span>${esc(s.name)}<span class="sid">${s.id}</span></button>`;};
+ let body="";
+ if(state.scenGroup==="tier"){
+  for(const tn of[1,2,3,4]){
+   const list=SCENARIOS.filter(s=>scenTier(s.id).tier===tn);
+   if(!list.length)continue;
+   body+=`<div class="grp" style="color:${TIERS[tn].color}">Tier ${tn} — ${TIERS[tn].label}</div>`+list.map(row).join("");
+  }
+ }else{
+  body=THEMES.map(t=>`<div class="grp">${esc(t.name)}</div>`+SCENARIOS.filter(s=>s.theme===t.id).map(row).join("")).join("");
+ }
+ return `<div class="scenmenu ${state.menuOpen?"open":""}" id="scenmenu">
+  <div class="menuhead">
+   <div class="seg small">${[["theme","By theme"],["tier","By tier"]].map(([k,lab])=>`<button class="${state.scenGroup===k?"sel":""}" onclick="UI.setScenGroup('${k}')">${lab}</button>`).join("")}</div>
+   <div class="menucap">Dots show the tier for <b>${esc(outcome)}</b> at ${esc(locName)} under the ${esc(climName)} hydroclimate (synthetic).</div>
+  </div>${body}</div>`;
+}
+function scenPinCtl(){
+ const t=scenTier(state.scenPin);
+ return `<span class="scenpicker"><button class="scenbtn" onclick="UI.toggleMenu(event)"><span class="tdot" style="background:${t.color}"></span>${esc(SCEN(state.scenPin).name)} ▾</button>${scenMenuHTML("pin")}</span>`;
 }
 function renderControls(){
  const vd=curVar(),g=vd.locg,grp=LOCGROUPS[g],multiLoc=grp.items.length>1;
@@ -764,17 +797,16 @@ function renderControls(){
  if(state.compare==="scen"){
   h+=`<div class="ctl"><label class="ctlname">Scenarios (up to 5)</label><div class="chips">`;
   h+=state.scenSel.map(sid=>`<button class="chip on" title="${esc(SCEN(sid).desc)}" onclick="UI.rmScen('${sid}')"><span class="dot" style="background:${PALETTE[state.scenSel.indexOf(sid)]}"></span>${esc(SCEN(sid).name)} ✕</button>`).join("");
-  if(state.scenSel.length<5)h+=`<span class="scenpicker"><button class="chip scenbtn" onclick="UI.toggleMenu(event)">＋ Add scenario</button>
-    <div class="scenmenu ${state.menuOpen?"open":""}" id="scenmenu">${THEMES.map(t=>`<div class="grp">${esc(t.name)}</div>`+SCENARIOS.filter(s=>s.theme===t.id).map(s=>`<button class="opt ${state.scenSel.includes(s.id)?"sel":""}" title="${esc(s.desc)}" onclick="UI.addScen('${s.id}')">${esc(s.name)}<span class="sid">${s.id}</span></button>`).join("")).join("")}</div></span>`;
+  if(state.scenSel.length<5)h+=`<span class="scenpicker"><button class="chip scenbtn" onclick="UI.toggleMenu(event)">＋ Add scenario</button>${scenMenuHTML("add")}</span>`;
   h+=`</div></div>`;
   h+=`<div class="ctl"><label class="ctlname">Hydroclimate</label><select onchange="UI.setClimPin(this.value)">${CLIMATES.map(c=>`<option value="${c.id}" ${c.id===state.climPin?"selected":""}>${esc(c.name)}</option>`).join("")}</select><div class="hint">${esc(CLIM(state.climPin).desc)}</div></div>`;
   if(multiLoc)h+=`<div class="ctl"><label class="ctlname">${esc(grp.label)}</label><select onchange="UI.setLocPin(this.value)">${grp.items.map(l=>`<option value="${l.id}" ${l.id===state.locPin[g]?"selected":""}>${esc(l.n)}</option>`).join("")}</select></div>`;
  }else if(state.compare==="clim"){
-  h+=`<div class="ctl"><label class="ctlname">Scenario</label><select onchange="UI.setScenPin(this.value)">${scenarioOptions(state.scenPin)}</select><div class="hint">${esc(SCEN(state.scenPin).desc)}</div></div>`;
+  h+=`<div class="ctl"><label class="ctlname">Scenario</label>${scenPinCtl()}<div class="hint">${esc(SCEN(state.scenPin).desc)}</div></div>`;
   h+=`<div class="ctl"><label class="ctlname">Climate futures</label><div class="chips">${CLIMATES.map((c,i)=>`<button class="chip ${state.climSel.includes(c.id)?"on":""}" title="${esc(c.desc)}" onclick="UI.toggleClim('${c.id}')"><span class="dot" style="background:${state.climSel.includes(c.id)?PALETTE[state.climSel.indexOf(c.id)]:"transparent"}"></span>${esc(c.name)}</button>`).join("")}</div></div>`;
   if(multiLoc)h+=`<div class="ctl"><label class="ctlname">${esc(grp.label)}</label><select onchange="UI.setLocPin(this.value)">${grp.items.map(l=>`<option value="${l.id}" ${l.id===state.locPin[g]?"selected":""}>${esc(l.n)}</option>`).join("")}</select></div>`;
  }else{
-  h+=`<div class="ctl"><label class="ctlname">Scenario</label><select onchange="UI.setScenPin(this.value)">${scenarioOptions(state.scenPin)}</select></div>`;
+  h+=`<div class="ctl"><label class="ctlname">Scenario</label>${scenPinCtl()}</div>`;
   h+=`<div class="ctl"><label class="ctlname">Hydroclimate</label><select onchange="UI.setClimPin(this.value)">${CLIMATES.map(c=>`<option value="${c.id}" ${c.id===state.climPin?"selected":""}>${esc(c.name)}</option>`).join("")}</select></div>`;
   h+=`<div class="ctl"><label class="ctlname">${esc(grp.label)}s (up to 6)</label><div class="chips">${grp.items.map(l=>`<button class="chip ${state.locSel[g].includes(l.id)?"on":""}" onclick="UI.toggleLoc('${l.id}')"><span class="dot" style="background:${state.locSel[g].includes(l.id)?PALETTE[state.locSel[g].indexOf(l.id)]:"transparent"}"></span>${esc(l.n)}</button>`).join("")}</div></div>`;
  }
@@ -868,7 +900,8 @@ const UI={
  setDistKind(k){state.distKind=k;render()},
  setCompare(c){state.compare=c;state.menuOpen=false;render()},
  setClimPin(v){state.climPin=v;render()},
- setScenPin(v){state.scenPin=v;render()},
+ pickPin(id){state.scenPin=id;state.menuOpen=false;render()},
+ setScenGroup(k){state.scenGroup=k;render()},
  setLocPin(v){state.locPin[curVar().locg]=v;render()},
  toggleMenu(ev){ev.stopPropagation();state.menuOpen=!state.menuOpen;render()},
  addScen(id){
