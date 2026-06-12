@@ -84,6 +84,7 @@ main{flex:1;padding:18px 26px 60px;min-width:0;max-width:1200px}
 .legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 2px 2px;font-size:.82rem;color:var(--ink2)}
 .legend .key{display:inline-flex;align-items:center;gap:6px}
 .legend .sw{width:14px;height:4px;border-radius:2px;flex:none}
+.legend .tierbadge{display:inline-flex;align-items:center;border:1.3px solid;border-radius:10px;padding:0 7px;margin-left:3px;font-size:.7rem;font-weight:650;line-height:1.55;background:#fff;cursor:help;flex:none}
 .synthnote{font-size:.74rem;color:var(--ink3);margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
 /* explainers */
 details.expl{background:#fff;border:1px solid var(--line);border-radius:var(--radius);margin-top:12px;padding:0 16px}
@@ -369,6 +370,49 @@ const TIERLINK={
  ag_del:"Agricultural revenue",ag_pump:"Agricultural revenue",ag_short:"Agricultural revenue",ag_shortpct:"Agricultural revenue",ag_rev:"Agricultural revenue",
  cws_del:"Community deliveries",cws_short:"Community deliveries"
 };
+/* Tier scale (Key Outcomes pathway). Public labels per shared/coeqwal_conventions.md;
+   colors per COEQWAL_Visual_Design_Spec theme.palette.tiers. */
+const TIERS={
+ 1:{label:"Optimal",   color:"#1ca367"},
+ 2:{label:"Acceptable",color:"#31b2c5"},
+ 3:{label:"At-risk",   color:"#f2944f"},
+ 4:{label:"Critical",  color:"#ee5d32"}
+};
+/* Representative raw variable per key outcome, used to derive the SYNTHETIC tier.
+   The tier belongs to the outcome, not the plotted variable, so it stays stable when
+   switching between variables that feed the same tier. dir:+1 higher is better. */
+const TIERPRIMARY={
+ "Reservoir storage":           {vid:"res_sep", dir:+1},
+ "Groundwater storage":         {vid:"gw_vol",  dir:+1},
+ "Freshwater for in-Delta uses":{vid:"x2_sep",  dir:-1},
+ "Delta freshwater exports":    {vid:"tot_exp", dir:+1},
+ "Delta estuary ecology":       {vid:"ndo",     dir:+1},
+ "Environmental flows":         {vid:"riv_flow",dir:+1},
+ "Agricultural revenue":        {vid:"ag_rev",  dir:+1},
+ "Community deliveries":        {vid:"cws_short",dir:-1}
+};
+const _tierCache={};
+function tierFor(outcome,scenId,climId,loiId){
+ /* Synthetic tier: blend of median change and dry-year change vs. current
+    operations under the Historical hydroclimate, at the same location.
+    Score 1.0 = baseline → Tier 2 (Acceptable). Illustration only. */
+ const P=TIERPRIMARY[outcome];if(!P)return null;
+ const pv=VARDEF[P.vid],grp=LOCGROUPS[pv.locg];
+ const exact=!!grp.items.find(l=>l.id===loiId);
+ const loi=exact?loiId:(grp.items.find(l=>l.agg)||grp.items[0]).id;
+ const key=[outcome,scenId,climId,loi].join("|");
+ if(!_tierCache[key]){
+  const st=stats(annualSeries(P.vid,scenId,climId,loi));
+  const sb=stats(annualSeries(P.vid,"s0020","hist",loi));
+  const rMed=st.p50/(sb.p50||1e-9);
+  const rDry=P.dir>0?st.p10/(sb.p10||1e-9):st.p90/(sb.p90||1e-9); // dry-year tail
+  let score=0.6*rMed+0.4*rDry;
+  if(P.dir<0)score=1/Math.max(score,1e-9);
+  const t=score>=1.12?1:score>=0.93?2:score>=0.78?3:4;
+  _tierCache[key]={tier:t,...TIERS[t]};
+ }
+ return {..._tierCache[key],exact};
+}
 
 /* ============================================================
    SYNTHETIC DATA ENGINE (seeded, deterministic)
@@ -746,7 +790,21 @@ function renderMain(){
  const tier=TIERLINK[state.vid];
  const viewTabs=vd.views.map(v=>`<button class="${state.view===v?"sel":""}" onclick="UI.setView('${v}')">${VIEWMETA[v].label}</button>`).join("");
  const distToggle=(state.view==="dist"||state.view==="pct")?`<div class="seg">${["exceed","box"].map(k=>`<button class="${state.distKind===k?"sel":""}" onclick="UI.setDistKind('${k}')">${k==="exceed"?"Exceedance":"Box plot"}</button>`).join("")}</div>`:"";
- const legend=`<div class="legend">${members.map((m,i)=>`<span class="key"><span class="sw" style="background:${PALETTE[i]}"></span>${esc(m.label)}</span>`).join("")}</div>`;
+ const legend=`<div class="legend">${members.map((m,i)=>{
+  let badge="";
+  if(tier){
+   const tb=tierFor(tier,m.scen,m.clim,m.loi);
+   /* In location-compare mode, suppress the badge for locations that don't have
+      their own tier (outcome scored at a different aggregation) — repeating one
+      outcome-level tier across every location would misread as per-location. */
+   if(tb&&(state.compare!=="loc"||tb.exact)){
+    const tip=`${SCEN(m.scen).name} under ${CLIM(m.clim).name}: Tier ${tb.tier} — ${tb.label}
+('${tier}' key outcome on the tiers pathway; synthetic illustration)`;
+    badge=`<span class="tierbadge" style="color:${tb.color};border-color:${tb.color}" title="${esc(tip)}">Tier ${tb.tier}</span>`;
+   }
+  }
+  return `<span class="key"><span class="sw" style="background:${PALETTE[i]}"></span>${esc(m.label)}${badge}</span>`;
+ }).join("")}</div>`;
  document.getElementById("main").innerHTML=`
   <div class="crumb"><b>${esc(sec.name)}</b> › ${esc(vd.name)}
     ${tier?`&nbsp;·&nbsp;<span class="chip" style="cursor:default;font-size:.74rem;padding:2px 10px" title="This raw output feeds the '${esc(tier)}' key outcome in the tiers pathway">feeds tier: <b>&nbsp;${esc(tier)}</b></span>`:""}</div>
@@ -760,7 +818,7 @@ function renderMain(){
       <div id="hovread" style="position:absolute;display:none;pointer-events:none;background:#fff;border:1px solid #dde5ec;border-radius:7px;padding:6px 9px;font-size:.76rem;box-shadow:0 3px 10px rgba(20,40,60,.15);max-width:240px"></div>
     </div>
     ${legend}
-    <div class="synthnote">Synthetic data (${NYEARS} simulated years, seeded). Generated to mimic CalSim3 post-processed output structure — not model results.</div>
+    <div class="synthnote">Synthetic data (${NYEARS} simulated years, seeded). Generated to mimic CalSim3 post-processed output structure — not model results.${tier?` Tier badges are derived from the synthetic series (median + dry-year change vs. current operations, Historical hydroclimate) and are illustrative only.`:""}</div>
   </div>
   <details class="expl"><summary>What is this metric?</summary><div class="body">
     <p>${esc(vd.plain)}</p><p style="color:#7a8a99"><b>Technical:</b> ${esc(vd.tech)} Units: ${esc(unitLabel(vd.unit))}.</p></div></details>
