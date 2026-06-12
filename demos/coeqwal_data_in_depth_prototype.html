@@ -764,7 +764,18 @@ function renderMain(){
   </div>
   <details class="expl"><summary>What is this metric?</summary><div class="body">
     <p>${esc(vd.plain)}</p><p style="color:#7a8a99"><b>Technical:</b> ${esc(vd.tech)} Units: ${esc(unitLabel(vd.unit))}.</p></div></details>
-  <details class="expl"><summary>How do I read this chart?</summary><div class="body">${howToRead()}</div></details>`;
+  <details class="expl"><summary>How do I read this chart?</summary><div class="body">${howToRead()}</div></details>
+  <details class="expl"><summary>Why is there no climate-vs-operations breakdown here?</summary><div class="body">
+    <p>Elsewhere on the site, results on the tier scale are shown in two steps: what climate change alone
+    would do, and what a strategy adds or subtracts. That works for tiers because tiers are broad categories.
+    The detailed numbers on this page don&rsquo;t support the same split. The water system is full of hard
+    limits &mdash; reservoirs fill or empty completely, deliveries can&rsquo;t exceed contracts or fall below
+    zero &mdash; so the effect of a strategy, measured in acre-feet or flow, depends on which climate it is
+    measured under. The two pieces don&rsquo;t add up to the total change, and a strategy can look ineffective
+    simply because the system is pinned against a limit.</p>
+    <p>So this page lets you change <b>one thing at a time</b> &mdash; compare strategies under the same
+    climate, or climates under the same strategy &mdash; which the model genuinely supports. The missing
+    breakdown is deliberate, not a gap.</p></div></details>`;
  if(chart.hover==="exceed")attachExceedHover();
 }
 function attachExceedHover(){
