@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is the climate/operations decomposition sound on tier results?</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:28px 24px; }
+  header h1 { margin:0 0 6px; font-size:26px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  header a { color:#fff; }
+  main { max-width:820px; margin:0 auto; padding:24px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--line); padding-bottom:6px; margin:32px 0 12px; font-weight:normal; color:var(--accent); }
+  h3 { font-size:17px; margin:24px 0 10px; color:var(--accent); font-weight:normal; }
+  p { margin:0 0 14px; }
+  hr { border:none; border-top:1px solid var(--line); margin:24px 0; }
+  code { font:14px/1.4 Menlo, Consolas, monospace; background:#eef2f5; padding:1px 4px; border-radius:3px; }
+  pre { background:#eef2f5; border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }
+  pre code { background:none; padding:0; }
+  ul, ol { margin:0 0 14px; padding-left:22px; }
+  li { margin-bottom:6px; }
+  blockquote { border-left:3px solid var(--accent); margin:0 0 14px; padding:6px 14px; background:#fff; }
+  blockquote p { margin:0; }
+  table { border-collapse:collapse; width:100%; background:#fff; font-size:14px; margin:0 0 16px; }
+  th, td { border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top; }
+  th { background:#eef2f5; }
+  img.figure { max-width:100%; background:#fff; border:1px solid var(--line); border-radius:6px; padding:8px; }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin:36px auto 0; max-width:820px; padding-left:24px; padding-right:24px; padding-bottom:24px; }
+  
+</style>
+</head>
+<body>
+<header>
+  <h1>Is the climate/operations decomposition sound on tier results?</h1>
+  <p>Draft for team review · last updated 2026-06-12 17:11. Source: <code style="color:#fff">_meta/audits/2026-06-12_tier_decomposition_evaluation.md</code>. <a href="index.html">Back to working pages</a>.</p>
+</header>
+<main>
+<p style="background:#fdf3ec;border:1px solid #e3c4a8;border-radius:6px;padding:10px 14px;font-size:14px;"><b>Draft for team review</b> — not yet settled methodology. Comments to Eric Danner.</p>
+<p><em>An evaluation for the COEQWAL team. Prepared at Eric Danner's direction, 2026-06-12, following the decision (core concept 17) not to apply the decomposition to raw model output. The question here is the harder one: the decomposition we DO show, on tier values, carries the interpretive weight of the public website. Are we sure it isn't misleading?</em></p>
+<p><em>Notation follows <code>shared/baseline_terminology.md</code>: T(a, s, h) is the tier outcome for strategy a, sector/location s, hydroclimate h; B(s, h) = T(a₀, s, h) is the matched baseline under climate h, with a₀ = current operations (s0020). Tier bands per <code>projects/coeqwal-viz/docs/ordinal_vs_continuous_tiers.md</code>: continuous values on [1, 4.99], floor() recovering the discrete tier.</em></p>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>The decomposition is arithmetically exact and each of its two components is, on its own, a comparison the model genuinely supports. The risks are not in the algebra — they are in what a reader takes the components to mean. We find one structural caveat and six specific ways the presentation could mislead. In our judgment none of them invalidates the tier decomposition, but three are empirical questions that cannot be settled from the armchair: how strongly the operations effect depends on which climate it is measured under, how often tier movements are artifacts of sitting near a threshold, and whether changing location sets contaminate sector-level summaries. This document defines six tests (T1–T6) to answer them, runnable as soon as per-location continuous tier values are served. We recommend treating those tests as a gate: decomposition-based figures ship with the current framing if the tests come back clean, and with strengthened caveats or narrowed scope where they do not.</p>
+<p>The single most important sentence in this document: <strong>the operations effect is a property of a strategy–climate pair, not of a strategy.</strong> Every guardrail below is, one way or another, a defense of that sentence.</p>
+<hr>
+<h2 id="1-what-the-decomposition-actually-claims">1. What the decomposition actually claims</h2>
+<p>Any scenario outcome's difference from today separates as:</p>
+<p>T(a, s, h) − B(s, BL)  =  [B(s, h) − B(s, BL)]  +  [T(a, s, h) − B(s, h)] total change    =          ΔHC            +           Δop</p>
+<p>ΔHC — the climate effect: how far the starting point moves when climate alone changes, operations held at current. Δop — the operations effect: what the strategy adds or subtracts, measured against the climate-projected baseline for the same climate.</p>
+<p>Three observations frame everything that follows.</p>
+<p><strong>The identity is exact by construction.</strong> The middle term B(s, h) is added and subtracted; the equation cannot fail. So "the parts sum to the total" is bookkeeping, not a finding about the water system, and should never be offered as evidence that the decomposition is physically meaningful.</p>
+<p><strong>Each component is a legitimate model contrast.</strong> ΔHC compares two full CalSim runs differing only in climate inputs; Δop compares two full runs differing only in operating rules. These paired contrasts are exactly the comparisons CalSim is built for and are the same contrasts the In-depth pathway offers. The decomposition's components are individually sound; the question is only whether presenting them <em>as a decomposition</em> invites wrong conclusions.</p>
+<p><strong>The interaction is folded into Δop.</strong> A strategy's effect measured under historical climate generally differs from its effect measured under a warmer-drier future. Call that difference the interaction:</p>
+<p>I(a, s, h)  =  Δop measured under h  −  Δop measured under BL</p>
+<p>The decomposition does not display I; it resolves it by definition, by always measuring the strategy in the climate it would operate in. That is a defensible choice — arguably the right one — but it is a <em>choice</em>, and it is where most of the interpretive risk lives.</p>
+<h2 id="2-why-the-convention-is-defensible">2. Why the convention is defensible</h2>
+<p>The climate-first order has a principled basis, not just a narrative one. Climate is exogenous — the thing we cannot control — and operations are the choice variable (framing invariant §2). When evaluating a choice, the relevant question is what it does <em>in the world where it would apply</em>. A strategy intended for a warmer-drier future should be credited with its effect under that future, not under a climate that will no longer exist. Measuring Δop against the matched climate-projected baseline answers exactly that question. The reverse order (operations first, then climate) would attribute the interaction to the climate step instead, answering a question nobody is asking: "what would this strategy have done in the past, and how does climate change perturb that?"</p>
+<p>Tiers, additionally, are the right surface for this presentation in ways raw output is not (this is the positive half of core concept 17):</p>
+<ul>
+<li>Tier statements are categorical. "Under Warmer and Drier I, climate alone would move this community to At-risk; this strategy returns it to Acceptable" is an ordinal claim about crossing thresholds the sector teams set deliberately. It does not assert that two numbers of acre-feet sum to a third.</li>
+<li>The step order is presented as a guided narrative (the stepper walks now → climate → operations), which openly displays the convention rather than hiding it inside a chart annotation.</li>
+<li>The matched baseline is shown, not implied — the hollow circles on the diagonal are full model runs with a name and a tooltip. A reader can see what the strategy is being measured against.</li>
+</ul>
+<p>None of that makes the presentation immune to misreading. The remainder of this document is the list of misreadings we consider live, with guardrails.</p>
+<h2 id="3-where-it-can-mislead">3. Where it can mislead</h2>
+<h3 id="r1-the-portability-misreading-the-central-risk">R1. The portability misreading (the central risk)</h3>
+<p>A reader sees "this strategy improves salmon by one tier" and carries the number to a different climate context. Since I(a, s, h) is folded into Δop, the one-tier improvement may be a property of the strategy <em>under Warmer and Drier I</em> that shrinks, vanishes, or reverses under another climate — concept 19 (robustness) exists precisely because sign flips are expected in the library.</p>
+<p><em>Guardrails.</em> Every Δop statement names its climate — phrasing discipline already in <code>baseline_terminology.md</code> ("Tooltips: '[Strategy] under [climate]: Tier [value]'"); this should be elevated from tooltip convention to a rule for all public decomposition copy. And the robustness view — the same Δop side by side across all served climates — is the antidote display: it shows the reader the interaction directly instead of asserting it doesn't exist. Where a strategy's Δop flips sign across served climates, decomposition copy for that strategy–sector pair should lead with the non-robustness, not the single-climate effect. Test T1 quantifies how often this matters.</p>
+<h3 id="r2-the-undisclosed-convention">R2. The undisclosed convention</h3>
+<p>The climate-first order and the folding of I into Δop are nowhere stated in public-facing material. A technically sophisticated visitor (and several of our collaborators qualify) will eventually ask whether the split is unique. It is not, and discovering that unprompted erodes trust in everything else.</p>
+<p><em>Guardrail.</em> One plain-language methods sentence wherever the decomposition is taught, e.g.: "We measure each strategy against current operations <em>under the same climate</em>, so 'what the strategy adds' always means 'in that climate' — measured in a different climate the strategy's effect would differ." Cheap, honest, and it converts R1 from a hidden assumption into a stated definition.</p>
+<h3 id="r3-threshold-artifacts-and-the-ordinal-scale">R3. Threshold artifacts and the ordinal scale</h3>
+<p>With integer tiers, a hair's-breadth physical change flips a tier (a one-step arrow from nearly nothing), and a large physical change inside a band shows no movement at all. Continuous tiers mostly repair this — it is a main reason to insist decomposition figures use them — but two residues remain. First, threshold-driven sectors have genuine discontinuities at band edges (the eFlows worked example: the flow <em>target itself</em> changes between tiers, so a location can jump past values a naive rescale would assign). A decomposition arrow that crosses such an edge mixes two differently-scaled regimes in one visual length. Second, within-band mappings are sector-chosen and often nonlinear or piecewise, so equal arrow lengths do not represent equal physical changes even within one sector.</p>
+<p><em>Guardrails.</em> Decomposition arrows on continuous tiers only; treat ordinal tier flips as headlines ("crossed into At-risk") rather than magnitudes; never invite length-ratio readings ("twice the effect") in copy. Tests T2, T3, T4 measure how much of the current tier movement is threshold-adjacent and how distorting the mappings are in practice.</p>
+<h3 id="r4-cross-sector-magnitude-comparison">R4. Cross-sector magnitude comparison</h3>
+<p>Tiers are calibrated within sectors, not across them (concept 11), but a decomposition chart shows arrows from many sectors in the same visual units. "Climate costs agriculture more than salmon" is exactly the reading the shared axis invites and exactly the claim the tier scale cannot support.</p>
+<p><em>Guardrail.</em> Magnitude language stays within sector; across sectors only direction and category are stated ("both worsen; agriculture crosses into At-risk while salmon stays Acceptable"). This is already the two-sided trade-off discipline of the framing invariants; decomposition figures need it restated because the geometry actively works against it.</p>
+<h3 id="r5-the-distribution-behind-the-statistic">R5. The distribution behind the statistic</h3>
+<p>Every tier value compresses a 100-year simulated record through one statistic — frequency of shortfall (CWS), frequency April storage exceeds thresholds (RES), years meeting flow targets (ENV), and so on. Climate change can reshape the record in ways the statistic is blind to: deeper but not more frequent shortfalls, worsening drought tails around a stable median. A small ΔHC then reads "climate barely matters here," which is true of the statistic and false of the record. The percentile-ranked Delta composite has a sharper version: if ranked against a moving reference set, re-ranking alone can generate apparent decomposition movement with no model change (the fixed-reference requirement in <code>ordinal_vs_continuous_tiers.md</code> exists for this reason and becomes load-bearing here).</p>
+<p><em>Guardrails.</em> Keep each sector's tier basis one click away from any decomposition figure; let the In-depth pathway be the explicit escape hatch ("see the full record behind this tier"); confirm the Delta reference set is fixed and named before any decomposition ships for that sector. Test T6 measures tail divergence directly.</p>
+<h3 id="r6-aggregation-and-changing-location-sets">R6. Aggregation and changing location sets</h3>
+<p>Sector-level decompositions summarize across locations, and two things can contaminate the summary. One is ordinary aggregation loss (concepts 13 and 23 — the mean improves while a tail of communities stays Critical). The other is specific and currently live: the CWS location set <em>varies by scenario</em> (the 2026-06-11 API snapshot shows 79–124 CWS locations depending on scenario). A sector mean computed over different location sets in T(a, s, h) and B(s, h) is not a paired comparison at all — part of its "Δop" is just composition. Until location sets stabilize, any sector-level CWS decomposition is suspect.</p>
+<p><em>Guardrails.</em> Compute sector-level decompositions only over the intersection of location sets for the runs being compared (or per-location first, then summarize the matched set); pair any sector-level arrow with the worst-off-locations measure ("% at Critical"). Test T5 quantifies the composition effect with current data.</p>
+<h3 id="r7-the-rescue-narrative">R7. The rescue narrative</h3>
+<p>Climate-then-operations storytelling has a built-in moral arc: climate damages, strategy rescues. Repeated across sectors it drifts toward advocacy for whichever strategies "rescue" the most — against the non-directive framing the project is committed to. This is a copy risk, not a methods risk, but decomposition figures generate more of this copy than any other surface.</p>
+<p><em>Guardrail.</em> The existing two-sidedness rule, applied to decomposition copy specifically: every "returns sector X to Acceptable" names the sector that pays for it in the same breath. Reviewable; should be part of the brief and website copy checklist.</p>
+<h2 id="4-conditions-for-sound-use">4. Conditions for sound use</h2>
+<p>Collecting the guardrails into one statement: the tier decomposition is defensible when presented <strong>per location or per sector (not across sectors), on continuous tier values, with the climate named in every effect statement, the matched baseline visible, the convention disclosed in one sentence, sector summaries computed on matched location sets, and a robustness view available wherever a single-climate Δop is shown.</strong> The stepper prototype already satisfies most of these by design; the exposure is in derivative copy — briefs, summaries, social excerpts — where the qualifications get trimmed. The guardrails are therefore mostly editorial discipline, which is enforceable, rather than methodological repair, which would not be.</p>
+<h2 id="5-defined-empirical-tests">5. Defined empirical tests</h2>
+<p>Three of the risks above (R1/R2 via interaction size; R3 via threshold proximity; R6 via composition) are quantitative questions. The tests below are defined to be runnable in MATLAB or Python the day per-location continuous tier values are served for all scenarios × served hydroclimates (BL, HC1, HC2). Until then T2 and T5 can run provisionally on the ordinal tiers in the current API (snapshot-pinned per the api_watch discipline). Notation: a indexes strategies, ℓ locations, k sectors, h served non-historical hydroclimates; all tier values continuous unless stated.</p>
+<p><strong>T1 — Interaction magnitude.</strong> For every (a, k, ℓ, h), compute I = [T(a,ℓ,h) − B(ℓ,h)] − [T(a,ℓ,BL) − B(ℓ,BL)]. Report the distribution of |I| per sector; the share with |I| &gt; 0.25 (a quarter band) and &gt; 0.5; and the Δop sign-flip rate across h (the concept-19 statistic). <em>Reading:</em> small |I| means the portability misreading (R1) is mostly harmless in practice; large |I| means the robustness view must accompany every single-climate Δop, and strategy–sector pairs with sign flips get non-robustness-first copy.</p>
+<p><strong>T2 — Threshold proximity.</strong> Among all (a, k, ℓ, h) where the ordinal tier differs from its comparison run (for both the ΔHC and Δop contrasts), the share where the continuous value lies within ε = 0.1 of the band edge it crossed. <em>Reading:</em> a high share means many headline "tier changes" are coin flips at a threshold; such flips should not be narrated individually, only in aggregate, and the figure should de-emphasize them (e.g., no crossing-into-At-risk callout when both values are within ε of 3.0).</p>
+<p><strong>T3 — Mapping distortion.</strong> Within each sector, the Spearman rank correlation between |Δop| in continuous tier units and |Δop| in the sector's underlying raw metric, across (a, ℓ, h). <em>Reading:</em> high rank agreement means tier-space arrow lengths at least order effects correctly within a sector; low agreement means even within-sector "bigger arrow = bigger effect" is unsafe and copy must avoid comparative magnitude entirely. Requires the tier-basis metric per location, which the In-depth data path serves.</p>
+<p><strong>T4 — Floor constraint and edge jumps.</strong> Verify floor(continuous) equals the served ordinal tier everywhere (the two representations must not contradict; this is the constraint in <code>ordinal_vs_continuous_tiers.md</code>). Then count decomposition arrows (either component) that span a band edge in threshold-driven sectors — each is a discontinuity crossing where visual length mixes regimes (R3). <em>Reading:</em> any floor violation is a data bug to send back to the platform team; a high crossing count in a sector argues for category-language-only presentation there.</p>
+<p><strong>T5 — Composition audit.</strong> For every scenario pair entering a sector summary, the Jaccard overlap of location sets; then the sector-level Δop computed on the full sets versus the intersection. The difference is the composition artifact. <em>Reading:</em> runnable now on ordinal CWS data; if the artifact exceeds, say, 0.1 tier units for any pair, intersection-based summaries become mandatory in the build pipeline, not just recommended.</p>
+<p><strong>T6 — Tail divergence.</strong> For each sector's tier-basis metric, recompute ΔHC and Δop using a dry-tail statistic (mean over the driest decile of years, or the sector team's preferred stress statistic) and compare signs with the standard tier statistic. Report the share of (a, k, ℓ, h) where direction disagrees. <em>Reading:</em> where disagreement concentrates (sectors, regions), decomposition copy must not say "climate barely affects this sector" on the strength of a small ΔHC; the In-depth link gets promoted from escape hatch to recommended next click.</p>
+<p><strong>Gate.</strong> Run T1–T6 when continuous tiers land (expected before the ~early-August data lock; launch 2026-09-03). Clean results: ship decomposition figures with the §4 conditions. Mixed results: the affected sectors or strategy pairs get narrowed presentation per the readings above. The tests are cheap — they are bookkeeping over arrays the API already structures — so there is no schedule argument against gating.</p>
+<h2 id="6-bottom-line">6. Bottom line</h2>
+<p>We are not misleading anyone by <em>having</em> the decomposition — its components are honest model contrasts, its order has a principled rationale, and tier space is the right place for it. We would mislead by letting its outputs travel without their conditions: an operations effect quoted without its climate, an arrow length read as a physical magnitude, a sector mean computed over mismatched communities, a small climate arrow mistaken for climate safety. All of these are preventable with stated conventions, editorial discipline, and the six tests above run before launch. The decomposition should stay; the burden it carries is documentation and verification, and this document is the first half of that burden.</p>
+<hr>
+<p><em>Status: working evaluation in <code>_meta/audits/</code>; graduates to <code>shared/</code> (and the working-pages hub) after team review. Companion decisions: core concept 16 (the decomposition), concept 17 (tier-pathway only — raw output gets paired contrasts), <code>data-in-depth/NOTES.md</code> (rationale for the raw-output half). Test results, when run, should be recorded as a dated companion audit and summarized back into this document.</em></p>
+</main>
+<footer>
+Working material; the cited repository documents remain canonical. Questions: Eric Danner.<br>
+Page generated 2026-06-12 17:24.
+</footer>
+</body>
+</html>

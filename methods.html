@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COEQWAL methods notes</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:28px 24px; }
+  header h1 { margin:0 0 6px; font-size:26px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  header a { color:#fff; }
+  main { max-width:760px; margin:0 auto; padding:24px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--line); padding-bottom:6px; margin:32px 0 12px; font-weight:normal; color:var(--accent); }
+  h3 { font-size:17px; margin:24px 0 10px; color:var(--accent); font-weight:normal; }
+  p { margin:0 0 14px; }
+  hr { border:none; border-top:1px solid var(--line); margin:24px 0; }
+  code { font:14px/1.4 Menlo, Consolas, monospace; background:#eef2f5; padding:1px 4px; border-radius:3px; }
+  pre { background:#eef2f5; border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }
+  pre code { background:none; padding:0; }
+  ul, ol { margin:0 0 14px; padding-left:22px; }
+  li { margin-bottom:6px; }
+  blockquote { border-left:3px solid var(--accent); margin:0 0 14px; padding:6px 14px; background:#fff; }
+  blockquote p { margin:0; }
+  table { border-collapse:collapse; width:100%; background:#fff; font-size:14px; margin:0 0 16px; }
+  th, td { border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top; }
+  th { background:#eef2f5; }
+  img.figure { max-width:100%; background:#fff; border:1px solid var(--line); border-radius:6px; padding:8px; }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin:36px auto 0; max-width:760px; padding-left:24px; padding-right:24px; padding-bottom:24px; }
+  
+  .page { display:block; background:#fff; border:1px solid var(--line); border-radius:6px;
+          padding:16px 20px; margin:16px 0; text-decoration:none; color:var(--ink); }
+  .page:hover { border-color:var(--accent); }
+  .page .name { color:var(--accent); font-size:19px; }
+  .page .desc { margin:8px 0 4px; font-size:14.5px; }
+  .page .meta { font-size:13px; color:var(--muted); }
+  .badge { display:inline-block; margin-left:10px; font-size:12px; padding:2px 9px;
+           border-radius:10px; background:#e7eef4; color:var(--accent); vertical-align:2px; }
+  .badge.draft { background:#fdf3ec; color:#b3541e; }
+
+</style>
+</head>
+<body>
+<header>
+  <h1>COEQWAL methods notes</h1>
+  <p>Summaries and technical reports behind the results: how tiers are calculated, what comparisons mean, and where the limits are. <a href="index.html">Back to working pages</a>.</p>
+</header>
+<main>
+<p class="intro" style="color:var(--muted); max-width:70ch;">Methods notes, evaluations, and convention documents — the reasoning behind how COEQWAL results are calculated, compared, and presented. Each document carries a status label: a <strong>draft for team review</strong> is not settled methodology — read it critically and send comments.</p>
+<a class="page" href="methods/tier-decomposition-evaluation.html" target="_blank" rel="noopener"><span class="name">Is the climate/operations decomposition sound on tier results?</span><span class="badge draft">Draft for team review</span><p class="desc">Evaluation of the climate-vs-operations split shown on tier results — the interpretive core of the public website. Verdict: sound, with conditions. The operations effect is a property of a strategy–climate pair, not of a strategy alone; the document enumerates seven ways readers could be misled, the guardrail for each, and six empirical tests (T1–T6) to run as a gate before decomposition figures ship. Companion decision: the split is never applied to raw model output (core concept 17).</p><span class="meta">Last updated 2026-06-12 17:11</span></a>
+<a class="page" href="methods/ordinal-vs-continuous-tiers.html" target="_blank" rel="noopener"><span class="name">Ordinal vs. continuous tiers</span><span class="badge">Methods note — in use</span><p class="desc">How the sector teams convert integer tier assignments (1–4) into continuous tier values on [1, 4.99]: the band convention, linear and nonlinear within-band mappings, the threshold constraint (floor() must recover the discrete tier), open-ended Tier 4, and a worked example from environmental flows. The data platform serves integer tiers today; continuous values are in progress.</p><span class="meta">Last updated 2026-06-07 17:28</span></a>
+<a class="page" href="methods/baseline-terminology.html" target="_blank" rel="noopener"><span class="name">Baseline terminology conventions</span><span class="badge">Canonical convention</span><p class="desc">Why “baseline” without a modifier always means current operations under the historical climate, and why the climate-projected baselines (current operations run forward under each projected climate) are kept terminologically distinct. Includes the three-term vocabulary and how it maps onto the decomposition algebra — the document the tier-decomposition evaluation leans on.</p><span class="meta">Last updated 2026-06-09 21:43</span></a>
+</main>
+<footer>
+Documents carry status labels; drafts are not settled methodology. Questions: Eric Danner.<br>
+Page generated 2026-06-12 17:24.
+</footer>
+</body>
+</html>

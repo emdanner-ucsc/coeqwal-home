@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baseline terminology conventions</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:28px 24px; }
+  header h1 { margin:0 0 6px; font-size:26px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  header a { color:#fff; }
+  main { max-width:820px; margin:0 auto; padding:24px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--line); padding-bottom:6px; margin:32px 0 12px; font-weight:normal; color:var(--accent); }
+  h3 { font-size:17px; margin:24px 0 10px; color:var(--accent); font-weight:normal; }
+  p { margin:0 0 14px; }
+  hr { border:none; border-top:1px solid var(--line); margin:24px 0; }
+  code { font:14px/1.4 Menlo, Consolas, monospace; background:#eef2f5; padding:1px 4px; border-radius:3px; }
+  pre { background:#eef2f5; border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow-x:auto; }
+  pre code { background:none; padding:0; }
+  ul, ol { margin:0 0 14px; padding-left:22px; }
+  li { margin-bottom:6px; }
+  blockquote { border-left:3px solid var(--accent); margin:0 0 14px; padding:6px 14px; background:#fff; }
+  blockquote p { margin:0; }
+  table { border-collapse:collapse; width:100%; background:#fff; font-size:14px; margin:0 0 16px; }
+  th, td { border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top; }
+  th { background:#eef2f5; }
+  img.figure { max-width:100%; background:#fff; border:1px solid var(--line); border-radius:6px; padding:8px; }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin:36px auto 0; max-width:820px; padding-left:24px; padding-right:24px; padding-bottom:24px; }
+  
+</style>
+</head>
+<body>
+<header>
+  <h1>Baseline terminology conventions</h1>
+  <p>Canonical convention · last updated 2026-06-09 21:43. Source: <code style="color:#fff">shared/baseline_terminology.md</code>. <a href="index.html">Back to working pages</a>.</p>
+</header>
+<main>
+<h2 id="coeqwal-the-landscape">COEQWAL — The Landscape</h2>
+<p><em>2026-04-04</em></p>
+<blockquote><p><strong>Status note (2026-06-09):</strong> the served hydroclimate set is <strong>BL + HC1 + HC2 only</strong> (per <code>coeqwal_conventions.md</code>, corrected 2026-06-09). There is no served HC3 — TaiESM1 (the model previously carrying the editorial "HC3" label) and EC-Earth3-Veg are run but not yet served. Where this doc enumerates "HC1, HC2, HC3", read "every served non-historical hydroclimate"; the concepts apply unchanged as new climates come online.</p></blockquote>
+<hr>
+<h2 id="the-problem">The problem</h2>
+<p>The word "baseline" currently refers to two conceptually distinct things in the project: the lived status quo (s0020 × Historical HC), and the counterfactual reference points produced by running current operations through alternative climate futures (s0020 × HC1, HC2, HC3). Calling both "baselines" collapses a distinction that is load-bearing for interpretation: one is empirical and grounded in current experience; the others are forward-looking projections of what would happen if climate changed but operations didn't. When the modifier gets dropped in conversation, workshop notes, or memory — and it will — the grounding is lost.</p>
+<hr>
+<h2 id="terminology">Terminology</h2>
+<h3 id="the-baseline">The baseline</h3>
+<p><strong>Definition:</strong> s0020 (current operations) × Historical hydroclimate. The one scenario-hydroclimate combination that represents the actual, experienced status quo.</p>
+<p><strong>Visual encoding:</strong> The single dot per sector or LOI sitting on the diagonal in the Historical HC view. This is the fixed origin for all geometric decompositions.</p>
+<p>This is the only entity called "baseline" without qualification. When a visitor, workshop participant, or document says "the baseline," it means this and only this.</p>
+<table><thead><tr><th>Context</th><th>Phrasing</th></tr></thead><tbody>
+<tr><td>Methods documentation</td><td>Primary baseline: <code>B(s, BL) = T(a₀, s, BL)</code></td></tr>
+<tr><td>Internal shorthand</td><td>Primary baseline; s0020 × BL</td></tr>
+<tr><td>Explore questions / tour</td><td>"Current operations under today's climate" or "today's conditions"</td></tr>
+<tr><td>Tooltips</td><td>"Current operations (historical climate)"</td></tr>
+<tr><td>Compact UI label</td><td>"Baseline"</td></tr>
+<tr><td>Verbal / workshop</td><td>"The baseline — what's happening now"</td></tr>
+</tbody></table>
+<hr>
+<h3 id="climate-projected-baselines">Climate-projected baselines</h3>
+<p><strong>Definition:</strong> s0020 (current operations) × any non-historical hydroclimate (HC1, HC2, HC3). Full CalSim simulation runs that project current operations forward into alternative climate futures. These are not corrections or adjustments applied to the primary baseline — they are independent model runs with different climate inputs. They exist to isolate what climate contributes from what operational strategy contributes.</p>
+<p><strong>Visual encoding:</strong> Hollow circles on the diagonal in the All HC view, colored by hydroclimate. Each sits at <code>(B(s, h), B(s, h))</code> for its respective HC.</p>
+<p><strong>Why "projected":</strong> The HC-paired references are forward-looking simulations — projections of where current operations would land under climates that haven't arrived yet. "Projected" conveys that a model was run, not that a number was corrected. It avoids the connotation of "adjusted" (which implies a mathematical transformation of existing data) and "reference" (which understates the structural role these points play as the denominators of the Δop calculation).</p>
+<p><strong>Why "baseline" is retained:</strong> These points represent unchanged operations. Dropping "baseline" from the label risks implying that something about the strategy has changed. Retaining it communicates that these are still current operations — the same policy, the same rules — just operating in a different climate. The modifier "climate-projected" carries the distinction from the primary baseline; the shared word "baseline" carries the shared structural role (the thing operational impact is measured from).</p>
+<table><thead><tr><th>Context</th><th>Phrasing</th></tr></thead><tbody>
+<tr><td>Methods documentation</td><td>Climate-projected baseline: <code>B(s, h) = T(a₀, s, h)</code> for h ≠ BL</td></tr>
+<tr><td>Internal shorthand</td><td>Climate-projected baseline; CPB; s0020 × [HC]</td></tr>
+<tr><td>Explore questions / tour narratives</td><td>"Where current operations would land under [climate name]" or "the projected starting point under [climate name]"</td></tr>
+<tr><td>Tooltips (All HC view, hollow circles)</td><td>"Current operations under [Warmer and Drier I / etc.]"</td></tr>
+<tr><td>Compact UI label (if needed)</td><td>"Projected baseline"</td></tr>
+<tr><td>Verbal / workshop</td><td>"The projected baseline for that climate" or "where we'd be under [climate] if we changed nothing about how we manage water"</td></tr>
+</tbody></table>
+<hr>
+<h3 id="scenario-outcomes">Scenario outcomes</h3>
+<p><strong>Definition:</strong> Any alternative scenario <code>a ≠ a₀</code> paired with any hydroclimate. The thing being evaluated. Always measured against its own HC-matched baseline (primary or climate-projected).</p>
+<p><strong>Visual encoding:</strong> Filled, colored dots displaced vertically from the diagonal. Their vertical distance from the diagonal equals Δop — the net operational impact.</p>
+<table><thead><tr><th>Context</th><th>Phrasing</th></tr></thead><tbody>
+<tr><td>Methods documentation</td><td>Scenario outcome: <code>T(a, s, h)</code></td></tr>
+<tr><td>Explore questions / tour</td><td>"Where [sector] lands under [strategy name]" or "the outcome under this strategy"</td></tr>
+<tr><td>Tooltips</td><td>"[Strategy name] under [climate name]: Tier [value]"</td></tr>
+<tr><td>Verbal / workshop</td><td>"What the strategy produces"</td></tr>
+</tbody></table>
+<hr>
+<h2 id="the-three-term-vocabulary">The three-term vocabulary</h2>
+<p>The complete naming system:</p>
+<table><thead><tr><th>Term</th><th>What it is</th><th>Operations</th><th>Climate</th><th>Role in decomposition</th></tr></thead><tbody>
+<tr><td><strong>Baseline</strong></td><td>s0020 × Historical</td><td>Current</td><td>Historical</td><td>Fixed visual origin on diagonal; departure point for all comparisons</td></tr>
+<tr><td><strong>Climate-projected baseline</strong></td><td>s0020 × HC1/HC2/HC3</td><td>Current</td><td>Projected future</td><td>HC-matched reference for computing Δop; encodes ΔHC relative to primary baseline</td></tr>
+<tr><td><strong>Scenario outcome</strong></td><td>Alternative × any HC</td><td>Alternative</td><td>Any</td><td>The evaluated outcome; Δop = scenario outcome − matched baseline</td></tr>
+</tbody></table>
+<p>Every scenario outcome is compared to <em>a</em> baseline. For Historical HC, that's the baseline. For any other HC, it's the climate-projected baseline for that HC. The word "baseline" appears in both because both play the same structural role — the denominator in the Δop calculation. The modifier tells you which climate context the reference lives in.</p>
+<hr>
+<h2 id="usage-in-the-decomposition">Usage in the decomposition</h2>
+<p>The terminology maps directly onto the decomposition algebra:</p>
+<p><strong>ΔHC</strong> = climate-projected baseline − baseline "How much does climate alone move the starting point from where we are today?"</p>
+<p><strong>Δop</strong> = scenario outcome − its matched baseline (primary or climate-projected) "What does the strategy contribute, measured against the appropriate starting point for that climate?"</p>
+<p>The phrase "measured against the appropriate starting point for that climate" is the plain-language version of "evaluated against B(s, h)" — and the terminology makes it parseable without the algebra.</p>
+<hr>
+<h2 id="application-to-current-tool-text">Application to current tool text</h2>
+<h3 id="tour-step-5-climate-futures">Tour step 5 (Climate futures)</h3>
+<p><strong>Current:</strong> "...six hollow circles on the diagonal showing where each sector starts before any strategy is applied. The hollow circles tell the climate story..."</p>
+<p><strong>Revised:</strong> "...hollow circles on the diagonal showing where current operations would land under each climate future. These are the projected starting points — same operations, different climates. The spread of hollow circles along the diagonal tells the climate story..."</p>
+<p>The revision names what the hollow circles <em>are</em> (projected starting points for current operations under different climates) rather than only what they <em>show</em> (the climate story). A visitor who reads "where each sector starts" may not understand that these represent full model simulations of current operations under projected climates.</p>
+<h3 id="explore-question-eq-hc2-narrative">Explore question eq-hc2 narrative</h3>
+<p><strong>Current:</strong> "The hollow baseline circles on the diagonal show where each sector's starting point lands under each climate — that is the climate signal, independent of any strategy. The vertical gap between each filled dot and the diagonal shows what the strategy adds on top of that climate baseline..."</p>
+<p><strong>Revised:</strong> "The hollow circles on the diagonal show where current operations would land under each climate future — the climate-projected starting points. Their spread is the climate signal, independent of any strategy. The vertical gap between each filled dot and the diagonal shows what the strategy adds on top of the projected starting point for that climate..."</p>
+<h3 id="tooltip-for-hollow-circles-all-hc-view">Tooltip for hollow circles (All HC view)</h3>
+<p><strong>Current:</strong> (varies / not standardized)</p>
+<p><strong>Proposed:</strong> "Current operations under [Warmer and Drier I]: Tier [value]"</p>
+<p>This is short enough for a tooltip, identifies the operations (current), identifies the climate (by name), and gives the outcome. It does not use the word "baseline" in the tooltip itself — the concept is communicated by "current operations" — which avoids the modifier-dropping problem in the most space-constrained context.</p>
+<h3 id="equity-baselines-ghost-circles-narrative-formerly-eq-eq3-now-consolidated-into-eq-eq1-eq-eq2">Equity baselines / ghost circles narrative (formerly eq-eq3, now consolidated into eq-eq1/eq-eq2)</h3>
+<p><strong>Current:</strong> "...the hollow circles show where each node sits under current operations; the filled dots show where they land under this alternative strategy."</p>
+<p>This phrasing is already correct and does not need revision. The ghost circles in equity spread mode represent current operations under the active HC (typically Historical), and the text says exactly that. The term "baseline ghosts" in the toggle label could be revised to "current operations ghosts" or simply left as is — the toggle is a compact UI element where "baseline" is unambiguous because only one HC is active.</p>
+<hr>
+<h2 id="edge-cases">Edge cases</h2>
+<p><strong>Single-HC views (Historical):</strong> In any view with only Historical HC selected, there is only one baseline and no climate-projected baselines exist. The term "baseline" is unambiguous. No modifier needed.</p>
+<p><strong>All-HC views with sector hulls:</strong> The hull encloses dots anchored to <em>different</em> climate-projected baselines. The hull's horizontal extent is the spread of climate-projected baselines along the diagonal. Descriptive phrasing: "the range of projected starting points across climate futures."</p>
+<p><strong>Centroid displacement from primary baseline:</strong> The staircase decomposition (section 3.2 of <code>point_placement_geometry.md</code>) moves from the baseline to the centroid in two steps: first along the diagonal (mean ΔHC — the average shift of the climate-projected baselines from the primary baseline), then vertically off the diagonal (mean Δop — the average operational impact). Descriptive phrasing: "On average across climate futures, the projected starting point shifts [direction] from today's baseline, and the strategy [improves/degrades] outcomes by [magnitude] on top of that shift."</p>
+<p><strong>Methods layer:</strong> The algebraic notation <code>B(s, h)</code> covers both the primary baseline (h = BL) and climate-projected baselines (h ≠ BL) under a single symbol. This is correct and should not change — the algebra doesn't need the distinction because <code>h</code> already parameterizes it. The terminology distinction is for human communication, not for the math.</p>
+<hr>
+<h2 id="summary">Summary</h2>
+<table><thead><tr><th>Rule</th><th>Rationale</th></tr></thead><tbody>
+<tr><td>"Baseline" alone always means s0020 × Historical</td><td>Preserves grounding to lived experience; prevents modifier-dropping ambiguity</td></tr>
+<tr><td>"Climate-projected baseline" for s0020 × non-historical HC</td><td>"Projected" conveys forward-looking simulation, not data correction; "baseline" retained because operations are unchanged</td></tr>
+<tr><td>Tooltips and narratives use descriptive phrases</td><td>"Where current operations would land under [climate]" is self-explanatory without requiring the reader to have learned the term</td></tr>
+<tr><td>"Scenario outcome" for all alternative scenario dots</td><td>Clean separation from both baseline types; names the thing being evaluated</td></tr>
+<tr><td>Methods documentation retains <code>B(s, h)</code> notation for both</td><td>The algebra parameterizes the distinction via <code>h</code>; no notational change needed</td></tr>
+</tbody></table>
+</main>
+<footer>
+Working material; the cited repository documents remain canonical. Questions: Eric Danner.<br>
+Page generated 2026-06-12 17:24.
+</footer>
+</body>
+</html>
