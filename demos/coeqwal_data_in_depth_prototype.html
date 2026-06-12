@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COEQWAL · Data In-Depth Explorer (Prototype)</title>
+<style>
+:root{
+  --ink:#1a2733; --ink2:#46586a; --ink3:#7a8a99;
+  --bg:#f4f7f9; --panel:#ffffff; --line:#dde5ec; --line2:#eef2f6;
+  --accent:#0b6e8e; --accent2:#0d87ae; --accentbg:#e3f0f5;
+  --warn:#9a6700; --warnbg:#fff3d6;
+  --radius:10px;
+  font-size:15px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0}
+select{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:7px;padding:5px 8px;max-width:280px}
+header.top{background:#fff;border-bottom:1px solid var(--line);padding:14px 22px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+header.top h1{font-size:1.15rem;margin:0;font-weight:700;letter-spacing:.01em}
+header.top h1 span.brand{color:var(--accent)}
+header.top .pathway{font-size:.85rem;color:var(--ink2)}
+header.top .proto{margin-left:auto;font-size:.75rem;background:var(--warnbg);color:var(--warn);border:1px solid #ecd9a0;border-radius:20px;padding:3px 12px;font-weight:600}
+.app{display:flex;min-height:calc(100vh - 58px);align-items:stretch}
+/* ---------- left rail ---------- */
+aside.rail{width:252px;min-width:252px;background:#fff;border-right:1px solid var(--line);padding:14px 10px 30px}
+aside.rail .railhead{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);padding:4px 10px 8px;font-weight:700}
+.sector{margin-bottom:2px}
+.sector > button.sectbtn{display:flex;width:100%;text-align:left;padding:7px 10px;border-radius:7px;font-weight:600;font-size:.92rem;color:var(--ink);align-items:center;gap:7px}
+.sector > button.sectbtn:hover{background:var(--line2)}
+.sector > button.sectbtn .caret{margin-left:auto;color:var(--ink3);font-size:.7rem;transition:transform .15s}
+.sector.open > button.sectbtn .caret{transform:rotate(90deg)}
+.sector .vars{display:none;padding:1px 0 5px}
+.sector.open .vars{display:block}
+.sector .vars button{display:block;width:100%;text-align:left;padding:5px 10px 5px 24px;border-radius:7px;font-size:.86rem;color:var(--ink2)}
+.sector .vars button:hover{background:var(--line2)}
+.sector .vars button.sel{background:var(--accentbg);color:var(--accent);font-weight:600}
+.sector.locked > button.sectbtn{color:var(--ink3);font-weight:500}
+.sector .lockednote{font-size:.74rem;color:var(--ink3);padding:2px 10px 6px 24px;font-style:italic}
+/* ---------- main ---------- */
+main{flex:1;padding:18px 26px 60px;min-width:0;max-width:1200px}
+.crumb{font-size:.8rem;color:var(--ink3);margin-bottom:8px}
+.crumb b{color:var(--ink2);font-weight:600}
+/* compare-by + context bar */
+.controls{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:13px 16px;margin-bottom:14px}
+.controls .row{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.ctl{display:flex;flex-direction:column;gap:5px}
+.ctl label.ctlname{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:700}
+.seg{display:inline-flex;background:var(--line2);border-radius:8px;padding:3px;gap:2px}
+.seg button{padding:5px 13px;border-radius:6px;font-size:.85rem;color:var(--ink2);font-weight:500;white-space:nowrap}
+.seg button.sel{background:#fff;color:var(--accent);font-weight:650;box-shadow:0 1px 2px rgba(20,40,60,.14)}
+.seg button:disabled{opacity:.4;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:6px;max-width:640px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:18px;padding:4px 12px;font-size:.83rem;color:var(--ink2);background:#fff}
+.chip:hover{border-color:var(--accent2)}
+.chip.on{background:var(--accentbg);border-color:var(--accent);color:var(--accent);font-weight:600}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:transparent;border:1.5px solid currentColor;flex:none}
+.chip.on .dot{border:none}
+.hint{font-size:.76rem;color:var(--ink3);margin-top:6px}
+.scenpicker{position:relative}
+.scenbtn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 10px;font-size:.86rem;color:var(--ink)}
+.scenmenu{position:absolute;z-index:30;top:calc(100% + 4px);left:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px rgba(20,40,60,.16);padding:8px;width:430px;max-height:420px;overflow:auto;display:none}
+.scenmenu.open{display:block}
+.scenmenu .grp{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:700;padding:8px 8px 3px}
+.scenmenu button.opt{display:flex;width:100%;text-align:left;gap:8px;padding:6px 8px;border-radius:7px;font-size:.85rem;color:var(--ink2);align-items:baseline}
+.scenmenu button.opt:hover{background:var(--line2)}
+.scenmenu button.opt.sel{background:var(--accentbg);color:var(--accent);font-weight:600}
+.scenmenu button.opt .sid{font-size:.7rem;color:var(--ink3);margin-left:auto;flex:none}
+/* view bar */
+.viewbar{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.viewbar .spacer{flex:1}
+.actions button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 11px;font-size:.8rem;color:var(--ink2);margin-left:6px}
+.actions button:hover{border-color:var(--accent2);color:var(--accent)}
+/* summary + chart card */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.summary{font-size:.95rem;color:var(--ink);margin:2px 0 4px}
+.summary .delta-up{color:#0a7a4b;font-weight:650}
+.summary .delta-down{color:#b3403a;font-weight:650}
+.chartwrap{margin-top:6px}
+.chartwrap svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 2px 2px;font-size:.82rem;color:var(--ink2)}
+.legend .key{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{width:14px;height:4px;border-radius:2px;flex:none}
+.synthnote{font-size:.74rem;color:var(--ink3);margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+/* explainers */
+details.expl{background:#fff;border:1px solid var(--line);border-radius:var(--radius);margin-top:12px;padding:0 16px}
+details.expl summary{cursor:pointer;font-size:.88rem;font-weight:600;color:var(--accent);padding:11px 0;list-style:none}
+details.expl summary::-webkit-details-marker{display:none}
+details.expl summary:before{content:"+";display:inline-block;width:18px;color:var(--ink3);font-weight:700}
+details.expl[open] summary:before{content:"–"}
+details.expl .body{font-size:.86rem;color:var(--ink2);padding:0 0 14px 18px;max-width:760px}
+details.expl .body p{margin:6px 0}
+.locked-main{padding:60px 30px;text-align:center;color:var(--ink3)}
+.locked-main h2{color:var(--ink2);font-weight:650}
+footer{padding:18px 26px 36px;font-size:.76rem;color:var(--ink3);max-width:900px}
+@media (max-width:880px){.app{flex-direction:column}aside.rail{width:auto;min-width:0;border-right:none;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1><span class="brand">COEQWAL</span> · Data In-Depth Explorer</h1>
+  <div class="pathway">Result pathway 2 of 2: raw model output &nbsp;·&nbsp; <a href="#" onclick="return false" style="color:var(--accent)">switch to Key Outcomes (tiers) →</a></div>
+  <div class="proto">PROTOTYPE · SYNTHETIC DATA</div>
+</header>
+<div class="app">
+  <aside class="rail" id="rail"></aside>
+  <main id="main"></main>
+</div>
+<footer>
+  This is a design prototype for the COEQWAL data-in-depth pathway. All values are <b>synthetic</b>, generated client-side to
+  mimic the structure of CalSim3 post-processed outputs (scenario × hydroclimate × location). Scenario contrasts and climate
+  responses are illustrative only and must not be interpreted as model results. Content structure follows the
+  “In-Depth Outcomes” tab of the COEQWAL Platform Content Summary (v2026-06-05).
+</footer>
+<script>
+"use strict";
+/* ============================================================
+   CONTENT MODEL — derived from COEQWAL Platform Content Summary
+   (Scenarios, Hydroclimates, In-Depth Outcomes, LOIs tabs)
+   ============================================================ */
+const CLIMATES=[
+ {id:"hist",   name:"Historical",          stress:0.00, desc:"Historical temperature and precipitation over Central Valley inflow basins (DWR DCR2023 baseline)."},
+ {id:"mod",    name:"Moderate risk",       stress:0.15, desc:"+1.2 °C, somewhat wetter (LOCA2 EC-Earth3-Veg SSP370; 44% level-of-concern)."},
+ {id:"modhigh",name:"Moderate-high risk",  stress:0.40, desc:"+1.5 °C, −1.5% precipitation (DWR WGEN 50th percentile level-of-concern, CC50)."},
+ {id:"high",   name:"High risk",           stress:0.70, desc:"+1.8 °C, slight precipitation decline (DWR WGEN 95th percentile level-of-concern, CC95)."},
+ {id:"extreme",name:"Extreme risk",        stress:1.00, desc:"+1.9 °C, −7.2% precipitation (LOCA2 TaiESM1 SSP370)."}
+];
+const THEMES=[
+ {id:"cur",   name:"Current operations"},
+ {id:"cws",   name:"Community water supplies"},
+ {id:"farm",  name:"Farms and groundwater"},
+ {id:"salmon",name:"Rivers and salmon"},
+ {id:"delta", name:"The Delta"}
+];
+/* eff: fractional shifts vs Current operations, applied to the matching variable family.
+   sod:true → effect concentrated South of Delta. */
+const SCENARIOS=[
+ {id:"s0020",theme:"cur",name:"Current operations",base:true,eff:{},desc:"Existing operational rules for Central Valley water allocations (DWR benchmark)."},
+ {id:"s0011",theme:"cur",name:"Current ops · historical land use",eff:{agDel:.02,gwStor:.03},desc:"Current operations with historical land use assumptions."},
+ {id:"s0021",theme:"cur",name:"Current ops · no TUCPs",eff:{storage:-.04,outflow:.05,exports:-.05,sal:-.04},desc:"Current operations without Temporary Urgency Change Petitions in dry years."},
+ {id:"s0024",theme:"cur",name:"Current USBR operations",eff:{exports:.04,storage:-.02,flows:-.03},desc:"Existing operational rules as specified by USBR (LTO Alt 2)."},
+ {id:"s0023",theme:"cur",name:"Current USBR ops · no TUCPs",eff:{exports:-.02,outflow:.04,sal:-.03,storage:-.04},desc:"USBR operations without TUCPs."},
+ {id:"s0035",theme:"cws",name:"Prioritize CWS human-health deliveries",eff:{cws:.15,cwsShort:-.45,agDel:-.03},desc:"Deliveries meeting human health and safety needs of community water systems are prioritized."},
+ {id:"s0037",theme:"cws",name:"Prioritize full CWS demands",eff:{cws:.30,cwsShort:-.65,agDel:-.08,storage:-.03},desc:"Deliveries meeting full contract/demand levels of community water systems are prioritized."},
+ {id:"s0025",theme:"farm",name:"GW pumping limits · San Joaquin Valley",sod:true,eff:{pump:-.30,short:.45,rev:-.07,gwStor:.15,gwTrend:.60},desc:"Groundwater pumping limits applied to farms in the San Joaquin Valley (SGMA-like)."},
+ {id:"s0026",theme:"farm",name:"GW limits + reduced crops · SJV",sod:true,eff:{pump:-.35,agDel:-.12,short:.20,rev:-.11,gwStor:.20,gwTrend:.70},desc:"SJV pumping limits with projected reductions in crop acreage."},
+ {id:"s0027",theme:"farm",name:"GW pumping limits · Central Valley",eff:{pump:-.35,short:.50,rev:-.09,gwStor:.20,gwTrend:.70},desc:"Pumping limits applied throughout the Sacramento and San Joaquin Valleys."},
+ {id:"s0028",theme:"farm",name:"GW limits + reduced crops · CV",eff:{pump:-.40,agDel:-.15,short:.25,rev:-.13,gwStor:.25,gwTrend:.80},desc:"Central Valley pumping limits with reduced crop acreage."},
+ {id:"s0030",theme:"salmon",name:"No flow requirements",eff:{flows:-.30,exports:.12,agDel:.10,storage:.08,outflow:-.15,sal:.10,pctUIF:-.20},desc:"Current operations without minimum flow requirements on Central Valley rivers."},
+ {id:"s0046",theme:"salmon",name:"Functional environmental flows",eff:{flows:.30,exports:-.12,agDel:-.10,storage:-.05,outflow:.12,sal:-.06,pctUIF:.25},desc:"Functional flow requirements implemented on tributaries to the Sacramento and San Joaquin Rivers."},
+ {id:"s0032",theme:"salmon",name:"Functional flows + GW regulations",eff:{flows:.32,exports:-.15,agDel:-.12,pump:-.30,rev:-.10,gwStor:.20,gwTrend:.70,pctUIF:.27,short:.30},desc:"Functional flow requirements combined with groundwater pumping regulations."},
+ {id:"s0031",theme:"salmon",name:"Salmon-friendly flows",eff:{flows:.22,storage:.06,sepBonus:.10,exports:-.10,agDel:-.08,pctUIF:.15},desc:"Sacramento River flow requirements and Shasta cold-water storage protection for winter-run Chinook."},
+ {id:"s0033",theme:"salmon",name:"Salmon flows + GW regulations",eff:{flows:.24,storage:.06,sepBonus:.10,exports:-.12,pump:-.30,rev:-.09,gwStor:.20,gwTrend:.70,pctUIF:.17,short:.30},desc:"Salmon-friendly flows combined with groundwater pumping regulations."},
+ {id:"s0040",theme:"delta",name:"Reduce Delta outflows (35% UF)",eff:{outflow:-.15,exports:.12,sal:.12,pctUIF:-.18},desc:"USBR LTO Alt 3 strategy targeting 35% of unimpaired Delta outflow."},
+ {id:"s0041",theme:"delta",name:"Maintain Delta outflows (45% UF)",eff:{outflow:.02,exports:.02,pctUIF:.02},desc:"USBR LTO Alt 3 strategy targeting 45% of unimpaired Delta outflow."},
+ {id:"s0042",theme:"delta",name:"Increase Delta outflows (55% UF)",eff:{outflow:.15,exports:-.13,sal:-.08,pctUIF:.20},desc:"USBR LTO Alt 3 strategy targeting 55% of unimpaired Delta outflow."},
+ {id:"s0039",theme:"delta",name:"Increase Delta outflows (65% UF)",eff:{outflow:.30,exports:-.27,sal:-.15,pctUIF:.42,storage:-.07,agDel:-.10},desc:"USBR LTO Alt 3 strategy targeting 65% of unimpaired Delta outflow."},
+ {id:"s0044",theme:"delta",name:"Increase Shasta carryover storage",eff:{storage:.10,sepBonus:.12,exports:-.05,agDel:-.04},desc:"Year-to-year storage carryover target increased by 20%."},
+ {id:"s0045",theme:"delta",name:"Relax Delta salinity standards",eff:{sal:.20,exports:.08,outflow:-.10,cws:-.03},desc:"Removes the fall (X2) salinity standard in the Delta, based on current USBR operations."},
+ {id:"s0065",theme:"delta",name:"Delta Conveyance Project",eff:{exports:.10,outflow:-.04,sal:.03,cws:.05},desc:"DWR's 2025 Delta Conveyance Project scenario, with current land use."}
+];
+/* Location groups. base = synthetic median magnitude; cap for reservoirs (TAF). */
+const LOCGROUPS={
+ reservoirs:{label:"Reservoir",items:[
+   {id:"SHSTA",n:"Shasta",region:"NOD",cap:4552},
+   {id:"OROVL",n:"Oroville",region:"NOD",cap:3425},
+   {id:"TRNTY",n:"Trinity",region:"NOD",cap:2448},
+   {id:"FOLSM",n:"Folsom",region:"NOD",cap:977},
+   {id:"MELON",n:"New Melones",region:"SOD",cap:2400},
+   {id:"MLRTN",n:"Millerton",region:"SOD",cap:520},
+   {id:"SLCVP",n:"San Luis (CVP)",region:"SOD",cap:972},
+   {id:"SLSWP",n:"San Luis (SWP)",region:"SOD",cap:1067},
+   {id:"AGG_NOD",n:"All North-of-Delta",region:"NOD",cap:11402,agg:true},
+   {id:"AGG_SOD",n:"All South-of-Delta",region:"SOD",cap:4959,agg:true}
+ ]},
+ basins:{label:"Groundwater basin (WBA)",items:[
+   {id:"COL",n:"Colusa",region:"NOD",base:21000},
+   {id:"SUT",n:"Sutter",region:"NOD",base:9500},
+   {id:"YOL",n:"Yolo",region:"NOD",base:8200},
+   {id:"AMR",n:"American Basin",region:"NOD",base:7400},
+   {id:"ESJ",n:"Eastern San Joaquin",region:"SOD",base:16500},
+   {id:"MOD",n:"Modesto",region:"SOD",base:6800},
+   {id:"TUR",n:"Turlock",region:"SOD",base:7900},
+   {id:"MER",n:"Merced",region:"SOD",base:9800}
+ ]},
+ rivers:{label:"River location (LOI)",items:[
+   {id:"SAC049",n:"Sacramento R. at Freeport",region:"NOD",base:16000},
+   {id:"SAC000",n:"Sac–San Joaquin confluence",region:"NOD",base:18200},
+   {id:"FTR029",n:"Feather R. below Yuba",region:"NOD",base:4100},
+   {id:"AMR004",n:"American River",region:"NOD",base:2600},
+   {id:"YRS",n:"Yuba River",region:"NOD",base:2250},
+   {id:"SJR070",n:"San Joaquin River",region:"SOD",base:3400},
+   {id:"TLG",n:"Tuolumne River",region:"SOD",base:1750},
+   {id:"MRC",n:"Merced River",region:"SOD",base:960},
+   {id:"MKM",n:"Mokelumne River",region:"SOD",base:710}
+ ]},
+ stations:{label:"Delta station",items:[
+   {id:"EMM",n:"Emmaton",region:"Delta",base:1500},
+   {id:"JP",n:"Jersey Point",region:"Delta",base:900},
+   {id:"BANKS",n:"Banks",region:"Delta",base:450},
+   {id:"JONES",n:"Jones",region:"Delta",base:480}
+ ]},
+ delta:{label:"Location",items:[{id:"DELTA",n:"Delta (NDO node)",region:"Delta",base:13000}]},
+ sysregions:{label:"Region",items:[
+   {id:"SYS",n:"System-wide",region:"ALL",base:1},
+   {id:"NOD",n:"North of Delta",region:"NOD",base:.38},
+   {id:"SOD",n:"South of Delta",region:"SOD",base:.62}
+ ]},
+ agregions:{label:"Region (demand-unit group)",items:[
+   {id:"AG_SAC",n:"Sacramento Valley DUs",region:"NOD",base:1},
+   {id:"AG_SJV",n:"San Joaquin Valley DUs",region:"SOD",base:1},
+   {id:"AG_TUL",n:"Tulare Basin DUs",region:"SOD",base:1},
+   {id:"AG_ALL",n:"All Central Valley DUs",region:"ALL",base:1,agg:true}
+ ]},
+ cws:{label:"Community water system group",items:[
+   {id:"CWS_SACU",n:"Sacramento-area systems",region:"NOD",base:380},
+   {id:"CWS_BAY",n:"Bay Area contractors",region:"Delta",base:520},
+   {id:"CWS_CVS",n:"Small Central Valley systems",region:"SOD",base:140},
+   {id:"CWS_SOC",n:"Southern California contractors",region:"SOD",base:1900}
+ ]}
+};
+/* Metric "kinds" — control climate response, wet/dry-year sensitivity,
+   variability, and seasonal shape of the synthetic series. */
+const MONTHS=["Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"];
+const SHAPES={
+ storage:[.78,.76,.78,.84,.92,1.00,1.08,1.10,1.05,.96,.86,.80],          // level rel. to anchor
+ flow:[.04,.05,.08,.12,.15,.15,.12,.11,.07,.05,.03,.03],                 // fraction of annual
+ outflow:[.04,.06,.10,.15,.17,.15,.11,.09,.05,.03,.02,.03],
+ sal:[1.25,1.15,.95,.80,.70,.70,.75,.85,.95,1.10,1.25,1.35],             // rel. to annual median
+ exports:[.07,.06,.07,.08,.08,.08,.08,.09,.10,.10,.10,.09],
+ agdel:[.02,.02,.02,.03,.04,.07,.12,.15,.16,.15,.13,.09]
+};
+const KINDS={
+ storage:{clim:-.22,sens:.50,cv0:.18,cvS:.45},
+ gwstor: {clim:-.15,sens:.30,cv0:.07,cvS:.40},
+ flow:   {clim:-.28,sens:1.10,cv0:.30,cvS:.50,shape:"flow"},
+ outflow:{clim:-.25,sens:1.20,cv0:.34,cvS:.50,shape:"outflow"},
+ sal:    {clim:+.18,sens:-.60,cv0:.20,cvS:.55,shape:"sal"},
+ x2:     {clim:+.10,sens:-.32,cv0:.08,cvS:.50},
+ exports:{clim:-.20,sens:.70,cv0:.24,cvS:.50,shape:"exports"},
+ agdel:  {clim:-.18,sens:.50,cv0:.20,cvS:.45,shape:"agdel"},
+ pump:   {clim:+.12,sens:-.45,cv0:.16,cvS:.40,shape:"agdel"},
+ short:  {clim:+.55,sens:-2.00,cv0:.55,cvS:.40},
+ shortpct:{clim:+.55,sens:-2.00,cv0:.55,cvS:.40,clamp:[0,100]},
+ rev:    {clim:-.10,sens:.22,cv0:.08,cvS:.45},
+ cwsdel: {clim:-.08,sens:.22,cv0:.06,cvS:.45},
+ pctuif: {clim:-.08,sens:.12,cv0:.10,cvS:.40,clamp:[2,98]}
+};
+/* Variable definitions — one row group of the In-Depth Outcomes tab each. */
+const AGBASE={AG_SAC:{del:5200,pump:2300,short:620,shortpct:7,rev:9.2},
+              AG_SJV:{del:4600,pump:5600,short:980,shortpct:11,rev:14.8},
+              AG_TUL:{del:2400,pump:4400,short:760,shortpct:12,rev:12.4},
+              AG_ALL:{del:12200,pump:12300,short:2360,shortpct:10,rev:36.4}};
+const VARDEF={
+ res_apr:{name:"April reservoir storage",sector:"res",locg:"reservoirs",kind:"storage",eff:"storage",unit:"TAF",
+   base:l=>l.cap*0.72,views:["dist","pct","cv"],
+   plain:"How full each major reservoir is at the start of April — the end of the wet season, when storage is normally near its peak.",
+   tech:"Annual series of end-of-April storage (CalSim3 S_* variables), summarized as percentiles across the simulation period. Also available as percent of capacity."},
+ res_sep:{name:"September reservoir storage",sector:"res",locg:"reservoirs",kind:"storage",eff:"storage",unit:"TAF",
+   base:l=>l.cap*0.45,useSepBonus:true,views:["dist","pct","cv"],
+   plain:"How much water is left in each reservoir at the end of the dry season (carryover storage) — a key buffer against the next year being dry.",
+   tech:"Annual series of end-of-September storage, summarized as percentiles. Carryover-targeted scenarios act mainly on this variable."},
+ gw_vol:{name:"Groundwater storage volume",sector:"gw",locg:"basins",kind:"gwstor",eff:"gwStor",unit:"TAF",
+   base:l=>l.base,views:["dist","cv"],
+   plain:"The total amount of water stored underground in each groundwater basin.",
+   tech:"Annual groundwater storage percentiles per water budget area (WBA), from CalSim3 groundwater module output."},
+ gw_trend:{name:"Groundwater level trend",sector:"gw",locg:"basins",kind:"gwstor",eff:"gwTrend",unit:"ft/yr",
+   views:["value"],
+   plain:"Whether groundwater levels are rising or falling over the long run. Negative numbers mean declining aquifers.",
+   tech:"Long-term linear trend of simulated groundwater levels (ft/yr) per WBA. Spec lists overall percent change (feet/month); shown annualized here."},
+ x2_apr:{name:"April X2 position",sector:"salin",locg:"delta",kind:"x2",eff:"sal",unit:"km",
+   base:()=>74,views:["dist","cv"],
+   plain:"How far upstream salty water reaches into the Delta in April. X2 is the distance (km from the Golden Gate) where salinity hits 2 ppt — smaller is fresher.",
+   tech:"Annual April X2 percentiles. X2 responds to Delta outflow; spring position matters for estuarine habitat."},
+ x2_sep:{name:"September X2 position",sector:"salin",locg:"delta",kind:"x2",eff:"sal",unit:"km",
+   base:()=>84,views:["dist","cv"],
+   plain:"How far upstream salty water reaches in September, at the end of the dry season, when the Delta is at its saltiest.",
+   tech:"Annual September X2 percentiles. The fall X2 standard is the subject of the 'Relax Delta salinity standards' scenario."},
+ station_ec:{name:"Station salinity (EC)",sector:"salin",locg:"stations",kind:"sal",eff:"sal",unit:"µS/cm",
+   base:l=>l.base,views:["monthly","dist","cv"],
+   plain:"How salty the water is at key Delta locations, month by month. Higher electrical conductivity (EC) = saltier water, which limits drinking and irrigation use.",
+   tech:"Monthly EC percentiles at Emmaton, Jersey Point, Banks and Jones (CalSim3 ANN-estimated). Annual distribution uses the annual mean EC."},
+ cvp_del:{name:"Central Valley Project deliveries",sector:"sysdel",locg:"sysregions",kind:"exports",eff:"exports",unit:"TAF",
+   base:l=>5000*l.base,views:["dist","cv"],
+   plain:"How much water the federal Central Valley Project delivers to its contractors each year.",
+   tech:"Annual CVP delivery percentiles (DEL_CVP_* variables), split North / South of Delta."},
+ swp_del:{name:"State Water Project deliveries",sector:"sysdel",locg:"sysregions",kind:"exports",eff:"exports",unit:"TAF",
+   base:l=>2600*l.base,views:["dist","cv"],
+   plain:"How much water the State Water Project delivers to its contractors each year.",
+   tech:"Annual SWP delivery percentiles (SWP_*_TOTAL variables), split North / South of Delta."},
+ tot_exp:{name:"Total Delta exports",sector:"sysdel",locg:"delta",kind:"exports",eff:"exports",unit:"TAF",
+   base:()=>4800,views:["dist","monthly","cv"],
+   plain:"The combined volume of water pumped out of the Delta at the Banks and Jones pumping plants for use elsewhere.",
+   tech:"Annual and monthly percentiles of TOTAL_EXP. This is the supply side of the Delta outflow / export trade-off."},
+ ndo:{name:"Delta outflow volume",sector:"outflow",locg:"delta",kind:"outflow",eff:"outflow",unit:"TAF",
+   base:l=>l.base,views:["dist","monthly","cv"],
+   plain:"How much fresh water flows out of the Delta toward San Francisco Bay. Outflow keeps the estuary fresh and supports fish and wildlife.",
+   tech:"Net Delta Outflow (NDO), monthly and annual percentiles. Seasonal (spring/fall) breakouts are in the spec; ETL currently computes monthly, annual and September only."},
+ ndo_uif:{name:"Outflow as % of unimpaired flow",sector:"outflow",locg:"delta",kind:"pctuif",eff:"pctUIF",unit:"%",
+   base:()=>42,views:["dist"],
+   plain:"What share of the river water that would naturally reach the Delta actually flows out of it, after storage and diversions.",
+   tech:"Annual Delta outflow divided by unimpaired outflow estimate; the % UF scenarios directly target this quantity."},
+ riv_flow:{name:"River flows",sector:"eflows",locg:"rivers",kind:"flow",eff:"flows",unit:"TAF",
+   base:l=>l.base,views:["dist","monthly","cv"],
+   plain:"How much water flows down each major river over the year, and in which months — the basis for healthy river ecosystems.",
+   tech:"Annual and monthly flow percentiles at river LOIs (CalSim3 C_* channel variables). Seasonal functional-flow metrics are computed externally."},
+ riv_uif:{name:"Flow as % of unimpaired",sector:"eflows",locg:"rivers",kind:"pctuif",eff:"pctUIF",unit:"%",
+   base:()=>38,views:["dist"],
+   plain:"What share of the river's natural flow remains in the channel after dams and diversions.",
+   tech:"Annual percent-of-unimpaired-flow percentiles per river LOI (flagged as provisional in the spec)."},
+ ag_del:{name:"Surface water deliveries",sector:"ag",locg:"agregions",kind:"agdel",eff:"agDel",unit:"TAF",
+   base:l=>AGBASE[l.id].del,views:["dist","monthly","cv"],
+   plain:"How much river and project water is delivered to farms each year.",
+   tech:"Annual agricultural surface delivery percentiles per demand-unit group (LOI / NOD / SOD in spec)."},
+ ag_pump:{name:"Groundwater pumping",sector:"ag",locg:"agregions",kind:"pump",eff:"pump",unit:"TAF",
+   base:l=>AGBASE[l.id].pump,views:["dist","cv"],
+   plain:"How much groundwater farms pump to make up for surface water they don't receive. Pumping rises in dry years.",
+   tech:"Annual agricultural groundwater pumping percentiles. Pumping-limit scenarios constrain this directly."},
+ ag_short:{name:"Total water shortage",sector:"ag",locg:"agregions",kind:"short",eff:"short",unit:"TAF",
+   base:l=>AGBASE[l.id].short,views:["dist","cv"],
+   plain:"How much water farms wanted but did not get, from any source. Zero in wet years; can spike in droughts.",
+   tech:"Annual shortage volume percentiles (demand minus deliveries minus pumping), post-processed from CalSim3."},
+ ag_shortpct:{name:"Shortage as % of demand",sector:"ag",locg:"agregions",kind:"shortpct",eff:"short",unit:"%",
+   base:l=>AGBASE[l.id].shortpct,views:["dist"],
+   plain:"Shortage expressed as a share of what farms needed — easier to compare across regions of different size.",
+   tech:"Annual shortage-percent percentiles per demand-unit group."},
+ ag_rev:{name:"Gross crop revenues",sector:"ag",locg:"agregions",kind:"rev",eff:"rev",unit:"$B",
+   base:l=>AGBASE[l.id].rev,views:["dist","value"],
+   plain:"The total value of crops produced, given the water available. Water shortages translate into fallowed land and lost revenue.",
+   tech:"Annual gross revenue percentiles from the external agricultural economics model, driven by CalSim3 deliveries and pumping."},
+ cws_del:{name:"Surface water deliveries",sector:"cwsS",locg:"cws",kind:"cwsdel",eff:"cws",unit:"TAF",
+   base:l=>l.base,views:["dist","cv"],
+   plain:"How much water community drinking-water systems receive each year.",
+   tech:"Annual CWS surface delivery percentiles per system group (illustrative groups; LOI list is still XX in the spec)."},
+ cws_short:{name:"Delivery shortages",sector:"cwsS",locg:"cws",kind:"short",eff:"cwsShort",unit:"TAF",
+   base:l=>l.base*0.06,views:["dist","cv"],
+   plain:"How much water community systems were short of their needs — the gap the tiers pathway scores against human-health thresholds.",
+   tech:"Annual CWS shortage percentiles (external post-processing). Pairs with the Community deliveries tier definition."}
+};
+const SECTORS=[
+ {id:"res",name:"Reservoir storage",vars:["res_apr","res_sep"]},
+ {id:"gw",name:"Groundwater storage",vars:["gw_vol","gw_trend"]},
+ {id:"salin",name:"Delta salinity",vars:["x2_apr","x2_sep","station_ec"]},
+ {id:"sysdel",name:"System deliveries",vars:["cvp_del","swp_del","tot_exp"]},
+ {id:"outflow",name:"Delta outflows",vars:["ndo","ndo_uif"]},
+ {id:"eflows",name:"Environmental flows",vars:["riv_flow","riv_uif"]},
+ {id:"ag",name:"Agricultural water",vars:["ag_del","ag_pump","ag_short","ag_shortpct","ag_rev"]},
+ {id:"cwsS",name:"Community water systems",vars:["cws_del","cws_short"]},
+ {id:"salmonS",name:"Winter-run salmon",locked:true,note:"Population metrics in development"}
+];
+const VIEWMETA={
+ dist:{label:"Annual distribution"},
+ pct:{label:"% of capacity"},
+ monthly:{label:"Monthly pattern"},
+ cv:{label:"Year-to-year variability"},
+ value:{label:"Summary value"}
+};
+/* Tier-pathway cross references (Key Outcomes tab) */
+const TIERLINK={
+ res_apr:"Reservoir storage",res_sep:"Reservoir storage",
+ gw_vol:"Groundwater storage",gw_trend:"Groundwater storage",
+ x2_apr:"Freshwater for in-Delta uses",x2_sep:"Freshwater for in-Delta uses",station_ec:"Freshwater for in-Delta uses",
+ cvp_del:"Delta freshwater exports",swp_del:"Delta freshwater exports",tot_exp:"Delta freshwater exports",
+ ndo:"Delta estuary ecology",ndo_uif:"Delta estuary ecology",
+ riv_flow:"Environmental flows",riv_uif:"Environmental flows",
+ ag_del:"Agricultural revenue",ag_pump:"Agricultural revenue",ag_short:"Agricultural revenue",ag_shortpct:"Agricultural revenue",ag_rev:"Agricultural revenue",
+ cws_del:"Community deliveries",cws_short:"Community deliveries"
+};
+
+/* ============================================================
+   SYNTHETIC DATA ENGINE (seeded, deterministic)
+   value[y] = median × scenarioEffect × climateEffect × hydroYear^sens × noise
+   Hydrology year-factors are shared per climate so scenarios co-move
+   across the same simulated trace, as in real paired CalSim runs.
+   ============================================================ */
+const NYEARS=100;
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(r){let u=0,v=0;while(!u)u=r();while(!v)v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+const _yfCache={};
+function yearFactors(clim){ /* shared hydrologic trace per climate */
+ if(_yfCache[clim.id])return _yfCache[clim.id];
+ const r=rng(hash("hydro|"+clim.id)),out=[];
+ let prev=0;
+ for(let i=0;i<NYEARS;i++){ // mild persistence (droughts cluster)
+   const g=0.55*prev+Math.sqrt(1-0.55*0.55)*gauss(r);prev=g;
+   out.push(Math.exp(0.42*(1+0.25*clim.stress)*g-0.5*0.42*0.42));
+ }
+ return _yfCache[clim.id]=out;
+}
+function regionWeight(scen,loi){
+ if(!scen.sod)return 1;
+ if(loi.region==="SOD")return 1;
+ if(loi.region==="ALL")return .6;
+ return .2;
+}
+function effectFor(vd,scen,loi){
+ let e=(scen.eff[vd.eff]||0)*regionWeight(scen,loi);
+ if(vd.useSepBonus&&scen.eff.sepBonus)e+=scen.eff.sepBonus;
+ return e;
+}
+const _serCache={};
+function annualSeries(vid,scenId,climId,loiId){
+ const key=[vid,scenId,climId,loiId].join("|");
+ if(_serCache[key])return _serCache[key];
+ const vd=VARDEF[vid],scen=SCENARIOS.find(s=>s.id===scenId),clim=CLIMATES.find(c=>c.id===climId);
+ const loi=LOCGROUPS[vd.locg].items.find(l=>l.id===loiId);
+ const K=KINDS[vd.kind],yf=yearFactors(clim);
+ let m=(vd.base?vd.base(loi):1)*(1+effectFor(vd,scen,loi))*(1+K.clim*clim.stress);
+ if(vd.id_gwtrend){} // (gw_trend handled separately in summaryValue)
+ const r=rng(hash("noise|"+key));
+ const sigma=K.cv0*(1+K.cvS*clim.stress)*0.55; // idiosyncratic part
+ const out=[];
+ for(let i=0;i<NYEARS;i++){
+   let v=m*Math.pow(yf[i],K.sens)*Math.exp(sigma*gauss(r)-0.5*sigma*sigma);
+   if(K.clamp)v=Math.min(K.clamp[1],Math.max(K.clamp[0],v));
+   else v=Math.max(0,v);
+   out.push(v);
+ }
+ _serCache[key]=out;return out;
+}
+function monthlyBands(vid,scenId,climId,loiId){
+ const vd=VARDEF[vid],K=KINDS[vd.kind];
+ const shapeName=K.shape||(vd.kind==="storage"?"storage":null);
+ const shape=SHAPES[shapeName]||SHAPES.flow;
+ const ann=annualSeries(vid,scenId,climId,loiId);
+ const r=rng(hash("mon|"+[vid,scenId,climId,loiId].join("|")));
+ const isLevel=(vd.kind==="storage"||vd.kind==="sal"); // shape multiplies median
+ const bands=[];
+ for(let mth=0;mth<12;mth++){
+   const vals=[];
+   for(let y=0;y<NYEARS;y++){
+     const base=isLevel?ann[y]*shape[mth]:ann[y]*shape[mth];
+     vals.push(Math.max(0,base*Math.exp(0.10*gauss(r))));
+   }
+   vals.sort((a,b)=>a-b);
+   bands.push({p10:q(vals,.10),p50:q(vals,.50),p90:q(vals,.90)});
+ }
+ return bands;
+}
+function q(sorted,p){const i=(sorted.length-1)*p,lo=Math.floor(i),hi=Math.ceil(i);return sorted[lo]+(sorted[hi]-sorted[lo])*(i-lo)}
+function stats(arr){
+ const s=[...arr].sort((a,b)=>a-b);
+ const mean=arr.reduce((a,b)=>a+b,0)/arr.length;
+ const sd=Math.sqrt(arr.reduce((a,b)=>a+(b-mean)*(b-mean),0)/arr.length);
+ return {p10:q(s,.1),p25:q(s,.25),p50:q(s,.5),p75:q(s,.75),p90:q(s,.9),mean,cv:mean?sd/mean:0};
+}
+function summaryValue(vid,scenId,climId,loiId){ /* 'value' view */
+ const vd=VARDEF[vid],scen=SCENARIOS.find(s=>s.id===scenId),clim=CLIMATES.find(c=>c.id===climId);
+ const loi=LOCGROUPS[vd.locg].items.find(l=>l.id===loiId);
+ if(vid==="gw_trend"){
+   const base=loi.region==="SOD"?-1.6:-0.45;
+   const e=(scen.eff.gwTrend||0)*regionWeight(scen,loi);
+   const r=rng(hash("tr|"+[vid,scenId,climId,loiId].join("|")));
+   return base*(1-e)-0.55*clim.stress+0.08*gauss(r);
+ }
+ if(vid==="ag_rev")return stats(annualSeries(vid,scenId,climId,loiId)).mean;
+ return stats(annualSeries(vid,scenId,climId,loiId)).p50;
+}
+
+/* ============================================================
+   FORMATTING + SVG CHART BUILDERS (no external libraries)
+   ============================================================ */
+const PALETTE=["#0072B2","#E69F00","#009E73","#CC79A7","#D55E00","#56B4E9","#8B7355","#444444"];
+function fmt(v,unit){
+ if(v==null||isNaN(v))return "–";
+ const a=Math.abs(v);
+ let d;
+ if(unit==="$B")d=1;else if(unit==="ft/yr")d=2;else if(unit==="km")d=1;
+ else if(unit==="%")d=a<10?1:0;else if(a>=1000)d=0;else if(a>=100)d=0;else if(a>=10)d=1;else d=2;
+ return v.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+}
+function unitLabel(u){return u==="$B"?"billion $/yr":u==="TAF"?"thousand acre-feet":u}
+function niceTicks(lo,hi,n){
+ if(lo===hi){hi=lo+1}
+ const span=hi-lo,step0=span/Math.max(1,n-1),mag=Math.pow(10,Math.floor(Math.log10(step0)));
+ let step=mag;for(const m of [1,2,2.5,5,10]){if(step0<=m*mag){step=m*mag;break}}
+ const start=Math.ceil(lo/step)*step,out=[];
+ for(let v=start;v<=hi+1e-9;v+=step)out.push(+v.toPrecision(12));
+ return out;
+}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+const CW=880,CH=430,M={t:18,r:24,b:52,l:78};
+function scaler(d0,d1,r0,r1){return v=>r0+(v-d0)/(d1-d0||1)*(r1-r0)}
+function axisSvg(xt,yt,xs,ys,xfmt,yfmt,xtitle,ytitle){
+ let s="";
+ for(const t of yt){const y=ys(t);
+  s+=`<line x1="${M.l}" x2="${CW-M.r}" y1="${y}" y2="${y}" stroke="#e8eef3" stroke-width="1"/>`;
+  s+=`<text x="${M.l-9}" y="${y+4}" text-anchor="end" font-size="11.5" fill="#7a8a99">${yfmt(t)}</text>`;}
+ for(const t of xt){const x=xs(typeof t==="number"?t:t.v);
+  s+=`<text x="${x}" y="${CH-M.b+20}" text-anchor="middle" font-size="11.5" fill="#7a8a99">${xfmt(t)}</text>`;}
+ s+=`<line x1="${M.l}" x2="${CW-M.r}" y1="${CH-M.b}" y2="${CH-M.b}" stroke="#c9d4dd"/>`;
+ if(xtitle)s+=`<text x="${(M.l+CW-M.r)/2}" y="${CH-10}" text-anchor="middle" font-size="12" fill="#46586a">${esc(xtitle)}</text>`;
+ if(ytitle)s+=`<text transform="translate(16,${(M.t+CH-M.b)/2}) rotate(-90)" text-anchor="middle" font-size="12" fill="#46586a">${esc(ytitle)}</text>`;
+ return s;
+}
+function chartExceedance(members,unit){
+ const data=members.map(m=>({m,sorted:[...m.series].sort((a,b)=>b-a)}));
+ let lo=Infinity,hi=-Infinity;
+ data.forEach(d=>{lo=Math.min(lo,d.sorted[d.sorted.length-1]);hi=Math.max(hi,d.sorted[0])});
+ if(unit==="%"){lo=Math.max(0,lo);hi=Math.min(100,hi*1.05)}else{lo=Math.min(lo*0.95,lo);hi=hi*1.05}
+ if(lo>0&&lo/hi<0.25)lo=0;
+ const xs=scaler(0,100,M.l,CW-M.r),ys=scaler(lo,hi,CH-M.b,M.t);
+ const yt=niceTicks(lo,hi,6),xt=[0,10,25,50,75,90,100];
+ let s=axisSvg(xt,yt,xs,ys,t=>t+"%",t=>fmt(t,unit),"Percent of years value is equaled or exceeded",unitLabel(unit));
+ data.forEach((d,i)=>{
+  const pts=d.sorted.map((v,k)=>`${xs((k+0.5)/d.sorted.length*100).toFixed(1)},${ys(v).toFixed(1)}`).join(" ");
+  s+=`<polyline points="${pts}" fill="none" stroke="${PALETTE[i]}" stroke-width="2.4" stroke-linejoin="round"/>`;
+ });
+ s+=`<line id="hovline" y1="${M.t}" y2="${CH-M.b}" stroke="#1a2733" stroke-dasharray="3,3" opacity="0"/>`;
+ window._exData={data,xs,ys,lo,hi,unit};
+ return {svg:s,hover:"exceed"};
+}
+function chartBox(members,unit){
+ let lo=Infinity,hi=-Infinity;
+ const data=members.map(m=>{const st=stats(m.series);lo=Math.min(lo,st.p10);hi=Math.max(hi,st.p90);return {m,st}});
+ if(lo>0&&lo/hi<0.25)lo=0;else lo*=0.95;hi*=1.06;
+ const n=data.length,band=(CW-M.l-M.r)/n;
+ const ys=scaler(lo,hi,CH-M.b,M.t);
+ const yt=niceTicks(lo,hi,6);
+ let s=axisSvg([],yt,v=>v,ys,()=>"",t=>fmt(t,unit),"",unitLabel(unit));
+ data.forEach((d,i)=>{
+  const cx=M.l+band*(i+0.5),w=Math.min(64,band*0.42),c=PALETTE[i],st=d.st;
+  s+=`<g><title>${esc(d.m.label)}\np90 ${fmt(st.p90,unit)} · p75 ${fmt(st.p75,unit)} · median ${fmt(st.p50,unit)} · p25 ${fmt(st.p25,unit)} · p10 ${fmt(st.p10,unit)}</title>`;
+  s+=`<line x1="${cx}" x2="${cx}" y1="${ys(st.p10)}" y2="${ys(st.p90)}" stroke="${c}" stroke-width="1.6"/>`;
+  s+=`<line x1="${cx-w/2.6}" x2="${cx+w/2.6}" y1="${ys(st.p10)}" y2="${ys(st.p10)}" stroke="${c}" stroke-width="1.6"/>`;
+  s+=`<line x1="${cx-w/2.6}" x2="${cx+w/2.6}" y1="${ys(st.p90)}" y2="${ys(st.p90)}" stroke="${c}" stroke-width="1.6"/>`;
+  s+=`<rect x="${cx-w/2}" y="${ys(st.p75)}" width="${w}" height="${Math.max(2,ys(st.p25)-ys(st.p75))}" fill="${c}" fill-opacity=".18" stroke="${c}" stroke-width="1.6" rx="3"/>`;
+  s+=`<line x1="${cx-w/2}" x2="${cx+w/2}" y1="${ys(st.p50)}" y2="${ys(st.p50)}" stroke="${c}" stroke-width="3"/>`;
+  const lab=d.m.label.length>20?d.m.label.slice(0,19)+"…":d.m.label;
+  s+=`<text x="${cx}" y="${CH-M.b+20}" text-anchor="middle" font-size="11" fill="#46586a">${esc(lab)}</text></g>`;
+ });
+ return {svg:s};
+}
+function chartMonthly(members,unit){
+ let lo=Infinity,hi=-Infinity;
+ const data=members.map(m=>{m.bands.forEach(b=>{lo=Math.min(lo,b.p10);hi=Math.max(hi,b.p90)});return m});
+ lo=Math.max(0,lo*0.92);hi*=1.06;
+ const xs=scaler(0,11,M.l+18,CW-M.r-18),ys=scaler(lo,hi,CH-M.b,M.t);
+ const yt=niceTicks(lo,hi,6),xt=MONTHS.map((mm,i)=>({v:i,lab:mm}));
+ let s=axisSvg(xt,yt,xs,ys,t=>t.lab,t=>fmt(t,unit),"Month (water year)",unitLabel(unit));
+ data.forEach((m,i)=>{
+  const c=PALETTE[i];
+  const top=m.bands.map((b,k)=>`${xs(k).toFixed(1)},${ys(b.p90).toFixed(1)}`);
+  const bot=m.bands.map((b,k)=>`${xs(k).toFixed(1)},${ys(b.p10).toFixed(1)}`).reverse();
+  s+=`<polygon points="${top.join(" ")} ${bot.join(" ")}" fill="${c}" fill-opacity=".10" stroke="none"/>`;
+  const med=m.bands.map((b,k)=>`${xs(k).toFixed(1)},${ys(b.p50).toFixed(1)}`).join(" ");
+  s+=`<polyline points="${med}" fill="none" stroke="${c}" stroke-width="2.4"/>`;
+  m.bands.forEach((b,k)=>{s+=`<circle cx="${xs(k)}" cy="${ys(b.p50)}" r="3" fill="${c}"><title>${esc(m.label)} · ${MONTHS[k]}\nmedian ${fmt(b.p50,unit)} (p10 ${fmt(b.p10,unit)}, p90 ${fmt(b.p90,unit)})</title></circle>`});
+ });
+ return {svg:s};
+}
+function chartBar(members,unit){
+ let lo=0,hi=0;
+ members.forEach(m=>{lo=Math.min(lo,m.value);hi=Math.max(hi,m.value)});
+ if(hi>0)hi*=1.12;if(lo<0)lo*=1.12;if(lo===0&&hi===0)hi=1;
+ const n=members.length,band=(CW-M.l-M.r)/n;
+ const ys=scaler(lo,hi,CH-M.b,M.t);
+ const yt=niceTicks(lo,hi,6);
+ let s=axisSvg([],yt,v=>v,ys,()=>"",t=>fmt(t,unit),"",unitLabel(unit));
+ const y0=ys(0);
+ s+=`<line x1="${M.l}" x2="${CW-M.r}" y1="${y0}" y2="${y0}" stroke="#9aa9b6"/>`;
+ members.forEach((m,i)=>{
+  const cx=M.l+band*(i+0.5),w=Math.min(70,band*0.5),c=PALETTE[i];
+  const yv=ys(m.value),top=Math.min(y0,yv),h=Math.max(2,Math.abs(y0-yv));
+  s+=`<g><title>${esc(m.label)}: ${fmt(m.value,unit)} ${unit}</title>`;
+  s+=`<rect x="${cx-w/2}" y="${top}" width="${w}" height="${h}" fill="${c}" fill-opacity=".75" rx="3"/>`;
+  s+=`<text x="${cx}" y="${(m.value>=0?top-6:top+h+14)}" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1a2733">${fmt(m.value,unit)}</text>`;
+  const lab=m.label.length>20?m.label.slice(0,19)+"…":m.label;
+  s+=`<text x="${cx}" y="${CH-M.b+20}" text-anchor="middle" font-size="11" fill="#46586a">${esc(lab)}</text></g>`;
+ });
+ return {svg:s};
+}
+
+/* ============================================================
+   STATE + UI
+   ============================================================ */
+const state={
+ vid:"res_apr",view:"dist",distKind:"exceed",compare:"scen",
+ scenSel:["s0020","s0046"],scenPin:"s0020",
+ climSel:["hist","modhigh","extreme"],climPin:"hist",
+ locSel:{},locPin:{},menuOpen:false
+};
+for(const[g,grp]of Object.entries(LOCGROUPS)){
+ state.locPin[g]=grp.items[0].id;
+ state.locSel[g]=grp.items.slice(0,Math.min(3,grp.items.length)).map(l=>l.id);
+}
+const SCEN=id=>SCENARIOS.find(s=>s.id===id);
+const CLIM=id=>CLIMATES.find(c=>c.id===id);
+const LOC=(g,id)=>LOCGROUPS[g].items.find(l=>l.id===id);
+function curVar(){return VARDEF[state.vid]}
+function memberDefs(){
+ const vd=curVar(),g=vd.locg;
+ if(state.compare==="scen")return state.scenSel.map(sid=>({scen:sid,clim:state.climPin,loi:state.locPin[g],label:SCEN(sid).name}));
+ if(state.compare==="clim")return CLIMATES.filter(c=>state.climSel.includes(c.id)).map(c=>({scen:state.scenPin,clim:c.id,loi:state.locPin[g],label:c.name}));
+ return state.locSel[g].map(lid=>({scen:state.scenPin,clim:state.climPin,loi:lid,label:LOC(g,lid).n}));
+}
+function memberData(){
+ const vd=curVar(),v=state.view;
+ return memberDefs().map(d=>{
+  const m={...d};
+  if(v==="monthly")m.bands=monthlyBands(state.vid,d.scen,d.clim,d.loi);
+  else{
+   let ser=annualSeries(state.vid,d.scen,d.clim,d.loi);
+   if(v==="pct"){const cap=LOC(vd.locg,d.loi).cap;ser=ser.map(x=>x/cap*100)}
+   m.series=ser;
+   if(v==="cv")m.value=stats(ser).cv;
+   if(v==="value")m.value=summaryValue(state.vid,d.scen,d.clim,d.loi);
+  }
+  return m;
+ });
+}
+function viewUnit(){const vd=curVar();return state.view==="pct"?"%":state.view==="cv"?"CV":vd.unit}
+/* ---------- summary sentences ---------- */
+function pctDelta(a,b){if(!a)return "–";const d=(b-a)/Math.abs(a)*100;return (d>=0?"+":"")+d.toFixed(0)+"%"}
+function summaryText(members){
+ const vd=curVar(),g=vd.locg,unit=viewUnit(),v=state.view;
+ const locName=LOC(g,state.locPin[g]).n,climName=CLIM(state.climPin).name,scenName=SCEN(state.scenPin).name;
+ const vn=vd.name.toLowerCase();
+ if(v==="monthly"){
+  const m0=members[0];const peak=m0.bands.reduce((bi,b,i)=>b.p50>m0.bands[bi].p50?i:bi,0);
+  let s=`Median ${vn} peaks in <b>${MONTHS[peak]}</b> for ${m0.label}`;
+  if(members.length>1){const m1=members[members.length-1];
+   const a=m0.bands.reduce((t,b)=>t+b.p50,0),b=m1.bands.reduce((t,b2)=>t+b2.p50,0);
+   s+=`; across the year, ${m1.label} runs <b>${pctDelta(a,b)}</b> vs ${m0.label}`;}
+  return s+".";
+ }
+ if(v==="cv"){
+  const mx=members.reduce((a,b)=>b.value>a.value?b:a),mn=members.reduce((a,b)=>b.value<a.value?b:a);
+  return `Year-to-year swings are largest for <b>${mx.label}</b> (CV ${mx.value.toFixed(2)}) and smallest for <b>${mn.label}</b> (CV ${mn.value.toFixed(2)}). Higher CV = less predictable from year to year.`;
+ }
+ if(v==="value"){
+  const mx=members.reduce((a,b)=>b.value>a.value?b:a),mn=members.reduce((a,b)=>b.value<a.value?b:a);
+  if(state.vid==="gw_trend")return `Groundwater levels decline fastest for <b>${mn.label}</b> (${fmt(mn.value,unit)} ${unit}) and are most stable for <b>${mx.label}</b> (${fmt(mx.value,unit)} ${unit}).`;
+  return `<b>${mx.label}</b> has the highest value (${fmt(mx.value,unit)} ${unit}); <b>${mn.label}</b> the lowest (${fmt(mn.value,unit)} ${unit}).`;
+ }
+ const meds=members.map(m=>({m,med:stats(m.series).p50}));
+ if(state.compare==="scen"){
+  const b0=meds[0];let s=`At <b>${locName}</b> under the ${climName} hydroclimate, median ${vn} is <b>${fmt(b0.med,unit)} ${unit}</b> for ${b0.m.label}`;
+  const rest=meds.slice(1).map(x=>`${x.m.label} <b>${pctDelta(b0.med,x.med)}</b>`);
+  if(rest.length)s+=`; relative to it: ${rest.join(", ")}`;
+  return s+".";
+ }
+ if(state.compare==="clim"){
+  const a=meds[0],b=meds[meds.length-1];
+  return `Under <b>${scenName}</b> at ${locName}, median ${vn} goes from <b>${fmt(a.med,unit)} ${unit}</b> (${a.m.label}) to <b>${fmt(b.med,unit)} ${unit}</b> (${b.m.label}) — a change of <b>${pctDelta(a.med,b.med)}</b>.`;
+ }
+ const mx=meds.reduce((p,c)=>c.med>p.med?c:p),mn=meds.reduce((p,c)=>c.med<p.med?c:p);
+ return `Under <b>${scenName}</b> (${climName}), median ${vn} ranges from <b>${fmt(mn.med,unit)} ${unit}</b> at ${mn.m.label} to <b>${fmt(mx.med,unit)} ${unit}</b> at ${mx.m.label}.`;
+}
+/* ---------- how-to-read text ---------- */
+function howToRead(){
+ if(state.view==="monthly")return `<p>Each line is the <b>median</b> value for that month across all ${NYEARS} simulated years; the shaded band spans the 10th–90th percentile (8 of 10 years fall inside it). Months follow the water year (October–September).</p>`;
+ if(state.view==="cv")return `<p>The coefficient of variation (CV) is the year-to-year standard deviation divided by the mean. A CV of 0.10 means typical years vary about ±10% around the average; higher bars mean a less reliable, more boom-and-bust pattern.</p>`;
+ if(state.view==="value")return `<p>A single summary number per comparison member. Hover a bar for the exact value.</p>`;
+ if(state.distKind==="box")return `<p>Each box summarizes all ${NYEARS} simulated years: the heavy line is the <b>median</b>, the box spans the 25th–75th percentile (half of all years), and the whiskers reach the 10th and 90th percentiles. Wider boxes = more year-to-year variability.</p>`;
+ return `<p>An <b>exceedance plot</b> answers: “in what share of years is the value at least this big?” Pick a point on a line: its horizontal position is the percent of years, the vertical position the value. The <b>left side shows wet/abundant years, the right side dry/scarce years</b>. Where one line sits above another, that alternative delivers more in that kind of year. Reading at 50% gives the median year; at 90%, a dry year exceeded 9 years in 10.</p>`;
+}
+/* ---------- exports ---------- */
+function download(name,text,mime){
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(new Blob([text],{type:mime}));a.download=name;a.click();
+ setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+}
+function exportCSV(){
+ const members=memberData(),unit=viewUnit(),vd=curVar();
+ let rows=[];
+ if(state.view==="monthly"){
+  rows.push(["month",...members.flatMap(m=>[m.label+" p10",m.label+" median",m.label+" p90"])].join(","));
+  MONTHS.forEach((mm,i)=>rows.push([mm,...members.flatMap(m=>[m.bands[i].p10,m.bands[i].p50,m.bands[i].p90].map(x=>x.toFixed(2)))].join(",")));
+ }else if(state.view==="cv"||state.view==="value"){
+  rows.push(["member","value_"+unit.replace(/[^a-z0-9]/gi,"")].join(","));
+  members.forEach(m=>rows.push([JSON.stringify(m.label),m.value.toFixed(4)].join(",")));
+ }else{
+  rows.push(["exceedance_pct",...members.map(m=>JSON.stringify(m.label+" ("+unit+")"))].join(","));
+  const sorted=members.map(m=>[...m.series].sort((a,b)=>b-a));
+  for(let k=0;k<NYEARS;k++)rows.push([(((k+0.5)/NYEARS)*100).toFixed(1),...sorted.map(s=>s[k].toFixed(2))].join(","));
+ }
+ rows.push("");rows.push("# COEQWAL Data In-Depth prototype — SYNTHETIC DATA, not model results");
+ download(`coeqwal_${state.vid}_${state.view}.csv`,rows.join("\n"),"text/csv");
+}
+function exportSVG(){
+ const svg=document.getElementById("chartsvg");
+ if(!svg)return;
+ const clone=svg.cloneNode(true);
+ clone.setAttribute("xmlns","http://www.w3.org/2000/svg");
+ clone.setAttribute("font-family","Helvetica,Arial,sans-serif");
+ clone.insertAdjacentHTML("afterbegin",`<rect width="${CW}" height="${CH}" fill="white"/>`);
+ download(`coeqwal_${state.vid}_${state.view}.svg`,clone.outerHTML,"image/svg+xml");
+}
+
+/* ---------- rendering ---------- */
+function renderRail(){
+ const el=document.getElementById("rail");
+ let h=`<div class="railhead">Outcome sectors</div>`;
+ for(const sec of SECTORS){
+  if(sec.locked){
+   h+=`<div class="sector locked"><button class="sectbtn" title="${esc(sec.note)}">🔒 ${esc(sec.name)}<span class="caret"></span></button>
+       <div class="lockednote">${esc(sec.note)} — spec TBD</div></div>`;
+   continue;
+  }
+  const open=sec.vars.includes(state.vid);
+  h+=`<div class="sector ${open?"open":""}" id="sec_${sec.id}">
+    <button class="sectbtn" onclick="UI.toggleSector('${sec.id}')">${esc(sec.name)}<span class="caret">▶</span></button>
+    <div class="vars">${sec.vars.map(v=>`<button class="${v===state.vid?"sel":""}" onclick="UI.pickVar('${v}')">${esc(VARDEF[v].name)}</button>`).join("")}</div></div>`;
+ }
+ el.innerHTML=h;
+}
+function scenarioOptions(sel){
+ return THEMES.map(t=>`<optgroup label="${esc(t.name)}">${SCENARIOS.filter(s=>s.theme===t.id).map(s=>`<option value="${s.id}" ${s.id===sel?"selected":""}>${esc(s.name)}</option>`).join("")}</optgroup>`).join("");
+}
+function renderControls(){
+ const vd=curVar(),g=vd.locg,grp=LOCGROUPS[g],multiLoc=grp.items.length>1;
+ const segBtn=(id,lab,dis)=>`<button class="${state.compare===id?"sel":""}" ${dis?"disabled title=\"Only one location exists for this variable\"":""} onclick="UI.setCompare('${id}')">${lab}</button>`;
+ let h=`<div class="row"><div class="ctl"><label class="ctlname">Compare by</label>
+   <div class="seg">${segBtn("scen","Scenarios")}${segBtn("clim","Climate futures")}${segBtn("loc","Locations",!multiLoc)}</div></div>`;
+ if(state.compare==="scen"){
+  h+=`<div class="ctl"><label class="ctlname">Scenarios (up to 5)</label><div class="chips">`;
+  h+=state.scenSel.map(sid=>`<button class="chip on" title="${esc(SCEN(sid).desc)}" onclick="UI.rmScen('${sid}')"><span class="dot" style="background:${PALETTE[state.scenSel.indexOf(sid)]}"></span>${esc(SCEN(sid).name)} ✕</button>`).join("");
+  if(state.scenSel.length<5)h+=`<span class="scenpicker"><button class="chip scenbtn" onclick="UI.toggleMenu(event)">＋ Add scenario</button>
+    <div class="scenmenu ${state.menuOpen?"open":""}" id="scenmenu">${THEMES.map(t=>`<div class="grp">${esc(t.name)}</div>`+SCENARIOS.filter(s=>s.theme===t.id).map(s=>`<button class="opt ${state.scenSel.includes(s.id)?"sel":""}" title="${esc(s.desc)}" onclick="UI.addScen('${s.id}')">${esc(s.name)}<span class="sid">${s.id}</span></button>`).join("")).join("")}</div></span>`;
+  h+=`</div></div>`;
+  h+=`<div class="ctl"><label class="ctlname">Hydroclimate</label><select onchange="UI.setClimPin(this.value)">${CLIMATES.map(c=>`<option value="${c.id}" ${c.id===state.climPin?"selected":""}>${esc(c.name)}</option>`).join("")}</select><div class="hint">${esc(CLIM(state.climPin).desc)}</div></div>`;
+  if(multiLoc)h+=`<div class="ctl"><label class="ctlname">${esc(grp.label)}</label><select onchange="UI.setLocPin(this.value)">${grp.items.map(l=>`<option value="${l.id}" ${l.id===state.locPin[g]?"selected":""}>${esc(l.n)}</option>`).join("")}</select></div>`;
+ }else if(state.compare==="clim"){
+  h+=`<div class="ctl"><label class="ctlname">Scenario</label><select onchange="UI.setScenPin(this.value)">${scenarioOptions(state.scenPin)}</select><div class="hint">${esc(SCEN(state.scenPin).desc)}</div></div>`;
+  h+=`<div class="ctl"><label class="ctlname">Climate futures</label><div class="chips">${CLIMATES.map((c,i)=>`<button class="chip ${state.climSel.includes(c.id)?"on":""}" title="${esc(c.desc)}" onclick="UI.toggleClim('${c.id}')"><span class="dot" style="background:${state.climSel.includes(c.id)?PALETTE[state.climSel.indexOf(c.id)]:"transparent"}"></span>${esc(c.name)}</button>`).join("")}</div></div>`;
+  if(multiLoc)h+=`<div class="ctl"><label class="ctlname">${esc(grp.label)}</label><select onchange="UI.setLocPin(this.value)">${grp.items.map(l=>`<option value="${l.id}" ${l.id===state.locPin[g]?"selected":""}>${esc(l.n)}</option>`).join("")}</select></div>`;
+ }else{
+  h+=`<div class="ctl"><label class="ctlname">Scenario</label><select onchange="UI.setScenPin(this.value)">${scenarioOptions(state.scenPin)}</select></div>`;
+  h+=`<div class="ctl"><label class="ctlname">Hydroclimate</label><select onchange="UI.setClimPin(this.value)">${CLIMATES.map(c=>`<option value="${c.id}" ${c.id===state.climPin?"selected":""}>${esc(c.name)}</option>`).join("")}</select></div>`;
+  h+=`<div class="ctl"><label class="ctlname">${esc(grp.label)}s (up to 6)</label><div class="chips">${grp.items.map(l=>`<button class="chip ${state.locSel[g].includes(l.id)?"on":""}" onclick="UI.toggleLoc('${l.id}')"><span class="dot" style="background:${state.locSel[g].includes(l.id)?PALETTE[state.locSel[g].indexOf(l.id)]:"transparent"}"></span>${esc(l.n)}</button>`).join("")}</div></div>`;
+ }
+ return h+`</div>`;
+}
+function renderMain(){
+ const vd=curVar(),sec=SECTORS.find(s=>s.id===vd.sector);
+ const members=memberData(),unit=viewUnit();
+ let chart;
+ if(state.view==="monthly")chart=chartMonthly(members,unit);
+ else if(state.view==="cv"||state.view==="value")chart=chartBar(members,unit);
+ else chart=state.distKind==="box"?chartBox(members,unit):chartExceedance(members,unit);
+ const tier=TIERLINK[state.vid];
+ const viewTabs=vd.views.map(v=>`<button class="${state.view===v?"sel":""}" onclick="UI.setView('${v}')">${VIEWMETA[v].label}</button>`).join("");
+ const distToggle=(state.view==="dist"||state.view==="pct")?`<div class="seg">${["exceed","box"].map(k=>`<button class="${state.distKind===k?"sel":""}" onclick="UI.setDistKind('${k}')">${k==="exceed"?"Exceedance":"Box plot"}</button>`).join("")}</div>`:"";
+ const legend=`<div class="legend">${members.map((m,i)=>`<span class="key"><span class="sw" style="background:${PALETTE[i]}"></span>${esc(m.label)}</span>`).join("")}</div>`;
+ document.getElementById("main").innerHTML=`
+  <div class="crumb"><b>${esc(sec.name)}</b> › ${esc(vd.name)}
+    ${tier?`&nbsp;·&nbsp;<span class="chip" style="cursor:default;font-size:.74rem;padding:2px 10px" title="This raw output feeds the '${esc(tier)}' key outcome in the tiers pathway">feeds tier: <b>&nbsp;${esc(tier)}</b></span>`:""}</div>
+  <div class="controls">${renderControls()}</div>
+  <div class="viewbar"><div class="seg">${viewTabs}</div>${distToggle}<div class="spacer"></div>
+    <div class="actions"><button onclick="exportCSV()">⬇ CSV</button><button onclick="exportSVG()">⬇ SVG</button></div></div>
+  <div class="card">
+    <div class="summary">${summaryText(members)}</div>
+    <div class="chartwrap" style="position:relative">
+      <svg id="chartsvg" viewBox="0 0 ${CW} ${CH}" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">${chart.svg}</svg>
+      <div id="hovread" style="position:absolute;display:none;pointer-events:none;background:#fff;border:1px solid #dde5ec;border-radius:7px;padding:6px 9px;font-size:.76rem;box-shadow:0 3px 10px rgba(20,40,60,.15);max-width:240px"></div>
+    </div>
+    ${legend}
+    <div class="synthnote">Synthetic data (${NYEARS} simulated years, seeded). Generated to mimic CalSim3 post-processed output structure — not model results.</div>
+  </div>
+  <details class="expl"><summary>What is this metric?</summary><div class="body">
+    <p>${esc(vd.plain)}</p><p style="color:#7a8a99"><b>Technical:</b> ${esc(vd.tech)} Units: ${esc(unitLabel(vd.unit))}.</p></div></details>
+  <details class="expl"><summary>How do I read this chart?</summary><div class="body">${howToRead()}</div></details>`;
+ if(chart.hover==="exceed")attachExceedHover();
+}
+function attachExceedHover(){
+ const svg=document.getElementById("chartsvg"),read=document.getElementById("hovread");
+ const {data,xs,unit}=window._exData;
+ svg.addEventListener("mousemove",ev=>{
+  const pt=svg.createSVGPoint();pt.x=ev.clientX;pt.y=ev.clientY;
+  const p=pt.matrixTransform(svg.getScreenCTM().inverse());
+  if(p.x<M.l||p.x>CW-M.r||p.y<M.t||p.y>CH-M.b){hideHov();return}
+  const exc=Math.max(0.5,Math.min(99.5,(p.x-M.l)/(CW-M.l-M.r)*100));
+  const line=document.getElementById("hovline");
+  line.setAttribute("x1",xs(exc));line.setAttribute("x2",xs(exc));line.setAttribute("opacity",".45");
+  const idx=Math.max(0,Math.min(NYEARS-1,Math.round(exc/100*NYEARS-0.5)));
+  read.innerHTML=`<b>${exc.toFixed(0)}% of years ≥</b><br>`+data.map((d,i)=>`<span style="color:${PALETTE[i]}">●</span> ${esc(d.m.label)}: <b>${fmt(d.sorted[idx],unit)}</b>`).join("<br>");
+  read.style.display="block";
+  const rect=svg.getBoundingClientRect(),fx=(xs(exc)/CW)*rect.width;
+  read.style.left=Math.min(rect.width-250,fx+14)+"px";read.style.top="20px";
+ });
+ svg.addEventListener("mouseleave",hideHov);
+ function hideHov(){const l=document.getElementById("hovline");if(l)l.setAttribute("opacity","0");read.style.display="none"}
+}
+/* ---------- event handlers ---------- */
+const UI={
+ toggleSector(id){document.getElementById("sec_"+id).classList.toggle("open")},
+ pickVar(v){
+  state.vid=v;const vd=VARDEF[v];
+  if(!vd.views.includes(state.view))state.view=vd.views[0];
+  if(state.compare==="loc"&&LOCGROUPS[vd.locg].items.length<2)state.compare="scen";
+  state.menuOpen=false;render();
+ },
+ setView(v){state.view=v;render()},
+ setDistKind(k){state.distKind=k;render()},
+ setCompare(c){state.compare=c;state.menuOpen=false;render()},
+ setClimPin(v){state.climPin=v;render()},
+ setScenPin(v){state.scenPin=v;render()},
+ setLocPin(v){state.locPin[curVar().locg]=v;render()},
+ toggleMenu(ev){ev.stopPropagation();state.menuOpen=!state.menuOpen;render()},
+ addScen(id){
+  if(state.scenSel.includes(id))state.scenSel=state.scenSel.filter(s=>s!==id);
+  else if(state.scenSel.length<5)state.scenSel.push(id);
+  if(!state.scenSel.length)state.scenSel=["s0020"];
+  render();state.menuOpen=true;render();
+ },
+ rmScen(id){state.scenSel=state.scenSel.filter(s=>s!==id);if(!state.scenSel.length)state.scenSel=["s0020"];render()},
+ toggleClim(id){
+  if(state.climSel.includes(id)){if(state.climSel.length>1)state.climSel=state.climSel.filter(c=>c!==id)}
+  else state.climSel.push(id);
+  state.climSel.sort((a,b)=>CLIMATES.findIndex(c=>c.id===a)-CLIMATES.findIndex(c=>c.id===b));render();
+ },
+ toggleLoc(id){
+  const g=curVar().locg,sel=state.locSel[g];
+  if(sel.includes(id)){if(sel.length>1)state.locSel[g]=sel.filter(l=>l!==id)}
+  else if(sel.length<6)sel.push(id);
+  render();
+ }
+};
+document.addEventListener("click",ev=>{
+ if(state.menuOpen&&!ev.target.closest(".scenpicker")){state.menuOpen=false;render()}
+});
+function render(){renderRail();renderMain()}
+render();
+</script>
+<div style="position:fixed;right:10px;bottom:10px;z-index:99999;background:#b3541e;color:#fff;font:12px/1.3 Helvetica,Arial,sans-serif;padding:5px 9px;border-radius:4px;opacity:.92;pointer-events:none;">Synthetic rehearsal data — not COEQWAL results</div>
+</body>
+</html>
