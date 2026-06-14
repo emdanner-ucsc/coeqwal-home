@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the library is organized — COEQWAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:        #efe7d3;
+    --cream-card:   #f5efde;
+    --cream-page:   #ece4d0;
+    --navy-deepest: #122849;
+    --navy-deep:    #1d3460;
+    --navy-mid:     #2b4071;
+    --navy-soft:    #3d5482;
+    --navy-light:   #5a7194;
+    --text-dark:    #1d3a5c;
+    --text-mid:     #4a5566;
+    --text-eyebrow: #3a6aa0;
+    --text-on-navy: #f5efde;
+    --rule-on-navy:  rgba(245, 239, 222, 0.22);
+    --rule-on-cream: rgba(29, 58, 92, 0.16);
+    --rule-strong:   #4a78ad;
+    --gold:      #c89a3a;
+    --gold-mid:  #d4a85c;
+    --gold-pale: #ecc97e;
+    --note-bg:    #fdf3c8;
+    --note-text:  #6a5418;
+    --note-label: #9a7a1c;
+    --serif: "Source Serif 4", Georgia, serif;
+    --sans:  "Source Sans 3", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:  "IBM Plex Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cream-page);
+    color: var(--text-dark);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(29,58,92,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(29,58,92,0.06) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  /* ---------- Top header ---------- */
+  .site-header {
+    background: var(--cream);
+    padding: 22px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rule-on-cream);
+  }
+  .wordmark {
+    font-family: var(--serif);
+    color: var(--text-dark);
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+  .top-nav {
+    display: flex;
+    gap: 38px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dark);
+  }
+  .top-nav span { cursor: pointer; }
+  .top-nav span::after { content: " ›"; color: var(--text-mid); }
+  .top-nav span:last-child::after { content: ""; }
+  /* ---------- Tab bar ---------- */
+  .tab-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .tab {
+    padding: 22px 24px;
+    color: var(--text-on-navy);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+  }
+  .tab:nth-child(1) { background: var(--navy-light); }
+  .tab:nth-child(2) { background: var(--navy-mid); }
+  .tab:nth-child(3) { background: var(--navy-soft); }
+  .tab:nth-child(4) { background: var(--navy-deepest); }
+  .tab.active { background: var(--navy-deep); }
+  /* ---------- Page bands ---------- */
+  .band-navy {
+    background: var(--navy-deep);
+    color: var(--text-on-navy);
+    padding: 36px 56px;
+  }
+  .band-navy-darker {
+    background: var(--navy-deepest);
+    color: var(--text-on-navy);
+    padding: 28px 56px;
+  }
+  .band-cream {
+    background: var(--cream-page);
+    padding: 36px 56px;
+  }
+  .band-cream.tight { padding-top: 0; }
+  .page-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 40px;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.005em;
+  }
+  .page-subtitle {
+    font-size: 14.5px;
+    color: var(--text-on-navy);
+    opacity: 0.92;
+    max-width: 880px;
+    margin: 0;
+  }
+  /* ---------- Hero equation (the page-level definition) ---------- */
+  .hero-equation {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+  }
+  .def-box {
+    background: var(--cream-card);
+    color: var(--text-dark);
+    padding: 14px 20px;
+    border-radius: 2px;
+    min-width: 150px;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.25;
+  }
+  .def-box.result { font-weight: 500; }
+  .def-op {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--text-on-navy);
+    opacity: 0.7;
+  }
+  /* ---------- Cream card wrapping the walkthrough ---------- */
+  .preamble-block {
+    background: var(--cream-card);
+    border-radius: 2px;
+    padding: 28px 32px 32px;
+  }
+  .preamble-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    margin: 0 0 6px 0;
+    color: var(--text-dark);
+  }
+  .preamble-prose {
+    font-size: 14.5px;
+    color: var(--text-mid);
+    margin: 0 0 22px 0;
+    max-width: 760px;
+  }
+  /* ---------- Static scenario-space walkthrough ---------- */
+  .walk { display: flex; flex-direction: column; }
+  .walk-step {
+    display: grid;
+    grid-template-columns: minmax(240px, 340px) 1fr;
+    gap: 40px;
+    align-items: center;
+    padding: 24px 0;
+    border-top: 1px solid var(--rule-on-cream);
+  }
+  .walk-step.first { border-top: none; padding-top: 6px; }
+  .walk-prose { font-size: 14.5px; color: var(--text-mid); margin: 0; line-height: 1.55; }
+  .walk-prose .lead {
+    display: block; font-family: var(--serif); font-size: 17px;
+    color: var(--text-dark); margin-bottom: 8px; line-height: 1.3;
+  }
+  .walk-prose em { font-style: italic; font-family: var(--serif); color: var(--text-dark); }
+  .walk-fig { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
+  .walk-fig .def-equation {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .walk-fig .def-box { border: 1px solid var(--rule-on-cream); }
+  .walk-fig .def-op  { color: var(--text-mid); opacity: 1; }
+  /* cells */
+  .cell-row  { display: flex; gap: 2px; }
+  .cell-col  { display: flex; flex-direction: column; gap: 2px; }
+  .cell-grid { display: grid; grid-template-columns: repeat(24, 14px); gap: 2px; }
+  .sq {
+    width: 14px; height: 14px; border-radius: 1px;
+    background: var(--gold-pale); border: 1px solid var(--gold);
+  }
+  .sq.bl    { background: var(--gold-mid); border: 1.5px solid var(--navy-deep); }
+  /* captions */
+  .cap   { font-size: 11px; color: var(--text-mid); letter-spacing: 0.03em; }
+  .cap-x {
+    border-top: 1px solid rgba(74,86,102,0.45);
+    margin-top: 5px; padding-top: 6px; text-align: center;
+  }
+  .ywrap { display: flex; align-items: stretch; gap: 12px; }
+  .ycap  {
+    display: flex; align-items: center; text-align: right; justify-content: flex-end;
+    border-right: 1px solid rgba(74,86,102,0.45); padding-right: 12px;
+    max-width: 130px; font-size: 11px; color: var(--text-mid); line-height: 1.4;
+  }
+  .bl-key { font-size: 12px; color: var(--text-mid); margin-top: 2px; }
+  .bl-key .chip {
+    display: inline-block; width: 11px; height: 11px;
+    background: var(--gold-mid); border: 1.5px solid var(--navy-deep);
+    border-radius: 1px; vertical-align: -1px; margin-right: 7px;
+  }
+  .total-line { font-family: var(--serif); font-size: 16px; color: var(--text-dark); margin-top: 8px; }
+  /* ---------- Pathways grid (2 x 2) ---------- */
+  .pgrid {
+    display: grid;
+    grid-template-columns: 132px 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    max-width: 600px;
+  }
+  .pg-colhead {
+    font-size: 11px; color: var(--text-mid); text-align: center;
+    align-self: end; padding-bottom: 2px; letter-spacing: 0.03em; line-height: 1.4;
+  }
+  .pg-rowhead {
+    font-size: 11px; color: var(--text-mid); text-align: right;
+    align-self: center; line-height: 1.4; padding-right: 10px;
+  }
+  .pcell { border-radius: 2px; padding: 12px 14px; }
+  .pcell .pname {
+    font-family: var(--serif); font-size: 15px;
+    color: var(--text-dark); line-height: 1.3;
+  }
+  .pcell .pcount { font-size: 11.5px; color: var(--text-mid); margin-top: 3px; }
+  .pcell.p-baseline { background: var(--gold-mid); border: 1.5px solid var(--navy-deep); }
+  .pcell.p-anchor   { background: var(--gold-mid); border: 1px solid var(--gold); }
+  .pcell.p-open     { background: var(--gold-pale); border: 1px solid var(--gold); }
+  .key-line { font-size: 12px; color: var(--text-mid); }
+  .key-chip {
+    display: inline-block; width: 11px; height: 11px;
+    border-radius: 1px; vertical-align: -1px; margin-right: 7px;
+  }
+  .key-chip.k-baseline { background: var(--gold-mid); border: 1.5px solid var(--navy-deep); }
+  .key-chip.k-anchor   { background: var(--gold-mid); border: 1px solid var(--gold); }
+  .key-chip.k-open     { background: var(--gold-pale); border: 1px solid var(--gold); }
+  /* ---------- Three-anchor flow ---------- */
+  .aflow { display: flex; flex-direction: column; width: 100%; max-width: 600px; }
+  .acard { border-radius: 2px; padding: 13px 18px; }
+  .acard .aname { font-family: var(--serif); font-size: 15.5px; line-height: 1.3; color: var(--text-dark); }
+  .acard .asub  { font-size: 12px; margin-top: 3px; color: var(--text-mid); }
+  .acard.a-baseline { background: var(--gold-mid); border: 1.5px solid var(--navy-deep); }
+  .acard.a-ground   { background: var(--gold-mid); border: 1px solid var(--gold); }
+  .acard.a-you      { background: var(--navy-mid); }
+  .acard.a-you .aname { color: var(--text-on-navy); }
+  .acard.a-you .asub  { color: var(--text-on-navy); opacity: 0.85; }
+  .astep { display: flex; align-items: center; gap: 16px; padding: 4px 0 4px 26px; }
+  .astep svg { flex: none; display: block; }
+  .alab { font-size: 12.5px; color: var(--text-mid); line-height: 1.45; }
+  .alab b { color: var(--text-dark); font-weight: 600; }
+  /* ---------- Devnote ---------- */
+  .note {
+    background: var(--note-bg);
+    color: var(--note-text);
+    border-radius: 2px;
+    padding: 14px 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.55;
+    margin-top: 18px;
+  }
+  .note b {
+    color: var(--note-label);
+    letter-spacing: 0.16em;
+    margin-right: 8px;
+    font-weight: 600;
+  }
+  /* ---------- Continue-to-Findings link bar ---------- */
+  .continue-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    border-top: 4px solid var(--rule-strong);
+  }
+  .continue-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    opacity: 0.85;
+  }
+  .continue-link {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--text-on-navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-on-navy);
+    padding-bottom: 4px;
+  }
+  .continue-link:hover { border-bottom-color: var(--text-on-navy); }
+  .continue-link .arrow { margin-left: 10px; opacity: 0.8; }
+</style>
+</head>
+<body class="grid-bg">
+
+<!-- ===================== TOP HEADER ===================== -->
+<header class="site-header">
+  <div class="wordmark">COEQWAL</div>
+  <nav class="top-nav">
+    <span>Guides</span>
+    <span>Water themes</span>
+    <span>Get data</span>
+    <span>About COEQWAL</span>
+  </nav>
+</header>
+
+<!-- ===================== TAB BAR (Learn active) ===================== -->
+<div class="tab-bar">
+  <div class="tab active">Learn</div>
+  <div class="tab">Findings</div>
+  <div class="tab">Explore</div>
+  <div class="tab">Share</div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="band-navy">
+  <h1 class="page-title">How the library is organized</h1>
+  <p class="page-subtitle">
+    Every result in COEQWAL comes from one operational strategy paired with one hydroclimate. This page builds that picture up from a single cell to the whole library of 24 &#215; 4 = 96 scenarios, then shows how to read any result in it.
+  </p>
+  <div class="hero-equation">
+    <div class="def-box">Operational<br>strategy</div>
+    <span class="def-op">+</span>
+    <div class="def-box">Hydroclimate</div>
+    <span class="def-op">=</span>
+    <div class="def-box result">Scenario</div>
+  </div>
+</section>
+
+<!-- ===================== SCENARIO-SPACE WALKTHROUGH (static) ===================== -->
+<section class="band-cream">
+  <div class="preamble-block">
+    <h2 class="preamble-title">Start from where we are today.</h2>
+    <p class="preamble-prose">
+      Every scenario in the library is one operational strategy paired with one hydroclimate. The clearest way in is to start from today and watch how results can move away from it.
+    </p>
+
+    <div class="walk">
+
+      <!-- today = the baseline -->
+      <div class="walk-step first">
+        <p class="walk-prose">
+          <span class="lead">A good place to start is where we are today.</span>
+          Current operations (s0020), run under the historical hydroclimate (BL), give one scenario &mdash; the <em>baseline</em>. It is a reference point, not a target: every other result in the library is read against it.
+        </p>
+        <div class="walk-fig">
+          <div class="def-equation">
+            <div class="def-box">Current<br>operations</div>
+            <span class="def-op">+</span>
+            <div class="def-box">Historical<br>hydroclimate</div>
+            <span class="def-op">=</span>
+            <div class="def-box result">The baseline</div>
+          </div>
+          <div class="cell-row" style="margin-top:4px;"><div class="sq bl"></div></div>
+          <div class="bl-key"><span class="chip"></span>The baseline &mdash; 1 scenario</div>
+        </div>
+      </div>
+
+      <!-- operations vary: the BL row -->
+      <div class="walk-step">
+        <p class="walk-prose">
+          <span class="lead">First, operations can be run differently.</span>
+          Operations are the choices managers can make. Holding the historical hydroclimate fixed, the baseline is one of <em>24 operational strategies</em> &mdash; it is the one that changes nothing, and the other 23 run the system in different ways.
+        </p>
+        <div class="walk-fig">
+          <div class="cell-row"><div class="sq bl"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+          <div class="cap cap-x" style="width:382px;">24 operational strategies &middot; s0020 = current operations</div>
+        </div>
+      </div>
+
+      <!-- hydroclimate varies: the s0020 column -->
+      <div class="walk-step">
+        <p class="walk-prose">
+          <span class="lead">Second, the same operations meet a different climate.</span>
+          The hydroclimate is the condition the system is handed &mdash; not something we choose. Holding operations at today&rsquo;s, current operations are run under <em>four hydroclimates</em>: the historical record (BL) and three projected futures (HC1&ndash;HC3). These four are the baseline together with its climate-projected versions.
+        </p>
+        <div class="walk-fig">
+          <div class="ywrap">
+            <div class="ycap">4 hydroclimates:<br>BL + HC1&ndash;HC3</div>
+            <div class="cell-col"><div class="sq bl"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- the full library -->
+      <div class="walk-step">
+        <p class="walk-prose">
+          <span class="lead">Do this for every combination.</span>
+          Running all 24 operational strategies under all 4 hydroclimates fills out the whole library &mdash; <em>24 &#215; 4 = 96 scenarios</em>. The row above is the top edge of this grid; the column is its left edge; the two cross at the baseline in the top-left corner.
+        </p>
+        <div class="walk-fig">
+          <div class="ywrap">
+            <div class="ycap">4 hydroclimates</div>
+            <div class="cell-grid"><div class="sq bl"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+          </div>
+          <div class="cap cap-x" style="width:382px;">24 operational strategies</div>
+          <div class="total-line">24 &#215; 4 = 96 scenarios</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <b>DEVNOTE</b> This diagram calls every cell a &ldquo;scenario,&rdquo; the baseline column included. The strict project vocabulary reserves &ldquo;scenario outcome&rdquo; for the non-baseline runs and names the s0020 column the baseline plus its climate-projected versions. Open decision: keep the loose public sense here, or switch to the strict terms.
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW TO READ ANY RESULT (new in v0_2) ===================== -->
+<section class="band-cream tight">
+  <div class="preamble-block">
+    <h2 class="preamble-title">How to read any result.</h2>
+    <p class="preamble-prose">
+      The grid gives every result an address: one operational strategy, one hydroclimate. Reading a result means knowing which kind of cell you are in &mdash; and which cells to compare it against.
+    </p>
+
+    <div class="walk">
+
+      <!-- the four pathways -->
+      <div class="walk-step first">
+        <p class="walk-prose">
+          <span class="lead">Every scenario sits on one of four pathways.</span>
+          Cross the two ingredients and the library splits into four quadrants. Pathway 1 is the baseline &mdash; current operations under the historical record. Pathway 2 changes only the operations. Pathway 3 keeps today&rsquo;s operations but hands them a different climate. Pathway 4 changes both. The four counts add back up to the full library: <em>1 + 23 + 3 + 69 = 96</em>.
+        </p>
+        <div class="walk-fig">
+          <div class="pgrid">
+            <div></div>
+            <div class="pg-colhead">Historical hydroclimate<br>(BL)</div>
+            <div class="pg-colhead">Changed hydroclimate<br>(HC1&ndash;HC3)</div>
+            <div class="pg-rowhead">Current operations<br>(s0020)</div>
+            <div class="pcell p-baseline">
+              <div class="pname">1 &middot; Where we are now</div>
+              <div class="pcount">the baseline &middot; 1 scenario</div>
+            </div>
+            <div class="pcell p-anchor">
+              <div class="pname">3 &middot; Climate changes alone</div>
+              <div class="pcount">climate anchors &middot; 3 scenarios</div>
+            </div>
+            <div class="pg-rowhead">Alternative operations<br>(23 strategies)</div>
+            <div class="pcell p-open">
+              <div class="pname">2 &middot; Operations change alone</div>
+              <div class="pcount">23 scenarios</div>
+            </div>
+            <div class="pcell p-open">
+              <div class="pname">4 &middot; Both change</div>
+              <div class="pcount">69 scenarios</div>
+            </div>
+          </div>
+          <div class="key-line"><span class="key-chip k-baseline"></span>the baseline &mdash; anchor 1</div>
+          <div class="key-line"><span class="key-chip k-anchor"></span>climate anchors &mdash; current operations under HC1&ndash;HC3</div>
+          <div class="key-line"><span class="key-chip k-open"></span>scenarios read against the anchors</div>
+        </div>
+      </div>
+
+      <!-- the three anchors -->
+      <div class="walk-step">
+        <p class="walk-prose">
+          <span class="lead">Three results read any cell.</span>
+          Two grounding points anchor every comparison. The <em>baseline</em> says where we are now. <em>Current operations under the hydroclimate you selected</em> says how much change the climate brings on its own, before any management choice. Your scenario is then read against both: the step from anchor 1 to anchor 2 is the <em>climate effect</em>, and the step from anchor 2 to your scenario is the <em>operations effect</em>. Pick the historical record and anchors 1 and 2 coincide &mdash; there is no climate effect. Keep current operations and your scenario <em>is</em> anchor 2 &mdash; there is no operations effect.
+        </p>
+        <div class="walk-fig">
+          <div class="aflow">
+            <div class="acard a-baseline">
+              <div class="aname">Anchor 1 &middot; The baseline</div>
+              <div class="asub">Current operations (s0020) + historical hydroclimate (BL)</div>
+            </div>
+            <div class="astep">
+              <svg width="14" height="48" aria-hidden="true"><line x1="7" y1="2" x2="7" y2="40" stroke="#4a5566" stroke-width="1.5"/><path d="M2.5 38 L7 46 L11.5 38" fill="none" stroke="#4a5566" stroke-width="1.5"/></svg>
+              <div class="alab"><b>Climate effect</b> &mdash; same operations, climate differs.<br>Zero if your hydroclimate is BL: anchor 2 = anchor 1.</div>
+            </div>
+            <div class="acard a-ground">
+              <div class="aname">Anchor 2 &middot; Climate alone</div>
+              <div class="asub">Current operations (s0020) + the hydroclimate you selected</div>
+            </div>
+            <div class="astep">
+              <svg width="14" height="48" aria-hidden="true"><line x1="7" y1="2" x2="7" y2="40" stroke="#4a5566" stroke-width="1.5"/><path d="M2.5 38 L7 46 L11.5 38" fill="none" stroke="#4a5566" stroke-width="1.5"/></svg>
+              <div class="alab"><b>Operations effect</b> &mdash; same climate, operations differ.<br>Zero if your operations are s0020: anchor 3 = anchor 2.</div>
+            </div>
+            <div class="acard a-you">
+              <div class="aname">Anchor 3 &middot; Your scenario</div>
+              <div class="asub">The operational strategy and hydroclimate you selected</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <b>DEVNOTE</b> Open wording decisions for this section (2026-06-04). (1) The operations effect is measured under the selected hydroclimate, so any interaction between operations and climate is folded into it &mdash; the site should say this once, plainly. (2) Anchor 2 is a family of three results, one per hydroclimate; copy must always read &ldquo;under the hydroclimate you selected.&rdquo; (3) This frame does not answer &ldquo;what would this strategy do under today&rsquo;s climate&rdquo; &mdash; pathway 2 serves that question in Explore. (4) Keep pathway 1 in the &ldquo;reference point, not a target&rdquo; voice; avoid &ldquo;things will continue this way.&rdquo; (5) Counts use the 24 &#215; 4 = 96 prototype framing, pending the 72-vs-96 hydroclimate decision.
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTINUE TO FINDINGS ===================== -->
+<section class="band-navy-darker continue-bar">
+  <div class="continue-eyebrow">Next</div>
+  <a class="continue-link" href="findings_tab_prototype_v0_5.html">Read the briefs &mdash; COEQWAL Findings<span class="arrow">&rarr;</span></a>
+</section>
+
+<div style="position:fixed;right:10px;bottom:10px;z-index:99999;background:#b3541e;color:#fff;font:12px/1.3 Helvetica,Arial,sans-serif;padding:5px 9px;border-radius:4px;opacity:.92;pointer-events:none;">Synthetic rehearsal data — not COEQWAL results</div>
+</body>
+</html>
