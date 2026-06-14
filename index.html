@@ -20,6 +20,12 @@
   .page .name { color:var(--accent); font-size:19px; }
   .page .desc { margin:6px 0 4px; font-size:14.5px; }
   .page .meta { font-size:13px; color:var(--muted); }
+  .group { margin-top:32px; }
+  .group:first-of-type { margin-top:20px; }
+  .group h2 { font-size:15px; font-weight:normal; text-transform:uppercase;
+              letter-spacing:.06em; color:var(--accent); margin:0 0 2px;
+              padding-bottom:6px; border-bottom:1px solid var(--line); }
+  .group .grouphint { margin:6px 0 0; font-size:13.5px; color:var(--muted); }
   .note { font-size:14px; color:var(--muted); margin-top:24px; }
   footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin-top:36px; }
 </style>
@@ -27,7 +33,7 @@
 <body>
 <header>
   <h1>COEQWAL working pages</h1>
-  <p>Published working material from Eric Danner's COEQWAL projects. Page published 2026-06-12 18:08.</p>
+  <p>Published working material from Eric Danner's COEQWAL projects. Page published 2026-06-14 08:15 AM.</p>
 </header>
 <main>
 
@@ -37,62 +43,77 @@ California's water system, and communicates the results to the public. This page
 the working pages I publish for the team: trackers, figures, and prototypes. Everything
 here is working material, not the public COEQWAL website.</p>
 
-<a class="page" href="https://emdanner-ucsc.github.io/brief-tracker/" target="_blank" rel="noopener">
-  <span class="name">Brief tracker</span>
-  <p class="desc">What we're publishing as briefs, how many there will be, where each one
-  stands, and the timeline to the August 1 handoff. Includes example briefs.</p>
-  <span class="meta">Last updated 2026-06-11 18:06</span>
-</a>
+<section class="group">
+  <h2>Briefs</h2>
+  <p class="grouphint">What we're publishing, where each brief stands, and how it gets built.</p>
 
-<a class="page" href="concepts.html" target="_blank" rel="noopener">
-  <span class="name">Core concepts</span>
-  <p class="desc">The ideas the project is built on — its purpose, the model, how results
-  are measured and compared, equity, and how it's communicated — one short entry each,
-  with pointers to the documents that treat each fully.</p>
-  <span class="meta">Last updated 2026-06-12 17:01</span>
-</a>
+  <a class="page" href="https://emdanner-ucsc.github.io/brief-tracker/" target="_blank" rel="noopener">
+    <span class="name">Brief tracker</span>
+    <p class="desc">What we're publishing as briefs, how many there will be, where each one
+    stands, and the timeline to the August 1 handoff. Includes example briefs.</p>
+    <span class="meta">Last updated 2026-06-11 06:06 PM</span>
+  </a>
 
-<a class="page" href="methods.html" target="_blank" rel="noopener">
-  <span class="name">Methods notes</span>
-  <p class="desc">Summaries and technical reports behind the results — how tiers are
-  calculated, what the climate-vs-operations comparison does and doesn't mean, and the
-  terminology conventions. Each document is labeled as settled methodology or a draft
-  for team review.</p>
-  <span class="meta">3 documents</span>
-</a>
+  <a class="page" href="pipeline.html" target="_blank" rel="noopener">
+    <span class="name">Brief publishing pipeline</span>
+    <p class="desc">How a published brief gets from the data API to coeqwal.org — the build
+    step, the frozen static artifact, versioning, and what stays out of the pipeline. With
+    the current open items, including the handoff questions for the website team.</p>
+    <span class="meta">Last updated 2026-06-11 04:16 PM</span>
+  </a>
+</section>
 
-<a class="page" href="gallery.html" target="_blank" rel="noopener">
-  <span class="name">Figure gallery</span>
-  <p class="desc">Snapshots of the visualization work in progress — decomposition figures,
-  website component ports, the Landscape views, map animations, and orientation figures —
-  each with a one-line description. All synthetic rehearsal data.</p>
-  <span class="meta">17 figures · snapshots 2026-06-04</span>
-</a>
+<section class="group">
+  <h2>Reference</h2>
+  <p class="grouphint">Canonical knowledge for understanding, writing, or reviewing COEQWAL material.</p>
 
-<a class="page" href="demos.html" target="_blank" rel="noopener">
-  <span class="name">Visualization demos</span>
-  <p class="desc">Interactive prototypes you can try in the browser — the guided stepper
-  (the chosen direction for the public site), its location-spread variant, the
-  scenario-columns figure, the tier grid, and the data in-depth explorer. Synthetic
-  rehearsal data, labeled on each page.</p>
-  <span class="meta">5 prototypes</span>
-</a>
+  <a class="page" href="concepts.html" target="_blank" rel="noopener">
+    <span class="name">Core concepts</span>
+    <p class="desc">The ideas the project is built on — its purpose, the model, how results
+    are measured and compared, equity, and how it's communicated — one short entry each,
+    with pointers to the documents that treat each fully.</p>
+    <span class="meta">Last updated 2026-06-12 05:01 PM</span>
+  </a>
 
-<a class="page" href="terminology.html" target="_blank" rel="noopener">
-  <span class="name">Terminology and conventions</span>
-  <p class="desc">Canonical names and definitions for anyone writing or reviewing COEQWAL
-  material: hydroclimates, the scenario list, themes, sectors, tier labels, and the
-  words we use (and avoid) in public-facing text.</p>
-  <span class="meta">Last updated 2026-06-09 14:55</span>
-</a>
+  <a class="page" href="methods.html" target="_blank" rel="noopener">
+    <span class="name">Methods notes</span>
+    <p class="desc">Summaries and technical reports behind the results — how tiers are
+    calculated, what the climate-vs-operations comparison does and doesn't mean, and the
+    terminology conventions. Each document is labeled as settled methodology or a draft
+    for team review.</p>
+    <span class="meta">3 documents</span>
+  </a>
 
-<a class="page" href="pipeline.html" target="_blank" rel="noopener">
-  <span class="name">Brief publishing pipeline</span>
-  <p class="desc">How a published brief gets from the data API to coeqwal.org — the build
-  step, the frozen static artifact, versioning, and what stays out of the pipeline. With
-  the current open items, including the handoff questions for the website team.</p>
-  <span class="meta">Last updated 2026-06-11 16:16</span>
-</a>
+  <a class="page" href="terminology.html" target="_blank" rel="noopener">
+    <span class="name">Terminology and conventions</span>
+    <p class="desc">Canonical names and definitions for anyone writing or reviewing COEQWAL
+    material: hydroclimates, the scenario list, themes, sectors, tier labels, and the
+    words we use (and avoid) in public-facing text.</p>
+    <span class="meta">Last updated 2026-06-09 02:55 PM</span>
+  </a>
+</section>
+
+<section class="group">
+  <h2>Visualizations</h2>
+  <p class="grouphint">Visualization work in progress — all on synthetic rehearsal data, labeled on each page.</p>
+
+  <a class="page" href="gallery.html" target="_blank" rel="noopener">
+    <span class="name">Figure gallery</span>
+    <p class="desc">Snapshots of the visualization work in progress — decomposition figures,
+    website component ports, the Landscape views, map animations, and orientation figures —
+    each with a one-line description. All synthetic rehearsal data.</p>
+    <span class="meta">17 figures · snapshots 2026-06-04</span>
+  </a>
+
+  <a class="page" href="demos.html" target="_blank" rel="noopener">
+    <span class="name">Visualization demos</span>
+    <p class="desc">Interactive prototypes you can try in the browser — the guided stepper
+    (the chosen direction for the public site), its location-spread variant, the
+    scenario-columns figure, the tier grid, and the data in-depth explorer. Synthetic
+    rehearsal data, labeled on each page.</p>
+    <span class="meta">5 prototypes</span>
+  </a>
+</section>
 
 <p class="note">More pages will be added here as they are published.</p>
 
