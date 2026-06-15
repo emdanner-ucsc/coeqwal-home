@@ -124,6 +124,7 @@ footer{padding:18px 26px 36px;font-size:.76rem;color:var(--ink3);max-width:900px
   mimic the structure of CalSim3 post-processed outputs (scenario × hydroclimate × location). Scenario contrasts and climate
   responses are illustrative only and must not be interpreted as model results. Content structure follows the
   “In-Depth Outcomes” tab of the COEQWAL Platform Content Summary (v2026-06-05).
+  <div style="margin-top:10px;color:var(--ink2)"><b>Last updated:</b> June 15, 2026 · 9:09&nbsp;AM PDT</div>
 </footer>
 <script>
 "use strict";
@@ -290,7 +291,7 @@ const VARDEF={
    plain:"How far upstream salty water reaches in September, at the end of the dry season, when the Delta is at its saltiest.",
    tech:"Annual September X2 percentiles. The fall X2 standard is the subject of the 'Relax Delta salinity standards' scenario."},
  station_ec:{name:"Station salinity (EC)",sector:"salin",locg:"stations",kind:"sal",eff:"sal",unit:"µS/cm",
-   base:l=>l.base,views:["monthly","dist","cv"],
+   base:l=>l.base,views:["monthly","series","dist","cv"],
    plain:"How salty the water is at key Delta locations, month by month. Higher electrical conductivity (EC) = saltier water, which limits drinking and irrigation use.",
    tech:"Monthly EC percentiles at Emmaton, Jersey Point, Banks and Jones (CalSim3 ANN-estimated). Annual distribution uses the annual mean EC."},
  cvp_del:{name:"Central Valley Project deliveries",sector:"sysdel",locg:"sysregions",kind:"exports",eff:"exports",unit:"TAF",
@@ -302,11 +303,11 @@ const VARDEF={
    plain:"How much water the State Water Project delivers to its contractors each year.",
    tech:"Annual SWP delivery percentiles (SWP_*_TOTAL variables), split North / South of Delta."},
  tot_exp:{name:"Total Delta exports",sector:"sysdel",locg:"delta",kind:"exports",eff:"exports",unit:"TAF",
-   base:()=>4800,views:["dist","monthly","cv"],
+   base:()=>4800,views:["dist","monthly","series","cv"],
    plain:"The combined volume of water pumped out of the Delta at the Banks and Jones pumping plants for use elsewhere.",
    tech:"Annual and monthly percentiles of TOTAL_EXP. This is the supply side of the Delta outflow / export trade-off."},
  ndo:{name:"Delta outflow volume",sector:"outflow",locg:"delta",kind:"outflow",eff:"outflow",unit:"TAF",
-   base:l=>l.base,views:["dist","monthly","cv"],
+   base:l=>l.base,views:["dist","monthly","series","cv"],
    plain:"How much fresh water flows out of the Delta toward San Francisco Bay. Outflow keeps the estuary fresh and supports fish and wildlife.",
    tech:"Net Delta Outflow (NDO), monthly and annual percentiles. Seasonal (spring/fall) breakouts are in the spec; ETL currently computes monthly, annual and September only."},
  ndo_uif:{name:"Outflow as % of unimpaired flow",sector:"outflow",locg:"delta",kind:"pctuif",eff:"pctUIF",unit:"%",
@@ -314,7 +315,7 @@ const VARDEF={
    plain:"What share of the river water that would naturally reach the Delta actually flows out of it, after storage and diversions.",
    tech:"Annual Delta outflow divided by unimpaired outflow estimate; the % UF scenarios directly target this quantity."},
  riv_flow:{name:"River flows",sector:"eflows",locg:"rivers",kind:"flow",eff:"flows",unit:"TAF",
-   base:l=>l.base,views:["dist","monthly","cv"],
+   base:l=>l.base,views:["dist","monthly","series","cv"],
    plain:"How much water flows down each major river over the year, and in which months — the basis for healthy river ecosystems.",
    tech:"Annual and monthly flow percentiles at river LOIs (CalSim3 C_* channel variables). Seasonal functional-flow metrics are computed externally."},
  riv_uif:{name:"Flow as % of unimpaired",sector:"eflows",locg:"rivers",kind:"pctuif",eff:"pctUIF",unit:"%",
@@ -322,7 +323,7 @@ const VARDEF={
    plain:"What share of the river's natural flow remains in the channel after dams and diversions.",
    tech:"Annual percent-of-unimpaired-flow percentiles per river LOI (flagged as provisional in the spec)."},
  ag_del:{name:"Surface water deliveries",sector:"ag",locg:"agregions",kind:"agdel",eff:"agDel",unit:"TAF",
-   base:l=>AGBASE[l.id].del,views:["dist","monthly","cv"],
+   base:l=>AGBASE[l.id].del,views:["dist","monthly","series","cv"],
    plain:"How much river and project water is delivered to farms each year.",
    tech:"Annual agricultural surface delivery percentiles per demand-unit group (LOI / NOD / SOD in spec)."},
  ag_pump:{name:"Groundwater pumping",sector:"ag",locg:"agregions",kind:"pump",eff:"pump",unit:"TAF",
@@ -365,6 +366,7 @@ const VIEWMETA={
  dist:{label:"Annual distribution"},
  pct:{label:"% of capacity"},
  monthly:{label:"Monthly pattern"},
+ series:{label:"Monthly time series"},
  cv:{label:"Year-to-year variability"},
  value:{label:"Summary value"}
 };
@@ -494,6 +496,26 @@ function monthlyBands(vid,scenId,climId,loiId){
  }
  return bands;
 }
+function monthlySeries(vid,scenId,climId,loiId){
+ /* Continuous monthly trace over the whole simulation: NYEARS×12 chronological values
+    (water-year order Oct→Sep). value = annual level × seasonal shape × month noise,
+    sharing the annual series so it co-moves year to year like the other views. */
+ const vd=VARDEF[vid],K=KINDS[vd.kind];
+ const shapeName=K.shape||(vd.kind==="storage"?"storage":null);
+ const shape=SHAPES[shapeName]||SHAPES.flow;
+ const ann=annualSeries(vid,scenId,climId,loiId);
+ const r=rng(hash("mser|"+[vid,scenId,climId,loiId].join("|")));
+ const out=[];
+ for(let y=0;y<NYEARS;y++){
+   for(let mth=0;mth<12;mth++){
+     let v=ann[y]*shape[mth]*Math.exp(0.10*gauss(r));
+     if(K.clamp)v=Math.min(K.clamp[1],Math.max(K.clamp[0],v));
+     else v=Math.max(0,v);
+     out.push(v);
+   }
+ }
+ return out;
+}
 function q(sorted,p){const i=(sorted.length-1)*p,lo=Math.floor(i),hi=Math.ceil(i);return sorted[lo]+(sorted[hi]-sorted[lo])*(i-lo)}
 function stats(arr){
  const s=[...arr].sort((a,b)=>a-b);
@@ -606,6 +628,23 @@ function chartMonthly(members,unit){
  });
  return {svg:s};
 }
+function chartSeries(members,unit){
+ /* Raw monthly trace over the whole simulation — one thin line per member, NYEARS×12 points. */
+ let lo=Infinity,hi=-Infinity;
+ members.forEach(m=>m.series.forEach(v=>{lo=Math.min(lo,v);hi=Math.max(hi,v)}));
+ if(lo>0&&lo/hi<0.25)lo=0;else lo=Math.max(0,lo*0.95);
+ hi*=1.05;
+ const N=members[0].series.length;
+ const xs=scaler(0,N,M.l,CW-M.r),ys=scaler(lo,hi,CH-M.b,M.t);
+ const yt=niceTicks(lo,hi,6);
+ const xt=[];for(let yr=0;yr<=NYEARS;yr+=20)xt.push({v:yr*12,lab:"Yr "+yr});
+ let s=axisSvg(xt,yt,xs,ys,t=>t.lab,t=>fmt(t,unit),"Simulation year (monthly values, water-year order)",unitLabel(unit));
+ members.forEach((m,i)=>{
+  const pts=m.series.map((v,k)=>`${xs(k).toFixed(1)},${ys(v).toFixed(1)}`).join(" ");
+  s+=`<polyline points="${pts}" fill="none" stroke="${PALETTE[i]}" stroke-width="1" stroke-opacity=".85" stroke-linejoin="round"/>`;
+ });
+ return {svg:s};
+}
 function chartBar(members,unit){
  let lo=0,hi=0;
  members.forEach(m=>{lo=Math.min(lo,m.value);hi=Math.max(hi,m.value)});
@@ -656,6 +695,7 @@ function memberData(){
  return memberDefs().map(d=>{
   const m={...d};
   if(v==="monthly")m.bands=monthlyBands(state.vid,d.scen,d.clim,d.loi);
+  else if(v==="series")m.series=monthlySeries(state.vid,d.scen,d.clim,d.loi);
   else{
    let ser=annualSeries(state.vid,d.scen,d.clim,d.loi);
    if(v==="pct"){const cap=LOC(vd.locg,d.loi).cap;ser=ser.map(x=>x/cap*100)}
@@ -679,6 +719,13 @@ function summaryText(members){
   if(members.length>1){const m1=members[members.length-1];
    const a=m0.bands.reduce((t,b)=>t+b.p50,0),b=m1.bands.reduce((t,b2)=>t+b2.p50,0);
    s+=`; across the year, ${m1.label} runs <b>${pctDelta(a,b)}</b> vs ${m0.label}`;}
+  return s+".";
+ }
+ if(v==="series"){
+  const m0=members[0],st0=stats(m0.series);
+  let s=`Monthly ${vn} across the ${NYEARS}-year simulation. For <b>${m0.label}</b>, the median month is <b>${fmt(st0.p50,unit)} ${unit}</b>, with most months between <b>${fmt(st0.p10,unit)}</b> and <b>${fmt(st0.p90,unit)} ${unit}</b>`;
+  if(members.length>1){const m1=members[members.length-1],st1=stats(m1.series);
+   s+=`; ${m1.label} runs at a median of <b>${fmt(st1.p50,unit)} ${unit}</b>`;}
   return s+".";
  }
  if(v==="cv"){
@@ -711,6 +758,7 @@ function summaryText(members){
 /* ---------- how-to-read text ---------- */
 function howToRead(){
  if(state.view==="monthly")return `<p>Each line is the <b>median</b> value for that month across all ${NYEARS} simulated years; the shaded band spans the 10th–90th percentile (8 of 10 years fall inside it). Months follow the water year (October–September).</p>`;
+ if(state.view==="series")return `<p>The <b>raw monthly trace</b> over the full ${NYEARS}-year simulation — every month plotted in sequence (${NYEARS}×12 values), in water-year order. Unlike the monthly pattern, nothing is averaged: you see the actual run, including the wet and dry stretches and how each scenario tracks through them. The horizontal axis is the simulation year.</p>`;
  if(state.view==="cv")return `<p>The coefficient of variation (CV) is the year-to-year standard deviation divided by the mean. A CV of 0.10 means typical years vary about ±10% around the average; higher bars mean a less reliable, more boom-and-bust pattern.</p>`;
  if(state.view==="value")return `<p>A single summary number per comparison member. Hover a bar for the exact value.</p>`;
  if(state.distKind==="box")return `<p>Each box summarizes all ${NYEARS} simulated years: the heavy line is the <b>median</b>, the box spans the 25th–75th percentile (half of all years), and the whiskers reach the 10th and 90th percentiles. Wider boxes = more year-to-year variability.</p>`;
@@ -731,6 +779,10 @@ function exportCSV(){
  }else if(state.view==="cv"||state.view==="value"){
   rows.push(["member","value_"+unit.replace(/[^a-z0-9]/gi,"")].join(","));
   members.forEach(m=>rows.push([JSON.stringify(m.label),m.value.toFixed(4)].join(",")));
+ }else if(state.view==="series"){
+  rows.push(["sim_year","water_month",...members.map(m=>JSON.stringify(m.label+" ("+unit+")"))].join(","));
+  const N=members[0].series.length;
+  for(let k=0;k<N;k++)rows.push([Math.floor(k/12),MONTHS[k%12],...members.map(m=>m.series[k].toFixed(2))].join(","));
  }else{
   rows.push(["exceedance_pct",...members.map(m=>JSON.stringify(m.label+" ("+unit+")"))].join(","));
   const sorted=members.map(m=>[...m.series].sort((a,b)=>b-a));
@@ -829,6 +881,7 @@ function renderMain(){
  const members=memberData(),unit=viewUnit();
  let chart;
  if(state.view==="monthly")chart=chartMonthly(members,unit);
+ else if(state.view==="series")chart=chartSeries(members,unit);
  else if(state.view==="cv"||state.view==="value")chart=chartBar(members,unit);
  else chart=state.distKind==="box"?chartBox(members,unit):chartExceedance(members,unit);
  const tier=TIERLINK[state.vid];
