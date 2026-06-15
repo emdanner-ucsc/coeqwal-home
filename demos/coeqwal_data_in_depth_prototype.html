@@ -11,6 +11,7 @@
   --bg:#f4f7f9; --panel:#ffffff; --line:#dde5ec; --line2:#eef2f6;
   --accent:#0b6e8e; --accent2:#0d87ae; --accentbg:#e3f0f5;
   --warn:#9a6700; --warnbg:#fff3d6;
+  --anchor:#3a4a59; --anchorbg:#eef1f4;
   --radius:10px;
   font-size:15px;
 }
@@ -59,6 +60,9 @@ main{flex:1;padding:18px 26px 60px;min-width:0;max-width:1200px}
 .chip.on{background:var(--accentbg);border-color:var(--accent);color:var(--accent);font-weight:600}
 .chip .dot{width:9px;height:9px;border-radius:50%;background:transparent;border:1.5px solid currentColor;flex:none}
 .chip.on .dot{border:none}
+.chip.ref{background:var(--anchorbg);border:1px solid #c4ccd4;border-left:3px solid var(--anchor);color:var(--anchor);font-weight:650;cursor:default}
+.chip.ref .reftag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:#fff;border:1px solid #c4ccd4;border-radius:9px;padding:0 6px;margin-left:3px}
+.chip.ref .lock{font-size:.74rem;opacity:.6}
 .hint{font-size:.76rem;color:var(--ink3);margin-top:6px}
 .scenpicker{position:relative}
 .scenbtn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 10px;font-size:.86rem;color:var(--ink)}
@@ -688,8 +692,12 @@ function summaryText(members){
  }
  const meds=members.map(m=>({m,med:stats(m.series).p50}));
  if(state.compare==="scen"){
-  const b0=meds[0];let s=`At <b>${locName}</b> under the ${climName} hydroclimate, median ${vn} is <b>${fmt(b0.med,unit)} ${unit}</b> for ${b0.m.label}`;
-  const rest=meds.slice(1).map(x=>`${x.m.label} <b>${pctDelta(b0.med,x.med)}</b>`);
+  /* Reference is always current operations (s0020) at the displayed climate — concept 7.
+     It's the locked first chip, so it's present here; fall back to first member defensively. */
+  const ref=meds.find(x=>x.m.scen==="s0020")||meds[0];
+  const others=meds.filter(x=>x!==ref);
+  let s=`At <b>${locName}</b> under the ${climName} hydroclimate, median ${vn} for <b>${ref.m.label}</b> (the reference) is <b>${fmt(ref.med,unit)} ${unit}</b>`;
+  const rest=others.map(x=>`${x.m.label} <b>${pctDelta(ref.med,x.med)}</b>`);
   if(rest.length)s+=`; relative to it: ${rest.join(", ")}`;
   return s+".";
  }
@@ -796,7 +804,11 @@ function renderControls(){
    <div class="seg">${segBtn("scen","Scenarios")}${segBtn("clim","Climate futures")}${segBtn("loc","Locations",!multiLoc)}</div></div>`;
  if(state.compare==="scen"){
   h+=`<div class="ctl"><label class="ctlname">Scenarios (up to 5)</label><div class="chips">`;
-  h+=state.scenSel.map(sid=>`<button class="chip on" title="${esc(SCEN(sid).desc)}" onclick="UI.rmScen('${sid}')"><span class="dot" style="background:${PALETTE[state.scenSel.indexOf(sid)]}"></span>${esc(SCEN(sid).name)} ✕</button>`).join("");
+  h+=state.scenSel.map(sid=>{
+   const dot=`<span class="dot" style="background:${PALETTE[state.scenSel.indexOf(sid)]}"></span>`;
+   if(sid==="s0020")return `<span class="chip ref" title="Current operations is the fixed reference — every change below is measured against it, so it can't be removed.">${dot}${esc(SCEN(sid).name)} <span class="reftag">reference</span> <span class="lock">🔒</span></span>`;
+   return `<button class="chip on" title="${esc(SCEN(sid).desc)}" onclick="UI.rmScen('${sid}')">${dot}${esc(SCEN(sid).name)} ✕</button>`;
+  }).join("");
   if(state.scenSel.length<5)h+=`<span class="scenpicker"><button class="chip scenbtn" onclick="UI.toggleMenu(event)">＋ Add scenario</button>${scenMenuHTML("add")}</span>`;
   h+=`</div></div>`;
   h+=`<div class="ctl"><label class="ctlname">Hydroclimate</label><select onchange="UI.setClimPin(this.value)">${CLIMATES.map(c=>`<option value="${c.id}" ${c.id===state.climPin?"selected":""}>${esc(c.name)}</option>`).join("")}</select><div class="hint">${esc(CLIM(state.climPin).desc)}</div></div>`;
@@ -905,12 +917,13 @@ const UI={
  setLocPin(v){state.locPin[curVar().locg]=v;render()},
  toggleMenu(ev){ev.stopPropagation();state.menuOpen=!state.menuOpen;render()},
  addScen(id){
+  if(id==="s0020"){state.menuOpen=true;render();return;} // reference is locked on, can't toggle
   if(state.scenSel.includes(id))state.scenSel=state.scenSel.filter(s=>s!==id);
   else if(state.scenSel.length<5)state.scenSel.push(id);
-  if(!state.scenSel.length)state.scenSel=["s0020"];
+  state.scenSel=["s0020",...state.scenSel.filter(s=>s!=="s0020")]; // keep reference present and first
   render();state.menuOpen=true;render();
  },
- rmScen(id){state.scenSel=state.scenSel.filter(s=>s!==id);if(!state.scenSel.length)state.scenSel=["s0020"];render()},
+ rmScen(id){if(id==="s0020")return;state.scenSel=["s0020",...state.scenSel.filter(s=>s!=="s0020"&&s!==id)];render()},
  toggleClim(id){
   if(state.climSel.includes(id)){if(state.climSel.length>1)state.climSel=state.climSel.filter(c=>c!==id)}
   else state.climSel.push(id);
