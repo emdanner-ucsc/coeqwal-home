@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Functional environmental flows — s0046 — COEQWAL Findings</title>
+<meta name="description" content="A COEQWAL strategy background brief describing scenario s0046 (Functional environmental flows): functional flow requirements on tributaries to the Sacramento and San Joaquin rivers. Background only — no modeled results.">
+
+<!--
+  COEQWAL strategy brief — PROTOTYPE
+
+  Worked example: s0046 (Functional environmental flows; EflowsV2).
+  Seven-section scaffold plus metadata footer. Background reference
+  brief — no modeled results, no tier data. Lives in the Reference
+  layer of the Findings tab; opened via the Operational strategies
+  picker. Twenty-four briefs total at launch, template-rendered from
+  the per-scenario name/description served by the live API (the older
+  coeqwal_cs3_scenario_descriptions.md card source is retired).
+
+  Visual variant: paper-and-ink article (brief-article tokens per
+  COEQWAL_Visual_Design_Spec.md). Shares the cream-paper masthead
+  shell used by baselines_v0_7 and loi_v0_6 — accent is the canonical
+  blue.darkest #3a4574, not the older brief-internal #1e3a5f.
+
+  Picker host: findings_tab_prototype_v0_3.html (Reference layer).
+
+  Authoritative content sources (2026-06-18 snapshot):
+    name / short_description — builder/snapshots/2026-06-18/scenarios.json
+    run_name / web_platform_id / lineage — builder/reference/scenario_listing.json
+    theme tags / §5 membership — _meta/COEQWAL_Brief_Inventory.xlsx (Strategies (24))
+
+  v0_3 (2026-06-18, restyle): rebuilt onto the baselines_v0_7 / loi_v0_6
+  cream-paper masthead shell for cross-brief consistency — accent moved
+  #1e3a5f → #3a4574, navy shell + breadcrumb dropped, section headings,
+  footer, print and mobile rules brought to parity. Content unchanged.
+
+  v0_3 (2026-06-18): re-based from the retired s0029 worked example onto
+  s0046, the functional-flows strategy that is actually in the served 24
+  (s0029 was dropped). s0046 is EflowsV2 — functional flows on Sacramento
+  and San Joaquin TRIBUTARIES ONLY, removing the downstream main-stem and
+  Delta-outflow requirements. §5 related list regenerated from the
+  finalized Theme tag(s) column (Environment).
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for devnote/[TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+h1 .scenario-id { color: var(--ink-faint); font-weight: 400; }
+
+/* ── Section structure ──────────────────────────────────────────── */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.9em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── §3 Configuration table ─────────────────────────────────────── */
+table.config {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  margin: 0.4rem 0 0.2rem;
+}
+table.config thead th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink-soft);
+}
+table.config tbody td {
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+table.config tbody tr.match td { color: var(--ink-faint); }
+table.config tbody tr.diff td {
+  color: var(--ink);
+  font-weight: 500;
+  background: var(--accent-faint);
+}
+table.config tbody tr.diff td:first-child { border-left: 3px solid var(--accent); }
+table.config tbody tr.match td:first-child { border-left: 3px solid transparent; }
+
+/* ── §5 Related strategies ──────────────────────────────────────── */
+.related h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0.4rem 0 0.7rem;
+}
+ul.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+ul.related-list li { margin: 0.5rem 0; color: var(--ink-soft); }
+ul.related-list .sid {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  font-weight: 500;
+  color: var(--accent);
+  margin-right: 0.3em;
+}
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow { display: inline-block; margin-left: 0.3em; transition: transform 0.2s; }
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer code { font-family: var(--mono); color: var(--ink-soft); }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Devnotes (build-time annotations, hidden in print) ─────────── */
+.devnote {
+  margin: 1.2rem 0;
+  padding: 0.8rem 1.1rem;
+  background: var(--stub-bg);
+  border-left: 3px solid var(--stub);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--stub);
+}
+.devnote .label {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-right: 0.6em;
+}
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .devnote { display: none; }
+  table.config { font-size: 0.78rem; break-inside: avoid; }
+  table.config thead { display: table-header-group; }
+  table.config tr { break-inside: avoid; }
+  ul.related-list li { break-inside: avoid; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after { content: ' (' attr(href) ')'; font-size: 0.8em; color: #888; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  ul.related-list { font-size: 0.92rem; }
+  table.config { font-size: 0.78rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <!-- ─── MASTHEAD ─────────────────────────────────────────────── -->
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Strategy Brief · Background</span>
+  </header>
+
+  <div class="devnote">
+    <span class="label">DEVNOTE — PROTOTYPE</span>
+    Strategy brief template, populated with s0046 (Functional environmental flows) as the worked example — one of the 24 served strategies. Seven sections plus a metadata footer. No modeled results — the brief describes the operational configuration only. Devnote boxes are visible in the prototype and hidden in print.
+  </div>
+
+  <!-- ─── §1 HEADLINE ──────────────────────────────────────────── -->
+  <div class="eyebrow">Operational Strategy · Environment</div>
+  <h1>
+    Functional environmental flows
+    <span class="scenario-id">— s0046</span>
+  </h1>
+  <p class="tldr">
+    Scenario s0046 imposes minimum flow requirements on tributaries to the Sacramento and San Joaquin rivers, derived from natural-flow estimates with seasonal scaling. It is a variation of the functional-flows approach that applies the requirements to the tributaries only, leaving the downstream main stems and Delta outflow as they are under current operations. Everything else in the scenario matches current operations; the only intentional change is this tributary flow requirement set.
+  </p>
+
+  <!-- ─── §2 WHAT THIS STRATEGY CHANGES ───────────────────────── -->
+  <section>
+    <h2><span class="num">§2</span> What this strategy changes</h2>
+    <p>
+      The strategy adds new minimum flow requirements on tributaries to the Sacramento and San Joaquin rivers. The flow values were developed by the COEQWAL eflows team based on natural-flow estimates, with selected seasonal components added and scaled according to expected water availability in each year.
+    </p>
+    <p>
+      This is the tributaries-only variation of the functional-flows approach. A broader version of the same idea also places requirements on the main stems of the two rivers and on Delta outflow; s0046 deliberately leaves those downstream requirements out, so the only change from current operations is on the tributaries themselves.
+    </p>
+    <p>
+      The requirements are minimums, not maximums. Simulated flows are frequently larger than the functional minimum at any given location and timestep. Where a functional flow requirement coincides with a pre-existing minimum (for example, an existing biological-opinion flow), the larger of the two values is used.
+    </p>
+    <p>
+      The functional flow requirements are highly prioritized in CalSim's allocation logic but are not guaranteed to be met in every timestep — they may be missed when an upstream reservoir cannot release enough water, or when released water is lost to groundwater seepage in transit. The team's stated intent in defining the set was to represent flow conditions closer to those of unimpaired hydrology, not to specify policy.
+    </p>
+  </section>
+
+  <!-- ─── §3 CONFIGURATION ─────────────────────────────────────── -->
+  <section>
+    <h2><span class="num">§3</span> The configuration in detail</h2>
+    <p>
+      The table compares the eight operational fields that define this scenario against the s0020 reference (DWR Adjusted Hydrology with 2020 Land Use and TUCPs). Rows that match the reference are shown quieter; rows that differ are highlighted.
+    </p>
+    <table class="config">
+      <thead>
+        <tr>
+          <th>Aspect</th>
+          <th>s0020 reference</th>
+          <th>s0046</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="match"><td>TUCP actions</td><td>Active</td><td>Active</td></tr>
+        <tr class="match"><td>SGMA actions</td><td>None</td><td>None</td></tr>
+        <tr class="match"><td>Land use</td><td>2020 LandIQ</td><td>2020 LandIQ</td></tr>
+        <tr class="match"><td>Delta regulations</td><td>Standard</td><td>Standard</td></tr>
+        <tr class="match"><td>BiOps</td><td>2019 / 2020 ITP</td><td>2019 / 2020 ITP</td></tr>
+        <tr class="match"><td>Infrastructure</td><td>Standard</td><td>Standard</td></tr>
+        <tr class="diff"><td>Flows</td><td>Standard</td><td>Functional flows on Sacramento and San Joaquin tributaries (main-stem and Delta-outflow requirements not included)</td></tr>
+        <tr class="match"><td>Allocation / priorities</td><td>Standard</td><td>Standard</td></tr>
+      </tbody>
+    </table>
+    <div class="devnote">
+      <span class="label">DEVNOTE — TABLE SCOPE</span>
+      Table shows the eight operational fields. The card also carries Source (lineage), Hydroclimate, and Sea level rise. Source has moved to §4; Hydroclimate and Sea level rise are not duplicated here — those axes are described in the parallel hydroclimate brief, not the strategy brief.
+    </div>
+  </section>
+
+  <!-- ─── §4 LINEAGE AND SOURCE ────────────────────────────────── -->
+  <section>
+    <h2><span class="num">§4</span> Lineage and source</h2>
+    <p>
+      Scenario s0046 was developed by the COEQWAL eflows team. It is built on current operations under DWR's adjusted historical hydrology with the 2020 LandIQ land-use dataset, with functional minimum flow requirements added on tributaries to the Sacramento and San Joaquin rivers. It is the second version of the functional-flows configuration (EflowsV2): a variation that removes the downstream Sacramento, San Joaquin, and Delta-outflow requirements present in the broader functional-flows scenario, keeping only the tributary requirements. The CalSim model files for this scenario are referenced by the RunID in the footer.
+    </p>
+  </section>
+
+  <!-- ─── §5 RELATED STRATEGIES ────────────────────────────────── -->
+  <section class="related">
+    <h2><span class="num">§5</span> Related strategies</h2>
+    <h3>Related strategies — Environment</h3>
+    <ul class="related-list">
+      <li><span class="sid">s0030</span> — No flow requirements. Current operations without minimum flow requirements on Central Valley rivers.</li>
+      <li><span class="sid">s0031</span> — Salmon-friendly flows. Sacramento River flow requirements and Shasta cold-water storage protection to support Sacramento River winter-run Chinook salmon life-cycle needs.</li>
+      <li><span class="sid">s0032</span> — Functional environmental flows with groundwater regulations. The s0046 tributary flow requirements combined with groundwater pumping limits and reduced irrigated acreage, reflecting compliance with SGMA.</li>
+      <li><span class="sid">s0033</span> — Salmon-friendly flows with groundwater regulations. The s0031 salmon flows combined with groundwater pumping limits and reduced irrigated acreage, reflecting compliance with SGMA.</li>
+      <li><span class="sid">s0039</span> — Increase Delta outflows (65% of unimpaired flow). USBR Alternative 3 for the Long-Term Operation of the Central Valley Project; raises Delta outflow requirements to roughly 65% of unimpaired volume.</li>
+      <li><span class="sid">s0042</span> — Increase Delta outflows (55% of unimpaired flow). As s0039 at roughly the 55% level.</li>
+    </ul>
+    <div class="devnote">
+      <span class="label">DEVNOTE — §5 REGENERATED FROM TAGS</span>
+      This list is the live pivot of the finalized Theme tag(s) column: every other served strategy carrying the Environment tag, in scenario-ID order. s0046 is single-tag (Environment), so it renders one subsection. s0032 and s0033 also carry Farms and groundwater, and s0039 and s0042 also carry Delta as a living place — so those scenarios' own briefs render two subsections each. Open decision: whether to truncate a long subsection to a top-N with a "see all" overflow link, or accept the full list as the price of selection-neutrality.
+    </div>
+  </section>
+
+  <!-- ─── §6 WHAT THIS DOESN'T SAY ─────────────────────────────── -->
+  <section>
+    <h2><span class="num">§6</span> What this doesn't say</h2>
+    <p class="disclaimer">
+      This brief describes an idealized representation in CalSim, not a real-world policy proposal or implementation plan. The strategy as modeled may not capture all operational details that would be present in a live deployment. The brief does not predict, evaluate, or recommend any outcome — it describes what the scenario changes about CalSim's representation of the system. For what the model produces under this strategy, see the result briefs referenced in §7.
+    </p>
+  </section>
+
+  <!-- ─── §7 SEE RESULTS FOR THIS STRATEGY ─────────────────────── -->
+  <section>
+    <h2><span class="num">§7</span> See results for this strategy</h2>
+    <p>
+      To see modeled outcomes under this strategy across all nine sectors at the reference hydroclimate, see the <em>Rivers, salmon and the Delta ecosystem</em> theme brief.
+    </p>
+    <p>
+      To see outcomes at a specific place, see the relevant LOI briefs — particularly those for locations on the Sacramento and San Joaquin tributaries.
+    </p>
+    <p>
+      <a class="explore-link" href="/explore?strategy=s0046">
+        Compare this strategy in the data explorer
+        <span class="arrow">→</span>
+      </a>
+    </p>
+  </section>
+
+  <!-- ─── FOOTER (metadata) ────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>RunID <code>s0046_DCRadjHist_2020LU_EflowsV2</code></span>
+      <span>Web platform ID 3.2</span>
+      <span>Brief v1.0</span>
+      <span>Updated June 18, 2026 · 1:40 PM PDT</span>
+    </div>
+  </footer>
+
+</article>
+
+<!-- ─── PRINT HINT (screen-only) ──────────────────────────────── -->
+<p class="print-hint">
+  Save this brief as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>COEQWAL Briefs — Team Review Hub</title>
+<meta name="description" content="A single landing page linking every COEQWAL brief prototype going to team review, grouped by type, with a short note on the decisions we need from reviewers.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for caveats / placeholders */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      44rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 1.4rem;
+  color: var(--ink);
+}
+.lede {
+  font-size: 1.12rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 2.6rem;
+}
+
+/* ── Section headings ───────────────────────────────────────────── */
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 3rem 0 0.4rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--rule);
+}
+.group-note {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  margin: 0 0 1.4rem;
+}
+
+/* ── Brief cards ────────────────────────────────────────────────── */
+.card {
+  margin: 0 0 1.2rem;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--rule);
+}
+.card a.title {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+.card a.title:hover { text-decoration: underline; }
+.card .ver {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--ink-faint);
+  margin-left: 0.5em;
+}
+.card .status {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  margin: 0.2rem 0 0;
+}
+.card .extra-links {
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  margin: 0.35rem 0 0;
+}
+.card .extra-links a { color: var(--accent); }
+
+/* ── Caveat tag ─────────────────────────────────────────────────── */
+.caveat {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.5em;
+  border-radius: 2px;
+  margin-top: 0.35rem;
+}
+
+/* ── "What we need your input on" callout ───────────────────────── */
+.input-box {
+  background: var(--accent-faint);
+  border: 1px solid #cdd9ea;
+  border-radius: 4px;
+  padding: 1.5rem 1.8rem 1.6rem;
+  margin: 0 0 1rem;
+}
+.input-box h2 {
+  border: none;
+  padding: 0;
+  margin: 0 0 0.8rem;
+  color: var(--accent);
+}
+.input-box ol { margin: 0; padding-left: 1.2rem; }
+.input-box li { margin: 0 0 1rem; }
+.input-box li:last-child { margin-bottom: 0; }
+.input-box .q { font-weight: 700; }
+.input-box a { color: var(--accent); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+}
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; margin-bottom: 0.4rem; }
+
+@media (max-width: 640px) {
+  .page { padding: 2.5rem 1.4rem 4rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Brief prototypes · Team review</span>
+  </header>
+
+  <p style="font-family:var(--sans);font-size:0.8rem;margin:0 0 1.6rem;"><a href="../index.html" style="color:var(--accent);text-decoration:none;">← COEQWAL working pages</a></p>
+
+  <p class="eyebrow">Team Review</p>
+  <h1>Brief prototypes for review</h1>
+  <p class="lede">
+    Every brief prototype that is ready for the team to read, in one place. Each link opens
+    the live prototype in a new tab. Below the list is a short note on the two decisions we
+    need from reviewers. The numbers in the Folsom and Baselines briefs, and all of the
+    theme-brief figures, are stand-ins, not real model results — see the notes on each.
+  </p>
+
+  <!-- ── What we need your input on ─────────────────────────────── -->
+  <div class="input-box">
+    <h2>What we need your input on</h2>
+    <ol>
+      <li>
+        <span class="q">Which shape should the theme briefs take?</span>
+        We built each of the four themes two ways: a nine-part version that follows the
+        same outline as our other briefs, and an eight-part version that follows the public
+        theme write-ups (the wording in the four updated theme PDFs). They differ because a
+        theme covers a whole set of scenarios at once, while our standard brief is built
+        around a single scenario. Open both side by side on the
+        <a href="water-themes/index.html" target="_blank" rel="noopener">themes index page</a>,
+        and see the
+        <a href="water-themes/theme_narrative_to_brief_crosswalk.html" target="_blank" rel="noopener">crosswalk</a>
+        for a part-by-part comparison and the trade-offs. We need to pick one before writing
+        any theme content beyond these first drafts.
+      </li>
+      <li>
+        <span class="q">What should the headline figure look like?</span>
+        Two candidate forms for the lead figure on a brief. One is a trade-off plot: two
+        measures on two axes (for example, water for farms left-to-right and water for the
+        environment bottom-to-top), so each scenario is a point and you can see what is
+        traded against what. The other is a radial (wheel-shaped) plot, where each spoke is
+        one of the nine outcome areas and the distance out the spoke shows how that area
+        scores. This choice affects all four themes, and the figures stay as placeholders
+        until it is settled.
+      </li>
+    </ol>
+  </div>
+
+  <p class="group-note" style="margin-top:1.4rem;">
+    <strong>How to give feedback.</strong> For general reactions, reply to the email this link
+    came with, or leave a comment in the brief's Google Doc. To suggest specific wording, open
+    the brief's Google Doc — linked under the three core briefs below — and edit it directly;
+    turn on <em>Suggesting</em> mode so changes show as tracked suggestions. Several people can
+    edit the same doc at once, so there is no file to send back.
+  </p>
+
+  <!-- ── Core briefs ────────────────────────────────────────────── -->
+  <h2>Core briefs</h2>
+  <p class="group-note">The most developed prototypes — one of each brief type.</p>
+
+  <div class="card">
+    <a class="title" href="loi_brief_prototype_v0_6.html" target="_blank" rel="noopener">Location brief · Folsom Reservoir</a><span class="ver">v0.6</span>
+    <p class="status">A brief for a single location (one reservoir or delivery point). The most finished example of the layout and voice.</p>
+    <span class="caveat">Figure numbers are synthetic — not real CalSim output</span>
+    <p class="extra-links"><a href="https://docs.google.com/document/d/1GemQfH8dXJ86yQqX2E2JdK5ciEkY5zZ7/edit" target="_blank" rel="noopener">✎ Suggest wording edits (Google Doc)</a></p>
+  </div>
+
+  <div class="card">
+    <a class="title" href="baselines_brief_prototype_v0_7.html" target="_blank" rel="noopener">Reference brief · Baselines</a><span class="ver">v0.7</span>
+    <p class="status">How today's water rules perform across the historical baseline and three drier future climates. Our reference point for the other briefs.</p>
+    <span class="caveat">Figure numbers are synthetic — not real CalSim output</span>
+    <p class="extra-links"><a href="https://docs.google.com/document/d/1aOP2_BANX6ubDcvFF66U_BmKbqRHiba-/edit" target="_blank" rel="noopener">✎ Suggest wording edits (Google Doc)</a></p>
+  </div>
+
+  <div class="card">
+    <a class="title" href="strategy_brief_prototype_s0046_v0_3.html" target="_blank" rel="noopener">Strategy brief · s0046 (Functional environmental flows)</a><span class="ver">v0.3</span>
+    <p class="status">A worked example for one management strategy. Restyled June 18 to match the cream-paper shell the other briefs use; content drawn from the live scenario listing.</p>
+    <p class="extra-links"><a href="https://docs.google.com/document/d/1j8_DOZ0w4MOvoERqHm83xfnIu8zIFLB1/edit" target="_blank" rel="noopener">✎ Suggest wording edits (Google Doc)</a></p>
+  </div>
+
+  <div class="card">
+    <a class="title" href="findings_tab_prototype_v0_8.html" target="_blank" rel="noopener">Findings page</a><span class="ver">v0.8</span>
+    <p class="status">The landing page that routes a reader to briefs by place, by outcome area, or by theme. Shows how the briefs fit together. Some pickers are still visual stand-ins.</p>
+  </div>
+
+  <!-- ── Theme briefs ───────────────────────────────────────────── -->
+  <h2>Theme briefs — two formats each</h2>
+  <p class="group-note">Four themes, each drafted in both candidate formats (see decision 1 above). Start with the index to compare them side by side.</p>
+
+  <div class="card">
+    <a class="title" href="water-themes/index.html" target="_blank" rel="noopener">Themes index — side-by-side comparison</a><span class="ver">v0.1</span>
+    <p class="status">Links both formats for all four themes, plus the crosswalk and the source write-ups. The best starting point for the format decision.</p>
+    <span class="caveat">Figures are placeholders; per-scenario specifics are stubs</span>
+  </div>
+
+  <div class="card">
+    <span class="title" style="color:var(--ink)">Rivers and Salmon</span><span class="ver">v0.1</span>
+    <p class="extra-links">
+      <a href="water-themes/theme_eco_rivers-and-salmon_brief_prototype_v0_1.html" target="_blank" rel="noopener">Nine-part brief</a> &nbsp;·&nbsp;
+      <a href="water-themes/theme_eco_rivers-and-salmon_narrative_prototype_v0_1.html" target="_blank" rel="noopener">Eight-part narrative</a>
+    </p>
+  </div>
+
+  <div class="card">
+    <span class="title" style="color:var(--ink)">Farms and Groundwater</span><span class="ver">v0.1</span>
+    <p class="extra-links">
+      <a href="water-themes/theme_ag_gw_brief_prototype_v0_1.html" target="_blank" rel="noopener">Nine-part brief</a> &nbsp;·&nbsp;
+      <a href="water-themes/theme_ag_gw_farms-and-groundwater_narrative_prototype_v0_1.html" target="_blank" rel="noopener">Eight-part narrative</a>
+    </p>
+  </div>
+
+  <div class="card">
+    <span class="title" style="color:var(--ink)">Community Water Systems</span><span class="ver">v0.1</span>
+    <p class="extra-links">
+      <a href="water-themes/theme_cws_community-water-systems_brief_prototype_v0_1.html" target="_blank" rel="noopener">Nine-part brief</a> &nbsp;·&nbsp;
+      <a href="water-themes/theme_cws_community-water-systems_narrative_prototype_v0_1.html" target="_blank" rel="noopener">Eight-part narrative</a>
+    </p>
+  </div>
+
+  <div class="card">
+    <span class="title" style="color:var(--ink)">Balancing needs in the Delta</span><span class="ver">v0.1</span>
+    <p class="extra-links">
+      <a href="water-themes/theme_delta_balancing-needs_brief_prototype_v0_1.html" target="_blank" rel="noopener">Nine-part brief</a> &nbsp;·&nbsp;
+      <a href="water-themes/theme_delta_balancing-needs_narrative_prototype_v0_1.html" target="_blank" rel="noopener">Eight-part narrative</a>
+    </p>
+    <span class="caveat">Theme figures are placeholders; per-scenario specifics are stubs</span>
+  </div>
+
+  <!-- ── Orientation ────────────────────────────────────────────── -->
+  <h2>Reading-frame prototype</h2>
+  <p class="group-note">Not a brief — included so reviewers can see the framing that sits in front of the briefs. It uses a different layout on purpose.</p>
+
+  <div class="card">
+    <a class="title" href="orientation_prototype_v0_2.html" target="_blank" rel="noopener">Orientation — how to read any result</a><span class="ver">v0.2</span>
+    <p class="status">Walks a reader through the scenario space and the three reference points (today's baseline, the climate you pick, the scenario you pick) before they open a brief.</p>
+  </div>
+
+  <!-- ── Footer ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Briefs for review · part of the COEQWAL working pages</span>
+      <span>Not indexed (internal review)</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

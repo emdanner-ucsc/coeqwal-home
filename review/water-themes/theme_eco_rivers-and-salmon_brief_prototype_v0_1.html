@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rivers and Salmon — Brief: managing flows, cold water, and salmon survival across scenarios | COEQWAL</title>
+<meta name="description" content="A plain-language COEQWAL theme brief on California's rivers and salmon: how protecting cold water for winter-run Chinook and releasing more water for river flows draw on the same limited supply, so one salmon life stage can gain while another loses — and how a hotter, drier climate sharpens the trade-off.">
+
+<!-- COEQWAL Rivers and Salmon (eco) theme brief — prototype v0.1. Built 2026-06-18 from the updated public theme narrative (Protecting rivers and salmon.pdf) plus the team's Rivers-and-salmon workshop source doc. Nine-section invariant, theme-narrative content mapped in (multi-scenario). Specific scenario IDs and tier values from the workshop doc held as devnotes/stubs pending confirmed continuous tiers. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for [TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+
+/* ── Section structure (lighter rhythm — no rules between sections) */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Stub markers ───────────────────────────────────────────────── */
+.stub {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.45em;
+  border-radius: 2px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ── Figure placeholder ─────────────────────────────────────────── */
+.figure-stub {
+  margin: 1.2rem 0 0;
+  border: 1.5px dashed var(--ink-faint);
+  background:
+    repeating-linear-gradient(-45deg,
+      transparent 0, transparent 12px,
+      rgba(0,0,0,0.025) 12px, rgba(0,0,0,0.025) 13px);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+.figure-stub .label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.6rem;
+}
+.figure-stub .desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 28em;
+}
+.figure-stub code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.05);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.95rem 0 0;
+}
+.caption .num { font-weight: 700; color: var(--ink); }
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ── Inline term gloss ──────────────────────────────────────────── */
+.term {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── Related briefs section ─────────────────────────────────────── */
+.related-briefs h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 1.6rem 0 0.6rem;
+}
+.related-briefs h3:first-of-type {
+  margin-top: 0.4rem;
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.related-list li {
+  margin: 0.36rem 0;
+  padding: 0;
+}
+.related-list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+}
+.related-list a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.related-rule {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin: 0.55rem 0 0;
+  line-height: 1.6;
+}
+.related-rule a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  font-style: normal;
+}
+.related-rule a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  transition: transform 0.2s;
+}
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Devnotes (build-time annotations, hidden in print) ─────────── */
+.devnote {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--stub);
+  background: var(--stub-bg);
+  border-left: 2px solid var(--stub);
+  padding: 0.5rem 0.75rem;
+  margin: 0.9rem 0 0;
+  line-height: 1.55;
+}
+.devnote::before {
+  content: 'NOTE  ';
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.devnote.q::before {
+  content: 'SOURCE  ';
+}
+.devnote code {
+  background: rgba(176, 130, 74, 0.13);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .figure-stub { aspect-ratio: 16 / 8; }
+  figure { break-inside: avoid; }
+  .devnote { display: none; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #888;
+  }
+  .related-list a[href]::after { content: ''; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  .related-list { font-size: 0.92rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Theme Brief · Public</span>
+  </header>
+
+  <div class="eyebrow">Rivers and Salmon · Public Brief</div>
+  <h1>Across the strategies COEQWAL modeled, no single flow strategy helps every part of the river at once: protecting cold water for winter-run salmon and sending more water down the river draw on the same supply — and a hotter climate sharpens the conflict.</h1>
+
+  <section>
+    <h2><span class="num">1.</span> Headline</h2>
+    <p class="tldr">
+      COEQWAL's water model paired several ways of managing California's
+      rivers with a range of hydroclimates, from a historical baseline to
+      hotter, drier futures. One pattern recurs: cold water stored behind
+      a reservoir like Shasta keeps winter-run Chinook eggs alive in
+      summer, while river flows released earlier in the year carry young
+      salmon out to sea — and the same limited water can't do both. A
+      strategy that protects the cold-water pool can leave less for
+      outmigration flows; a strategy that boosts flows can draw the
+      cold-water pool down and raise egg mortality. Under hotter, drier
+      hydroclimates there is less cold water to go around, and these
+      trade-offs grow.
+    </p>
+    <div class="devnote q">
+      Headline distilled from the public theme narrative and the workshop
+      doc's three lenses (Trade-offs, Distributional equity, Resilience).
+      Directional only; magnitudes held as stubs pending confirmed tier
+      values.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span> What this is</h2>
+    <p>
+      COEQWAL uses CalSim 3 — the state's main water-system model — to test
+      how California's water system performs under different conditions.
+      The model runs as <span class="term">scenarios</span>: each scenario
+      pairs a <span class="term">water management strategy</span> (a way of
+      operating the system, like today's rules or a proposed alternative)
+      with a <span class="term">hydroclimate</span> (patterns of
+      temperature, rainfall, and snow that set how much water is available
+      over time).
+    </p>
+    <p>
+      The model sorts results into four levels, called <em>tiers</em>:
+      Optimal, Acceptable, At-risk, and Critical. Tiers describe what the
+      model produces; they don't tell anyone what to do about it.
+    </p>
+    <p>
+      This brief looks at the <em>rivers and salmon</em> theme: how
+      <span class="stub">[N]</span> strategies affect seasonal river flows,
+      reservoir storage, winter-run Chinook survival across its life
+      stages, outflows to the Bay-Delta estuary, and water deliveries to
+      farms and communities. The strategies tested include flows timed to
+      mimic natural river patterns (environmental and functional flows),
+      protections for cold-water storage and carryover at Shasta, reduced
+      irrigated acreage, removing minimum flow requirements, and limits on
+      groundwater pumping. A key idea explored here is that river flows can
+      be managed to better resemble natural patterns while still delivering
+      water to people.
+    </p>
+    <div class="devnote q">
+      Strategy families from the source docs; raw scenario codes
+      (<code>s0030</code>–<code>s0033</code>, <code>s0044</code>,
+      <code>s0046</code>) dropped from public copy and parked in §5/§7
+      devnotes.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span> What the model shows</h2>
+    <p>
+      The figure below sets a salmon outcome against the conditions that
+      drive it — cold-water storage and river flow — across the strategies
+      in this theme. Each strategy is one point of comparison against the
+      baseline; reading across them shows how protecting one salmon life
+      stage tends to cost another.
+    </p>
+
+    <div class="figure-stub" role="img" aria-label="Headline figure placeholder">
+      <div class="label">Figure 1 — placeholder</div>
+      <div class="desc">
+        Winter-run survival by life stage against cold-water storage and
+        instream flow, or continuous tier by scenario and hydroclimate.
+        Candidate forms: the life-stage survival grid from the workshop
+        doc (flatter lines = higher survival), or the radial tier plot
+        used elsewhere on the site. Source screenshots are working
+        captures, not publishable figures.
+      </div>
+    </div>
+    <p class="caption">
+      <span class="num">Figure 1.</span>
+      <span class="stub">[Caption — plain language, ~25–40 words. Names what is compared, what each axis shows, and that values read as a change from the baseline. No interpretation.]</span>
+    </p>
+    <div class="devnote">
+      <strong>Figure pending.</strong> Workshop doc carries a winter-run
+      life-stage survival heatmap (Shasta storage × Wilkins instream flow)
+      and a continuous-tier-by-scenario plot, both marked DRAFT (needs
+      replotting on geometric mean / continuous tiers). Regenerate from the
+      figure pipeline once continuous tiers land. Decide: life-stage grid
+      vs. radial tier plot for the headline.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span> Operations and climate</h2>
+    <p>
+      Because every scenario pairs a strategy with a hydroclimate, a change
+      in salmon outcomes could come from two places: the strategy used to
+      run the system, or the hydroclimate it runs under. For this theme,
+      both matter, and they can be read separately.
+    </p>
+    <p>
+      The <em>operations</em> — whether the system protects the cold-water
+      pool, releases functional flows, or reduces irrigated acreage — set
+      the basic trade-off between salmon life stages. The <em>climate</em>
+      then acts on top. A hotter, drier hydroclimate holds less cold water
+      behind Shasta, so the same strategy yields worse winter-run outcomes,
+      and the gap between the best and worst strategies narrows as the
+      climate dries. Functional-flow strategies also lose ground as the
+      number of dry years rises. Read against the BASELINES brief — which
+      holds today's strategy constant and so isolates the climate-only part
+      — this theme shows what changes when the management strategy itself
+      changes.
+    </p>
+    <div class="devnote q">
+      Workshop "Resilience" lens: average environmental-flow tiers worsen
+      from historical to future hydroclimates (worst under TaiESM1);
+      reduced-acreage + broad functional-flow strategies stay most stable;
+      salmon-protection-only and groundwater-restriction scenarios degrade
+      most. For winter-run, the cold-water-refuge scenario (s0033) is best
+      under the historical hydroclimate but drops fastest under cc50/cc95
+      as cold water gets scarcer.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span> The pattern across scenarios</h2>
+    <p>
+      Several patterns show up consistently. First, cold water and river
+      flow pull against each other: prioritizing the cold-water pool behind
+      Shasta improves egg survival but can leave less flow for juvenile
+      outmigration, while increasing flows helps juveniles but draws the
+      cold-water pool down and raises egg mortality. Because winter-run
+      depend on every life stage, a strategy that helps one stage but harms
+      another can still leave the population worse off.
+    </p>
+    <p>
+      Second, the outcomes differ in how much they move. River-flow
+      conditions (<span class="term">environmental flows</span>) are the
+      most responsive — they span a wide range of tiers across strategies,
+      because that outcome is tied directly to the flow targets the model
+      scales on. Winter-run and estuary outcomes move far less and tend to
+      stay in the lower tiers, because they also depend on things flows
+      alone don't control: the cold-water pool, habitat, and net Delta
+      outflow. Third, functional flows help smolt outmigration but do not,
+      on their own, lift the overall winter-run outcome.
+    </p>
+    <p>
+      A caution comes with these readings. A tier is an average across many
+      individual places, each counted equally regardless of size. A
+      strategy can show a small average change while a few places move a
+      great deal — the summary reflects how evenly results are spread, not
+      the total effect. The data explorer is the place to see the size of
+      the change, location by location.
+    </p>
+    <div class="devnote q">
+      Workshop "Trade-offs" + "Distributional equity" lenses. eflows are
+      the most sensitive outcome (multiple LOIs, hydrologic scaling);
+      winter-run and estuary perform poorly/consistently. Functional flows
+      help smolt outmigration but don't register in the winter-run outcome
+      (multi-lifestage stressors, lost rearing grounds). Anything that
+      depletes Shasta cold-water storage harms winter-run.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span> About specific places</h2>
+    <p>
+      The theme summarizes many specific places across California — what the
+      model calls <span class="term">Locations of Interest</span>, or LOIs:
+      river reaches, tributaries, and the reservoirs that feed them. Where a
+      flow strategy helps or hurts depends a great deal on which places it
+      touches.
+    </p>
+    <p>
+      The model shows tributaries responding more sharply than the lower
+      mainstem. In the Sacramento basin the Yuba River is the most
+      sensitive to changes in strategy; in the San Joaquin basin the
+      Tuolumne River is. Lower-mainstem locations such as Vernalis and
+      Verona stay more stable. Some of that tributary swing reflects how the
+      model balances flows internally as much as real operational
+      flexibility, so it is worth reading tributary results with care.
+      Winter-run survival, by contrast, hinges on cold water in the
+      Sacramento system below Shasta — which is why it tracks cold-water
+      storage more than any single flow target.
+    </p>
+    <p>
+      Because a tier averages across all the places in an area, an area can
+      look stable at the summary level while individual reaches are under
+      real stress. To see how a particular river or reservoir is modeled,
+      the data explorer lets you look one Location of Interest at a time.
+      This brief stays at the summary level.
+    </p>
+    <div class="devnote q">
+      Workshop "Distributional equity" lens: cluster LOIs into lower
+      mainstem / Sac tributary / SJ tributary; Yuba most sensitive in the
+      Sacramento, Tuolumne in the San Joaquin; mainstem more stable. Yuba's
+      swing attributed partly to internal CalSim weighting.
+    </div>
+    <div class="devnote">
+      Open: name a concrete reach (e.g. a specific tributary LOI) to make
+      the place point tangible? Lean abstract until the LOI explorer is
+      closer to launch (same selection-neutrality caution as the other
+      briefs).
+    </div>
+  </section>
+
+  <section class="related-briefs">
+    <h2><span class="num">7.</span> Related briefs</h2>
+    <h3>More specific</h3>
+    <ul class="related-list">
+      <li><a href="/findings/scenarios/[slug-1]"><span class="stub">[Functional flows for all sites + reduced irrigated acreage]</span></a></li>
+      <li><a href="/findings/scenarios/[slug-2]"><span class="stub">[Winter-run cold-water refuge / Shasta storage protection]</span></a></li>
+      <li><a href="/findings/scenarios/[slug-3]"><span class="stub">[Remove minimum flow requirements]</span></a></li>
+    </ul>
+    <p class="related-rule">
+      Individual scenarios behind this theme, each on its own page.
+    </p>
+
+    <h3>Across — themes</h3>
+    <ul class="related-list">
+      <li><a href="/findings/themes/ag_gw">Farms and groundwater</a></li>
+      <li><a href="/findings/themes/cws">Community water systems</a></li>
+      <li><a href="/findings/themes/delta">Balancing needs in the Delta</a></li>
+    </ul>
+    <p class="related-rule">
+      The other theme briefs in the launch set.
+    </p>
+
+    <h3>Wider view</h3>
+    <ul class="related-list">
+      <li><a href="/findings/baselines">How today's rules perform across hydroclimates (BASELINES)</a></li>
+    </ul>
+    <p class="related-rule">
+      The climate-only reference these strategies are read against.
+    </p>
+
+    <div class="devnote">
+      Scenario slugs are stubs until the eco scenarios are assigned
+      public-facing pages. The "more specific" set mirrors the strategy
+      families named in §5.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span> What this doesn't say</h2>
+    <p class="disclaimer">
+      This brief reports what the model produces under specific assumptions.
+      It doesn't predict what will happen, judge whether the results are
+      acceptable, or recommend any course of action. The tier names
+      (Optimal, Acceptable, At-risk, Critical) describe modeled conditions;
+      what they mean for a particular river, community, or decision is not
+      something the model itself decides.
+    </p>
+    <p class="disclaimer">
+      Improving flows alone does not fully restore a river ecosystem.
+      Habitat conditions, landscape changes, and invasive species also
+      shape outcomes, and COEQWAL does not evaluate them directly — so a
+      strategy that scores poorly on flows here may do better when paired
+      with habitat restoration or other actions. Tiers also describe how
+      results are spread across places, not the total effect; each Location
+      of Interest counts equally regardless of size. For the size of a
+      change, and for any single place, see §6 and the data explorer.
+    </p>
+    <div class="devnote q">
+      Carries the narrative's two key caveats: flows alone don't restore
+      ecosystems (habitat/invasives not modeled), and the LOI-averaging
+      limit shared across briefs.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">9.</span> Explore further</h2>
+    <p>
+      <a class="explore-link" href="https://dev.coeqwal.org/?theme=eco">
+        Explore rivers and salmon in the data explorer
+        <span class="arrow">→</span>
+      </a>
+    </p>
+    <div class="devnote">
+      Deep-link target: the Explore tab preset to the rivers-and-salmon
+      theme (<code>?theme=eco</code>). Confirm the final URL pattern against
+      <code>COEQWAL_Discoverability_Strategy.md</code> §5.
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Version 0.1 (prototype)</span>
+      <span>Updated <span class="stub">[date]</span></span>
+    </div>
+  </footer>
+
+</article>
+
+<p class="print-hint">
+  Save this brief as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>

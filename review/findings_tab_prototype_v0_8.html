@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COEQWAL Findings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /*
+   * v0_8 (2026-06-01): demo click-throughs repointed to the clean,
+   * dev-note-free example briefs — baseline card → baselines v0.7,
+   * Folsom Reservoir row → LOI v0.4. No design/palette change from v0_7.
+   * 2026-06-07: LOI example row switched Folsom → Shasta, pointing at
+   * the real-data dev build (builder/output/shasta-loi_dev.html) —
+   * Shasta's varied real data makes the better demo (NOTES 2026-06-07).
+   * (Folsom row had been repointed v0_4 → v0_6 on 2026-06-06.)
+   *
+   * v0_7 (2026-05-29): palette cross-checked against the live token
+   * source `apps/main/public/design-system.html`
+   * (berkeley-gif/coeqwal-website @ dev). Tokens marked CANON match
+   * the live theme; tokens marked DRIFT are intentionally kept for
+   * the warm-editorial findings shell and are flagged for review.
+   *
+   *   --text-on-navy  was #f5efde   → #fcfbfa (CANON common.white)
+   *   .new-pill text #fff hard-code → #fcfbfa (CANON common.white)
+   *   picker bg #ede4cd hard-code   → var(--cream-page)
+   *   theme cards now use per-theme canonical bg/text pairs (CANON
+   *   waterThemes.{cws,ag_gw,eco,delta})
+   *   theme card display names updated to canonical strings
+   *
+   * Open for review (recorded in OPEN_ITEMS.md):
+   *   - navy stack runs darker than canonical (canonical anchor is
+   *     brand.panelDark #193D6B; v0_7 keeps #122849 .. #5a7194)
+   *   - cream stack is warmer than canonical brand.panelLight #EDE9E4
+   *   - gold stack is amber vs canonical waterThemes.baseline #ffd87e
+   *   - font stack is Source Serif / Source Sans vs canonical
+   *     Neue Haas Grotesk Display / Text
+   */
+  :root {
+    --cream:        #efe7d3;          /* DRIFT vs canon #EDE9E4 */
+    --cream-card:   #f5efde;          /* DRIFT */
+    --cream-page:   #ece4d0;          /* DRIFT */
+
+    --navy-deepest: #122849;          /* DRIFT (canon panelDark #193D6B) */
+    --navy-deep:    #1d3460;          /* DRIFT */
+    --navy-mid:     #2b4071;          /* DRIFT */
+    --navy-soft:    #3d5482;          /* DRIFT */
+    --navy-light:   #5a7194;          /* DRIFT */
+
+    --text-dark:    #1d3a5c;          /* DRIFT (canon text.primary #193D6B) */
+    --text-mid:     #4a5566;
+    --text-eyebrow: #3a6aa0;          /* near canon brand.panelMedium #3D7DB5 */
+    --text-on-navy: #fcfbfa;          /* CANON common.white */
+
+    --rule-on-navy:  rgba(245, 239, 222, 0.22);
+    --rule-on-cream: rgba(29, 58, 92, 0.16);
+    --rule-strong:   #4a78ad;         /* near canon brand.panelMedium */
+
+    --gold:      #c89a3a;             /* DRIFT */
+    --gold-mid:  #d4a85c;             /* DRIFT */
+    --gold-pale: #ecc97e;             /* DRIFT (canon baseline #ffd87e) */
+
+    --note-bg:    #fdf3c8;
+    --note-text:  #6a5418;
+    --note-label: #9a7a1c;
+
+    --new-pill:   #c84a3a;
+
+    /* Per-theme palettes (CANON waterThemes — bg / text pairs). */
+    --theme-cws-bg:    #ffe5cc;
+    --theme-cws-text:  #7a3000;
+    --theme-aggw-bg:   #d0ebd7;
+    --theme-aggw-text: #2d6a4f;
+    --theme-eco-bg:    #cddff1;
+    --theme-eco-text:  #1e4f6e;
+    --theme-delta-bg:  #ded6f0;
+    --theme-delta-text:#3a2888;
+
+    --serif: "Source Serif 4", Georgia, serif;          /* DRIFT vs canon Neue Haas Grotesk Display */
+    --sans:  "Source Sans 3", -apple-system, BlinkMacSystemFont, sans-serif;  /* DRIFT vs canon Neue Haas Grotesk Text */
+    --mono:  "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cream-page);
+    color: var(--text-dark);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(29,58,92,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(29,58,92,0.06) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  /* ---------- Top header ---------- */
+  .site-header {
+    background: var(--cream);
+    padding: 22px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rule-on-cream);
+  }
+  .wordmark {
+    font-family: var(--serif);
+    color: var(--text-dark);
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+  .top-nav {
+    display: flex;
+    gap: 38px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dark);
+  }
+  .top-nav span { cursor: pointer; }
+  .top-nav span::after {
+    content: " ›";
+    color: var(--text-mid);
+  }
+  .top-nav span:last-child::after { content: ""; }
+
+  /* ---------- Tab bar ---------- */
+  .tab-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .tab {
+    padding: 22px 24px;
+    color: var(--text-on-navy);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+  }
+  .tab:nth-child(1) { background: var(--navy-light); }
+  .tab:nth-child(2) { background: var(--navy-mid); }
+  .tab:nth-child(3) { background: var(--navy-soft); }
+  .tab:nth-child(4) { background: var(--navy-deepest); }
+  .tab.active { background: var(--navy-deep); }
+  .new-pill {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 8px;
+    background: var(--new-pill);
+    color: #fcfbfa;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    border-radius: 2px;
+    vertical-align: 1px;
+  }
+
+  /* ---------- Page bands ---------- */
+  .band-navy {
+    background: var(--navy-deep);
+    color: var(--text-on-navy);
+    padding: 36px 56px;
+  }
+  .band-navy-darker {
+    background: var(--navy-deepest);
+    color: var(--text-on-navy);
+    padding: 36px 56px;
+  }
+  .band-cream {
+    background: var(--cream-page);
+    padding: 36px 56px;
+  }
+  .page-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 40px;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.005em;
+  }
+  .page-subtitle {
+    font-size: 14.5px;
+    color: var(--text-on-navy);
+    opacity: 0.92;
+    max-width: 880px;
+    margin: 0;
+  }
+
+  /* ---------- Layer headers ---------- */
+  .layer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--rule-on-cream);
+    padding-bottom: 10px;
+    margin: 0 0 18px 0;
+  }
+  .layer-header.on-navy { border-bottom-color: var(--rule-on-navy); }
+  .layer-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  .layer-header.on-navy .layer-label { color: var(--text-on-navy); }
+  .layer-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .layer-intro {
+    font-size: 14.5px;
+    color: var(--text-on-navy);
+    opacity: 0.9;
+    margin: 0 0 18px 0;
+    max-width: 920px;
+  }
+
+  /* ============================================================
+     Findings page content
+     ============================================================ */
+
+  /* Cards (cream on navy) */
+  .card {
+    background: var(--cream-card);
+    color: var(--text-dark);
+    padding: 24px 26px;
+    border-radius: 2px;
+  }
+  /* Per-theme card variants (CANON waterThemes). The four theme
+     cards in the "Where to start" grid each take the canonical bg
+     + ink pair for their theme. Eyebrow, title, body, and arrow all
+     inherit the theme ink so the card reads as one piece. */
+  .card.theme-cws    { background: var(--theme-cws-bg);    color: var(--theme-cws-text); }
+  .card.theme-aggw   { background: var(--theme-aggw-bg);   color: var(--theme-aggw-text); }
+  .card.theme-eco    { background: var(--theme-eco-bg);    color: var(--theme-eco-text); }
+  .card.theme-delta  { background: var(--theme-delta-bg);  color: var(--theme-delta-text); }
+  .card.theme-cws   .card-eyebrow,
+  .card.theme-cws   .card-title,
+  .card.theme-cws   .card-body,
+  .card.theme-cws   .read-link,
+  .card.theme-aggw  .card-eyebrow,
+  .card.theme-aggw  .card-title,
+  .card.theme-aggw  .card-body,
+  .card.theme-aggw  .read-link,
+  .card.theme-eco   .card-eyebrow,
+  .card.theme-eco   .card-title,
+  .card.theme-eco   .card-body,
+  .card.theme-eco   .read-link,
+  .card.theme-delta .card-eyebrow,
+  .card.theme-delta .card-title,
+  .card.theme-delta .card-body,
+  .card.theme-delta .read-link { color: inherit; }
+  .card-eyebrow {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-eyebrow);
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.25;
+    margin: 0 0 10px 0;
+    color: var(--text-dark);
+  }
+  .card-title.lg { font-size: 26px; }
+  .card-body {
+    font-size: 14.5px;
+    color: var(--text-mid);
+    margin: 0;
+    line-height: 1.55;
+  }
+  .card-foot {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-on-cream);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--text-mid);
+  }
+  .card-foot.arrow-only { justify-content: flex-end; }
+  .card-foot .read-link {
+    color: var(--text-eyebrow);
+    font-weight: 600;
+  }
+  .card-stats {
+    display: flex;
+    gap: 18px;
+  }
+  .card-stats span { color: var(--text-mid); }
+  .card-stats em {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-right: 4px;
+  }
+
+  /* Reference picker grid */
+  .picker-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .picker-card .picker {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--cream-page);
+    border-radius: 2px;
+    border: 1px solid var(--rule-on-cream);
+  }
+  .picker select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--text-dark);
+    outline: none;
+  }
+
+  /* Featured */
+  .featured-baseline {
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 0 1px var(--gold-pale);
+    margin-bottom: 22px;
+  }
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  /* Browse all */
+  .browse-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .browse-panel {
+    background: var(--navy-mid);
+    color: var(--text-on-navy);
+    padding: 22px 24px;
+    border-radius: 2px;
+  }
+  .browse-panel-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-on-navy);
+    margin-bottom: 8px;
+  }
+  .browse-panel-desc {
+    font-size: 13.5px;
+    color: var(--text-on-navy);
+    opacity: 0.85;
+    margin: 0 0 16px 0;
+  }
+  .sector-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .sector-tile {
+    background: var(--navy-soft);
+    padding: 14px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 120ms;
+  }
+  .sector-tile:hover { background: var(--navy-light); }
+  .sector-name {
+    font-family: var(--serif);
+    font-size: 14.5px;
+    color: var(--text-on-navy);
+  }
+  .place-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .place-search-wrap { margin-bottom: 16px; }
+  .place-search {
+    background: var(--navy-deepest);
+    padding: 12px 14px;
+    border-radius: 2px;
+    font-size: 13px;
+    color: var(--text-on-navy);
+    opacity: 0.65;
+  }
+  .featured-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-on-navy);
+    opacity: 0.65;
+    margin-bottom: 10px;
+  }
+  .featured-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .featured-row {
+    padding: 10px 12px;
+    background: var(--navy-soft);
+    border-radius: 2px;
+    border: 1px solid var(--rule-on-navy);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 120ms;
+  }
+  .featured-row:hover { border-color: var(--rule-strong); }
+  .featured-row em {
+    font-style: normal;
+    font-family: var(--serif);
+    color: var(--text-on-navy);
+  }
+  .featured-row span {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+  .map-pane {
+    background:
+      repeating-linear-gradient(
+        135deg,
+        var(--navy-mid) 0px,
+        var(--navy-mid) 8px,
+        var(--navy-soft) 8px,
+        var(--navy-soft) 16px
+      );
+    border: 1px dashed var(--rule-on-navy);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 18px;
+    min-height: 100%;
+  }
+  .map-pane-inner {
+    color: var(--text-on-navy);
+    opacity: 0.85;
+  }
+  .map-pane-inner .ttl {
+    font-family: var(--serif);
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .map-pane-inner .sub {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* Note boxes */
+  .note {
+    background: var(--note-bg);
+    color: var(--note-text);
+    border-radius: 2px;
+    padding: 14px 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.55;
+    margin-top: 18px;
+  }
+  .note b {
+    color: var(--note-label);
+    letter-spacing: 0.16em;
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  /* Footer */
+  .footer-explain {
+    background: var(--navy-deep);
+    border-top: 4px solid var(--rule-strong);
+    color: var(--text-on-navy);
+    padding: 36px 56px 48px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 36px;
+  }
+  .footer-explain h3 {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0;
+    opacity: 0.9;
+  }
+  .footer-explain p {
+    margin: 0 0 12px 0;
+    font-size: 14.5px;
+    max-width: 780px;
+    line-height: 1.55;
+  }
+  .footer-explain p:last-child { margin-bottom: 0; }
+  .footer-explain em {
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* spacing helper */
+  .section { padding-top: 8px; }
+
+  /* Click-through anchors (wired entry points) */
+  a.card, a.featured-row { display: block; }
+  a.card, a.featured-row, a.read-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  a.read-link { color: var(--text-eyebrow); }
+
+  /* Sub-section heading inside a layer (e.g. above the theme grid) */
+  .sub-heading {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--text-on-navy);
+    margin: 6px 0 14px 0;
+  }
+  .sub-heading-sub {
+    font-size: 13.5px;
+    color: var(--text-on-navy);
+    opacity: 0.8;
+    margin: -8px 0 14px 0;
+    max-width: 780px;
+  }
+</style>
+</head>
+<body class="grid-bg">
+
+<!-- ===================== TOP HEADER ===================== -->
+<header class="site-header">
+  <div class="wordmark">COEQWAL</div>
+  <nav class="top-nav">
+    <span>Guides</span>
+    <span>Water themes</span>
+    <span>Get data</span>
+    <span>About COEQWAL</span>
+  </nav>
+</header>
+
+<!-- ===================== TAB BAR ===================== -->
+<div class="tab-bar">
+  <div class="tab">Learn</div>
+  <div class="tab active">Findings <span class="new-pill">New</span></div>
+  <div class="tab">Explore</div>
+  <div class="tab">Share</div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="band-navy">
+  <h1 class="page-title">COEQWAL Findings</h1>
+  <p class="page-subtitle">
+    Short reports on how California's water system might perform under different management choices and future climates.
+  </p>
+</section>
+
+<!-- ===================== LAYER 1: FEATURED ===================== -->
+<section class="band-navy section">
+  <div class="layer-header on-navy">
+    <div class="layer-label">Where to start</div>
+  </div>
+  <p class="layer-intro">
+    Findings can be viewed by theme, sector, or individual Locations of Interest (LOIs). All results are compared to the baseline.
+  </p>
+
+  <a class="card featured-baseline" href="baselines_brief_prototype_v0_7.html" target="_blank" rel="noopener">
+    <div class="card-eyebrow">Baseline</div>
+    <h2 class="card-title lg">The baseline: what current operations look like under historical and future hydroclimates</h2>
+    <p class="card-body">
+      Reports modeled tiers under today's water management strategy under the historical baseline and three projected drier hydroclimates, across all nine system areas. Every other brief is grounded against this one.
+    </p>
+    <div class="card-foot">
+      <span class="card-stats">
+        <span><em>1</em>strategy</span>
+        <span><em>4</em>hydroclimates</span>
+        <span><em>9</em>sectors</span>
+      </span>
+      <span class="read-link">Read brief →</span>
+    </div>
+  </a>
+
+  <h3 class="sub-heading">Results for each of the water themes</h3>
+
+  <div class="theme-grid">
+    <div class="card theme-cws">
+      <div class="card-eyebrow">Theme</div>
+      <h3 class="card-title">Community water systems</h3>
+      <p class="card-body">[Templated theme teaser — short summary of the cws-themed scenario set against baseline.]</p>
+      <div class="card-foot arrow-only">
+        <span class="read-link">→</span>
+      </div>
+    </div>
+    <a class="card theme-aggw" href="water-themes/theme_ag_gw_brief_prototype_v0_1.html" target="_blank" rel="noopener">
+      <div class="card-eyebrow">Theme</div>
+      <h3 class="card-title">Farms, groundwater &amp; food systems</h3>
+      <p class="card-body">[Templated theme teaser — short summary of the ag_gw-themed scenario set against baseline.]</p>
+      <div class="card-foot arrow-only">
+        <span class="read-link">→</span>
+      </div>
+    </a>
+    <div class="card theme-eco">
+      <div class="card-eyebrow">Theme</div>
+      <h3 class="card-title">Rivers, salmon &amp; ecosystems</h3>
+      <p class="card-body">[Templated theme teaser — short summary of the eco-themed scenario set against baseline.]</p>
+      <div class="card-foot arrow-only">
+        <span class="read-link">→</span>
+      </div>
+    </div>
+    <div class="card theme-delta">
+      <div class="card-eyebrow">Theme</div>
+      <h3 class="card-title">The Delta as a living place</h3>
+      <p class="card-body">[Templated theme teaser — short summary of the delta-themed scenario set against baseline.]</p>
+      <div class="card-foot arrow-only">
+        <span class="read-link">→</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LAYER 2: BROWSE ALL ===================== -->
+<section class="band-navy-darker section">
+  <div class="layer-header on-navy">
+    <div class="layer-label">Browse all briefs</div>
+  </div>
+
+  <div class="browse-grid">
+    <div class="browse-panel">
+      <div class="browse-panel-eyebrow">By sector</div>
+      <p class="browse-panel-desc">
+        Results for one area of the water system.
+      </p>
+      <div class="sector-grid">
+        <div class="sector-tile">
+          <div class="sector-name">Community water systems</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Agricultural water</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Environmental flows</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Bay-Delta estuary ecology</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Winter-run Chinook salmon</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Delta exports</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">In-Delta freshwater</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Reservoir storage</div>
+        </div>
+        <div class="sector-tile" style="grid-column: 1 / span 2; max-width: calc(50% - 5px);">
+          <div class="sector-name">Groundwater storage</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="browse-panel">
+      <div class="browse-panel-eyebrow">By place</div>
+      <p class="browse-panel-desc">
+        Results at one specific location — a city, reservoir, river reach, basin, or Delta stretch.
+      </p>
+      <div class="place-inner">
+        <div>
+          <div class="place-search-wrap">
+            <div class="place-search">Search places (e.g. Folsom Reservoir, Stockton…)</div>
+          </div>
+          <div class="featured-label">Featured places</div>
+          <div class="featured-list">
+            <a class="featured-row" href="builder/output/shasta-loi_dev.html" target="_blank" rel="noopener"><em>Shasta Reservoir</em><span>RES</span></a>
+            <div class="featured-row"><em>[LOI 2]</em><span>[Sector]</span></div>
+            <div class="featured-row"><em>[LOI 3]</em><span>[Sector]</span></div>
+            <div class="featured-row"><em>[LOI 4]</em><span>[Sector]</span></div>
+          </div>
+        </div>
+        <div class="map-pane">
+          <div class="map-pane-inner">
+            <div class="ttl">California place map</div>
+            <div class="sub">LOI dots · click to open brief</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LAYER 3: BACKGROUND READING (formerly Reference) ===================== -->
+<section class="band-navy section">
+  <div class="layer-header on-navy">
+    <div class="layer-label">Background reading</div>
+  </div>
+  <p class="layer-intro">
+    Pick one strategy and one hydroclimate to read a short background brief — what the strategy does, or what the climate model assumes.
+  </p>
+
+  <div class="picker-grid">
+    <div class="card picker-card">
+      <div class="card-eyebrow">Operations</div>
+      <h2 class="card-title">Operational strategies</h2>
+      <p class="card-body">
+        A short brief for each alternative operational strategy — what the strategy changes about reservoir operations, conveyance, demand, or environmental flows.
+      </p>
+      <div class="picker">
+        <select aria-label="Select an operational strategy">
+          <option>Select a strategy to read about…</option>
+          <option>[Strategy 1 — current operations baseline]</option>
+          <option>[Strategy 2 — placeholder]</option>
+          <option>[Strategy 3 — placeholder]</option>
+          <option>[Strategy 4 — placeholder]</option>
+          <option>[Strategy 5 — placeholder]</option>
+        </select>
+      </div>
+      <div class="card-foot">
+        <span class="card-stats"><span><em>24</em>strategies</span></span>
+        <a class="read-link" href="strategy_brief_prototype_s0046_v0_3.html" target="_blank" rel="noopener">Read strategy brief →</a>
+      </div>
+    </div>
+
+    <div class="card picker-card">
+      <div class="card-eyebrow">Climate</div>
+      <h2 class="card-title">Hydroclimate models</h2>
+      <p class="card-body">
+        A short brief for each modeled hydroclimate — historical baseline and projected futures. Describes the climate assumptions and how the hydrology was derived.
+      </p>
+      <div class="picker">
+        <select aria-label="Select a hydroclimate">
+          <option>Select a hydroclimate to read about…</option>
+          <option>BL — Historical baseline</option>
+          <option>HC1 — Projected future #1</option>
+          <option>HC2 — Projected future #2</option>
+          <option>HC3 — Projected future #3</option>
+        </select>
+      </div>
+      <div class="card-foot">
+        <span class="card-stats"><span><em>4</em>hydroclimates</span></span>
+        <span class="read-link">Read hydroclimate brief →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER: WHAT IS A BRIEF ===================== -->
+<section class="footer-explain">
+  <h3>What is a brief?</h3>
+  <div>
+    <p>A brief is a short, citable document reporting modeled results from a fixed set of simulations. Briefs report what the model produces; they do not predict what will happen, judge whether results are acceptable, or recommend any course of action.</p>
+  </div>
+</section>
+
+</body>
+</html>

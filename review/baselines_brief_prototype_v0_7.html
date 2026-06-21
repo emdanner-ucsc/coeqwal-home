@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BASELINES — Brief: How today's water rules perform across the historical baseline and three drier hydroclimates | COEQWAL</title>
+<meta name="description" content="A plain-language COEQWAL theme brief reporting how California's current water management strategy performs across the historical baseline and three projected drier hydroclimates.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for [TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+
+/* ── Section structure (lighter rhythm — no rules between sections) */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Stub markers ───────────────────────────────────────────────── */
+.stub {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.45em;
+  border-radius: 2px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ── Figure placeholder ─────────────────────────────────────────── */
+.figure-stub {
+  margin: 1.2rem 0 0;
+  border: 1.5px dashed var(--ink-faint);
+  background:
+    repeating-linear-gradient(-45deg,
+      transparent 0, transparent 12px,
+      rgba(0,0,0,0.025) 12px, rgba(0,0,0,0.025) 13px);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+.figure-stub .label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.6rem;
+}
+.figure-stub .desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 28em;
+}
+.figure-stub code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.05);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.95rem 0 0;
+}
+.caption .num { font-weight: 700; color: var(--ink); }
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ── Inline term gloss ──────────────────────────────────────────── */
+.term {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── Related briefs section ─────────────────────────────────────── */
+.related-briefs h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 1.6rem 0 0.6rem;
+}
+.related-briefs h3:first-of-type {
+  margin-top: 0.4rem;
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.related-list li {
+  margin: 0.36rem 0;
+  padding: 0;
+}
+.related-list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+}
+.related-list a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.related-rule {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin: 0.55rem 0 0;
+  line-height: 1.6;
+}
+.related-rule a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  font-style: normal;
+}
+.related-rule a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  transition: transform 0.2s;
+}
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Devnotes (build-time annotations, hidden in print) ─────────── */
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .figure-stub { aspect-ratio: 16 / 8; }
+  figure { break-inside: avoid; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #888;
+  }
+  /* Suppress URL print-out for the on-page related list to keep it
+     readable; full URLs still print at the explore-further link. */
+  .related-list a[href]::after { content: ''; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  .related-list { font-size: 0.92rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <!-- ─── MASTHEAD ─────────────────────────────────────────────── -->
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Theme Brief · Public</span>
+  </header>
+
+  <!-- ─── EYEBROW + TITLE ─────────────────────────────────────── -->
+  <div class="eyebrow">Baselines · Public Brief</div>
+  <h1>
+    Even with today's water management strategy unchanged, three projected
+    drier hydroclimates produce different outcomes from the historical
+    baseline in six of nine areas of California's
+    water system.
+  </h1>
+
+  <!-- ─── 1. THE HEADLINE (Q1) ────────────────────────────────── -->
+  <section>
+    <h2><span class="num">1.</span> Headline</h2>
+    <p class="tldr">
+      COEQWAL's water model paired today's California water management
+      strategy with four hydroclimates: a historical baseline and three
+      projected drier futures (Warmer and Drier I, II, and III). In
+      six of nine areas of the water system, the
+      modeled outcome lands in a different category. The largest
+      changes are in environmental flows and winter-run
+      Chinook salmon.
+      Three areas hold steady across all four
+      hydroclimates. Because the strategy doesn't change in this
+      brief, what you're seeing is what the climate alone does to
+      today's water system.
+    </p>
+  </section>
+
+  <!-- ─── 2. WHAT THIS IS (Q4) ────────────────────────────────── -->
+  <section>
+    <h2><span class="num">2.</span> What this is</h2>
+    <p>
+      COEQWAL uses CalSim 3 — the state's main water-system model — to
+      test how California's water system performs under different
+      conditions. The model runs as <span class="term">scenarios</span>:
+      each scenario is a pairing of a <span class="term">water
+      management strategy</span> (a way of operating the system, like
+      today's rules or a proposed alternative) and a <span class="term">hydroclimate</span>
+      (patterns of temperature, rainfall, and snow that determine how
+      much water is available over time). To explore "what if today's
+      rules continued under a drier future?", you'd pair today's
+      strategy with a drier hydroclimate. To explore "what if we
+      changed how groundwater is managed?", you'd pair a different
+      strategy with the same hydroclimate.
+    </p>
+    <p>
+      The model sorts outcomes into four levels, called <em>tiers</em>:
+      Optimal, Acceptable, At-risk, and Critical. Tiers describe what
+      the model produces; they don't tell anyone what to do about it.
+    </p>
+    <p>
+      This brief looks at one strategy — today's operating rules, kept
+      in place — paired with four hydroclimates: a historical baseline
+      and three projected drier futures (Warmer and Drier I, II, and
+      III). That's four scenarios in total, all sharing the same
+      strategy, so any difference between them comes from the
+      hydroclimate, not from how the system is being run. Outcomes are
+      reported for nine areas of the water system. No filter is applied.
+    </p>
+  </section>
+
+  <!-- ─── 3. WHAT THE MODEL SHOWS (Q1 detail) ─────────────────── -->
+  <section>
+    <h2><span class="num">3.</span> What the model shows</h2>
+    <p>
+      The figure below shows the modeled outcome for each of the nine
+      areas under each of the four hydroclimates. Each cell shows one
+      area's tier under one hydroclimate. Reading across a row shows
+      how that area changes from the historical baseline to the
+      projected drier futures; reading down a column shows the modeled
+      state of the system as a whole under that hydroclimate.
+    </p>
+
+<figure class="scenario-figure">
+      <svg viewBox="0 0 700 472" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:700px;display:block" role="img" font-family="inherit">
+      <title>Tier for nine areas of the water system across four hydroclimates, current operations</title>
+      <desc>A 9-by-4 grid. Rows are areas of the water system; columns are a historical baseline and three projected drier hydroclimates. Each cell is colored and labeled with the modeled tier (Optimal, Acceptable, At-risk, Critical) under today’s operating strategy.</desc>
+      <text x="278" y="50" text-anchor="middle" font-size="11" fill="#2c2c2a" font-weight="700">Historical</text>
+      <text x="278" y="66" text-anchor="middle" font-size="10.5" fill="#5f5e5a" font-weight="700">BL</text>
+      <text x="390" y="50" text-anchor="middle" font-size="11" fill="#2c2c2a" font-weight="500">Warmer & drier I</text>
+      <text x="390" y="66" text-anchor="middle" font-size="10.5" fill="#5f5e5a" font-weight="500">HC1</text>
+      <text x="502" y="50" text-anchor="middle" font-size="11" fill="#2c2c2a" font-weight="500">Warmer & drier II</text>
+      <text x="502" y="66" text-anchor="middle" font-size="10.5" fill="#5f5e5a" font-weight="500">HC2</text>
+      <text x="614" y="50" text-anchor="middle" font-size="11" fill="#2c2c2a" font-weight="500">Warmer & drier III</text>
+      <text x="614" y="66" text-anchor="middle" font-size="10.5" fill="#5f5e5a" font-weight="500">HC3</text>
+      <rect x="223" y="79" width="110" height="334" fill="none" stroke="#3a4574" stroke-width="1" stroke-dasharray="3 3" opacity="0.55"/>
+      <text x="208" y="100" text-anchor="end" font-size="12" fill="#2c2c2a">Community water systems</text>
+      <rect x="225" y="80" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="278" y="100" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="337" y="80" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="390" y="100" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="449" y="80" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="502" y="100" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="561" y="80" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="614" y="100" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <text x="208" y="137" text-anchor="end" font-size="12" fill="#2c2c2a">Agriculture</text>
+      <rect x="225" y="117" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="278" y="137" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="337" y="117" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="390" y="137" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="449" y="117" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="502" y="137" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="561" y="117" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="614" y="137" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <text x="208" y="174" text-anchor="end" font-size="12" fill="#2c2c2a">Environmental flows</text>
+      <rect x="225" y="154" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="278" y="174" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="337" y="154" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="390" y="174" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="449" y="154" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="502" y="174" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="561" y="154" width="106" height="32" rx="3" fill="#fbdcd3" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="614" y="174" text-anchor="middle" font-size="11" font-weight="600" fill="#c2412a">Critical</text>
+      <text x="208" y="211" text-anchor="end" font-size="12" fill="#2c2c2a">Bay-Delta estuary ecology</text>
+      <rect x="225" y="191" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="278" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="337" y="191" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="390" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="449" y="191" width="106" height="32" rx="3" fill="#fbdcd3" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="502" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#c2412a">Critical</text>
+      <rect x="561" y="191" width="106" height="32" rx="3" fill="#fbdcd3" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="614" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#c2412a">Critical</text>
+      <text x="208" y="248" text-anchor="end" font-size="12" fill="#2c2c2a">Winter-run Chinook salmon</text>
+      <rect x="225" y="228" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="278" y="248" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="337" y="228" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="390" y="248" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="449" y="228" width="106" height="32" rx="3" fill="#fbdcd3" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="502" y="248" text-anchor="middle" font-size="11" font-weight="600" fill="#c2412a">Critical</text>
+      <rect x="561" y="228" width="106" height="32" rx="3" fill="#fbdcd3" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="614" y="248" text-anchor="middle" font-size="11" font-weight="600" fill="#c2412a">Critical</text>
+      <text x="208" y="285" text-anchor="end" font-size="12" fill="#2c2c2a">Freshwater for Delta exports</text>
+      <rect x="225" y="265" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="278" y="285" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="337" y="265" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="390" y="285" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="449" y="265" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="502" y="285" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="561" y="265" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="614" y="285" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <text x="208" y="322" text-anchor="end" font-size="12" fill="#2c2c2a">Freshwater for in-Delta uses</text>
+      <rect x="225" y="302" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="278" y="322" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="337" y="302" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="390" y="322" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="449" y="302" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="502" y="322" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="561" y="302" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="614" y="322" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <text x="208" y="359" text-anchor="end" font-size="12" fill="#2c2c2a">Reservoir storage</text>
+      <rect x="225" y="339" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="278" y="359" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="337" y="339" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="390" y="359" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="449" y="339" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="502" y="359" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <rect x="561" y="339" width="106" height="32" rx="3" fill="#d8eef2" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="614" y="359" text-anchor="middle" font-size="11" font-weight="600" fill="#1f7c8c">Acceptable</text>
+      <text x="208" y="396" text-anchor="end" font-size="12" fill="#2c2c2a">Groundwater storage</text>
+      <rect x="225" y="376" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="278" y="396" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="337" y="376" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="390" y="396" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="449" y="376" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="502" y="396" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <rect x="561" y="376" width="106" height="32" rx="3" fill="#fbe7d4" stroke="#fdfbf5" stroke-width="2"/>
+      <text x="614" y="396" text-anchor="middle" font-size="11" font-weight="600" fill="#b5651d">At-risk</text>
+      <text x="208" y="451" text-anchor="end" font-size="10.5" fill="#5f5e5a" font-weight="700" letter-spacing="0.04em">TIER</text>
+      <rect x="222" y="439" width="16" height="16" rx="3" fill="#dcefe1" stroke="#e2dccf"/>
+      <text x="244" y="451" font-size="11" fill="#16774a" font-weight="600">1 · Optimal</text>
+      <rect x="338" y="439" width="16" height="16" rx="3" fill="#d8eef2" stroke="#e2dccf"/>
+      <text x="360" y="451" font-size="11" fill="#1f7c8c" font-weight="600">2 · Acceptable</text>
+      <rect x="454" y="439" width="16" height="16" rx="3" fill="#fbe7d4" stroke="#e2dccf"/>
+      <text x="476" y="451" font-size="11" fill="#b5651d" font-weight="600">3 · At-risk</text>
+      <rect x="570" y="439" width="16" height="16" rx="3" fill="#fbdcd3" stroke="#e2dccf"/>
+      <text x="592" y="451" font-size="11" fill="#c2412a" font-weight="600">4 · Critical</text>
+      </svg>
+    </figure>
+    <p class="caption">
+      <span class="num">Figure 1.</span>
+      Modeled tier for each of nine areas of the water system under today’s operating strategy, across a historical baseline and three projected drier hydroclimates (Warmer &amp; Drier I–III). Each cell’s color and label show that area’s tier; read a row left to right to see change from the baseline.
+    </p>
+  </section>
+
+  <!-- ─── 4. OPERATIONS AND CLIMATE (Q2) ──────────────────────── -->
+  <section>
+    <h2><span class="num">4.</span> Operations and climate</h2>
+    <p>
+      Because every scenario pairs a strategy with a hydroclimate, an
+      outcome change between scenarios could in principle come from
+      two places: changes in the strategy used to run the system, or
+      changes in the hydroclimate the system is run under. COEQWAL's
+      other briefs report scenarios where the strategy changes — and
+      in those briefs, the model can separate an outcome change into
+      a strategy part and a hydroclimate part.
+    </p>
+    <p>
+      In this brief, the strategy doesn't change. It's held constant
+      by design across all four scenarios. So every outcome change
+      reported here comes from the climate alone. Read alongside the
+      other briefs (Farms and groundwater, Rivers, salmon and the
+      Delta ecosystem), BASELINES is the climate-only reference: the
+      part of the change the climate causes, separated out from
+      anything operating rules can do.
+    </p>
+  </section>
+
+  <!-- ─── 5. THE PATTERN ACROSS THE SYSTEM (Q3) ───────────────── -->
+  <section>
+    <h2><span class="num">5.</span> The pattern across the system</h2>
+    <p>
+      Looking across all nine areas in Figure 1,
+      six areas shift to a different tier under
+      the projected drier hydroclimates and three
+      hold steady across all four. Among the shifting areas,
+      four change step-by-step from the
+      historical baseline through Warmer and Drier I, II, and III. The
+      remaining two shift in less predictable
+      ways —
+      freshwater for Delta exports and freshwater for in-Delta uses
+      each register a better tier under a moderately drier hydroclimate
+      before returning toward their baseline tier under the most strongly
+      perturbed one.
+    </p>
+    <p>
+      Because all the variation here comes from the climate (see §4),
+      this is a reading of which areas are most sensitive to climate
+      under today's strategy. It is not a reading of tradeoffs
+      the system is making — there are no tradeoffs to read here,
+      because the strategy doesn't change.
+    </p>
+  </section>
+
+  <!-- ─── 6. ABOUT SPECIFIC PLACES (LOI) ──────────────────────── -->
+  <section>
+    <h2><span class="num">6.</span> About specific places</h2>
+    <p>
+      Eight of the nine areas summarize many specific places across
+      California — what the model calls
+      <span class="term">Locations of Interest</span>, or LOIs. Cities,
+      reservoirs, river reaches, farm regions, groundwater basins, and
+      stretches of the Delta are all tracked individually inside the
+      sector summaries. Winter-run Chinook salmon is the exception —
+      it's tracked as a single population, not as a summary over
+      many places.
+    </p>
+    <p>
+      An area's tier averages across all the LOIs in that area. That
+      means an area can look stable at the summary level while
+      containing individual places under stress, or look stressed
+      while containing places that are doing well. To see how a
+      specific place is modeled — a particular community, river
+      stretch, or basin — the data explorer lets you look at outcomes
+      one LOI at a time. This brief stays at the summary level.
+    </p>
+  </section>
+
+  <!-- ─── 7. RELATED BRIEFS ───────────────────────────────────── -->
+  <section class="related-briefs">
+    <h2><span class="num">7.</span> Related briefs</h2>
+
+    <h3>More specific</h3>
+    <ul class="related-list">
+      <li><a href="/findings/scenarios/s0020-bl">Today's strategy paired with the historical baseline</a></li>
+      <li><a href="/findings/scenarios/s0020-hc1">Today's strategy paired with Warmer and Drier I</a></li>
+      <li><a href="/findings/scenarios/s0020-hc2">Today's strategy paired with Warmer and Drier II</a></li>
+      <li><a href="/findings/scenarios/s0020-hc3">Today's strategy paired with Warmer and Drier III</a></li>
+    </ul>
+    <p class="related-rule">
+      Each of the four scenarios in this brief, on its own page.
+    </p>
+
+    <h3>Across — themes</h3>
+    <ul class="related-list">
+      <li><a href="/findings/themes/cws">Community water systems</a></li>
+      <li><a href="/findings/themes/ag_gw">Farms and groundwater</a></li>
+      <li><a href="/findings/themes/eco">Rivers, salmon and the Delta ecosystem</a></li>
+      <li><a href="/findings/themes/delta">The Delta as a living place</a></li>
+    </ul>
+    <p class="related-rule">
+      All four theme briefs in the launch set.
+    </p>
+
+    <h3>Across — areas of the water system</h3>
+    <ul class="related-list">
+      <li><a href="/findings/sectors/environmental-flows">Environmental flows</a></li>
+      <li><a href="/findings/sectors/winter-run-chinook-salmon">Winter-run Chinook salmon</a></li>
+      <li><a href="/findings/sectors/agriculture">Agriculture</a></li>
+    </ul>
+    <p class="related-rule">
+      Three areas where the model shows the largest changes across the
+      four hydroclimates. <a href="/findings#sectors">See all nine areas →</a>
+    </p>
+  </section>
+
+  <!-- ─── 8. WHAT THIS DOESN'T SAY (Q5) ───────────────────────── -->
+  <section>
+    <h2><span class="num">8.</span> What this doesn't say</h2>
+    <p class="disclaimer">
+      This brief reports what the model produces under specific
+      assumptions. It doesn't predict what will happen, judge whether
+      the outcomes are acceptable, or recommend any course of action.
+      The tier names (Optimal, Acceptable, At-risk, Critical) describe
+      modeled conditions; what they mean for a particular community,
+      decision, or person is not something the model itself decides.
+    </p>
+    <p class="disclaimer">
+      The outcomes shown reflect today's water management strategy
+      paired with the historical baseline and three modeled drier
+      hydroclimates. They don't span every possible hydroclimate,
+      don't include alternative ways of operating the system (those
+      are in the other briefs), and don't go below the area-level
+      summary. For specific places, see §6 and the explorer.
+    </p>
+  </section>
+
+  <!-- ─── 9. EXPLORE FURTHER ──────────────────────────────────── -->
+  <section>
+    <h2><span class="num">9.</span> Explore further</h2>
+    <p>
+      <a class="explore-link" href="/explore?strategy=current-ops&amp;hydroclimates=bl,hc1,hc2,hc3&amp;areas=all">
+        See this comparison in the data explorer
+        <span class="arrow">→</span>
+      </a>
+    </p>
+  </section>
+
+  <!-- ─── FOOTER ──────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Version 0.7 (prototype)</span>
+      <span>Updated June 3, 2026 · 1:03 PM PDT</span>
+    </div>
+  </footer>
+
+</article>
+
+<!-- ─── PRINT HINT (screen-only) ──────────────────────────────── -->
+<p class="print-hint">
+  Save this brief as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>

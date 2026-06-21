@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rivers and Salmon — Theme narrative | COEQWAL</title>
+<meta name="description" content="The COEQWAL rivers-and-salmon theme narrative: can California&#x27;s rivers support healthy salmon and ecosystems while also providing water for people and farms?">
+
+<!-- COEQWAL Rivers and Salmon (eco) theme NARRATIVE prototype v0.1 — built 2026-06-18 from theme_eco_rivers-and-salmon_2026-06-18.md. Alternative format to the nine-section _brief_prototype_; preserves the 8-section narrative structure and headings. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for [TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+
+/* ── Section structure (lighter rhythm — no rules between sections) */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Stub markers ───────────────────────────────────────────────── */
+.stub {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.45em;
+  border-radius: 2px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ── Figure placeholder ─────────────────────────────────────────── */
+.figure-stub {
+  margin: 1.2rem 0 0;
+  border: 1.5px dashed var(--ink-faint);
+  background:
+    repeating-linear-gradient(-45deg,
+      transparent 0, transparent 12px,
+      rgba(0,0,0,0.025) 12px, rgba(0,0,0,0.025) 13px);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+.figure-stub .label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.6rem;
+}
+.figure-stub .desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 28em;
+}
+.figure-stub code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.05);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.95rem 0 0;
+}
+.caption .num { font-weight: 700; color: var(--ink); }
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ── Inline term gloss ──────────────────────────────────────────── */
+.term {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── Related briefs section ─────────────────────────────────────── */
+.related-briefs h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 1.6rem 0 0.6rem;
+}
+.related-briefs h3:first-of-type {
+  margin-top: 0.4rem;
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.related-list li {
+  margin: 0.36rem 0;
+  padding: 0;
+}
+.related-list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+}
+.related-list a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.related-rule {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin: 0.55rem 0 0;
+  line-height: 1.6;
+}
+.related-rule a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  font-style: normal;
+}
+.related-rule a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  transition: transform 0.2s;
+}
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Devnotes (build-time annotations, hidden in print) ─────────── */
+.devnote {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--stub);
+  background: var(--stub-bg);
+  border-left: 2px solid var(--stub);
+  padding: 0.5rem 0.75rem;
+  margin: 0.9rem 0 0;
+  line-height: 1.55;
+}
+.devnote::before {
+  content: 'NOTE  ';
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.devnote.q::before {
+  content: 'SOURCE  ';
+}
+.devnote code {
+  background: rgba(176, 130, 74, 0.13);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .figure-stub { aspect-ratio: 16 / 8; }
+  figure { break-inside: avoid; }
+  .devnote { display: none; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #888;
+  }
+  .related-list a[href]::after { content: ''; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  .related-list { font-size: 0.92rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+
+/* ── Narrative-variant additions ────────────────────────────────── */
+.lede-meta {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--ink-faint);
+  margin: -2rem 0 2.8rem;
+}
+section ul { margin: 0 0 1.1rem; padding-left: 1.25rem; }
+section li { margin: 0.4rem 0; padding-left: 0.15rem; }
+.box {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-faint);
+  padding: 1rem 1.25rem;
+  margin: 1.2rem 0;
+  border-radius: 0 3px 3px 0;
+}
+.box .box-title {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  margin: 0 0 0.55rem;
+}
+.box p { margin: 0 0 0.7rem; }
+.box p:last-child { margin-bottom: 0; }
+.closing {
+  font-size: 1.12rem;
+  line-height: 1.55;
+  font-style: italic;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Theme Narrative · Public</span>
+  </header>
+
+  <div class="eyebrow">Rivers and Salmon · Public Narrative</div>
+  <h1>Rivers and Salmon</h1>
+  <p class="lede-meta">Theme narrative (public). Source: "Protecting rivers and salmon.pdf". Generated: 2026-06-18.</p>
+
+  <section>
+    <h2><span class="num">1.</span> The core question</h2>
+    <p>Can California's rivers support healthy salmon populations and functioning ecosystems, while also providing water for people and farms?</p>
+    <p>Rivers are essential sources of water, but they are more than channels that move water from mountains to farms and cities. They are also living systems supporting a great diversity of species. Salmon depend on cold water in rivers for spawning and rearing, and to migrate to and from the ocean. Wetlands, birds, other fish, and other wildlife depend on rivers too.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span> Why this matters</h2>
+    <p>California's rivers begin in the mountains and flow through valleys to the Delta and ocean. Along the way, they sustain ecosystems and provide water for farms and communities. River systems are deeply interconnected. Decisions about storage, environmental flows, and water deliveries create trade-offs, where changes in one part of the system can ripple elsewhere.</p>
+    <p>Salmon are central to this story. They travel hundreds of miles between rivers and the ocean and are part of Tribal traditions, fishing economies, our food supply, and California's natural heritage. When salmon struggle, it signals stress in the broader river system.</p>
+    <p>Over time, dams, reservoirs, diversions, and land use changes have reshaped rivers. Spring floods that once spread across floodplains are now captured or confined. These changes have improved water reliability for people, but reduced habitat, changed temperatures, and altered the timing of flows.</p>
+    <p>Rivers respond not only to single events, but to stress over time. Sustained drought and repeated dry years can have compounding effects on ecosystems and water availability.</p>
+    <p>Climate change adds new pressures. Snowpack is shrinking, snow melts earlier, and droughts and heat waves are intensifying. These changes affect how much cold water is available and when it moves through the system.</p>
+    <p>Understanding rivers as living ecosystems, not just water delivery systems, is essential for future water management. A key idea explored here is that river flows can be managed to better resemble natural patterns while still delivering water to people.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span> What this theme focuses on</h2>
+    <div class="box">
+      <span class="box-title">Box 1: Seasonal flow &amp; ecosystem rhythms</span>
+      <p>Wild rivers follow natural seasonal patterns. Winter and spring rains and snowmelt increase flows, sometimes spreading onto floodplains and creating habitat for fish and other species. In summer and fall, flows decrease and water temperatures rise. These seasonal rhythms support native ecosystems, including many salmon species, which evolved to depend on these changing conditions.</p>
+    </div>
+    <div class="box">
+      <span class="box-title">Box 2: Winter-run Chinook &amp; cold-water refuges</span>
+      <p>Winter-run Chinook salmon are different. They spawn in summer, when rivers are warm, and evolved in cold, spring-fed habitats. Today, dams block access to these areas, and winter-run salmon depend on cold-water releases from reservoirs (like Shasta) to survive. If cold-water pools are depleted during hot months, their eggs may not survive, even if flow targets are met. This means both timing and temperature are critical for their survival.</p>
+    </div>
+    <div class="box">
+      <span class="box-title">Box 3: System connections &amp; trade-offs</span>
+      <p>River systems are deeply interconnected. Limited water means that decisions about reservoir storage, environmental flows, and water deliveries create trade-offs across multiple outcomes. Efforts to create more natural flow patterns, such as seasonal pulse flows, can improve habitat but may reduce water available for other uses. Choices in one part of the system can create ripple effects elsewhere.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span> What to keep in mind as you explore this theme</h2>
+    <ul>
+      <li>Rivers are shaped not only by how much water flows, but by when it flows and water temperature. Timing and water temperature can be as important as quantity.</li>
+      <li>Salmon depend on different conditions at different life stages, including cold water, sufficient flow, and connected habitat.</li>
+      <li>Reservoirs improve water storage for people and farms, but they also alter natural flow patterns and temperatures.</li>
+      <li>River ecosystems respond to droughts, floods, and sequences of extreme years. Short periods of stress can have lasting impacts.</li>
+      <li>Improving flows alone does not fully restore ecosystems. Habitat conditions, landscape changes, and invasive species also play a role.</li>
+      <li>This theme focuses on flows, so scenarios that perform poorly here may still achieve better outcomes when paired with habitat restoration or other management actions.</li>
+      <li>For winter-run Chinook salmon, water temperature, especially cold water stored in reservoirs, can matter as much as flow volume.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span> What management strategies are explored</h2>
+    <p>This theme allows you to explore how different water management choices affect:</p>
+    <ul>
+      <li>Seasonal flow patterns in rivers</li>
+      <li>Storage in reservoirs</li>
+      <li>Winter-run Chinook salmon survival across life stages</li>
+      <li>Outflows to the Bay-Delta estuary</li>
+      <li>Water deliveries for communities and farms</li>
+    </ul>
+    <p>Looking at these factors together shows how river systems respond under different climate and water use conditions.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span> What the models show</h2>
+    <p><strong>Trade-offs:</strong> Water stored in reservoirs supports cities and farms, but can reduce natural winter and spring flows that benefit ecosystems. Releasing water to support salmon can limit storage needed later for temperature control or supply. For example, prioritizing cold-water storage in Shasta Reservoir can improve egg survival, but reduce flows for juvenile outmigration. Increasing flows can benefit juveniles, but deplete cold-water pools and increase egg mortality. Decisions about when and how much water to release shift outcomes across life stages, regions, and sectors.</p>
+    <p><strong>Equity:</strong> River conditions affect communities differently. Tribal nations, fishing communities, farmers, and downstream towns may experience changes in distinct ways. Salmon declines can impact cultural practices, subsistence, and local economies. Water rights and location also shape who experiences shortages or protections first. For example, decisions that benefit one salmon life stage may help some communities while increasing risks for others who depend on salmon at different times.</p>
+    <p><strong>Resilience:</strong> Resilience means rivers can withstand droughts, floods, and warming while maintaining ecosystem health. Protecting cold-water storage, maintaining habitat connectivity, and managing flows across seasons all support this. Because salmon depend on multiple life stages, actions that help one stage but harm another can still lead to decline. River systems respond to average conditions, extreme events, and cumulative stress over time.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">7.</span> How to explore this theme further</h2>
+    <p>Explore how different water management choices shape seasonal river flows, water temperature, salmon survival, and habitat conditions across regions and climate futures.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span> Closing line</h2>
+    <p class="closing">Together, these views make trade-offs, equity, and resilience visible, providing a shared, data-grounded basis for comparison, discussion, and learning.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Version 0.1 (narrative prototype)</span>
+      <span>Updated <span class="stub">[date]</span></span>
+    </div>
+  </footer>
+
+</article>
+
+<p class="print-hint">
+  Save this narrative as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>

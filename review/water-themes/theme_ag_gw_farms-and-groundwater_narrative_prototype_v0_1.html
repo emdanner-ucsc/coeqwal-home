@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farms and groundwater — Theme narrative | COEQWAL</title>
+<meta name="description" content="The COEQWAL farms-and-groundwater theme narrative: how can California grow food and support farming communities while protecting groundwater and sustaining the system for the future?">
+
+<!-- COEQWAL Farms and groundwater (ag_gw) theme NARRATIVE prototype v0.1 — built 2026-06-18 from theme_ag_gw_farms-and-groundwater_2026-06-18.md. Alternative format to the nine-section _brief_prototype_; preserves the 8-section narrative structure and headings. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for [TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+
+/* ── Section structure (lighter rhythm — no rules between sections) */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Stub markers ───────────────────────────────────────────────── */
+.stub {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.45em;
+  border-radius: 2px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ── Figure placeholder ─────────────────────────────────────────── */
+.figure-stub {
+  margin: 1.2rem 0 0;
+  border: 1.5px dashed var(--ink-faint);
+  background:
+    repeating-linear-gradient(-45deg,
+      transparent 0, transparent 12px,
+      rgba(0,0,0,0.025) 12px, rgba(0,0,0,0.025) 13px);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+.figure-stub .label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.6rem;
+}
+.figure-stub .desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 28em;
+}
+.figure-stub code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.05);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.95rem 0 0;
+}
+.caption .num { font-weight: 700; color: var(--ink); }
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ── Inline term gloss ──────────────────────────────────────────── */
+.term {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── Related briefs section ─────────────────────────────────────── */
+.related-briefs h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 1.6rem 0 0.6rem;
+}
+.related-briefs h3:first-of-type {
+  margin-top: 0.4rem;
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.related-list li {
+  margin: 0.36rem 0;
+  padding: 0;
+}
+.related-list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+}
+.related-list a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.related-rule {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin: 0.55rem 0 0;
+  line-height: 1.6;
+}
+.related-rule a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  font-style: normal;
+}
+.related-rule a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  transition: transform 0.2s;
+}
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Devnotes (build-time annotations, hidden in print) ─────────── */
+.devnote {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--stub);
+  background: var(--stub-bg);
+  border-left: 2px solid var(--stub);
+  padding: 0.5rem 0.75rem;
+  margin: 0.9rem 0 0;
+  line-height: 1.55;
+}
+.devnote::before {
+  content: 'NOTE  ';
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.devnote.q::before {
+  content: 'SOURCE  ';
+}
+.devnote code {
+  background: rgba(176, 130, 74, 0.13);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .figure-stub { aspect-ratio: 16 / 8; }
+  figure { break-inside: avoid; }
+  .devnote { display: none; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #888;
+  }
+  .related-list a[href]::after { content: ''; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  .related-list { font-size: 0.92rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+
+/* ── Narrative-variant additions ────────────────────────────────── */
+.lede-meta {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--ink-faint);
+  margin: -2rem 0 2.8rem;
+}
+section ul { margin: 0 0 1.1rem; padding-left: 1.25rem; }
+section li { margin: 0.4rem 0; padding-left: 0.15rem; }
+.box {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-faint);
+  padding: 1rem 1.25rem;
+  margin: 1.2rem 0;
+  border-radius: 0 3px 3px 0;
+}
+.box .box-title {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  margin: 0 0 0.55rem;
+}
+.box p { margin: 0 0 0.7rem; }
+.box p:last-child { margin-bottom: 0; }
+.closing {
+  font-size: 1.12rem;
+  line-height: 1.55;
+  font-style: italic;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Theme Narrative · Public</span>
+  </header>
+
+  <div class="eyebrow">Farms and groundwater · Public Narrative</div>
+  <h1>Farms and groundwater</h1>
+  <p class="lede-meta">Theme narrative (public). Source: "Sustaining farms and groundwater.pdf". Generated: 2026-06-18.</p>
+
+  <section>
+    <h2><span class="num">1.</span> The core question</h2>
+    <p>How can California continue to grow food and support farming communities, while protecting groundwater and sustaining the system for the future?</p>
+    <p>Farms need reliable water to grow crops and stay economically viable. This water comes from two main sources, surface water from rivers and reservoirs and groundwater stored underground. These two sources are closely connected. When one becomes limited, the other is used more heavily. During droughts or periods of high demand, farmers often rely more on groundwater. If too much groundwater is pumped, it can become unsustainable, putting farms, drinking water supplies, and ecosystems at risk.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span> Why this matters</h2>
+    <p>California grows a large share of the nation's fruits, nuts, and vegetables. Farming supports jobs, local economies, and food systems across the country. But agriculture is also one of the largest water users in the state.</p>
+    <p>In wet years, farms receive more surface water deliveries from reservoirs and canals. In dry years, when surface supplies are reduced, farmers often pump more groundwater to make up the difference. Over time, heavy groundwater pumping can lower water tables, increase costs for farmers, and cause land subsidence. Some regions, especially in the San Joaquin Valley, have seen long-term groundwater declines.</p>
+    <p>New groundwater laws, such as the Sustainable Groundwater Management Act (SGMA), require regions to bring groundwater use into balance over time. This may involve reducing pumping, shifting crops, or retiring land. At the same time, climate change is reducing snowpack and increasing drought intensity, making surface water supplies less reliable.</p>
+    <p>Understanding how surface water deliveries, groundwater use, agricultural production, and climate stress interact is essential for planning a stable and sustainable food future.</p>
+    <div class="figure-stub" role="img" aria-label="Figure placeholder">
+      <div class="label">Figure — placeholder</div>
+      <div class="desc">Total agricultural water demand met by surface water and groundwater, comparing two scenarios over 10 years. Without pumping limits (Scenario 1), groundwater use increases during drought, causing significant declines in groundwater levels. With limits (Scenario 2), some agricultural water demand goes unmet during drought, but groundwater levels remain relatively stable.</div>
+    </div>
+    <p>Agricultural water demand is met by surface water and groundwater. During droughts, surface water supply falls short and groundwater pumping fills the gap. In response, water tables decline. The Sustainable Groundwater Management Act (SGMA) introduces pumping limits to protect aquifers and agricultural land uses over decades.</p>
+    <p>These tradeoffs affect the economics of Central Valley agriculture. Pumping limits can reduce agricultural revenue during drought, but help sustain groundwater and support productive land use over the long term.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span> What this theme focuses on</h2>
+    <div class="box">
+      <span class="box-title">Box 1: Surface water and groundwater as a connected system</span>
+      <p>Surface water and groundwater are part of a single, connected system. Reservoir storage determines how much water can be delivered through canals. When surface deliveries are reduced, farmers often rely more heavily on groundwater. Over time, this can lead to declining groundwater levels if pumping exceeds recharge.</p>
+    </div>
+    <div class="box">
+      <span class="box-title">Box 2: Groundwater sustainability and agricultural adaptation</span>
+      <p>Groundwater changes slowly over time. Long-term trends matter more than single years. As groundwater laws are implemented, some regions may need to reduce pumping. Farmers may respond by fallowing land, changing crops, improving efficiency, or shifting water sources. These changes can affect both production and local economies.</p>
+    </div>
+    <div class="box">
+      <span class="box-title">Box 3: System connections and trade-offs</span>
+      <p>Decisions about groundwater, land use, and surface water deliveries affect multiple parts of the system. Reducing groundwater pumping may improve long-term sustainability but can reduce agricultural production in the short term. Changes in one region may also shift pressures to other regions or water sources, creating complex system-wide responses.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span> What to keep in mind as you explore this theme</h2>
+    <ul>
+      <li>Farms rely on both surface water and groundwater. When surface water is limited, groundwater often helps fill the gap, but when groundwater is restricted, surface supplies usually cannot increase, leading to shortages.</li>
+      <li>Groundwater systems respond slowly. Conditions over multiple years (3–5 years) matter more than single wet or dry years.</li>
+      <li>Results reflect long-term patterns across many years, rather than predictions for any one year, and highlight risks when dry conditions persist.</li>
+      <li>Farmers can adapt by shifting crops, using stored water, or reducing acreage, but many of these decisions require long-term planning.</li>
+      <li>Perennial crops (such as nuts and fruit trees) require continuous water and years of investment, making them difficult to adjust in response to short-term shortages.</li>
+      <li>Impacts vary by region. The Sacramento Valley and San Joaquin Valley face different groundwater conditions and constraints, so system-wide averages can mask important local challenges.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span> What management strategies are explored</h2>
+    <p>This theme allows you to explore how different water management choices affect:</p>
+    <ul>
+      <li>Agricultural production and revenue</li>
+      <li>Groundwater pumping limits</li>
+      <li>Changes in irrigated acreage</li>
+      <li>Surface water deliveries to farms</li>
+      <li>Reservoir storage patterns</li>
+      <li>Long-term groundwater storage trends</li>
+    </ul>
+    <p>Some scenarios explore groundwater pumping restrictions in the San Joaquin Valley or across the Central Valley. Others explore land-use changes or combined strategies that include both groundwater limits and changes to surface water management. Looking at these strategies together helps reveal how farms respond under different policy, climate, and operational conditions.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span> What the models show</h2>
+    <p><strong>Trade-offs:</strong> Restricting groundwater pumping can improve groundwater storage over time but may reduce agricultural production in some regions. In some cases, limits in one area may shift pressure to other water sources or regions. Climate stress can intensify these trade-offs. Under warmer and drier conditions, surface water supplies decline, increasing reliance on groundwater just as it is being constrained.</p>
+    <p><strong>Equity:</strong> Impacts are not evenly distributed. Adverse effects are often concentrated in regions like the San Joaquin Valley, where groundwater declines have historically been more severe. Other regions, such as parts of the Sacramento Valley, may experience more stable conditions under certain scenarios. Water rights and infrastructure also influence who experiences shortages or reliability.</p>
+    <p><strong>Resilience:</strong> Resilience in this system means balancing short-term reliability with long-term sustainability. A system that relies heavily on groundwater during drought may maintain production in the short term but risk long-term depletion. A system that stabilizes groundwater but significantly reduces production may face economic challenges. Resilience depends on the ability to adapt to changing conditions while maintaining both agricultural viability and groundwater health.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">7.</span> How to explore this theme further</h2>
+    <p>Explore how different water management choices affect agricultural production, groundwater storage, and water deliveries across regions and climate conditions.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span> Closing line</h2>
+    <p class="closing">Together, these views make trade-offs, equity, and resilience visible, providing a shared, data-grounded basis for comparison, discussion, and learning.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Version 0.1 (narrative prototype)</span>
+      <span>Updated <span class="stub">[date]</span></span>
+    </div>
+  </footer>
+
+</article>
+
+<p class="print-hint">
+  Save this narrative as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>
