@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kern County Subbasin — modeled tier values | COEQWAL</title>
+<meta name="description" content="A COEQWAL place brief reporting modeled tier values for one Location of Interest across scenarios from the COEQWAL library. Prototype — synthetic figure data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for [TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 2.5rem;
+  color: var(--ink);
+}
+
+/* ── Section structure ──────────────────────────────────────────── */
+section { margin: 2.4rem 0; }
+
+section + section {
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 0.95rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1rem; }
+em { font-style: italic; color: var(--ink); }
+
+.term {
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.5;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Stub markers ───────────────────────────────────────────────── */
+.stub {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.45em;
+  border-radius: 2px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ── Figure placeholder ─────────────────────────────────────────── */
+.figure-stub {
+  margin: 1rem 0 0;
+  border: 1.5px dashed var(--ink-faint);
+  background:
+    repeating-linear-gradient(-45deg,
+      transparent 0, transparent 12px,
+      rgba(0,0,0,0.025) 12px, rgba(0,0,0,0.025) 13px);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+.figure-stub .label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.6rem;
+}
+.figure-stub .desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 28em;
+}
+.figure-stub code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.05);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0.85rem 0 0;
+}
+.caption .num { font-weight: 700; color: var(--ink); }
+
+/* ── Scenario matrix table ──────────────────────────────────────── */
+.scenario-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 0;
+  font-size: 0.96rem;
+}
+.scenario-table thead th {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: left;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  border-bottom: 1px solid var(--ink);
+}
+.scenario-table thead th.tier-cell { text-align: center; }
+.scenario-table tbody th {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  text-align: left;
+  padding: 0.6rem 0.5rem 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+.scenario-table tbody td {
+  padding: 0.6rem 0.5rem 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  color: var(--ink-faint);
+  text-align: center;
+}
+.scenario-table tbody td.row-label-cell {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  text-align: left;
+  color: var(--ink-soft);
+}
+
+/* ── Place context block ────────────────────────────────────────── */
+.place-context {
+  background: var(--accent-faint);
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.25rem 0.4rem;
+  margin: 1rem 0 0;
+}
+.place-context .field {
+  display: flex;
+  gap: 0.8em;
+  margin: 0 0 0.6rem;
+  font-size: 0.92rem;
+}
+.place-context .field-label {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  flex: 0 0 6.5rem;
+  padding-top: 0.18em;
+}
+.place-context .field-value {
+  flex: 1;
+  color: var(--ink);
+}
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.94rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+/* ── Related briefs section ─────────────────────────────────────── */
+.related-briefs h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 1.6rem 0 0.6rem;
+}
+.related-briefs h3:first-of-type {
+  margin-top: 0.4rem;
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.related-list li {
+  margin: 0.36rem 0;
+  padding: 0;
+}
+.related-list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+}
+.related-list a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.related-rule {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin: 0.55rem 0 0;
+  line-height: 1.6;
+}
+.related-rule a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  font-style: normal;
+}
+.related-rule a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  transition: transform 0.2s;
+}
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Figure 2 readout + hidden data tables ──────────────────────── */
+.figure-readout {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  min-height: 2.4em;
+  margin: 0.5rem 0 0;
+}
+.figure-readout b { color: var(--ink); font-weight: 700; }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.4rem 0; break-inside: avoid; }
+  section + section { padding-top: 1.4rem; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .figure-stub { aspect-ratio: 16 / 8; }
+  .place-context { background: #f3f0e8; }
+  .print-hint { display: none; }
+  .figure-readout { display: none; }
+  .footer { margin-top: 2.5rem; }
+  /* SVG figure must not get sliced across pages. The single figure in
+     this brief (Figure 1 slopegraph) is ~520pt tall — fits well within
+     a letter page after margins, so avoiding break-inside is enough
+     without forcing a preceding page break. */
+  .scenario-figure,
+  figure { break-inside: avoid; }
+  .scenario-figure svg { max-width: 100%; height: auto; }
+  .caption { break-before: avoid; }
+  /* Scenario table: avoid splitting rows; repeat header if the table
+     ever grows past a single page. */
+  .scenario-table { break-inside: avoid; }
+  .scenario-table thead { display: table-header-group; }
+  .scenario-table tr { break-inside: avoid; }
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #888;
+  }
+  /* Suppress URL print-out for the related-briefs list. */
+  .related-list a[href]::after { content: ''; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  .scenario-table tbody th { font-size: 0.7rem; }
+  .scenario-table tbody td { font-size: 0.78rem; }
+  .place-context .field { flex-direction: column; gap: 0.15em; }
+  .place-context .field-label { flex-basis: auto; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+</style>
+<style>
+.synthetic-banner {
+  max-width: var(--measure); margin: 0 auto; padding: 0.55rem 2.5rem;
+  font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.04em;
+  color: var(--stub); background: var(--stub-bg);
+  border-bottom: 1px solid #ecdcc2;
+}
+@media print { .synthetic-banner { display:none; } }
+</style>
+</head>
+<body>
+<div class="synthetic-banner">PROTOTYPE · GW sector · Figures use synthetic placeholder data (not CalSim output); location and node ID are illustrative stand-ins.</div>
+<article class="brief">
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Place Brief · Findings</span>
+  </header>
+
+  <div class="eyebrow">Groundwater Storage</div>
+  <h1>Modeled tier values at Kern County Subbasin</h1>
+
+  <section>
+    <h2><span class="num">1.</span> Headline</h2>
+    <p class="tldr">At Kern County Subbasin, modeled tier values across the 96 COEQWAL scenarios range from Tier 2 to Tier 3. Tier values match the historical baseline (Tier 3, At-risk) in 64 (67%) scenarios and shift to a different tier in 32 (33%). Because the reported scenarios vary both the operating strategy and the hydroclimate, these shifts are a combination of climate and operations effects. These effects are addressed in section 4.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span> What this is</h2>
+    <p>
+      COEQWAL uses CalSim 3 — the state's main water-system model —
+      to test how California's water system performs under different
+      conditions. The model outputs are in the form of <span class="term">scenarios</span>:
+      each scenario is a pairing of a <span class="term">water
+      management strategy</span> (a way of operating the system, like
+      today's rules or a proposed alternative) and a
+      <span class="term">hydroclimate</span> (patterns of
+      temperature, rainfall, and snow that determine how much water
+      is available over time). These results are sorted into four levels,
+      called <em>tiers</em>: Optimal, Acceptable, At-risk, and
+      Critical. Tiers describe what the model produces; they don't
+      tell anyone what to do about it.
+    </p>
+    <p>
+      The model also tracks specific places in the study domain,
+      which COEQWAL terms
+      <span class="term">Locations of Interest</span>, or LOIs.
+      Cities, reservoirs, river reaches, farm regions, groundwater
+      basins, and stretches of the Delta are each tracked
+      individually. Every LOI sits inside one of nine area-level
+      summaries COEQWAL uses to organize results (community
+      water, agriculture, environmental flows, the Delta, salmon,
+      in-Delta freshwater, Delta exports, reservoir storage, and
+      groundwater).
+    </p>
+    <p>
+      This brief reports modeled tier values for one LOI —
+      <strong>Kern County Subbasin</strong>
+      (<strong>groundwater storage</strong> area) across
+      96 scenarios from the
+      COEQWAL library. It consists of
+      24 water management strategies paired with
+      4 hydroclimates, and is the same
+      set used for every LOI brief.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span> What the model shows</h2>
+    <p>
+      Figure 1 shows the modeled tier value at Kern County Subbasin across 24
+      modeled strategies and 4 modeled hydroclimates. Each gray line
+      traces one strategy through the four hydroclimates. Line slope
+      shows how that strategy's modeled tier value shifts under climate
+      variation; the vertical spread among lines at a single hydroclimate
+      shows the range of tier values from operational variation alone.
+      Current operations (scenario s0020) is highlighted in gold; the
+      mean tier value across all 24 modeled strategies is overlaid for
+      reference.
+    </p>
+    <figure class="scenario-figure">
+      <svg viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; max-width: 680px; display: block;" role="img" font-family="inherit">
+        <title>Kern County Subbasin tier values across 24 scenarios and 4 hydroclimates</title>
+        <desc>Slopegraph: continuous tier values for Kern County Subbasin. Tier 1 at top, Tier 4 at bottom. Each gray line is one alternative scenario; gold line is current operations; dark line with diamond markers is the mean across all 24 scenarios.</desc>
+        <rect x="80" y="40" width="520" height="90" fill="#EAF3DE"/>
+        <rect x="80" y="130" width="520" height="90" fill="#E1F5EE"/>
+        <rect x="80" y="220" width="520" height="90" fill="#FAEEDA"/>
+        <rect x="80" y="310" width="520" height="90" fill="#FCEBEB"/>
+        <line x1="80" y1="130" x2="600" y2="130" stroke="#D3D1C7" stroke-width="0.5"/>
+        <line x1="80" y1="220" x2="600" y2="220" stroke="#D3D1C7" stroke-width="0.5"/>
+        <line x1="80" y1="310" x2="600" y2="310" stroke="#D3D1C7" stroke-width="0.5"/>
+        <rect x="80" y="40" width="520" height="360" fill="none" stroke="#888780" stroke-width="0.5"/>
+        <text x="74" y="89" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 1</text>
+        <text x="74" y="103" text-anchor="end" font-size="11" fill="#5f5e5a">Optimal</text>
+        <text x="74" y="179" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 2</text>
+        <text x="74" y="193" text-anchor="end" font-size="11" fill="#5f5e5a">Acceptable</text>
+        <text x="74" y="269" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 3</text>
+        <text x="74" y="283" text-anchor="end" font-size="11" fill="#5f5e5a">At-risk</text>
+        <text x="74" y="359" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 4</text>
+        <text x="74" y="373" text-anchor="end" font-size="11" fill="#5f5e5a">Critical</text>
+        <text x="80" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Historical</text>
+        <text x="80" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">BL</text>
+        <text x="253" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier I</text>
+        <text x="253" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC1</text>
+        <text x="427" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier II</text>
+        <text x="427" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC2</text>
+        <text x="600" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier III</text>
+        <text x="600" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC3</text>
+        <polyline points="80,143.53 253,138.41 427,155.73 600,159.4" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,157.85 253,141.68 427,150.48 600,169.58" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,147.88 253,154.19 427,173.88 600,165.63" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,151.59 253,167.85 427,178.09 600,182.67" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,181.99 253,186.12 427,198.12 600,192.18" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,176.38 253,188.93 427,201.34 600,211.41" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,202.83 253,210.56 427,243.24 600,237.88" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,218.01 253,212.48 427,232.17 600,242.86" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,210.6 253,220.34 427,237.87 600,253.99" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,215.67 253,224.32 427,245.94 600,238.65" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,211.83 253,218.86 427,247.53 600,251.69" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,223.94 253,252.89 427,265.31 600,265.76" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,238.66 253,253.87 427,256.83 600,265.46" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,236.75 253,247.15 427,255.73 600,280.88" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,234.88 253,237.22 427,269.37 600,281.19" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,240.56 253,252.92 427,282.6 600,277.03" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,238.27 253,260.15 427,275.17 600,299.05" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,248.65 253,278.58 427,280.25 600,298.36" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,264.17 253,275.05 427,294.06 600,305.5" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,262.33 253,277.1 427,303.27 600,305.5" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,255.92 253,289.69 427,304.88 600,305.5" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,268.24 253,285.38 427,302.84 600,301.67" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,272.15 253,289.28 427,298.25 600,305.5" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <circle cx="80" cy="143.53" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="138.41" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="155.73" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="159.4" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="157.85" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="141.68" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="150.48" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="169.58" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="147.88" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="154.19" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="173.88" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="165.63" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="151.59" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="167.85" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="178.09" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="182.67" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="181.99" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="186.12" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="198.12" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="192.18" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="176.38" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="188.93" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="201.34" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="211.41" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="202.83" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="210.56" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="243.24" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="237.88" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="218.01" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="212.48" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="232.17" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="242.86" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="210.6" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="220.34" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="237.87" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="253.99" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="215.67" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="224.32" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="245.94" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="238.65" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="211.83" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="218.86" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="247.53" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="251.69" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="223.94" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="252.89" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="265.31" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="265.76" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="238.66" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="253.87" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="256.83" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="265.46" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="236.75" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="247.15" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="255.73" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="280.88" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="234.88" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="237.22" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="269.37" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="281.19" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="240.56" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="252.92" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="282.6" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="277.03" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="238.27" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="260.15" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="275.17" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="299.05" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="248.65" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="278.58" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="280.25" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="298.36" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="264.17" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="275.05" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="294.06" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="305.5" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="262.33" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="277.1" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="303.27" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="305.5" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="255.92" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="289.69" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="304.88" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="305.5" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="268.24" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="285.38" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="302.84" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="301.67" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="272.15" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="289.28" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="298.25" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="305.5" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <polyline points="80,218.36 253,229.88 427,246.88 600,253.27" stroke="#2C2C2A" stroke-width="2.25" fill="none" opacity="0.95" stroke-linejoin="round"/>
+        <polygon points="80,212.36 86,218.36 80,224.36 74,218.36" fill="#2C2C2A"/>
+        <polygon points="253,223.88 259,229.88 253,235.88 247,229.88" fill="#2C2C2A"/>
+        <polygon points="427,240.88 433,246.88 427,252.88 421,246.88" fill="#2C2C2A"/>
+        <polygon points="600,247.27 606,253.27 600,259.27 594,253.27" fill="#2C2C2A"/>
+        <text x="612" y="253.27" font-size="11" font-weight="500" dominant-baseline="middle" fill="#2C2C2A">Mean</text>
+        <polyline points="80,238.0 253,254.2 427,272.2 600,281.2" stroke="#BA7517" stroke-width="2.5" fill="none" opacity="0.95" stroke-linejoin="round"/>
+        <circle cx="80" cy="238.0" r="4" fill="#BA7517" opacity="0.95"/>
+        <circle cx="253" cy="254.2" r="4" fill="#BA7517" opacity="0.95"/>
+        <circle cx="427" cy="272.2" r="4" fill="#BA7517" opacity="0.95"/>
+        <circle cx="600" cy="281.2" r="4" fill="#BA7517" opacity="0.95"/>
+        <text x="612" y="281.2" font-size="11" font-weight="500" dominant-baseline="middle" fill="#854F0B">s0020</text>
+        <g transform="translate(80, 470)">
+          <line x1="0" y1="3" x2="22" y2="3" stroke="#BA7517" stroke-width="2.5"/>
+          <circle cx="11" cy="3" r="4" fill="#BA7517"/>
+          <text x="30" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Current operations (s0020)</text>
+          <line x1="220" y1="3" x2="242" y2="3" stroke="#2C2C2A" stroke-width="2.25"/>
+          <polygon points="231,-3 237,3 231,9 225,3" fill="#2C2C2A"/>
+          <text x="250" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Mean across 24 scenarios</text>
+          <line x1="430" y1="3" x2="452" y2="3" stroke="#5F5E5A" stroke-width="1" opacity="0.7"/>
+          <circle cx="441" cy="3" r="2.5" fill="#5F5E5A" opacity="0.7"/>
+          <text x="460" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Alternative scenarios (23)</text>
+        </g>
+      </svg>
+      <figcaption class="caption">
+        Figure 1. Modeled tier value for Kern County Subbasin across 24 modeled
+        strategies and 4 modeled hydroclimates. The vertical axis is the
+        continuous tier value with Tier 1 (Optimal) at the top and Tier 4
+        (Critical) at the bottom; horizontal bands show the four tier
+        categories. Hydroclimate codes: BL = Historical; HC1 = Warmer and
+        Drier I; HC2 = Warmer and Drier II; HC3 = Warmer and Drier III.
+        Current operations (s0020, gold) and the mean across all 24 modeled
+        strategies (black) are overlaid. All modeled strategies are shown.
+        <em>Synthetic placeholder data.</em>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span> Operations and climate</h2>
+    <p>
+      Because every scenario pairs a strategy with a hydroclimate,
+      a difference in tier value between two scenarios can come from
+      two places: changes in the strategy used to run the system,
+      or changes in the hydroclimate the system is run under. At an
+      LOI like Kern County Subbasin, both axes are reported, so the
+      difference between scenarios can be separated into a
+      strategy part and a hydroclimate part.
+    </p>
+    <p>Holding the hydroclimate fixed at the historical baseline, the difference among operating strategies at Kern County Subbasin is the strategy effect: most strategies hold the modeled tier value at Tier 3, while some move to Tier 2. Holding the strategy fixed at current operations, the change across hydroclimates from BL to HC3 is the climate effect: the modeled tier value moves from Tier 3.2 toward about Tier 3.7, staying within Tier 3 (At-risk). The remaining cells in the matrix combine both effects.</p>
+    <p>
+      Figure 2 shows this decomposition for every scenario. Each dot
+      is one modeled strategy under one hydroclimate; current
+      operations (s0020) is gold. Within each column, strategies keep
+      a fixed left-to-right order, so a strategy occupies the same
+      relative position in every column and can be followed across
+      the four hydroclimates.
+    </p>
+    <figure class="scenario-figure">
+      <svg id="fig2" viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; max-width: 680px; display: block;" role="img" font-family="inherit"
+           aria-label="Four hydroclimate columns for Kern County Subbasin. Each column shows 24 modeled strategies at evenly spaced horizontal positions, placed vertically by continuous tier value. Current operations, scenario s0020, is gold.">
+        <title>Kern County Subbasin: operations and climate effects across 24 strategies and 4 hydroclimates</title>
+        <desc>Tier 1 (Optimal) at top, Tier 4 (Critical) at bottom. Each dot is one strategy under one hydroclimate. The full tier values are listed in the data tables that follow this figure.</desc>
+        <rect x="80" y="40" width="520" height="90" fill="#EAF3DE"/>
+        <rect x="80" y="130" width="520" height="90" fill="#E1F5EE"/>
+        <rect x="80" y="220" width="520" height="90" fill="#FAEEDA"/>
+        <rect x="80" y="310" width="520" height="90" fill="#FCEBEB"/>
+        <rect x="80" y="40" width="520" height="360" fill="none" stroke="#888780" stroke-width="0.5"/>
+        <text x="74" y="89" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 1</text>
+        <text x="74" y="103" text-anchor="end" font-size="11" fill="#5f5e5a">Optimal</text>
+        <text x="74" y="179" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 2</text>
+        <text x="74" y="193" text-anchor="end" font-size="11" fill="#5f5e5a">Acceptable</text>
+        <text x="74" y="269" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 3</text>
+        <text x="74" y="283" text-anchor="end" font-size="11" fill="#5f5e5a">At-risk</text>
+        <text x="74" y="359" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 4</text>
+        <text x="74" y="373" text-anchor="end" font-size="11" fill="#5f5e5a">Critical</text>
+        <line x1="210" y1="40" x2="210" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
+        <line x1="340" y1="40" x2="340" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
+        <line x1="470" y1="40" x2="470" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
+        <text x="145" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Historical</text>
+        <text x="145" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">BL</text>
+        <text x="275" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier I</text>
+        <text x="275" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC1</text>
+        <text x="405" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier II</text>
+        <text x="405" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC2</text>
+        <text x="535" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier III</text>
+        <text x="535" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC3</text>
+        <circle cx="94.0" cy="143.53" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="0"/>
+        <circle cx="224.0" cy="138.41" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="1"/>
+        <circle cx="354.0" cy="155.73" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="2"/>
+        <circle cx="484.0" cy="159.4" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="3"/>
+        <circle cx="98.43" cy="157.85" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="0"/>
+        <circle cx="228.43" cy="141.68" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="1"/>
+        <circle cx="358.43" cy="150.48" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="2"/>
+        <circle cx="488.43" cy="169.58" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="3"/>
+        <circle cx="102.87" cy="147.88" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="0"/>
+        <circle cx="232.87" cy="154.19" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="1"/>
+        <circle cx="362.87" cy="173.88" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="2"/>
+        <circle cx="492.87" cy="165.63" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="3"/>
+        <circle cx="107.3" cy="151.59" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="0"/>
+        <circle cx="237.3" cy="167.85" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="1"/>
+        <circle cx="367.3" cy="178.09" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="2"/>
+        <circle cx="497.3" cy="182.67" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="3"/>
+        <circle cx="111.74" cy="181.99" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="0"/>
+        <circle cx="241.74" cy="186.12" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="1"/>
+        <circle cx="371.74" cy="198.12" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="2"/>
+        <circle cx="501.74" cy="192.18" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="3"/>
+        <circle cx="116.17" cy="176.38" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="0"/>
+        <circle cx="246.17" cy="188.93" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="1"/>
+        <circle cx="376.17" cy="201.34" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="2"/>
+        <circle cx="506.17" cy="211.41" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="3"/>
+        <circle cx="120.61" cy="202.83" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="0"/>
+        <circle cx="250.61" cy="210.56" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="1"/>
+        <circle cx="380.61" cy="243.24" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="2"/>
+        <circle cx="510.61" cy="237.88" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="3"/>
+        <circle cx="125.04" cy="218.01" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="0"/>
+        <circle cx="255.04" cy="212.48" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="1"/>
+        <circle cx="385.04" cy="232.17" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="2"/>
+        <circle cx="515.04" cy="242.86" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="3"/>
+        <circle cx="129.48" cy="210.6" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="0"/>
+        <circle cx="259.48" cy="220.34" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="1"/>
+        <circle cx="389.48" cy="237.87" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="2"/>
+        <circle cx="519.48" cy="253.99" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="3"/>
+        <circle cx="133.91" cy="215.67" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="0"/>
+        <circle cx="263.91" cy="224.32" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="1"/>
+        <circle cx="393.91" cy="245.94" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="2"/>
+        <circle cx="523.91" cy="238.65" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="3"/>
+        <circle cx="138.35" cy="211.83" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="0"/>
+        <circle cx="268.35" cy="218.86" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="1"/>
+        <circle cx="398.35" cy="247.53" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="2"/>
+        <circle cx="528.35" cy="251.69" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="3"/>
+        <circle cx="142.78" cy="223.94" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="0"/>
+        <circle cx="272.78" cy="252.89" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="1"/>
+        <circle cx="402.78" cy="265.31" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="2"/>
+        <circle cx="532.78" cy="265.76" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="3"/>
+        <circle cx="147.22" cy="238.66" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="0"/>
+        <circle cx="277.22" cy="253.87" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="1"/>
+        <circle cx="407.22" cy="256.83" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="2"/>
+        <circle cx="537.22" cy="265.46" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="3"/>
+        <circle cx="151.65" cy="236.75" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="0"/>
+        <circle cx="281.65" cy="247.15" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="1"/>
+        <circle cx="411.65" cy="255.73" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="2"/>
+        <circle cx="541.65" cy="280.88" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="3"/>
+        <circle cx="156.09" cy="234.88" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="0"/>
+        <circle cx="286.09" cy="237.22" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="1"/>
+        <circle cx="416.09" cy="269.37" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="2"/>
+        <circle cx="546.09" cy="281.19" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="3"/>
+        <circle cx="164.96" cy="240.56" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="0"/>
+        <circle cx="294.96" cy="252.92" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="1"/>
+        <circle cx="424.96" cy="282.6" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="2"/>
+        <circle cx="554.96" cy="277.03" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="3"/>
+        <circle cx="169.39" cy="238.27" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="0"/>
+        <circle cx="299.39" cy="260.15" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="1"/>
+        <circle cx="429.39" cy="275.17" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="2"/>
+        <circle cx="559.39" cy="299.05" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="3"/>
+        <circle cx="173.83" cy="248.65" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="0"/>
+        <circle cx="303.83" cy="278.58" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="1"/>
+        <circle cx="433.83" cy="280.25" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="2"/>
+        <circle cx="563.83" cy="298.36" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="3"/>
+        <circle cx="178.26" cy="264.17" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="0"/>
+        <circle cx="308.26" cy="275.05" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="1"/>
+        <circle cx="438.26" cy="294.06" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="2"/>
+        <circle cx="568.26" cy="305.5" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="3"/>
+        <circle cx="182.7" cy="262.33" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="0"/>
+        <circle cx="312.7" cy="277.1" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="1"/>
+        <circle cx="442.7" cy="303.27" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="2"/>
+        <circle cx="572.7" cy="305.5" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="3"/>
+        <circle cx="187.13" cy="255.92" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="0"/>
+        <circle cx="317.13" cy="289.69" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="1"/>
+        <circle cx="447.13" cy="304.88" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="2"/>
+        <circle cx="577.13" cy="305.5" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="3"/>
+        <circle cx="191.57" cy="268.24" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="0"/>
+        <circle cx="321.57" cy="285.38" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="1"/>
+        <circle cx="451.57" cy="302.84" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="2"/>
+        <circle cx="581.57" cy="301.67" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="3"/>
+        <circle cx="196.0" cy="272.15" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="0"/>
+        <circle cx="326.0" cy="289.28" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="1"/>
+        <circle cx="456.0" cy="298.25" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="2"/>
+        <circle cx="586.0" cy="305.5" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="3"/>
+        <polyline points="160.52,238.0 290.52,254.2 420.52,272.2 550.52,281.2" fill="none" stroke="#BA7517" stroke-width="2" stroke-opacity="0.85"/>
+        <circle cx="160.52" cy="238.0" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="0"/>
+        <circle cx="290.52" cy="254.2" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="1"/>
+        <circle cx="420.52" cy="272.2" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="2"/>
+        <circle cx="550.52" cy="281.2" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="3"/>
+        <circle cx="160.52" cy="238.0" r="8" fill="none" stroke="#2c2c2a" stroke-width="1.5"/>
+        <text x="160.52" y="226.0" text-anchor="middle" font-size="11" font-weight="500" fill="#2c2c2a">now</text>
+        <g transform="translate(80, 470)">
+          <line x1="0" y1="3" x2="22" y2="3" stroke="#BA7517" stroke-width="2.5"/>
+          <circle cx="11" cy="3" r="4" fill="#BA7517"/>
+          <text x="30" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Current operations (s0020)</text>
+          <circle cx="226" cy="3" r="2.5" fill="#5F5E5A" opacity="0.7"/>
+          <text x="238" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Alternative strategies (23), one dot per hydroclimate</text>
+        </g>
+      </svg>
+      <div class="figure-readout" id="fig2-readout" aria-live="polite">Hover over a dot to split its value into baseline + climate effect + operations effect; click a dot to pin it.</div>
+      <figcaption class="caption">
+        <span class="num">Figure 2.</span> Modeled tier value for Kern County Subbasin
+        across 24 modeled strategies and 4 modeled hydroclimates, shown as
+        one dot per strategy per hydroclimate. The vertical axis is the
+        continuous tier value, as in Figure 1. Hydroclimate codes: BL =
+        Historical; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II;
+        HC3 = Warmer and Drier III. Current operations (s0020) is shown in
+        gold. Within each column, strategies are spaced evenly across the
+        width and kept in a fixed order (by average tier value across the
+        four hydroclimates), so a strategy occupies the same relative
+        position in every column. Data: synthetic placeholder values for
+        Kern County Subbasin (node KERN_GW, groundwater storage sector) — not CalSim output.
+      </figcaption>
+      <script type="application/json" id="fig2-data">
+{
+ "title": "Kern County Subbasin groundwater storage \u2014 continuous modeled tier values and operations/climate decomposition",
+ "place": "Kern County Subbasin",
+ "node_id": "KERN_GW",
+ "sector": "GW",
+ "sector_label": "Groundwater storage",
+ "source": "synthetic placeholder (prototype) \u2014 not CalSim output",
+ "brief": "COEQWAL LOI brief prototype \u2014 GW v0.1",
+ "tier_scale": {
+  "1": "Optimal",
+  "2": "Acceptable",
+  "3": "At-risk",
+  "4": "Critical"
+ },
+ "tier_value_note": "Continuous modeled tier value; 1 is best (Optimal), 4 is worst (Critical).",
+ "hydroclimates": [
+  {
+   "code": "BL",
+   "label": "Historical"
+  },
+  {
+   "code": "HC1",
+   "label": "Warmer-drier I"
+  },
+  {
+   "code": "HC2",
+   "label": "Warmer-drier II"
+  },
+  {
+   "code": "HC3",
+   "label": "Warmer-drier III"
+  }
+ ],
+ "baseline_scenario": "s0020",
+ "decomposition_note": "For each scenario and hydroclimate: tier_value = s0020 value at BL + climate_effect (same for all scenarios) + operations_effect (scenario value minus s0020 under the same hydroclimate).",
+ "climate_effect": [
+  0.0,
+  0.18,
+  0.38,
+  0.48
+ ],
+ "scenarios": [
+  {
+   "id": "s0025",
+   "is_current_operations": false,
+   "tier_values": [
+    2.1503,
+    2.0934,
+    2.2859,
+    2.3267
+   ],
+   "operations_effect": [
+    -1.0497,
+    -1.2866,
+    -1.2941,
+    -1.3533
+   ]
+  },
+  {
+   "id": "s0026",
+   "is_current_operations": false,
+   "tier_values": [
+    2.3094,
+    2.1298,
+    2.2275,
+    2.4398
+   ],
+   "operations_effect": [
+    -0.8906,
+    -1.2502,
+    -1.3525,
+    -1.2402
+   ]
+  },
+  {
+   "id": "s0027",
+   "is_current_operations": false,
+   "tier_values": [
+    2.1987,
+    2.2688,
+    2.4876,
+    2.3959
+   ],
+   "operations_effect": [
+    -1.0013,
+    -1.1112,
+    -1.0924,
+    -1.2841
+   ]
+  },
+  {
+   "id": "s0028",
+   "is_current_operations": false,
+   "tier_values": [
+    2.2399,
+    2.4205,
+    2.5343,
+    2.5852
+   ],
+   "operations_effect": [
+    -0.9601,
+    -0.9595,
+    -1.0457,
+    -1.0948
+   ]
+  },
+  {
+   "id": "s0032",
+   "is_current_operations": false,
+   "tier_values": [
+    2.5777,
+    2.6235,
+    2.7569,
+    2.6909
+   ],
+   "operations_effect": [
+    -0.6223,
+    -0.7565,
+    -0.8231,
+    -0.9891
+   ]
+  },
+  {
+   "id": "s0033",
+   "is_current_operations": false,
+   "tier_values": [
+    2.5153,
+    2.6548,
+    2.7927,
+    2.9045
+   ],
+   "operations_effect": [
+    -0.6847,
+    -0.7252,
+    -0.7873,
+    -0.7755
+   ]
+  },
+  {
+   "id": "s0046",
+   "is_current_operations": false,
+   "tier_values": [
+    2.8092,
+    2.8951,
+    3.2582,
+    3.1987
+   ],
+   "operations_effect": [
+    -0.3908,
+    -0.4849,
+    -0.3218,
+    -0.4813
+   ]
+  },
+  {
+   "id": "s0039",
+   "is_current_operations": false,
+   "tier_values": [
+    2.9779,
+    2.9164,
+    3.1352,
+    3.254
+   ],
+   "operations_effect": [
+    -0.2221,
+    -0.4636,
+    -0.4448,
+    -0.426
+   ]
+  },
+  {
+   "id": "s0021",
+   "is_current_operations": false,
+   "tier_values": [
+    2.8955,
+    3.0038,
+    3.1985,
+    3.3777
+   ],
+   "operations_effect": [
+    -0.3045,
+    -0.3762,
+    -0.3815,
+    -0.3023
+   ]
+  },
+  {
+   "id": "s0031",
+   "is_current_operations": false,
+   "tier_values": [
+    2.9519,
+    3.048,
+    3.2882,
+    3.2072
+   ],
+   "operations_effect": [
+    -0.2481,
+    -0.332,
+    -0.2918,
+    -0.4728
+   ]
+  },
+  {
+   "id": "s0011",
+   "is_current_operations": false,
+   "tier_values": [
+    2.9092,
+    2.9873,
+    3.3059,
+    3.3521
+   ],
+   "operations_effect": [
+    -0.2908,
+    -0.3927,
+    -0.2741,
+    -0.3279
+   ]
+  },
+  {
+   "id": "s0040",
+   "is_current_operations": false,
+   "tier_values": [
+    3.0438,
+    3.3655,
+    3.5035,
+    3.5085
+   ],
+   "operations_effect": [
+    -0.1562,
+    -0.0145,
+    -0.0765,
+    -0.1715
+   ]
+  },
+  {
+   "id": "s0036",
+   "is_current_operations": false,
+   "tier_values": [
+    3.2073,
+    3.3763,
+    3.4092,
+    3.5051
+   ],
+   "operations_effect": [
+    0.0073,
+    -0.0037,
+    -0.1708,
+    -0.1749
+   ]
+  },
+  {
+   "id": "s0044",
+   "is_current_operations": false,
+   "tier_values": [
+    3.1861,
+    3.3017,
+    3.397,
+    3.6764
+   ],
+   "operations_effect": [
+    -0.0139,
+    -0.0783,
+    -0.183,
+    -0.0036
+   ]
+  },
+  {
+   "id": "s0024",
+   "is_current_operations": false,
+   "tier_values": [
+    3.1653,
+    3.1913,
+    3.5486,
+    3.6799
+   ],
+   "operations_effect": [
+    -0.0347,
+    -0.1887,
+    -0.0314,
+    -0.0001
+   ]
+  },
+  {
+   "id": "s0020",
+   "is_current_operations": true,
+   "tier_values": [
+    3.2,
+    3.38,
+    3.58,
+    3.68
+   ],
+   "operations_effect": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "id": "s0042",
+   "is_current_operations": false,
+   "tier_values": [
+    3.2284,
+    3.3658,
+    3.6956,
+    3.6337
+   ],
+   "operations_effect": [
+    0.0284,
+    -0.0142,
+    0.1156,
+    -0.0463
+   ]
+  },
+  {
+   "id": "s0037",
+   "is_current_operations": false,
+   "tier_values": [
+    3.203,
+    3.4461,
+    3.613,
+    3.8783
+   ],
+   "operations_effect": [
+    0.003,
+    0.0661,
+    0.033,
+    0.1983
+   ]
+  },
+  {
+   "id": "s0065",
+   "is_current_operations": false,
+   "tier_values": [
+    3.3183,
+    3.6509,
+    3.6694,
+    3.8707
+   ],
+   "operations_effect": [
+    0.1183,
+    0.2709,
+    0.0894,
+    0.1907
+   ]
+  },
+  {
+   "id": "s0030",
+   "is_current_operations": false,
+   "tier_values": [
+    3.4908,
+    3.6117,
+    3.8229,
+    3.95
+   ],
+   "operations_effect": [
+    0.2908,
+    0.2317,
+    0.2429,
+    0.27
+   ]
+  },
+  {
+   "id": "s0041",
+   "is_current_operations": false,
+   "tier_values": [
+    3.4703,
+    3.6344,
+    3.9252,
+    3.95
+   ],
+   "operations_effect": [
+    0.2703,
+    0.2544,
+    0.3452,
+    0.27
+   ]
+  },
+  {
+   "id": "s0023",
+   "is_current_operations": false,
+   "tier_values": [
+    3.3991,
+    3.7743,
+    3.9431,
+    3.95
+   ],
+   "operations_effect": [
+    0.1991,
+    0.3943,
+    0.3631,
+    0.27
+   ]
+  },
+  {
+   "id": "s0045",
+   "is_current_operations": false,
+   "tier_values": [
+    3.536,
+    3.7265,
+    3.9204,
+    3.9074
+   ],
+   "operations_effect": [
+    0.336,
+    0.3465,
+    0.3404,
+    0.2274
+   ]
+  },
+  {
+   "id": "s0035",
+   "is_current_operations": false,
+   "tier_values": [
+    3.5794,
+    3.7698,
+    3.8694,
+    3.95
+   ],
+   "operations_effect": [
+    0.3794,
+    0.3898,
+    0.2894,
+    0.27
+   ]
+  }
+ ]
+}
+      </script>
+      <div class="sr-only">
+        <table>
+<caption>Continuous modeled tier value (1 = Optimal, 4 = Critical) for Kern County Subbasin groundwater storage for each of the 24 modeled strategies under each of the 4 hydroclimates. Rows in the same order as Figure 2; current operations is scenario s0020.</caption>
+<thead>
+<tr><th scope="col">Scenario</th><th scope="col">Historical (BL)</th><th scope="col">Warmer-drier I (HC1)</th><th scope="col">Warmer-drier II (HC2)</th><th scope="col">Warmer-drier III (HC3)</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">s0025</th><td>2.15</td><td>2.09</td><td>2.29</td><td>2.33</td></tr>
+<tr><th scope="row">s0026</th><td>2.31</td><td>2.13</td><td>2.23</td><td>2.44</td></tr>
+<tr><th scope="row">s0027</th><td>2.20</td><td>2.27</td><td>2.49</td><td>2.40</td></tr>
+<tr><th scope="row">s0028</th><td>2.24</td><td>2.42</td><td>2.53</td><td>2.59</td></tr>
+<tr><th scope="row">s0032</th><td>2.58</td><td>2.62</td><td>2.76</td><td>2.69</td></tr>
+<tr><th scope="row">s0033</th><td>2.52</td><td>2.65</td><td>2.79</td><td>2.90</td></tr>
+<tr><th scope="row">s0046</th><td>2.81</td><td>2.90</td><td>3.26</td><td>3.20</td></tr>
+<tr><th scope="row">s0039</th><td>2.98</td><td>2.92</td><td>3.14</td><td>3.25</td></tr>
+<tr><th scope="row">s0021</th><td>2.90</td><td>3.00</td><td>3.20</td><td>3.38</td></tr>
+<tr><th scope="row">s0031</th><td>2.95</td><td>3.05</td><td>3.29</td><td>3.21</td></tr>
+<tr><th scope="row">s0011</th><td>2.91</td><td>2.99</td><td>3.31</td><td>3.35</td></tr>
+<tr><th scope="row">s0040</th><td>3.04</td><td>3.37</td><td>3.50</td><td>3.51</td></tr>
+<tr><th scope="row">s0036</th><td>3.21</td><td>3.38</td><td>3.41</td><td>3.51</td></tr>
+<tr><th scope="row">s0044</th><td>3.19</td><td>3.30</td><td>3.40</td><td>3.68</td></tr>
+<tr><th scope="row">s0024</th><td>3.17</td><td>3.19</td><td>3.55</td><td>3.68</td></tr>
+<tr><th scope="row">s0020 — current operations</th><td>3.20</td><td>3.38</td><td>3.58</td><td>3.68</td></tr>
+<tr><th scope="row">s0042</th><td>3.23</td><td>3.37</td><td>3.70</td><td>3.63</td></tr>
+<tr><th scope="row">s0037</th><td>3.20</td><td>3.45</td><td>3.61</td><td>3.88</td></tr>
+<tr><th scope="row">s0065</th><td>3.32</td><td>3.65</td><td>3.67</td><td>3.87</td></tr>
+<tr><th scope="row">s0030</th><td>3.49</td><td>3.61</td><td>3.82</td><td>3.95</td></tr>
+<tr><th scope="row">s0041</th><td>3.47</td><td>3.63</td><td>3.93</td><td>3.95</td></tr>
+<tr><th scope="row">s0023</th><td>3.40</td><td>3.77</td><td>3.94</td><td>3.95</td></tr>
+<tr><th scope="row">s0045</th><td>3.54</td><td>3.73</td><td>3.92</td><td>3.91</td></tr>
+<tr><th scope="row">s0035</th><td>3.58</td><td>3.77</td><td>3.87</td><td>3.95</td></tr>
+</tbody>
+</table>
+<table>
+<caption>Operations effect for each scenario: its tier value minus current operations (s0020) under the same hydroclimate; positive means a worse (higher) tier value than current operations. The climate effect is the same for every scenario and is the change in s0020 from its historical baseline: HC1 +0.18, HC2 +0.38, HC3 +0.48 tier. Every value in the table above equals the s0020 baseline (3.20) plus the climate effect plus the operations effect.</caption>
+<thead>
+<tr><th scope="col">Scenario</th><th scope="col">Operations effect, BL</th><th scope="col">Operations effect, HC1</th><th scope="col">Operations effect, HC2</th><th scope="col">Operations effect, HC3</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">s0025</th><td>−1.05</td><td>−1.29</td><td>−1.29</td><td>−1.35</td></tr>
+<tr><th scope="row">s0026</th><td>−0.89</td><td>−1.25</td><td>−1.35</td><td>−1.24</td></tr>
+<tr><th scope="row">s0027</th><td>−1.00</td><td>−1.11</td><td>−1.09</td><td>−1.28</td></tr>
+<tr><th scope="row">s0028</th><td>−0.96</td><td>−0.96</td><td>−1.05</td><td>−1.09</td></tr>
+<tr><th scope="row">s0032</th><td>−0.62</td><td>−0.76</td><td>−0.82</td><td>−0.99</td></tr>
+<tr><th scope="row">s0033</th><td>−0.68</td><td>−0.73</td><td>−0.79</td><td>−0.78</td></tr>
+<tr><th scope="row">s0046</th><td>−0.39</td><td>−0.48</td><td>−0.32</td><td>−0.48</td></tr>
+<tr><th scope="row">s0039</th><td>−0.22</td><td>−0.46</td><td>−0.44</td><td>−0.43</td></tr>
+<tr><th scope="row">s0021</th><td>−0.30</td><td>−0.38</td><td>−0.38</td><td>−0.30</td></tr>
+<tr><th scope="row">s0031</th><td>−0.25</td><td>−0.33</td><td>−0.29</td><td>−0.47</td></tr>
+<tr><th scope="row">s0011</th><td>−0.29</td><td>−0.39</td><td>−0.27</td><td>−0.33</td></tr>
+<tr><th scope="row">s0040</th><td>−0.16</td><td>−0.01</td><td>−0.08</td><td>−0.17</td></tr>
+<tr><th scope="row">s0036</th><td>+0.01</td><td>−0.00</td><td>−0.17</td><td>−0.17</td></tr>
+<tr><th scope="row">s0044</th><td>−0.01</td><td>−0.08</td><td>−0.18</td><td>−0.00</td></tr>
+<tr><th scope="row">s0024</th><td>−0.03</td><td>−0.19</td><td>−0.03</td><td>−0.00</td></tr>
+<tr><th scope="row">s0020 — current operations</th><td>+0.00</td><td>+0.00</td><td>+0.00</td><td>+0.00</td></tr>
+<tr><th scope="row">s0042</th><td>+0.03</td><td>−0.01</td><td>+0.12</td><td>−0.05</td></tr>
+<tr><th scope="row">s0037</th><td>+0.00</td><td>+0.07</td><td>+0.03</td><td>+0.20</td></tr>
+<tr><th scope="row">s0065</th><td>+0.12</td><td>+0.27</td><td>+0.09</td><td>+0.19</td></tr>
+<tr><th scope="row">s0030</th><td>+0.29</td><td>+0.23</td><td>+0.24</td><td>+0.27</td></tr>
+<tr><th scope="row">s0041</th><td>+0.27</td><td>+0.25</td><td>+0.35</td><td>+0.27</td></tr>
+<tr><th scope="row">s0023</th><td>+0.20</td><td>+0.39</td><td>+0.36</td><td>+0.27</td></tr>
+<tr><th scope="row">s0045</th><td>+0.34</td><td>+0.35</td><td>+0.34</td><td>+0.23</td></tr>
+<tr><th scope="row">s0035</th><td>+0.38</td><td>+0.39</td><td>+0.29</td><td>+0.27</td></tr>
+</tbody>
+</table>
+      </div>
+    </figure>
+    <p>
+      Read against the <em>BASELINES</em> theme brief, the climate
+      column at Kern County Subbasin under current operations is the
+      climate-only reference for this place. Read against the
+      area summary for groundwater storage, the rows under alternative
+      strategies show how operating choices shift tier values here.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span> Pattern across scenarios</h2>
+    <p>Looking across the full scenario matrix in Figure 1, modeled tier values at Kern County Subbasin range across two tiers, from Tier 2 to Tier 3. The variation across the four hydroclimates under any single strategy is broadly comparable to the variation across the 24 strategies under any single hydroclimate. The widest spread appears at every hydroclimate, where modeled tier values under different strategies span from Tier 2 to Tier 3.</p>
+    <p>
+      This brief reports one place within the groundwater storage sector.
+      The area-level summary for groundwater storage in the theme briefs
+      is the right reference for how the system as a whole behaves
+      across its many locations; this brief reports how a single
+      location, Kern County Subbasin, moves across the same scenario set.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span> About this place</h2>
+    <p>The Kern County Subbasin lies at the southern end of the San Joaquin Valley and is one of the state's most heavily pumped agricultural groundwater basins. It is designated critically overdrafted under the Sustainable Groundwater Management Act (SGMA). The model tracks the subbasin's groundwater storage trend relative to a reference condition.</p>
+    <div class="place-context" aria-label="Place context">
+      <div class="field"><span class="field-label">Location</span><span class="field-value">Southern San Joaquin Valley, Kern County</span></div>
+      <div class="field"><span class="field-label">System</span><span class="field-value">San Joaquin Valley groundwater</span></div>
+      <div class="field"><span class="field-label">Type</span><span class="field-value">Groundwater subbasin</span></div>
+      <div class="field"><span class="field-label">Sector</span><span class="field-value">Groundwater Storage (GW)</span></div>
+      <div class="field"><span class="field-label">Status</span><span class="field-value">Critically overdrafted (SGMA)</span></div>
+      <div class="field"><span class="field-label">Variable</span><span class="field-value">Groundwater storage trend vs. reference</span></div>
+    </div>
+    <p>Groundwater storage in the Kern Subbasin reflects the balance between recharge and pumping, which rises when surface deliveries fall short. Strategies that limit pumping or reduce irrigated acreage move the modeled storage trend toward stability, while strategies that lean harder on the aquifer deepen the decline. Storage trend at this subbasin is a measure of long-term aquifer sustainability, not a single-year supply.</p>
+  </section>
+
+  <section class="related-briefs">
+    <h2><span class="num">7.</span> Related briefs</h2>
+    <h3>Wider view</h3>
+    <ul class="related-list">
+      <li><a href="/findings/baselines"><em>BASELINES</em> — climate effects on today's water system</a></li>
+      <li><a href="/findings/sectors/groundwater-storage">Groundwater storage — area summary</a></li>
+    </ul>
+    <p class="related-rule">
+      The system-wide baseline brief that situates this place, and the
+      area-level summary for groundwater storage.
+    </p>
+    <h3>Across — other groundwater subbasins</h3>
+    <ul class="related-list">
+      <li><a href="/findings/locations/kaweah-subbasin">Kaweah Subbasin</a></li>
+      <li><a href="/findings/locations/tule-subbasin">Tule Subbasin</a></li>
+      <li><a href="/findings/locations/tulare-lake-subbasin">Tulare Lake Subbasin</a></li>
+      <li><a href="/findings/locations/madera-subbasin">Madera Subbasin</a></li>
+      <li><a href="/findings/locations/chowchilla-subbasin">Chowchilla Subbasin</a></li>
+    </ul>
+    <p class="related-rule">
+      Other groundwater subbasins in the COEQWAL LOI set, ordered alphabetically
+      by name. <a href="/findings#locations-groundwater-storage">See all groundwater subbasins →</a>
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span> What this doesn't say</h2>
+    <p class="disclaimer">
+      This brief reports the tier results COEQWAL has generated
+      based on what the CalSim 3 model produces under specific
+      assumptions for one place. It doesn't predict what will
+      happen at Kern County Subbasin, provide judgments about the
+      modeled tier values, or recommend any course of action.
+      The tier names (Optimal, Acceptable, At-risk, Critical)
+      describe modeled conditions; what they mean for any
+      particular community, decision, or person is not something
+      the model itself decides.
+    </p>
+    <p class="disclaimer">
+      The tier values shown reflect 96 scenarios from the COEQWAL
+      library — pairings of 24 strategies with 4 hydroclimates — at
+      this single LOI. They don't span every possible scenario, don't
+      quantify uncertainty around the modeled values, and don't
+      characterize other places. Other LOIs in the groundwater storage sector,
+      in different parts of the system, may show different patterns;
+      see the area summary in the theme briefs and the explorer for
+      the full LOI set.
+    </p>
+    <p class="disclaimer" style="color: var(--stub);">
+      Prototype note: the figures and every number in this brief are
+      generated from synthetic placeholder data, and the location and
+      node ID are illustrative stand-ins. This draft is for reviewing
+      the brief format across sectors, not the results.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">9.</span> Explore further</h2>
+    <p>
+      <a class="explore-link" href="/explore?loi=kern-subbasin&amp;scenarios=canonical">
+        Open Kern County Subbasin in the data explorer
+        <span class="arrow">→</span>
+      </a>
+    </p>
+    <p style="font-size: 0.92rem; color: var(--ink-soft); margin-top: 0.6rem;">
+      The explorer holds the full scenario set, the 100-year time
+      series and physical-unit summaries that underlie the tier
+      values shown here, and the other LOIs in the groundwater storage
+      sector for side-by-side comparison.
+    </p>
+  </section>
+
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>LOI brief prototype — GW v0.1</span>
+      <span>Updated June 23, 2026 · 4:30 PM PDT</span>
+      <span>Cite as: COEQWAL (2026), Kern County Subbasin place brief, Collaboratory for Equity in Water Allocation</span>
+    </div>
+  </footer>
+</article>
+
+<p class="print-hint">
+  Save this brief as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+<script>
+(function(){
+const META=JSON.parse(document.getElementById("fig2-data").textContent);
+const DATA=META.scenarios.map(s=>({id:s.id,v:s.tier_values,g:s.is_current_operations}));
+const svg=document.getElementById("fig2");
+const readout=document.getElementById("fig2-readout");
+const NS="http://www.w3.org/2000/svg";
+const DEFAULT_MSG="Hover over a dot to split its value into baseline + climate effect + operations effect; click a dot to pin it.";
+const HC_NAME=["Historical (BL)","Warmer-drier I (HC1)","Warmer-drier II (HC2)","Warmer-drier III (HC3)"];
+function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+// positions read back from the static dots
+const pos={};
+svg.querySelectorAll("circle[data-id]").forEach(c=>{
+  const id=c.getAttribute("data-id"), ci=+c.getAttribute("data-ci");
+  (pos[id]=pos[id]||[])[ci]=[+c.getAttribute("cx"),+c.getAttribute("cy")];
+});
+let pinned=null;
+function restore(){ if(pinned)highlight(pinned.id,pinned.ci); else clearHL(); }
+function togglePin(id,ci){
+  if(pinned&&pinned.id===id&&pinned.ci===ci){pinned=null;clearHL();}
+  else{pinned={id:id,ci:ci};highlight(id,ci);}
+}
+function highlight(id,ci){
+  const d=DATA.find(x=>x.id===id), gold=DATA.find(x=>x.g);
+  svg.querySelectorAll("circle[data-id]").forEach(c=>{
+    const isG=c.getAttribute("data-id")===gold.id;
+    if(c.getAttribute("data-id")===id){c.setAttribute("r",isG?5:4);c.setAttribute("fill-opacity","1");c.setAttribute("fill",d.g?"#BA7517":"#3a4574");}
+    else{c.setAttribute("r",isG?4:2.5);c.setAttribute("fill",isG?"#BA7517":"#5F5E5A");c.setAttribute("fill-opacity",isG?"0.5":"0.18");}
+  });
+  let con=svg.querySelector("#fig2-connector");
+  if(!con){con=el("polyline",{id:"fig2-connector",fill:"none","stroke-width":2,"stroke-linejoin":"round","pointer-events":"none"});svg.appendChild(con);}
+  con.setAttribute("points",pos[id].map(p=>p.join(",")).join(" "));
+  con.setAttribute("stroke",d.g?"#BA7517":"#3a4574");
+  con.setAttribute("opacity","0.9");
+  let anno=svg.querySelector("#fig2-anno"); if(anno)anno.remove();
+  anno=el("g",{id:"fig2-anno","pointer-events":"none"});svg.appendChild(anno);
+  const ax=pos[id][ci][0];
+  const aV=gold.v[0], cV=gold.v[ci], fV=d.v[ci];
+  const y1=pos[gold.id][0][1], y2=pos[gold.id][ci][1], y3=pos[id][ci][1];
+  const clim=cV-aV, ops=fV-cV;
+  const onLeft=ax>460;
+  const tx=onLeft?ax-12:ax+12, ta=onLeft?"end":"start";
+  const ARW="#444441";
+  function vArrow(yA,yB){
+    const dir=yB>yA?1:-1;
+    anno.appendChild(el("line",{x1:ax,y1:yA,x2:ax,y2:yB-7*dir,stroke:ARW,"stroke-width":1.5}));
+    anno.appendChild(el("polygon",{points:(ax-4)+","+(yB-8*dir)+" "+ax+","+yB+" "+(ax+4)+","+(yB-8*dir),fill:ARW}));
+  }
+  function note(y,s){const t=el("text",{x:tx,y:y,"font-size":12,fill:ARW,"text-anchor":ta});t.textContent=s;anno.appendChild(t);}
+  anno.appendChild(el("circle",{cx:ax,cy:y1,r:5.5,fill:"#fdfbf5",stroke:"#5f5e5a","stroke-width":1.5}));
+  note(y1-11,"Historical BL "+aV.toFixed(2));
+  if(Math.abs(clim)>=0.03){vArrow(y1+7*(clim>0?1:-1),y2);note((y1+y2)/2+4,"Climate effect "+(clim>0?"+":"")+clim.toFixed(2));}
+  const gx=pos[gold.id][ci][0];
+  if(Math.abs(gx-ax)>1){anno.appendChild(el("line",{x1:Math.min(ax,gx),y1:y2,x2:Math.max(ax,gx),y2:y2,stroke:"#888780","stroke-width":1}));}
+  if(!d.g&&Math.abs(ops)>=0.03){
+    const s=ops>0?1:-1;
+    vArrow(y2+3*s,y3-6*s);
+    note((y2+y3)/2+4,"Operations effect "+(ops>0?"+":"")+ops.toFixed(2));
+  }
+  if(pinned&&pinned.id===id&&pinned.ci===ci){
+    anno.appendChild(el("circle",{cx:ax,cy:y3,r:9,fill:"none",stroke:d.g?"#BA7517":"#3a4574","stroke-width":1.5,"stroke-dasharray":"3 2"}));
+  }
+  const name=d.g?"s0020 (current operations)":id;
+  const pinNote=(pinned&&pinned.id===id&&pinned.ci===ci)?" &nbsp;\u00b7&nbsp; <span style=\"color:#8a8a8a\">pinned \u2014 click the point again or the background to release</span>":"";
+  readout.innerHTML="<b>"+name+"</b> at "+HC_NAME[ci]+": <b>"+fV.toFixed(2)+"</b> = baseline "+aV.toFixed(2)
+    +" "+(clim>=0?"+":"\u2212")+" climate "+Math.abs(clim).toFixed(2)
+    +" "+(ops>=0?"+":"\u2212")+" operations "+Math.abs(ops).toFixed(2)
+    +" &nbsp;\u00b7&nbsp; trajectory "+d.v.map(v=>v.toFixed(2)).join(" \u2192 ")+pinNote;
+}
+function clearHL(){
+  svg.querySelectorAll("circle[data-id]").forEach(c=>{
+    const isG=c.getAttribute("data-id")==="s0020";
+    c.setAttribute("r",isG?4:2.5);c.setAttribute("fill-opacity",isG?"1":"0.6");c.setAttribute("fill",isG?"#BA7517":"#5F5E5A");
+  });
+  const con=svg.querySelector("#fig2-connector"); if(con)con.setAttribute("opacity","0");
+  const an=svg.querySelector("#fig2-anno"); if(an)an.remove();
+  readout.textContent=DEFAULT_MSG;
+}
+svg.querySelectorAll("circle[data-id]").forEach(c=>{
+  const id=c.getAttribute("data-id"), ci=+c.getAttribute("data-ci");
+  c.style.cursor="pointer";
+  c.addEventListener("mouseenter",()=>highlight(id,ci));
+  c.addEventListener("mouseleave",restore);
+  c.addEventListener("click",ev=>{ev.stopPropagation();togglePin(id,ci);});
+});
+svg.addEventListener("click",()=>{pinned=null;clearHL();});
+})();
+</script>
+</body>
+</html>

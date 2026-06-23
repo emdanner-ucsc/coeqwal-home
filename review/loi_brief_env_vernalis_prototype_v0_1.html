@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lower San Joaquin River at Vernalis — modeled tier values | COEQWAL</title>
+<meta name="description" content="A COEQWAL place brief reporting modeled tier values for one Location of Interest across scenarios from the COEQWAL library. Prototype — synthetic figure data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for [TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 2.5rem;
+  color: var(--ink);
+}
+
+/* ── Section structure ──────────────────────────────────────────── */
+section { margin: 2.4rem 0; }
+
+section + section {
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 0.95rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1rem; }
+em { font-style: italic; color: var(--ink); }
+
+.term {
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.5;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Stub markers ───────────────────────────────────────────────── */
+.stub {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.45em;
+  border-radius: 2px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ── Figure placeholder ─────────────────────────────────────────── */
+.figure-stub {
+  margin: 1rem 0 0;
+  border: 1.5px dashed var(--ink-faint);
+  background:
+    repeating-linear-gradient(-45deg,
+      transparent 0, transparent 12px,
+      rgba(0,0,0,0.025) 12px, rgba(0,0,0,0.025) 13px);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+.figure-stub .label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.6rem;
+}
+.figure-stub .desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 28em;
+}
+.figure-stub code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.05);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0.85rem 0 0;
+}
+.caption .num { font-weight: 700; color: var(--ink); }
+
+/* ── Scenario matrix table ──────────────────────────────────────── */
+.scenario-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 0;
+  font-size: 0.96rem;
+}
+.scenario-table thead th {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: left;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  border-bottom: 1px solid var(--ink);
+}
+.scenario-table thead th.tier-cell { text-align: center; }
+.scenario-table tbody th {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  text-align: left;
+  padding: 0.6rem 0.5rem 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+.scenario-table tbody td {
+  padding: 0.6rem 0.5rem 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  color: var(--ink-faint);
+  text-align: center;
+}
+.scenario-table tbody td.row-label-cell {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  text-align: left;
+  color: var(--ink-soft);
+}
+
+/* ── Place context block ────────────────────────────────────────── */
+.place-context {
+  background: var(--accent-faint);
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.25rem 0.4rem;
+  margin: 1rem 0 0;
+}
+.place-context .field {
+  display: flex;
+  gap: 0.8em;
+  margin: 0 0 0.6rem;
+  font-size: 0.92rem;
+}
+.place-context .field-label {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  flex: 0 0 6.5rem;
+  padding-top: 0.18em;
+}
+.place-context .field-value {
+  flex: 1;
+  color: var(--ink);
+}
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.94rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+/* ── Related briefs section ─────────────────────────────────────── */
+.related-briefs h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 1.6rem 0 0.6rem;
+}
+.related-briefs h3:first-of-type {
+  margin-top: 0.4rem;
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.related-list li {
+  margin: 0.36rem 0;
+  padding: 0;
+}
+.related-list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+}
+.related-list a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.related-rule {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin: 0.55rem 0 0;
+  line-height: 1.6;
+}
+.related-rule a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  font-style: normal;
+}
+.related-rule a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  transition: transform 0.2s;
+}
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Figure 2 readout + hidden data tables ──────────────────────── */
+.figure-readout {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  min-height: 2.4em;
+  margin: 0.5rem 0 0;
+}
+.figure-readout b { color: var(--ink); font-weight: 700; }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.4rem 0; break-inside: avoid; }
+  section + section { padding-top: 1.4rem; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .figure-stub { aspect-ratio: 16 / 8; }
+  .place-context { background: #f3f0e8; }
+  .print-hint { display: none; }
+  .figure-readout { display: none; }
+  .footer { margin-top: 2.5rem; }
+  /* SVG figure must not get sliced across pages. The single figure in
+     this brief (Figure 1 slopegraph) is ~520pt tall — fits well within
+     a letter page after margins, so avoiding break-inside is enough
+     without forcing a preceding page break. */
+  .scenario-figure,
+  figure { break-inside: avoid; }
+  .scenario-figure svg { max-width: 100%; height: auto; }
+  .caption { break-before: avoid; }
+  /* Scenario table: avoid splitting rows; repeat header if the table
+     ever grows past a single page. */
+  .scenario-table { break-inside: avoid; }
+  .scenario-table thead { display: table-header-group; }
+  .scenario-table tr { break-inside: avoid; }
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #888;
+  }
+  /* Suppress URL print-out for the related-briefs list. */
+  .related-list a[href]::after { content: ''; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  .scenario-table tbody th { font-size: 0.7rem; }
+  .scenario-table tbody td { font-size: 0.78rem; }
+  .place-context .field { flex-direction: column; gap: 0.15em; }
+  .place-context .field-label { flex-basis: auto; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+</style>
+<style>
+.synthetic-banner {
+  max-width: var(--measure); margin: 0 auto; padding: 0.55rem 2.5rem;
+  font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.04em;
+  color: var(--stub); background: var(--stub-bg);
+  border-bottom: 1px solid #ecdcc2;
+}
+@media print { .synthetic-banner { display:none; } }
+</style>
+</head>
+<body>
+<div class="synthetic-banner">PROTOTYPE · ENV sector · Figures use synthetic placeholder data (not CalSim output); location and node ID are illustrative stand-ins.</div>
+<article class="brief">
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Place Brief · Findings</span>
+  </header>
+
+  <div class="eyebrow">Environmental Flows</div>
+  <h1>Modeled tier values at Lower San Joaquin River at Vernalis</h1>
+
+  <section>
+    <h2><span class="num">1.</span> Headline</h2>
+    <p class="tldr">At Lower San Joaquin River at Vernalis, modeled tier values across the 96 COEQWAL scenarios range from Tier 1 to Tier 3. Tier values match the historical baseline (Tier 2, Acceptable) in 49 (51%) scenarios and shift to a different tier in 47 (49%). Because the reported scenarios vary both the operating strategy and the hydroclimate, these shifts are a combination of climate and operations effects. These effects are addressed in section 4.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span> What this is</h2>
+    <p>
+      COEQWAL uses CalSim 3 — the state's main water-system model —
+      to test how California's water system performs under different
+      conditions. The model outputs are in the form of <span class="term">scenarios</span>:
+      each scenario is a pairing of a <span class="term">water
+      management strategy</span> (a way of operating the system, like
+      today's rules or a proposed alternative) and a
+      <span class="term">hydroclimate</span> (patterns of
+      temperature, rainfall, and snow that determine how much water
+      is available over time). These results are sorted into four levels,
+      called <em>tiers</em>: Optimal, Acceptable, At-risk, and
+      Critical. Tiers describe what the model produces; they don't
+      tell anyone what to do about it.
+    </p>
+    <p>
+      The model also tracks specific places in the study domain,
+      which COEQWAL terms
+      <span class="term">Locations of Interest</span>, or LOIs.
+      Cities, reservoirs, river reaches, farm regions, groundwater
+      basins, and stretches of the Delta are each tracked
+      individually. Every LOI sits inside one of nine area-level
+      summaries COEQWAL uses to organize results (community
+      water, agriculture, environmental flows, the Delta, salmon,
+      in-Delta freshwater, Delta exports, reservoir storage, and
+      groundwater).
+    </p>
+    <p>
+      This brief reports modeled tier values for one LOI —
+      <strong>Lower San Joaquin River at Vernalis</strong>
+      (<strong>environmental flows</strong> area) across
+      96 scenarios from the
+      COEQWAL library. It consists of
+      24 water management strategies paired with
+      4 hydroclimates, and is the same
+      set used for every LOI brief.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span> What the model shows</h2>
+    <p>
+      Figure 1 shows the modeled tier value at Lower San Joaquin River at Vernalis across 24
+      modeled strategies and 4 modeled hydroclimates. Each gray line
+      traces one strategy through the four hydroclimates. Line slope
+      shows how that strategy's modeled tier value shifts under climate
+      variation; the vertical spread among lines at a single hydroclimate
+      shows the range of tier values from operational variation alone.
+      Current operations (scenario s0020) is highlighted in gold; the
+      mean tier value across all 24 modeled strategies is overlaid for
+      reference.
+    </p>
+    <figure class="scenario-figure">
+      <svg viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; max-width: 680px; display: block;" role="img" font-family="inherit">
+        <title>Lower San Joaquin River at Vernalis tier values across 24 scenarios and 4 hydroclimates</title>
+        <desc>Slopegraph: continuous tier values for Lower San Joaquin River at Vernalis. Tier 1 at top, Tier 4 at bottom. Each gray line is one alternative scenario; gold line is current operations; dark line with diamond markers is the mean across all 24 scenarios.</desc>
+        <rect x="80" y="40" width="520" height="90" fill="#EAF3DE"/>
+        <rect x="80" y="130" width="520" height="90" fill="#E1F5EE"/>
+        <rect x="80" y="220" width="520" height="90" fill="#FAEEDA"/>
+        <rect x="80" y="310" width="520" height="90" fill="#FCEBEB"/>
+        <line x1="80" y1="130" x2="600" y2="130" stroke="#D3D1C7" stroke-width="0.5"/>
+        <line x1="80" y1="220" x2="600" y2="220" stroke="#D3D1C7" stroke-width="0.5"/>
+        <line x1="80" y1="310" x2="600" y2="310" stroke="#D3D1C7" stroke-width="0.5"/>
+        <rect x="80" y="40" width="520" height="360" fill="none" stroke="#888780" stroke-width="0.5"/>
+        <text x="74" y="89" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 1</text>
+        <text x="74" y="103" text-anchor="end" font-size="11" fill="#5f5e5a">Optimal</text>
+        <text x="74" y="179" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 2</text>
+        <text x="74" y="193" text-anchor="end" font-size="11" fill="#5f5e5a">Acceptable</text>
+        <text x="74" y="269" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 3</text>
+        <text x="74" y="283" text-anchor="end" font-size="11" fill="#5f5e5a">At-risk</text>
+        <text x="74" y="359" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 4</text>
+        <text x="74" y="373" text-anchor="end" font-size="11" fill="#5f5e5a">Critical</text>
+        <text x="80" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Historical</text>
+        <text x="80" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">BL</text>
+        <text x="253" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier I</text>
+        <text x="253" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC1</text>
+        <text x="427" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier II</text>
+        <text x="427" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC2</text>
+        <text x="600" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier III</text>
+        <text x="600" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC3</text>
+        <polyline points="80,86.88 253,106.25 427,124.28 600,139.04" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,93.89 253,105.32 427,143.82 600,144.28" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,89.09 253,117.3 427,142.66 600,154.94" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,101.5 253,121.13 427,150.09 600,141.92" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,124.19 253,140.85 427,180.46 600,181.05" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,132.77 253,148.69 427,182.02 600,181.16" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,133.11 253,145.6 427,186.33 600,197.96" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,130.3 253,158.23 427,190.09 600,194.4" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,133.97 253,176.21 427,214.71 600,216.76" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,137.15 253,184.76 427,213.78 600,228.78" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,145.96 253,194.94 427,208.62 600,235.05" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,160.98 253,202.03 427,237.45 600,241.81" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,172.93 253,210.23 427,250.22 600,247.68" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,184.22 253,209.37 427,241.92 600,248.21" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,183.42 253,224.69 427,253.34 600,265.94" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,189.9 253,220.1 427,251.47 600,265.92" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,179.37 253,229.33 427,269.9 600,260.32" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,188.03 253,218.82 427,261.24 600,274.0" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,180.97 253,240.75 427,264.66 600,271.75" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,187.96 253,245.0 427,266.95 600,281.38" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,202.31 253,226.05 427,273.62 600,284.37" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,199.03 253,239.61 427,284.32 600,294.82" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <polyline points="80,232.04 253,296.84 427,305.5 600,305.5" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.45" stroke-linejoin="round"/>
+        <circle cx="80" cy="86.88" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="106.25" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="124.28" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="139.04" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="93.89" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="105.32" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="143.82" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="144.28" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="89.09" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="117.3" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="142.66" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="154.94" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="101.5" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="121.13" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="150.09" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="141.92" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="124.19" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="140.85" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="180.46" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="181.05" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="132.77" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="148.69" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="182.02" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="181.16" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="133.11" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="145.6" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="186.33" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="197.96" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="130.3" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="158.23" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="190.09" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="194.4" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="133.97" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="176.21" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="214.71" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="216.76" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="137.15" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="184.76" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="213.78" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="228.78" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="145.96" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="194.94" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="208.62" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="235.05" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="160.98" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="202.03" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="237.45" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="241.81" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="172.93" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="210.23" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="250.22" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="247.68" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="184.22" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="209.37" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="241.92" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="248.21" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="183.42" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="224.69" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="253.34" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="265.94" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="189.9" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="220.1" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="251.47" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="265.92" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="179.37" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="229.33" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="269.9" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="260.32" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="188.03" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="218.82" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="261.24" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="274.0" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="180.97" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="240.75" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="264.66" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="271.75" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="187.96" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="245.0" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="266.95" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="281.38" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="202.31" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="226.05" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="273.62" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="284.37" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="199.03" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="239.61" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="284.32" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="294.82" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="80" cy="232.04" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="253" cy="296.84" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="427" cy="305.5" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <circle cx="600" cy="305.5" r="2.5" fill="#5F5E5A" opacity="0.45"/>
+        <polyline points="80,155.67 253,190.17 427,222.23 600,229.14" stroke="#2C2C2A" stroke-width="2.25" fill="none" opacity="0.95" stroke-linejoin="round"/>
+        <polygon points="80,149.67 86,155.67 80,161.67 74,155.67" fill="#2C2C2A"/>
+        <polygon points="253,184.17 259,190.17 253,196.17 247,190.17" fill="#2C2C2A"/>
+        <polygon points="427,216.23 433,222.23 427,228.23 421,222.23" fill="#2C2C2A"/>
+        <polygon points="600,223.14 606,229.14 600,235.14 594,229.14" fill="#2C2C2A"/>
+        <text x="612" y="229.14" font-size="11" font-weight="500" dominant-baseline="middle" fill="#2C2C2A">Mean</text>
+        <polyline points="80,166.0 253,202.0 427,236.2 600,242.5" stroke="#BA7517" stroke-width="2.5" fill="none" opacity="0.95" stroke-linejoin="round"/>
+        <circle cx="80" cy="166.0" r="4" fill="#BA7517" opacity="0.95"/>
+        <circle cx="253" cy="202.0" r="4" fill="#BA7517" opacity="0.95"/>
+        <circle cx="427" cy="236.2" r="4" fill="#BA7517" opacity="0.95"/>
+        <circle cx="600" cy="242.5" r="4" fill="#BA7517" opacity="0.95"/>
+        <text x="612" y="242.5" font-size="11" font-weight="500" dominant-baseline="middle" fill="#854F0B">s0020</text>
+        <g transform="translate(80, 470)">
+          <line x1="0" y1="3" x2="22" y2="3" stroke="#BA7517" stroke-width="2.5"/>
+          <circle cx="11" cy="3" r="4" fill="#BA7517"/>
+          <text x="30" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Current operations (s0020)</text>
+          <line x1="220" y1="3" x2="242" y2="3" stroke="#2C2C2A" stroke-width="2.25"/>
+          <polygon points="231,-3 237,3 231,9 225,3" fill="#2C2C2A"/>
+          <text x="250" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Mean across 24 scenarios</text>
+          <line x1="430" y1="3" x2="452" y2="3" stroke="#5F5E5A" stroke-width="1" opacity="0.7"/>
+          <circle cx="441" cy="3" r="2.5" fill="#5F5E5A" opacity="0.7"/>
+          <text x="460" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Alternative scenarios (23)</text>
+        </g>
+      </svg>
+      <figcaption class="caption">
+        Figure 1. Modeled tier value for Lower San Joaquin River at Vernalis across 24 modeled
+        strategies and 4 modeled hydroclimates. The vertical axis is the
+        continuous tier value with Tier 1 (Optimal) at the top and Tier 4
+        (Critical) at the bottom; horizontal bands show the four tier
+        categories. Hydroclimate codes: BL = Historical; HC1 = Warmer and
+        Drier I; HC2 = Warmer and Drier II; HC3 = Warmer and Drier III.
+        Current operations (s0020, gold) and the mean across all 24 modeled
+        strategies (black) are overlaid. All modeled strategies are shown.
+        <em>Synthetic placeholder data.</em>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span> Operations and climate</h2>
+    <p>
+      Because every scenario pairs a strategy with a hydroclimate,
+      a difference in tier value between two scenarios can come from
+      two places: changes in the strategy used to run the system,
+      or changes in the hydroclimate the system is run under. At an
+      LOI like Lower San Joaquin River at Vernalis, both axes are reported, so the
+      difference between scenarios can be separated into a
+      strategy part and a hydroclimate part.
+    </p>
+    <p>Holding the hydroclimate fixed at the historical baseline, the difference among operating strategies at Lower San Joaquin River at Vernalis is the strategy effect: most strategies hold the modeled tier value at Tier 2, while some move to Tier 1 and Tier 3. Holding the strategy fixed at current operations, the change across hydroclimates from BL to HC3 is the climate effect: the modeled tier value moves from Tier 2.4 (Acceptable) toward about Tier 3.2 (At-risk). The remaining cells in the matrix combine both effects.</p>
+    <p>
+      Figure 2 shows this decomposition for every scenario. Each dot
+      is one modeled strategy under one hydroclimate; current
+      operations (s0020) is gold. Within each column, strategies keep
+      a fixed left-to-right order, so a strategy occupies the same
+      relative position in every column and can be followed across
+      the four hydroclimates.
+    </p>
+    <figure class="scenario-figure">
+      <svg id="fig2" viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; max-width: 680px; display: block;" role="img" font-family="inherit"
+           aria-label="Four hydroclimate columns for Lower San Joaquin River at Vernalis. Each column shows 24 modeled strategies at evenly spaced horizontal positions, placed vertically by continuous tier value. Current operations, scenario s0020, is gold.">
+        <title>Lower San Joaquin River at Vernalis: operations and climate effects across 24 strategies and 4 hydroclimates</title>
+        <desc>Tier 1 (Optimal) at top, Tier 4 (Critical) at bottom. Each dot is one strategy under one hydroclimate. The full tier values are listed in the data tables that follow this figure.</desc>
+        <rect x="80" y="40" width="520" height="90" fill="#EAF3DE"/>
+        <rect x="80" y="130" width="520" height="90" fill="#E1F5EE"/>
+        <rect x="80" y="220" width="520" height="90" fill="#FAEEDA"/>
+        <rect x="80" y="310" width="520" height="90" fill="#FCEBEB"/>
+        <rect x="80" y="40" width="520" height="360" fill="none" stroke="#888780" stroke-width="0.5"/>
+        <text x="74" y="89" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 1</text>
+        <text x="74" y="103" text-anchor="end" font-size="11" fill="#5f5e5a">Optimal</text>
+        <text x="74" y="179" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 2</text>
+        <text x="74" y="193" text-anchor="end" font-size="11" fill="#5f5e5a">Acceptable</text>
+        <text x="74" y="269" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 3</text>
+        <text x="74" y="283" text-anchor="end" font-size="11" fill="#5f5e5a">At-risk</text>
+        <text x="74" y="359" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 4</text>
+        <text x="74" y="373" text-anchor="end" font-size="11" fill="#5f5e5a">Critical</text>
+        <line x1="210" y1="40" x2="210" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
+        <line x1="340" y1="40" x2="340" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
+        <line x1="470" y1="40" x2="470" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
+        <text x="145" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Historical</text>
+        <text x="145" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">BL</text>
+        <text x="275" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier I</text>
+        <text x="275" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC1</text>
+        <text x="405" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier II</text>
+        <text x="405" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC2</text>
+        <text x="535" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer-drier III</text>
+        <text x="535" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC3</text>
+        <circle cx="94.0" cy="86.88" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="0"/>
+        <circle cx="224.0" cy="106.25" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="1"/>
+        <circle cx="354.0" cy="124.28" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="2"/>
+        <circle cx="484.0" cy="139.04" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="3"/>
+        <circle cx="98.43" cy="93.89" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="0"/>
+        <circle cx="228.43" cy="105.32" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="1"/>
+        <circle cx="358.43" cy="143.82" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="2"/>
+        <circle cx="488.43" cy="144.28" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="3"/>
+        <circle cx="102.87" cy="89.09" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="0"/>
+        <circle cx="232.87" cy="117.3" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="1"/>
+        <circle cx="362.87" cy="142.66" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="2"/>
+        <circle cx="492.87" cy="154.94" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="3"/>
+        <circle cx="107.3" cy="101.5" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="0"/>
+        <circle cx="237.3" cy="121.13" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="1"/>
+        <circle cx="367.3" cy="150.09" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="2"/>
+        <circle cx="497.3" cy="141.92" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="3"/>
+        <circle cx="111.74" cy="124.19" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="0"/>
+        <circle cx="241.74" cy="140.85" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="1"/>
+        <circle cx="371.74" cy="180.46" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="2"/>
+        <circle cx="501.74" cy="181.05" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="3"/>
+        <circle cx="116.17" cy="132.77" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="0"/>
+        <circle cx="246.17" cy="148.69" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="1"/>
+        <circle cx="376.17" cy="182.02" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="2"/>
+        <circle cx="506.17" cy="181.16" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="3"/>
+        <circle cx="120.61" cy="133.11" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="0"/>
+        <circle cx="250.61" cy="145.6" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="1"/>
+        <circle cx="380.61" cy="186.33" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="2"/>
+        <circle cx="510.61" cy="197.96" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="3"/>
+        <circle cx="125.04" cy="130.3" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="0"/>
+        <circle cx="255.04" cy="158.23" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="1"/>
+        <circle cx="385.04" cy="190.09" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="2"/>
+        <circle cx="515.04" cy="194.4" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="3"/>
+        <circle cx="129.48" cy="133.97" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="0"/>
+        <circle cx="259.48" cy="176.21" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="1"/>
+        <circle cx="389.48" cy="214.71" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="2"/>
+        <circle cx="519.48" cy="216.76" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="3"/>
+        <circle cx="133.91" cy="137.15" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="0"/>
+        <circle cx="263.91" cy="184.76" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="1"/>
+        <circle cx="393.91" cy="213.78" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="2"/>
+        <circle cx="523.91" cy="228.78" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="3"/>
+        <circle cx="138.35" cy="145.96" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="0"/>
+        <circle cx="268.35" cy="194.94" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="1"/>
+        <circle cx="398.35" cy="208.62" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="2"/>
+        <circle cx="528.35" cy="235.05" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="3"/>
+        <circle cx="142.78" cy="160.98" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="0"/>
+        <circle cx="272.78" cy="202.03" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="1"/>
+        <circle cx="402.78" cy="237.45" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="2"/>
+        <circle cx="532.78" cy="241.81" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="3"/>
+        <circle cx="151.65" cy="172.93" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="0"/>
+        <circle cx="281.65" cy="210.23" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="1"/>
+        <circle cx="411.65" cy="250.22" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="2"/>
+        <circle cx="541.65" cy="247.68" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="3"/>
+        <circle cx="156.09" cy="184.22" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="0"/>
+        <circle cx="286.09" cy="209.37" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="1"/>
+        <circle cx="416.09" cy="241.92" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="2"/>
+        <circle cx="546.09" cy="248.21" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="3"/>
+        <circle cx="160.52" cy="183.42" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="0"/>
+        <circle cx="290.52" cy="224.69" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="1"/>
+        <circle cx="420.52" cy="253.34" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="2"/>
+        <circle cx="550.52" cy="265.94" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="3"/>
+        <circle cx="164.96" cy="189.9" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="0"/>
+        <circle cx="294.96" cy="220.1" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="1"/>
+        <circle cx="424.96" cy="251.47" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="2"/>
+        <circle cx="554.96" cy="265.92" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="3"/>
+        <circle cx="169.39" cy="179.37" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="0"/>
+        <circle cx="299.39" cy="229.33" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="1"/>
+        <circle cx="429.39" cy="269.9" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="2"/>
+        <circle cx="559.39" cy="260.32" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="3"/>
+        <circle cx="173.83" cy="188.03" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="0"/>
+        <circle cx="303.83" cy="218.82" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="1"/>
+        <circle cx="433.83" cy="261.24" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="2"/>
+        <circle cx="563.83" cy="274.0" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="3"/>
+        <circle cx="178.26" cy="180.97" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="0"/>
+        <circle cx="308.26" cy="240.75" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="1"/>
+        <circle cx="438.26" cy="264.66" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="2"/>
+        <circle cx="568.26" cy="271.75" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="3"/>
+        <circle cx="182.7" cy="187.96" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="0"/>
+        <circle cx="312.7" cy="245.0" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="1"/>
+        <circle cx="442.7" cy="266.95" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="2"/>
+        <circle cx="572.7" cy="281.38" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="3"/>
+        <circle cx="187.13" cy="202.31" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="0"/>
+        <circle cx="317.13" cy="226.05" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="1"/>
+        <circle cx="447.13" cy="273.62" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="2"/>
+        <circle cx="577.13" cy="284.37" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="3"/>
+        <circle cx="191.57" cy="199.03" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="0"/>
+        <circle cx="321.57" cy="239.61" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="1"/>
+        <circle cx="451.57" cy="284.32" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="2"/>
+        <circle cx="581.57" cy="294.82" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="3"/>
+        <circle cx="196.0" cy="232.04" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="0"/>
+        <circle cx="326.0" cy="296.84" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="1"/>
+        <circle cx="456.0" cy="305.5" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="2"/>
+        <circle cx="586.0" cy="305.5" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="3"/>
+        <polyline points="147.22,166.0 277.22,202.0 407.22,236.2 537.22,242.5" fill="none" stroke="#BA7517" stroke-width="2" stroke-opacity="0.85"/>
+        <circle cx="147.22" cy="166.0" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="0"/>
+        <circle cx="277.22" cy="202.0" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="1"/>
+        <circle cx="407.22" cy="236.2" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="2"/>
+        <circle cx="537.22" cy="242.5" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="3"/>
+        <circle cx="147.22" cy="166.0" r="8" fill="none" stroke="#2c2c2a" stroke-width="1.5"/>
+        <text x="147.22" y="154.0" text-anchor="middle" font-size="11" font-weight="500" fill="#2c2c2a">now</text>
+        <g transform="translate(80, 470)">
+          <line x1="0" y1="3" x2="22" y2="3" stroke="#BA7517" stroke-width="2.5"/>
+          <circle cx="11" cy="3" r="4" fill="#BA7517"/>
+          <text x="30" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Current operations (s0020)</text>
+          <circle cx="226" cy="3" r="2.5" fill="#5F5E5A" opacity="0.7"/>
+          <text x="238" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Alternative strategies (23), one dot per hydroclimate</text>
+        </g>
+      </svg>
+      <div class="figure-readout" id="fig2-readout" aria-live="polite">Hover over a dot to split its value into baseline + climate effect + operations effect; click a dot to pin it.</div>
+      <figcaption class="caption">
+        <span class="num">Figure 2.</span> Modeled tier value for Lower San Joaquin River at Vernalis
+        across 24 modeled strategies and 4 modeled hydroclimates, shown as
+        one dot per strategy per hydroclimate. The vertical axis is the
+        continuous tier value, as in Figure 1. Hydroclimate codes: BL =
+        Historical; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II;
+        HC3 = Warmer and Drier III. Current operations (s0020) is shown in
+        gold. Within each column, strategies are spaced evenly across the
+        width and kept in a fixed order (by average tier value across the
+        four hydroclimates), so a strategy occupies the same relative
+        position in every column. Data: synthetic placeholder values for
+        Lower San Joaquin River at Vernalis (node C639, environmental flows sector) — not CalSim output.
+      </figcaption>
+      <script type="application/json" id="fig2-data">
+{
+ "title": "Lower San Joaquin River at Vernalis environmental flows \u2014 continuous modeled tier values and operations/climate decomposition",
+ "place": "Lower San Joaquin River at Vernalis",
+ "node_id": "C639",
+ "sector": "ENV",
+ "sector_label": "Environmental flows",
+ "source": "synthetic placeholder (prototype) \u2014 not CalSim output",
+ "brief": "COEQWAL LOI brief prototype \u2014 ENV v0.1",
+ "tier_scale": {
+  "1": "Optimal",
+  "2": "Acceptable",
+  "3": "At-risk",
+  "4": "Critical"
+ },
+ "tier_value_note": "Continuous modeled tier value; 1 is best (Optimal), 4 is worst (Critical).",
+ "hydroclimates": [
+  {
+   "code": "BL",
+   "label": "Historical"
+  },
+  {
+   "code": "HC1",
+   "label": "Warmer-drier I"
+  },
+  {
+   "code": "HC2",
+   "label": "Warmer-drier II"
+  },
+  {
+   "code": "HC3",
+   "label": "Warmer-drier III"
+  }
+ ],
+ "baseline_scenario": "s0020",
+ "decomposition_note": "For each scenario and hydroclimate: tier_value = s0020 value at BL + climate_effect (same for all scenarios) + operations_effect (scenario value minus s0020 under the same hydroclimate).",
+ "climate_effect": [
+  0.0,
+  0.4,
+  0.78,
+  0.85
+ ],
+ "scenarios": [
+  {
+   "id": "s0046",
+   "is_current_operations": false,
+   "tier_values": [
+    1.5209,
+    1.7361,
+    1.9364,
+    2.1005
+   ],
+   "operations_effect": [
+    -0.8791,
+    -1.0639,
+    -1.2436,
+    -1.1495
+   ]
+  },
+  {
+   "id": "s0031",
+   "is_current_operations": false,
+   "tier_values": [
+    1.5988,
+    1.7258,
+    2.1536,
+    2.1587
+   ],
+   "operations_effect": [
+    -0.8012,
+    -1.0742,
+    -1.0264,
+    -1.0913
+   ]
+  },
+  {
+   "id": "s0032",
+   "is_current_operations": false,
+   "tier_values": [
+    1.5454,
+    1.8589,
+    2.1407,
+    2.2771
+   ],
+   "operations_effect": [
+    -0.8546,
+    -0.9411,
+    -1.0393,
+    -0.9729
+   ]
+  },
+  {
+   "id": "s0033",
+   "is_current_operations": false,
+   "tier_values": [
+    1.6833,
+    1.9014,
+    2.2232,
+    2.1325
+   ],
+   "operations_effect": [
+    -0.7167,
+    -0.8986,
+    -0.9568,
+    -1.1175
+   ]
+  },
+  {
+   "id": "s0045",
+   "is_current_operations": false,
+   "tier_values": [
+    1.9354,
+    2.1206,
+    2.5607,
+    2.5672
+   ],
+   "operations_effect": [
+    -0.4646,
+    -0.6794,
+    -0.6193,
+    -0.6828
+   ]
+  },
+  {
+   "id": "s0042",
+   "is_current_operations": false,
+   "tier_values": [
+    2.0308,
+    2.2077,
+    2.578,
+    2.5684
+   ],
+   "operations_effect": [
+    -0.3692,
+    -0.5923,
+    -0.602,
+    -0.6816
+   ]
+  },
+  {
+   "id": "s0039",
+   "is_current_operations": false,
+   "tier_values": [
+    2.0345,
+    2.1733,
+    2.6259,
+    2.7551
+   ],
+   "operations_effect": [
+    -0.3655,
+    -0.6267,
+    -0.5541,
+    -0.4949
+   ]
+  },
+  {
+   "id": "s0028",
+   "is_current_operations": false,
+   "tier_values": [
+    2.0033,
+    2.3137,
+    2.6677,
+    2.7156
+   ],
+   "operations_effect": [
+    -0.3967,
+    -0.4863,
+    -0.5123,
+    -0.5344
+   ]
+  },
+  {
+   "id": "s0024",
+   "is_current_operations": false,
+   "tier_values": [
+    2.0441,
+    2.5134,
+    2.9412,
+    2.964
+   ],
+   "operations_effect": [
+    -0.3559,
+    -0.2866,
+    -0.2388,
+    -0.286
+   ]
+  },
+  {
+   "id": "s0021",
+   "is_current_operations": false,
+   "tier_values": [
+    2.0794,
+    2.6085,
+    2.9309,
+    3.0975
+   ],
+   "operations_effect": [
+    -0.3206,
+    -0.1915,
+    -0.2491,
+    -0.1525
+   ]
+  },
+  {
+   "id": "s0025",
+   "is_current_operations": false,
+   "tier_values": [
+    2.1773,
+    2.7216,
+    2.8735,
+    3.1672
+   ],
+   "operations_effect": [
+    -0.2227,
+    -0.0784,
+    -0.3065,
+    -0.0828
+   ]
+  },
+  {
+   "id": "s0065",
+   "is_current_operations": false,
+   "tier_values": [
+    2.3442,
+    2.8003,
+    3.1939,
+    3.2423
+   ],
+   "operations_effect": [
+    -0.0558,
+    0.0003,
+    0.0139,
+    -0.0077
+   ]
+  },
+  {
+   "id": "s0020",
+   "is_current_operations": true,
+   "tier_values": [
+    2.4,
+    2.8,
+    3.18,
+    3.25
+   ],
+   "operations_effect": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "id": "s0027",
+   "is_current_operations": false,
+   "tier_values": [
+    2.477,
+    2.8914,
+    3.3358,
+    3.3076
+   ],
+   "operations_effect": [
+    0.077,
+    0.0914,
+    0.1558,
+    0.0576
+   ]
+  },
+  {
+   "id": "s0041",
+   "is_current_operations": false,
+   "tier_values": [
+    2.6025,
+    2.8819,
+    3.2436,
+    3.3134
+   ],
+   "operations_effect": [
+    0.2025,
+    0.0819,
+    0.0636,
+    0.0634
+   ]
+  },
+  {
+   "id": "s0040",
+   "is_current_operations": false,
+   "tier_values": [
+    2.5935,
+    3.0521,
+    3.3705,
+    3.5104
+   ],
+   "operations_effect": [
+    0.1935,
+    0.2521,
+    0.1905,
+    0.2604
+   ]
+  },
+  {
+   "id": "s0036",
+   "is_current_operations": false,
+   "tier_values": [
+    2.6655,
+    3.0011,
+    3.3497,
+    3.5102
+   ],
+   "operations_effect": [
+    0.2655,
+    0.2011,
+    0.1697,
+    0.2602
+   ]
+  },
+  {
+   "id": "s0037",
+   "is_current_operations": false,
+   "tier_values": [
+    2.5485,
+    3.1037,
+    3.5544,
+    3.448
+   ],
+   "operations_effect": [
+    0.1485,
+    0.3037,
+    0.3744,
+    0.198
+   ]
+  },
+  {
+   "id": "s0023",
+   "is_current_operations": false,
+   "tier_values": [
+    2.6448,
+    2.9869,
+    3.4582,
+    3.6
+   ],
+   "operations_effect": [
+    0.2448,
+    0.1869,
+    0.2782,
+    0.35
+   ]
+  },
+  {
+   "id": "s0035",
+   "is_current_operations": false,
+   "tier_values": [
+    2.5663,
+    3.2305,
+    3.4962,
+    3.575
+   ],
+   "operations_effect": [
+    0.1663,
+    0.4305,
+    0.3162,
+    0.325
+   ]
+  },
+  {
+   "id": "s0026",
+   "is_current_operations": false,
+   "tier_values": [
+    2.644,
+    3.2778,
+    3.5217,
+    3.682
+   ],
+   "operations_effect": [
+    0.244,
+    0.4778,
+    0.3417,
+    0.432
+   ]
+  },
+  {
+   "id": "s0011",
+   "is_current_operations": false,
+   "tier_values": [
+    2.8034,
+    3.0672,
+    3.5958,
+    3.7152
+   ],
+   "operations_effect": [
+    0.4034,
+    0.2672,
+    0.4158,
+    0.4652
+   ]
+  },
+  {
+   "id": "s0044",
+   "is_current_operations": false,
+   "tier_values": [
+    2.767,
+    3.2179,
+    3.7147,
+    3.8313
+   ],
+   "operations_effect": [
+    0.367,
+    0.4179,
+    0.5347,
+    0.5813
+   ]
+  },
+  {
+   "id": "s0030",
+   "is_current_operations": false,
+   "tier_values": [
+    3.1338,
+    3.8538,
+    3.95,
+    3.95
+   ],
+   "operations_effect": [
+    0.7338,
+    1.0538,
+    0.77,
+    0.7
+   ]
+  }
+ ]
+}
+      </script>
+      <div class="sr-only">
+        <table>
+<caption>Continuous modeled tier value (1 = Optimal, 4 = Critical) for Lower San Joaquin River at Vernalis environmental flows for each of the 24 modeled strategies under each of the 4 hydroclimates. Rows in the same order as Figure 2; current operations is scenario s0020.</caption>
+<thead>
+<tr><th scope="col">Scenario</th><th scope="col">Historical (BL)</th><th scope="col">Warmer-drier I (HC1)</th><th scope="col">Warmer-drier II (HC2)</th><th scope="col">Warmer-drier III (HC3)</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">s0046</th><td>1.52</td><td>1.74</td><td>1.94</td><td>2.10</td></tr>
+<tr><th scope="row">s0031</th><td>1.60</td><td>1.73</td><td>2.15</td><td>2.16</td></tr>
+<tr><th scope="row">s0032</th><td>1.55</td><td>1.86</td><td>2.14</td><td>2.28</td></tr>
+<tr><th scope="row">s0033</th><td>1.68</td><td>1.90</td><td>2.22</td><td>2.13</td></tr>
+<tr><th scope="row">s0045</th><td>1.94</td><td>2.12</td><td>2.56</td><td>2.57</td></tr>
+<tr><th scope="row">s0042</th><td>2.03</td><td>2.21</td><td>2.58</td><td>2.57</td></tr>
+<tr><th scope="row">s0039</th><td>2.03</td><td>2.17</td><td>2.63</td><td>2.76</td></tr>
+<tr><th scope="row">s0028</th><td>2.00</td><td>2.31</td><td>2.67</td><td>2.72</td></tr>
+<tr><th scope="row">s0024</th><td>2.04</td><td>2.51</td><td>2.94</td><td>2.96</td></tr>
+<tr><th scope="row">s0021</th><td>2.08</td><td>2.61</td><td>2.93</td><td>3.10</td></tr>
+<tr><th scope="row">s0025</th><td>2.18</td><td>2.72</td><td>2.87</td><td>3.17</td></tr>
+<tr><th scope="row">s0065</th><td>2.34</td><td>2.80</td><td>3.19</td><td>3.24</td></tr>
+<tr><th scope="row">s0020 — current operations</th><td>2.40</td><td>2.80</td><td>3.18</td><td>3.25</td></tr>
+<tr><th scope="row">s0027</th><td>2.48</td><td>2.89</td><td>3.34</td><td>3.31</td></tr>
+<tr><th scope="row">s0041</th><td>2.60</td><td>2.88</td><td>3.24</td><td>3.31</td></tr>
+<tr><th scope="row">s0040</th><td>2.59</td><td>3.05</td><td>3.37</td><td>3.51</td></tr>
+<tr><th scope="row">s0036</th><td>2.67</td><td>3.00</td><td>3.35</td><td>3.51</td></tr>
+<tr><th scope="row">s0037</th><td>2.55</td><td>3.10</td><td>3.55</td><td>3.45</td></tr>
+<tr><th scope="row">s0023</th><td>2.64</td><td>2.99</td><td>3.46</td><td>3.60</td></tr>
+<tr><th scope="row">s0035</th><td>2.57</td><td>3.23</td><td>3.50</td><td>3.58</td></tr>
+<tr><th scope="row">s0026</th><td>2.64</td><td>3.28</td><td>3.52</td><td>3.68</td></tr>
+<tr><th scope="row">s0011</th><td>2.80</td><td>3.07</td><td>3.60</td><td>3.72</td></tr>
+<tr><th scope="row">s0044</th><td>2.77</td><td>3.22</td><td>3.71</td><td>3.83</td></tr>
+<tr><th scope="row">s0030</th><td>3.13</td><td>3.85</td><td>3.95</td><td>3.95</td></tr>
+</tbody>
+</table>
+<table>
+<caption>Operations effect for each scenario: its tier value minus current operations (s0020) under the same hydroclimate; positive means a worse (higher) tier value than current operations. The climate effect is the same for every scenario and is the change in s0020 from its historical baseline: HC1 +0.40, HC2 +0.78, HC3 +0.85 tier. Every value in the table above equals the s0020 baseline (2.40) plus the climate effect plus the operations effect.</caption>
+<thead>
+<tr><th scope="col">Scenario</th><th scope="col">Operations effect, BL</th><th scope="col">Operations effect, HC1</th><th scope="col">Operations effect, HC2</th><th scope="col">Operations effect, HC3</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">s0046</th><td>−0.88</td><td>−1.06</td><td>−1.24</td><td>−1.15</td></tr>
+<tr><th scope="row">s0031</th><td>−0.80</td><td>−1.07</td><td>−1.03</td><td>−1.09</td></tr>
+<tr><th scope="row">s0032</th><td>−0.85</td><td>−0.94</td><td>−1.04</td><td>−0.97</td></tr>
+<tr><th scope="row">s0033</th><td>−0.72</td><td>−0.90</td><td>−0.96</td><td>−1.12</td></tr>
+<tr><th scope="row">s0045</th><td>−0.46</td><td>−0.68</td><td>−0.62</td><td>−0.68</td></tr>
+<tr><th scope="row">s0042</th><td>−0.37</td><td>−0.59</td><td>−0.60</td><td>−0.68</td></tr>
+<tr><th scope="row">s0039</th><td>−0.37</td><td>−0.63</td><td>−0.55</td><td>−0.49</td></tr>
+<tr><th scope="row">s0028</th><td>−0.40</td><td>−0.49</td><td>−0.51</td><td>−0.53</td></tr>
+<tr><th scope="row">s0024</th><td>−0.36</td><td>−0.29</td><td>−0.24</td><td>−0.29</td></tr>
+<tr><th scope="row">s0021</th><td>−0.32</td><td>−0.19</td><td>−0.25</td><td>−0.15</td></tr>
+<tr><th scope="row">s0025</th><td>−0.22</td><td>−0.08</td><td>−0.31</td><td>−0.08</td></tr>
+<tr><th scope="row">s0065</th><td>−0.06</td><td>+0.00</td><td>+0.01</td><td>−0.01</td></tr>
+<tr><th scope="row">s0020 — current operations</th><td>+0.00</td><td>+0.00</td><td>+0.00</td><td>+0.00</td></tr>
+<tr><th scope="row">s0027</th><td>+0.08</td><td>+0.09</td><td>+0.16</td><td>+0.06</td></tr>
+<tr><th scope="row">s0041</th><td>+0.20</td><td>+0.08</td><td>+0.06</td><td>+0.06</td></tr>
+<tr><th scope="row">s0040</th><td>+0.19</td><td>+0.25</td><td>+0.19</td><td>+0.26</td></tr>
+<tr><th scope="row">s0036</th><td>+0.27</td><td>+0.20</td><td>+0.17</td><td>+0.26</td></tr>
+<tr><th scope="row">s0037</th><td>+0.15</td><td>+0.30</td><td>+0.37</td><td>+0.20</td></tr>
+<tr><th scope="row">s0023</th><td>+0.24</td><td>+0.19</td><td>+0.28</td><td>+0.35</td></tr>
+<tr><th scope="row">s0035</th><td>+0.17</td><td>+0.43</td><td>+0.32</td><td>+0.33</td></tr>
+<tr><th scope="row">s0026</th><td>+0.24</td><td>+0.48</td><td>+0.34</td><td>+0.43</td></tr>
+<tr><th scope="row">s0011</th><td>+0.40</td><td>+0.27</td><td>+0.42</td><td>+0.47</td></tr>
+<tr><th scope="row">s0044</th><td>+0.37</td><td>+0.42</td><td>+0.53</td><td>+0.58</td></tr>
+<tr><th scope="row">s0030</th><td>+0.73</td><td>+1.05</td><td>+0.77</td><td>+0.70</td></tr>
+</tbody>
+</table>
+      </div>
+    </figure>
+    <p>
+      Read against the <em>BASELINES</em> theme brief, the climate
+      column at Lower San Joaquin River at Vernalis under current operations is the
+      climate-only reference for this place. Read against the
+      area summary for environmental flows, the rows under alternative
+      strategies show how operating choices shift tier values here.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span> Pattern across scenarios</h2>
+    <p>Looking across the full scenario matrix in Figure 1, modeled tier values at Lower San Joaquin River at Vernalis range across three tiers, from Tier 1 to Tier 3. The variation across the four hydroclimates under any single strategy is broadly comparable to the variation across the 24 strategies under any single hydroclimate. The widest spread appears at Historical (BL), Warmer-drier I (HC1), and Warmer-drier II (HC2), where modeled tier values under different strategies span from Tier 1 to Tier 3.</p>
+    <p>
+      This brief reports one place within the environmental flows sector.
+      The area-level summary for environmental flows in the theme briefs
+      is the right reference for how the system as a whole behaves
+      across its many locations; this brief reports how a single
+      location, Lower San Joaquin River at Vernalis, moves across the same scenario set.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span> About this place</h2>
+    <p>Vernalis is the long-standing flow-compliance point on the lower San Joaquin River, just upstream of its confluence with the Delta near the San Joaquin–Stanislaus county line. River flow past Vernalis is governed by Bay-Delta water-quality objectives and is a key control point for migrating salmon. The model tracks how well modeled flows here meet functional environmental-flow targets.</p>
+    <div class="place-context" aria-label="Place context">
+      <div class="field"><span class="field-label">Location</span><span class="field-value">Lower San Joaquin River, near Vernalis</span></div>
+      <div class="field"><span class="field-label">System</span><span class="field-value">San Joaquin River / Bay-Delta</span></div>
+      <div class="field"><span class="field-label">Type</span><span class="field-value">River reach (flow-compliance point)</span></div>
+      <div class="field"><span class="field-label">Sector</span><span class="field-value">Environmental Flows (ENV)</span></div>
+      <div class="field"><span class="field-label">Reference</span><span class="field-value">Functional-flow targets</span></div>
+      <div class="field"><span class="field-label">Variable</span><span class="field-value">Modeled flow vs. functional-flow target</span></div>
+    </div>
+    <p>Flow past Vernalis reflects releases and accretions from the Stanislaus, Tuolumne, and Merced tributaries net of upstream diversions, so the degree to which modeled flow meets functional targets depends on how much water operating strategies leave in the river. Strategies that raise environmental flows move the modeled tier value toward target; strategies that relax flow requirements move it away. Flow at this reach shapes conditions for migrating salmon and Delta inflow.</p>
+  </section>
+
+  <section class="related-briefs">
+    <h2><span class="num">7.</span> Related briefs</h2>
+    <h3>Wider view</h3>
+    <ul class="related-list">
+      <li><a href="/findings/baselines"><em>BASELINES</em> — climate effects on today's water system</a></li>
+      <li><a href="/findings/sectors/environmental-flows">Environmental flows — area summary</a></li>
+    </ul>
+    <p class="related-rule">
+      The system-wide baseline brief that situates this place, and the
+      area-level summary for environmental flows.
+    </p>
+    <h3>Across — other river reaches</h3>
+    <ul class="related-list">
+      <li><a href="/findings/locations/sacramento-river-at-freeport">Sacramento River at Freeport</a></li>
+      <li><a href="/findings/locations/stanislaus-below-goodwin">Stanislaus River below Goodwin</a></li>
+      <li><a href="/findings/locations/tuolumne-river">Tuolumne River</a></li>
+      <li><a href="/findings/locations/merced-river">Merced River</a></li>
+      <li><a href="/findings/locations/lower-american-river">Lower American River</a></li>
+    </ul>
+    <p class="related-rule">
+      Other river reaches in the COEQWAL LOI set, ordered alphabetically
+      by name. <a href="/findings#locations-environmental-flows">See all river reaches →</a>
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span> What this doesn't say</h2>
+    <p class="disclaimer">
+      This brief reports the tier results COEQWAL has generated
+      based on what the CalSim 3 model produces under specific
+      assumptions for one place. It doesn't predict what will
+      happen at Lower San Joaquin River at Vernalis, provide judgments about the
+      modeled tier values, or recommend any course of action.
+      The tier names (Optimal, Acceptable, At-risk, Critical)
+      describe modeled conditions; what they mean for any
+      particular community, decision, or person is not something
+      the model itself decides.
+    </p>
+    <p class="disclaimer">
+      The tier values shown reflect 96 scenarios from the COEQWAL
+      library — pairings of 24 strategies with 4 hydroclimates — at
+      this single LOI. They don't span every possible scenario, don't
+      quantify uncertainty around the modeled values, and don't
+      characterize other places. Other LOIs in the environmental flows sector,
+      in different parts of the system, may show different patterns;
+      see the area summary in the theme briefs and the explorer for
+      the full LOI set.
+    </p>
+    <p class="disclaimer" style="color: var(--stub);">
+      Prototype note: the figures and every number in this brief are
+      generated from synthetic placeholder data, and the location and
+      node ID are illustrative stand-ins. This draft is for reviewing
+      the brief format across sectors, not the results.
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">9.</span> Explore further</h2>
+    <p>
+      <a class="explore-link" href="/explore?loi=vernalis&amp;scenarios=canonical">
+        Open Lower San Joaquin River at Vernalis in the data explorer
+        <span class="arrow">→</span>
+      </a>
+    </p>
+    <p style="font-size: 0.92rem; color: var(--ink-soft); margin-top: 0.6rem;">
+      The explorer holds the full scenario set, the 100-year time
+      series and physical-unit summaries that underlie the tier
+      values shown here, and the other LOIs in the environmental flows
+      sector for side-by-side comparison.
+    </p>
+  </section>
+
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>LOI brief prototype — ENV v0.1</span>
+      <span>Updated June 23, 2026 · 4:30 PM PDT</span>
+      <span>Cite as: COEQWAL (2026), Lower San Joaquin River at Vernalis place brief, Collaboratory for Equity in Water Allocation</span>
+    </div>
+  </footer>
+</article>
+
+<p class="print-hint">
+  Save this brief as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+<script>
+(function(){
+const META=JSON.parse(document.getElementById("fig2-data").textContent);
+const DATA=META.scenarios.map(s=>({id:s.id,v:s.tier_values,g:s.is_current_operations}));
+const svg=document.getElementById("fig2");
+const readout=document.getElementById("fig2-readout");
+const NS="http://www.w3.org/2000/svg";
+const DEFAULT_MSG="Hover over a dot to split its value into baseline + climate effect + operations effect; click a dot to pin it.";
+const HC_NAME=["Historical (BL)","Warmer-drier I (HC1)","Warmer-drier II (HC2)","Warmer-drier III (HC3)"];
+function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+// positions read back from the static dots
+const pos={};
+svg.querySelectorAll("circle[data-id]").forEach(c=>{
+  const id=c.getAttribute("data-id"), ci=+c.getAttribute("data-ci");
+  (pos[id]=pos[id]||[])[ci]=[+c.getAttribute("cx"),+c.getAttribute("cy")];
+});
+let pinned=null;
+function restore(){ if(pinned)highlight(pinned.id,pinned.ci); else clearHL(); }
+function togglePin(id,ci){
+  if(pinned&&pinned.id===id&&pinned.ci===ci){pinned=null;clearHL();}
+  else{pinned={id:id,ci:ci};highlight(id,ci);}
+}
+function highlight(id,ci){
+  const d=DATA.find(x=>x.id===id), gold=DATA.find(x=>x.g);
+  svg.querySelectorAll("circle[data-id]").forEach(c=>{
+    const isG=c.getAttribute("data-id")===gold.id;
+    if(c.getAttribute("data-id")===id){c.setAttribute("r",isG?5:4);c.setAttribute("fill-opacity","1");c.setAttribute("fill",d.g?"#BA7517":"#3a4574");}
+    else{c.setAttribute("r",isG?4:2.5);c.setAttribute("fill",isG?"#BA7517":"#5F5E5A");c.setAttribute("fill-opacity",isG?"0.5":"0.18");}
+  });
+  let con=svg.querySelector("#fig2-connector");
+  if(!con){con=el("polyline",{id:"fig2-connector",fill:"none","stroke-width":2,"stroke-linejoin":"round","pointer-events":"none"});svg.appendChild(con);}
+  con.setAttribute("points",pos[id].map(p=>p.join(",")).join(" "));
+  con.setAttribute("stroke",d.g?"#BA7517":"#3a4574");
+  con.setAttribute("opacity","0.9");
+  let anno=svg.querySelector("#fig2-anno"); if(anno)anno.remove();
+  anno=el("g",{id:"fig2-anno","pointer-events":"none"});svg.appendChild(anno);
+  const ax=pos[id][ci][0];
+  const aV=gold.v[0], cV=gold.v[ci], fV=d.v[ci];
+  const y1=pos[gold.id][0][1], y2=pos[gold.id][ci][1], y3=pos[id][ci][1];
+  const clim=cV-aV, ops=fV-cV;
+  const onLeft=ax>460;
+  const tx=onLeft?ax-12:ax+12, ta=onLeft?"end":"start";
+  const ARW="#444441";
+  function vArrow(yA,yB){
+    const dir=yB>yA?1:-1;
+    anno.appendChild(el("line",{x1:ax,y1:yA,x2:ax,y2:yB-7*dir,stroke:ARW,"stroke-width":1.5}));
+    anno.appendChild(el("polygon",{points:(ax-4)+","+(yB-8*dir)+" "+ax+","+yB+" "+(ax+4)+","+(yB-8*dir),fill:ARW}));
+  }
+  function note(y,s){const t=el("text",{x:tx,y:y,"font-size":12,fill:ARW,"text-anchor":ta});t.textContent=s;anno.appendChild(t);}
+  anno.appendChild(el("circle",{cx:ax,cy:y1,r:5.5,fill:"#fdfbf5",stroke:"#5f5e5a","stroke-width":1.5}));
+  note(y1-11,"Historical BL "+aV.toFixed(2));
+  if(Math.abs(clim)>=0.03){vArrow(y1+7*(clim>0?1:-1),y2);note((y1+y2)/2+4,"Climate effect "+(clim>0?"+":"")+clim.toFixed(2));}
+  const gx=pos[gold.id][ci][0];
+  if(Math.abs(gx-ax)>1){anno.appendChild(el("line",{x1:Math.min(ax,gx),y1:y2,x2:Math.max(ax,gx),y2:y2,stroke:"#888780","stroke-width":1}));}
+  if(!d.g&&Math.abs(ops)>=0.03){
+    const s=ops>0?1:-1;
+    vArrow(y2+3*s,y3-6*s);
+    note((y2+y3)/2+4,"Operations effect "+(ops>0?"+":"")+ops.toFixed(2));
+  }
+  if(pinned&&pinned.id===id&&pinned.ci===ci){
+    anno.appendChild(el("circle",{cx:ax,cy:y3,r:9,fill:"none",stroke:d.g?"#BA7517":"#3a4574","stroke-width":1.5,"stroke-dasharray":"3 2"}));
+  }
+  const name=d.g?"s0020 (current operations)":id;
+  const pinNote=(pinned&&pinned.id===id&&pinned.ci===ci)?" &nbsp;\u00b7&nbsp; <span style=\"color:#8a8a8a\">pinned \u2014 click the point again or the background to release</span>":"";
+  readout.innerHTML="<b>"+name+"</b> at "+HC_NAME[ci]+": <b>"+fV.toFixed(2)+"</b> = baseline "+aV.toFixed(2)
+    +" "+(clim>=0?"+":"\u2212")+" climate "+Math.abs(clim).toFixed(2)
+    +" "+(ops>=0?"+":"\u2212")+" operations "+Math.abs(ops).toFixed(2)
+    +" &nbsp;\u00b7&nbsp; trajectory "+d.v.map(v=>v.toFixed(2)).join(" \u2192 ")+pinNote;
+}
+function clearHL(){
+  svg.querySelectorAll("circle[data-id]").forEach(c=>{
+    const isG=c.getAttribute("data-id")==="s0020";
+    c.setAttribute("r",isG?4:2.5);c.setAttribute("fill-opacity",isG?"1":"0.6");c.setAttribute("fill",isG?"#BA7517":"#5F5E5A");
+  });
+  const con=svg.querySelector("#fig2-connector"); if(con)con.setAttribute("opacity","0");
+  const an=svg.querySelector("#fig2-anno"); if(an)an.remove();
+  readout.textContent=DEFAULT_MSG;
+}
+svg.querySelectorAll("circle[data-id]").forEach(c=>{
+  const id=c.getAttribute("data-id"), ci=+c.getAttribute("data-ci");
+  c.style.cursor="pointer";
+  c.addEventListener("mouseenter",()=>highlight(id,ci));
+  c.addEventListener("mouseleave",restore);
+  c.addEventListener("click",ev=>{ev.stopPropagation();togglePin(id,ci);});
+});
+svg.addEventListener("click",()=>{pinned=null;clearHL();});
+})();
+</script>
+</body>
+</html>
