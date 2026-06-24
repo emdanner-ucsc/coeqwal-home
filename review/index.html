@@ -155,6 +155,25 @@ h2 {
   margin-top: 0.35rem;
 }
 
+/* ── "Before you start" guidance box ────────────────────────────── */
+.before-note {
+  background: var(--stub-bg);
+  border: 1px solid #e7d5b8;
+  border-radius: 4px;
+  padding: 1.4rem 1.8rem 1.5rem;
+  margin: 0 0 1.8rem;
+}
+.before-note h2 {
+  border: none;
+  padding: 0;
+  margin: 0 0 0.8rem;
+  color: var(--stub);
+}
+.before-note ul { margin: 0; padding-left: 1.2rem; }
+.before-note li { margin: 0 0 0.8rem; font-size: 1rem; line-height: 1.55; }
+.before-note li:last-child { margin-bottom: 0; }
+.before-note .q { font-weight: 700; }
+
 /* ── "What we need your input on" callout ───────────────────────── */
 .input-box {
   background: var(--accent-faint);
@@ -245,6 +264,38 @@ h2 {
     need from reviewers. The numbers in the briefs are stand-ins, not real model results, and a
     few of the location briefs also use stand-in places — see the notes on each.
   </p>
+
+  <!-- ── Before you start ───────────────────────────────────────── -->
+  <div class="before-note">
+    <h2>Before you read and edit</h2>
+    <ul>
+      <li>
+        <span class="q">These are stand-alone documents.</span> Each brief should make sense on
+        its own, to a reader who has not seen the others, the website, or any of our meetings.
+        When editing, please don't add wording that assumes that background — no "as discussed,"
+        no references to a sibling brief. If something needs context, the brief has to supply it.
+      </li>
+      <li>
+        <span class="q">These are format prototypes, not final copy.</span> The most useful
+        feedback right now is on structure, flow, and whether the framing works for a general
+        reader — not polishing every sentence. The layout may still change.
+      </li>
+      <li>
+        <span class="q">The numbers are stand-ins.</span> Please don't fact-check the figures or
+        react to specific values; real model results are not wired in yet. The briefs flagged
+        with a caveat also use stand-in locations.
+      </li>
+      <li>
+        <span class="q">Written for the public.</span> Plain language is the goal. Flag anything
+        that reads as jargon or assumes the reader already knows the modeling.
+      </li>
+      <li>
+        <span class="q">The full set of sections is deliberate.</span> Every brief keeps its
+        complete structure; a section that does not apply to a given place is kept on purpose
+        with a short note, rather than dropped. No need to flag those as missing.
+      </li>
+    </ul>
+  </div>
 
   <!-- ── What we need your input on ─────────────────────────────── -->
   <div class="input-box">
@@ -401,7 +452,7 @@ h2 {
     <div class="meta-row">
       <span>Briefs for review · part of the COEQWAL working pages</span>
       <span>Not indexed (internal review)</span>
-      <span>Page published 2026-06-23 01:32 PM</span>
+      <span>Page published 2026-06-24 02:09 AM</span>
     </div>
   </footer>
 
