@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>[DEV] Shasta Reservoir — modeled tier outcomes | COEQWAL</title>
-<meta name="description" content="DEV BUILD of a COEQWAL place brief reporting modeled tier values for one Location of Interest across scenarios from the COEQWAL library. Real API data at integer tier resolution.">
+<meta name="description" content="DEV BUILD of a COEQWAL place brief reporting modeled tier values for one Location of Interest across scenarios from the COEQWAL library. Real API data at continuous tier resolution; values not yet locked.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -421,11 +421,12 @@ em { font-style: italic; color: var(--ink); }
 
   <div class="dev-banner">
     <strong>Dev build.</strong> Rendered from real COEQWAL API data at
-    <em>integer</em> tier resolution — each plotted value is the whole-number
-    tier level (1–4) the API serves today, so the figures are deliberately
-    coarse. Continuous tier values will replace them as a data-only change.
-    Dotted-underlined numbers are traced: hover one to see how it was computed.
-    Not for publication.
+    <em>continuous</em> tier resolution — each plotted value is the
+    continuous tier value the API serves, while tier labels and counts use
+    the integer tier level. The data predates the project's data lock, so
+    values may still change, and the names of the two newest hydroclimates
+    are placeholders. Dotted-underlined numbers are traced: hover one to see
+    how it was computed. Not for publication.
   </div>
 
   <!-- ─── EYEBROW + TITLE ─────────────────────────────────────── -->
@@ -439,12 +440,12 @@ em { font-style: italic; color: var(--ink); }
     <h2><span class="num">1.</span> Headline</h2>
     <p class="tldr">
       At Shasta Reservoir, modeled tier values across the
-      <span class="bb-val" data-key="lib.n_scenarios" title="Number of scenarios in the modeled library with a Reservoir storage tier at Shasta: 24 strategies x 3 hydroclimates.">72</span> COEQWAL scenarios range from
-      Tier <span class="bb-val" data-key="s1.tier_min" title="Lowest Reservoir storage tier at Shasta across all 72 scenarios.">2</span> to Tier <span class="bb-val" data-key="s1.tier_max" title="Highest Reservoir storage tier at Shasta across all 72 scenarios.">3</span>.
-      Of the <span class="bb-val" data-key="lib.n_compared" title="Scenarios run under the 2 warmer-drier hydroclimates and compared against their strategy&#39;s tier label under today&#39;s climate.">48</span> scenarios run under warmer-drier
-      hydroclimates, <span class="bb-val" data-key="s1.match_count" title="Of the 48 scenarios under warmer-drier hydroclimates, those keeping the same Reservoir storage tier label as their strategy has under today&#39;s climate. Scenarios under today&#39;s climate itself are not counted.">18</span> (<span class="bb-val" data-key="s1.match_pct" title="18 matching of 48 compared, rounded to the nearest percent.">38%</span>)
+      <span class="bb-val" data-key="lib.n_scenarios" title="Number of scenarios in the modeled library with a Reservoir storage tier at Shasta: 23 strategies x 4 hydroclimates.">92</span> COEQWAL scenarios range from
+      Tier <span class="bb-val" data-key="s1.tier_min" title="Lowest Reservoir storage tier at Shasta across all 92 scenarios.">1</span> to Tier <span class="bb-val" data-key="s1.tier_max" title="Highest Reservoir storage tier at Shasta across all 92 scenarios.">4</span>.
+      Of the <span class="bb-val" data-key="lib.n_compared" title="Scenarios run under the 3 warmer-drier hydroclimates and compared against their strategy&#39;s tier label under today&#39;s climate.">69</span> scenarios run under warmer-drier
+      hydroclimates, <span class="bb-val" data-key="s1.match_count" title="Of the 69 scenarios under warmer-drier hydroclimates, those keeping the same Reservoir storage tier label as their strategy has under today&#39;s climate. Scenarios under today&#39;s climate itself are not counted.">35</span> (<span class="bb-val" data-key="s1.match_pct" title="35 matching of 69 compared, rounded to the nearest percent.">51%</span>)
       keep the same tier label their strategy has under today's climate and
-      <span class="bb-val" data-key="s1.shift_count" title="Of the 48 compared scenarios, those whose tier label differs from the same strategy&#39;s label under today&#39;s climate.">30</span> (<span class="bb-val" data-key="s1.shift_pct" title="30 shifting of 48 compared, rounded to the nearest percent.">62%</span>)
+      <span class="bb-val" data-key="s1.shift_count" title="Of the 69 compared scenarios, those whose tier label differs from the same strategy&#39;s label under today&#39;s climate.">34</span> (<span class="bb-val" data-key="s1.shift_pct" title="34 shifting of 69 compared, rounded to the nearest percent.">49%</span>)
       shift to a different tier.
       Because the reported scenarios vary both the operating
       strategy and the hydroclimate, differences between scenarios combine
@@ -486,10 +487,10 @@ em { font-style: italic; color: var(--ink); }
       This brief reports modeled tier values for one LOI —
       <strong>Shasta Reservoir</strong>
       (<strong>reservoir storage</strong> area) across
-      <span class="bb-val" data-key="lib.n_scenarios" title="Number of scenarios in the modeled library with a Reservoir storage tier at Shasta: 24 strategies x 3 hydroclimates.">72</span> scenarios from the
+      <span class="bb-val" data-key="lib.n_scenarios" title="Number of scenarios in the modeled library with a Reservoir storage tier at Shasta: 23 strategies x 4 hydroclimates.">92</span> scenarios from the
       COEQWAL library. It consists of
-      <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">24</span> water management strategies paired with
-      <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">3</span> hydroclimates, and is the same
+      <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">23</span> water management strategies paired with
+      <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">4</span> hydroclimates, and is the same
       set used for every LOI brief.
     </p>
   </section>
@@ -498,22 +499,21 @@ em { font-style: italic; color: var(--ink); }
   <section>
     <h2><span class="num">3.</span> What the model shows</h2>
     <p>
-      Figure 1 shows the modeled tier label at Shasta Reservoir
-      reservoir storage across <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">24</span> modeled
-      strategies and <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">3</span> modeled hydroclimates.
-      Each gray line traces strategies through the hydroclimates. In this dev
-      build the vertical position is the integer tier level served by the API,
-      so strategies with identical tier labels draw on top of one another;
-      lines are therefore grouped, and each path is labeled with the number of
-      strategies that follow it. Current operations (scenario
-      s0020) is highlighted in gold; the mean tier label across all
-      <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">24</span> modeled strategies is overlaid for
-      reference.
+      Figure 1 shows the modeled tier value at Shasta Reservoir
+      reservoir storage across <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">23</span> modeled
+      strategies and <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">4</span> modeled hydroclimates.
+      Each gray line traces one strategy through the hydroclimates, placed
+      vertically by its continuous tier value; the shaded bands show the four
+      tier categories the values fall into. Where several strategies share
+      identical values, one line is drawn and labeled with the count. Current
+      operations (scenario s0020) is highlighted in gold; the mean
+      tier value across all <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">23</span> modeled strategies
+      is overlaid for reference.
     </p>
     <figure class="scenario-figure">
       <svg viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; max-width: 680px; display: block;" role="img" font-family="inherit">
-        <title>Shasta Reservoir tier outcomes across the modeled strategies and hydroclimates (dev build, integer tier resolution)</title>
-        <desc>Slopegraph of integer tier labels for Shasta Reservoir reservoir storage. Tier one at top, tier four at bottom. Gray paths are groups of strategies sharing an identical trajectory, labeled with the number of strategies; the gold line is current operations; the dark line with diamond markers is the mean. Exact values are in the data tables after Figure 2.</desc>
+        <title>Shasta Reservoir tier outcomes across the modeled strategies and hydroclimates (dev build, continuous tier values)</title>
+        <desc>Slopegraph of continuous tier values for Shasta Reservoir reservoir storage. Tier one at top, tier four at bottom. Each gray path is one strategy traced through the hydroclimates; paths sharing identical values are drawn once and labeled with the count; the gold line is current operations; the dark line with diamond markers is the mean. Exact values are in the data tables after Figure 2.</desc>
 
         <rect x="80" y="40" width="520" height="90" fill="#EAF3DE"/>
         <rect x="80" y="130" width="520" height="90" fill="#E1F5EE"/>
@@ -536,43 +536,142 @@ em { font-style: italic; color: var(--ink); }
 
         <text x="80.00" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Today&#39;s climate</text>
         <text x="80.00" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">BL</text>
-        <text x="340.00" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer and Drier I</text>
-        <text x="340.00" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC1</text>
-        <text x="600.00" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer and Drier II</text>
-        <text x="600.00" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC2</text>
+        <text x="253.33" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer and Drier I</text>
+        <text x="253.33" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC1</text>
+        <text x="426.67" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer and Drier II</text>
+        <text x="426.67" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC2</text>
+        <text x="600.00" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">TaiESM1 (label TBD)</text>
+        <text x="600.00" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC3</text>
 
-        <polyline class="fig1-line" data-tiers="2,2,2" data-count="1" points="80.00,130.00 340.00,130.00 600.00,130.00" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
-        <circle cx="80.00" cy="130.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <circle cx="340.00" cy="130.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <circle cx="600.00" cy="130.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <text x="340.00" y="120.00" text-anchor="middle" font-size="11" fill="#5f5e5a"><tspan class="bb-val" data-key="fig1.group0.count">1</tspan> strategy (s0030 — no flow requirements)</text>
-        <polyline class="fig1-line" data-tiers="2,2,3" data-count="10" points="80.00,130.00 340.00,130.00 600.00,220.00" stroke="#5F5E5A" stroke-width="1.75" fill="none" opacity="0.5" stroke-linejoin="round"/>
-        <circle cx="80.00" cy="130.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <circle cx="340.00" cy="130.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.471,1.657,1.771,2.182" data-count="1" points="80.00,82.39 253.33,99.13 426.67,109.39 600.00,146.38" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="82.39" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="99.13" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="109.39" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="146.38" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.471,1.671,1.800,2.227" data-count="1" points="80.00,82.39 253.33,100.39 426.67,112.00 600.00,150.43" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="82.39" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="100.39" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="112.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="150.43" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.514,1.643,1.671,1.986" data-count="1" points="80.00,86.26 253.33,97.87 426.67,100.39 600.00,128.74" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="86.26" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="97.87" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="100.39" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="128.74" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.514,1.657,1.900,2.409" data-count="1" points="80.00,86.26 253.33,99.13 426.67,121.00 600.00,166.81" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="86.26" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="99.13" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="121.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="166.81" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.543,1.757,1.929,2.864" data-count="1" points="80.00,88.87 253.33,108.13 426.67,123.61 600.00,207.76" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="88.87" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="108.13" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="123.61" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="207.76" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.600,1.757,1.971,2.273" data-count="1" points="80.00,94.00 253.33,108.13 426.67,127.39 600.00,154.57" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="94.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="108.13" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="127.39" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="154.57" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.657,1.814,1.971,3.500" data-count="1" points="80.00,99.13 253.33,113.26 426.67,127.39 600.00,265.00" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="99.13" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="113.26" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="127.39" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="265.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.671,1.800,2.136,2.864" data-count="1" points="80.00,100.39 253.33,112.00 426.67,142.24 600.00,207.76" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="100.39" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="112.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="142.24" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="207.76" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.686,1.814,2.045,3.000" data-count="1" points="80.00,101.74 253.33,113.26 426.67,134.05 600.00,220.00" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="101.74" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="113.26" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="134.05" r="2.5" fill="#5F5E5A" opacity="0.5"/>
         <circle cx="600.00" cy="220.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <text x="340.00" y="120.00" text-anchor="middle" font-size="11" fill="#5f5e5a"><tspan class="bb-val" data-key="fig1.group1.count">10</tspan> strategies</text>
-        <polyline class="fig1-line" data-tiers="2,3,3" data-count="10" points="80.00,130.00 340.00,220.00 600.00,220.00" stroke="#5F5E5A" stroke-width="1.75" fill="none" opacity="0.5" stroke-linejoin="round"/>
-        <circle cx="80.00" cy="130.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <circle cx="340.00" cy="220.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <circle cx="600.00" cy="220.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <text x="340.00" y="210.00" text-anchor="middle" font-size="11" fill="#5f5e5a"><tspan class="bb-val" data-key="fig1.group2.count">10</tspan> strategies</text>
-        <polyline class="fig1-line" data-tiers="3,3,3" data-count="3" points="80.00,220.00 340.00,220.00 600.00,220.00" stroke="#5F5E5A" stroke-width="1.75" fill="none" opacity="0.5" stroke-linejoin="round"/>
-        <circle cx="80.00" cy="220.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <circle cx="340.00" cy="220.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <circle cx="600.00" cy="220.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
-        <text x="340.00" y="210.00" text-anchor="middle" font-size="11" fill="#5f5e5a"><tspan class="bb-val" data-key="fig1.group3.count">3</tspan> strategies</text>
+        <polyline class="fig1-line" data-tiers="1.686,1.829,1.900,2.818" data-count="1" points="80.00,101.74 253.33,114.61 426.67,121.00 600.00,203.62" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="101.74" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="114.61" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="121.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="203.62" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.700,1.814,1.943,2.773" data-count="1" points="80.00,103.00 253.33,113.26 426.67,124.87 600.00,199.57" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="103.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="113.26" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="124.87" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="199.57" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.714,1.800,2.227,2.864" data-count="1" points="80.00,104.26 253.33,112.00 426.67,150.43 600.00,207.76" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="104.26" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="112.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="150.43" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="207.76" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.771,1.929,2.455,3.438" data-count="1" points="80.00,109.39 253.33,123.61 426.67,170.95 600.00,259.42" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="109.39" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="123.61" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="170.95" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="259.42" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.786,1.900,2.273,3.375" data-count="1" points="80.00,110.74 253.33,121.00 426.67,154.57 600.00,253.75" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="110.74" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="121.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="154.57" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="253.75" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.786,1.929,2.227,3.438" data-count="1" points="80.00,110.74 253.33,123.61 426.67,150.43 600.00,259.42" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="110.74" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="123.61" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="150.43" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="259.42" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.786,1.929,2.364,3.625" data-count="1" points="80.00,110.74 253.33,123.61 426.67,162.76 600.00,276.25" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="110.74" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="123.61" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="162.76" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="276.25" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.786,1.943,2.364,3.438" data-count="1" points="80.00,110.74 253.33,124.87 426.67,162.76 600.00,259.42" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="110.74" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="124.87" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="162.76" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="259.42" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.829,3.438,3.063,4.489" data-count="1" points="80.00,114.61 253.33,259.42 426.67,225.67 600.00,354.01" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="114.61" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="259.42" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="225.67" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="354.01" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.843,1.943,2.545,3.563" data-count="1" points="80.00,115.87 253.33,124.87 426.67,179.05 600.00,270.67" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="115.87" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="124.87" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="179.05" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="270.67" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.843,1.957,2.682,3.875" data-count="1" points="80.00,115.87 253.33,126.13 426.67,191.38 600.00,298.75" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="115.87" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="126.13" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="191.38" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="298.75" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="1.914,2.591,4.000,4.489" data-count="1" points="80.00,122.26 253.33,183.19 426.67,310.00 600.00,354.01" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="122.26" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="183.19" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="310.00" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="354.01" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="4.033,4.174,4.326,4.598" data-count="1" points="80.00,312.97 253.33,325.66 426.67,339.34 600.00,363.82" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="312.97" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="325.66" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="339.34" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="363.82" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <polyline class="fig1-line" data-tiers="4.054,4.196,4.380,4.598" data-count="1" points="80.00,314.86 253.33,327.64 426.67,344.20 600.00,363.82" stroke="#5F5E5A" stroke-width="1" fill="none" opacity="0.5" stroke-linejoin="round"/>
+        <circle cx="80.00" cy="314.86" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="253.33" cy="327.64" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="426.67" cy="344.20" r="2.5" fill="#5F5E5A" opacity="0.5"/>
+        <circle cx="600.00" cy="363.82" r="2.5" fill="#5F5E5A" opacity="0.5"/>
 
-        <polyline points="80.00,141.25 340.00,178.75 600.00,216.25" stroke="#2C2C2A" stroke-width="2.25" fill="none" opacity="0.95" stroke-linejoin="round" class="fig1-mean"/>
-        <polygon points="80.00,135.25 86.00,141.25 80.00,147.25 74.00,141.25" fill="#2C2C2A"/>
-        <polygon points="340.00,172.75 346.00,178.75 340.00,184.75 334.00,178.75" fill="#2C2C2A"/>
-        <polygon points="600.00,210.25 606.00,216.25 600.00,222.25 594.00,216.25" fill="#2C2C2A"/>
-        <text x="612" y="208.25" font-size="11" font-weight="500" dominant-baseline="middle" fill="#2C2C2A">Mean</text>
+        <polyline points="80.00,120.84 253.33,141.51 426.67,168.91 600.00,242.25" stroke="#2C2C2A" stroke-width="2.25" fill="none" opacity="0.95" stroke-linejoin="round" class="fig1-mean"/>
+        <polygon points="80.00,114.84 86.00,120.84 80.00,126.84 74.00,120.84" fill="#2C2C2A"/>
+        <polygon points="253.33,135.51 259.33,141.51 253.33,147.51 247.33,141.51" fill="#2C2C2A"/>
+        <polygon points="426.67,162.91 432.67,168.91 426.67,174.91 420.67,168.91" fill="#2C2C2A"/>
+        <polygon points="600.00,236.25 606.00,242.25 600.00,248.25 594.00,242.25" fill="#2C2C2A"/>
+        <text x="612" y="242.25" font-size="11" font-weight="500" dominant-baseline="middle" fill="#2C2C2A">Mean</text>
 
-        <polyline points="80.00,130.00 340.00,220.00 600.00,220.00" stroke="#BA7517" stroke-width="2.5" fill="none" opacity="0.95" stroke-linejoin="round" class="fig1-base"/>
-        <circle cx="80.00" cy="130.00" r="4" fill="#BA7517" opacity="0.95"/>
-        <circle cx="340.00" cy="220.00" r="4" fill="#BA7517" opacity="0.95"/>
-        <circle cx="600.00" cy="220.00" r="4" fill="#BA7517" opacity="0.95"/>
-        <text x="612" y="228.00" font-size="11" font-weight="500" dominant-baseline="middle" fill="#854F0B">s0020</text>
+        <polyline points="80.00,115.87 253.33,124.87 426.67,179.05 600.00,270.67" stroke="#BA7517" stroke-width="2.5" fill="none" opacity="0.95" stroke-linejoin="round" class="fig1-base"/>
+        <circle cx="80.00" cy="115.87" r="4" fill="#BA7517" opacity="0.95"/>
+        <circle cx="253.33" cy="124.87" r="4" fill="#BA7517" opacity="0.95"/>
+        <circle cx="426.67" cy="179.05" r="4" fill="#BA7517" opacity="0.95"/>
+        <circle cx="600.00" cy="270.67" r="4" fill="#BA7517" opacity="0.95"/>
+        <text x="612" y="270.67" font-size="11" font-weight="500" dominant-baseline="middle" fill="#854F0B">s0020</text>
 
         <g transform="translate(80, 470)">
           <line x1="0" y1="3" x2="22" y2="3" stroke="#BA7517" stroke-width="2.5"/>
@@ -580,23 +679,24 @@ em { font-style: italic; color: var(--ink); }
           <text x="30" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Current operations (s0020)</text>
           <line x1="220" y1="3" x2="242" y2="3" stroke="#2C2C2A" stroke-width="2.25"/>
           <polygon points="231,-3 237,3 231,9 225,3" fill="#2C2C2A"/>
-          <text x="250" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Mean across <tspan class="bb-val" data-key="lib.n_strategies">24</tspan> strategies</text>
+          <text x="250" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Mean across <tspan class="bb-val" data-key="lib.n_strategies">23</tspan> strategies</text>
           <line x1="430" y1="3" x2="452" y2="3" stroke="#5F5E5A" stroke-width="1" opacity="0.7"/>
           <circle cx="441" cy="3" r="2.5" fill="#5F5E5A" opacity="0.7"/>
-          <text x="460" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Alternative strategies (<tspan class="bb-val" data-key="lib.n_alternatives">23</tspan>), grouped</text>
+          <text x="460" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Alternative strategies (<tspan class="bb-val" data-key="lib.n_alternatives">22</tspan>)</text>
         </g>
       </svg>
       <figcaption class="caption">
-        <span class="num">Figure 1.</span> Modeled tier label for Shasta Reservoir
-        reservoir storage across <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">24</span> modeled
-        strategies and <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">3</span> modeled hydroclimates.
-        <strong>Dev build:</strong> the vertical axis is the integer tier level
-        served by the API, with Tier 1 (Optimal) at the top and Tier 4
-        (Critical) at the bottom; horizontal bands show the four tier
-        categories. Strategies with an identical trajectory are drawn as one
-        labeled path. Hydroclimate codes:
-BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.        Current operations (s0020, gold) and the mean across all
-        <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">24</span> modeled strategies (black) are overlaid.
+        <span class="num">Figure 1.</span> Modeled tier value for Shasta Reservoir
+        reservoir storage across <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">23</span> modeled
+        strategies and <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">4</span> modeled hydroclimates.
+        The vertical axis is the continuous tier value served by the API,
+        with Tier 1 (Optimal) at the top and Tier 4 (Critical) at the bottom;
+        horizontal bands show the four tier categories. Each gray path is one
+        strategy; strategies with identical values are drawn as one labeled
+        path. <strong>Dev build:</strong> values predate the data lock.
+        Hydroclimate codes:
+BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II; HC3 = TaiESM1 (label TBD).        Current operations (s0020, gold) and the mean across all
+        <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">23</span> modeled strategies (black) are overlaid.
         All modeled strategies are shown.
       </figcaption>
     </figure>
@@ -618,19 +718,25 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
       Holding the hydroclimate fixed at today's climate, the spread
       among operating strategies at Shasta Reservoir is the strategy
       effect:
-      <span class="bb-val" data-key="s4.bl_dist.t2" title="Strategies whose Reservoir storage tier label at Shasta under today&#39;s climate is Tier 2.">21</span> of the
-      <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">24</span> strategies sit at
-      Tier 2, while
-      <span class="bb-val" data-key="s4.bl_dist.t3" title="Strategies whose Reservoir storage tier label at Shasta under today&#39;s climate is Tier 3.">3</span>
-      sit at Tier 3.
+      <span class="bb-val" data-key="s4.bl_dist.t1" title="Strategies whose Reservoir storage tier label at Shasta under today&#39;s climate is Tier 1.">21</span> of the
+      <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">23</span> strategies sit at
+      Tier 1, while
+      <span class="bb-val" data-key="s4.bl_dist.t4" title="Strategies whose Reservoir storage tier label at Shasta under today&#39;s climate is Tier 4.">2</span>
+      sit at Tier 4.
       Holding the strategy fixed at current operations, the change across
-      hydroclimates is the climate effect:
-      the tier label sits at Tier <span class="bb-val" data-key="s4.base_tier.BL" title="Reservoir storage tier at Shasta for current operations (s0020) under BL.">2</span> under
-      today&#39;s climate and
-      Tier <span class="bb-val" data-key="s4.base_tier.HC1" title="Reservoir storage tier at Shasta for current operations (s0020) under HC1.">3</span> under Warmer and Drier I and
-      Tier <span class="bb-val" data-key="s4.base_tier.HC2" title="Reservoir storage tier at Shasta for current operations (s0020) under HC2.">3</span> under Warmer and Drier II. The remaining cells in the matrix combine both effects;
-      the finer within-tier movement that the published brief will report
-      requires the continuous tier values still in progress.
+      hydroclimates is the climate effect: the tier value moves from
+      <span class="bb-val" data-key="s4.base_value.BL" title="Continuous Reservoir storage tier value at Shasta for current operations (s0020) under BL.">1.84</span>
+      (Tier <span class="bb-val" data-key="s4.base_tier.BL" title="Reservoir storage tier at Shasta for current operations (s0020) under BL.">1</span>) under
+      today&#39;s climate to
+<span class="bb-val" data-key="s4.base_value.HC1" title="Continuous Reservoir storage tier value at Shasta for current operations (s0020) under HC1.">1.94</span>
+      (Tier <span class="bb-val" data-key="s4.base_tier.HC1" title="Reservoir storage tier at Shasta for current operations (s0020) under HC1.">1</span>) under
+      Warmer and Drier I, <span class="bb-val" data-key="s4.base_value.HC2" title="Continuous Reservoir storage tier value at Shasta for current operations (s0020) under HC2.">2.54</span>
+      (Tier <span class="bb-val" data-key="s4.base_tier.HC2" title="Reservoir storage tier at Shasta for current operations (s0020) under HC2.">2</span>) under
+      Warmer and Drier II, <span class="bb-val" data-key="s4.base_value.HC3" title="Continuous Reservoir storage tier value at Shasta for current operations (s0020) under HC3.">3.56</span>
+      (Tier <span class="bb-val" data-key="s4.base_tier.HC3" title="Reservoir storage tier at Shasta for current operations (s0020) under HC3.">3</span>) under
+      TaiESM1 (label TBD).
+      The remaining cells in the matrix combine both effects; Figure 2
+      separates them for every scenario.
     </p>
     <p>
       Figure 2 shows this decomposition for every scenario. Each dot
@@ -638,13 +744,13 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
       operations (s0020) is gold. Within each column, strategies keep
       a fixed left-to-right order, so a strategy occupies the same
       relative position in every column and can be followed across
-      the <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">3</span> hydroclimates.
+      the <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">4</span> hydroclimates.
     </p>
     <figure class="scenario-figure">
       <svg id="fig2" viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; max-width: 680px; display: block;" role="img" font-family="inherit"
-           aria-label="Hydroclimate columns for Shasta Reservoir reservoir storage. Each column shows all modeled strategies at evenly spaced horizontal positions, placed vertically by integer tier label (dev build). Current operations, scenario s0020, is gold.">
+           aria-label="Hydroclimate columns for Shasta Reservoir reservoir storage. Each column shows all modeled strategies at evenly spaced horizontal positions, placed vertically by continuous tier value. Current operations, scenario s0020, is gold.">
         <title>Shasta Reservoir reservoir storage: operations and climate effects across the modeled strategies and hydroclimates (dev build)</title>
-        <desc>Tier one (Optimal) at top, tier four (Critical) at bottom. Dots sit at whole-number tier positions in this dev build, so many coincide vertically. The full tier values are listed in the data tables that follow this figure.</desc>
+        <desc>Tier one (Optimal) at top, tier four (Critical) at bottom. Each dot sits at its scenario's continuous tier value. The full tier values are listed in the data tables that follow this figure.</desc>
 
         <rect x="80" y="40" width="520" height="90" fill="#EAF3DE"/>
         <rect x="80" y="130" width="520" height="90" fill="#E1F5EE"/>
@@ -661,128 +767,151 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
         <text x="74" y="359" text-anchor="end" font-size="12" font-weight="500" fill="#2c2c2a">Tier 4</text>
         <text x="74" y="373" text-anchor="end" font-size="11" fill="#5f5e5a">Critical</text>
 
-        <line x1="253.33" y1="40" x2="253.33" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
-        <line x1="426.67" y1="40" x2="426.67" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
-        <text x="166.67" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Today&#39;s climate</text>
-        <text x="166.67" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">BL</text>
-        <text x="340.00" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer and Drier I</text>
-        <text x="340.00" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC1</text>
-        <text x="513.33" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer and Drier II</text>
-        <text x="513.33" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC2</text>
+        <line x1="210.00" y1="40" x2="210.00" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
+        <line x1="340.00" y1="40" x2="340.00" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
+        <line x1="470.00" y1="40" x2="470.00" y2="400" stroke="#D3D1C7" stroke-width="0.75"/>
+        <text x="145.00" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Today&#39;s climate</text>
+        <text x="145.00" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">BL</text>
+        <text x="275.00" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer and Drier I</text>
+        <text x="275.00" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC1</text>
+        <text x="405.00" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">Warmer and Drier II</text>
+        <text x="405.00" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC2</text>
+        <text x="535.00" y="422" text-anchor="middle" font-size="12" font-weight="500" fill="#2c2c2a">TaiESM1 (label TBD)</text>
+        <text x="535.00" y="436" text-anchor="middle" font-size="11" fill="#5f5e5a">HC3</text>
 
-        <circle cx="94.00" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="0"/>
-        <circle cx="267.33" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="1"/>
-        <circle cx="440.67" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="2"/>
-        <circle cx="100.32" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="0"/>
-        <circle cx="273.65" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="1"/>
-        <circle cx="446.99" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="2"/>
-        <circle cx="106.64" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="0"/>
-        <circle cx="279.97" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="1"/>
-        <circle cx="453.30" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="2"/>
-        <circle cx="112.96" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="0"/>
-        <circle cx="286.29" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="1"/>
-        <circle cx="459.62" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="2"/>
-        <circle cx="119.28" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="0"/>
-        <circle cx="292.61" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="1"/>
-        <circle cx="465.94" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="2"/>
-        <circle cx="125.59" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="0"/>
-        <circle cx="298.93" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="1"/>
-        <circle cx="472.26" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="2"/>
-        <circle cx="131.91" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="0"/>
-        <circle cx="305.25" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="1"/>
-        <circle cx="478.58" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="2"/>
-        <circle cx="138.23" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="0"/>
-        <circle cx="311.57" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="1"/>
-        <circle cx="484.90" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="2"/>
-        <circle cx="144.55" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="0"/>
-        <circle cx="317.88" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="1"/>
-        <circle cx="491.22" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="2"/>
-        <circle cx="150.87" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="0"/>
-        <circle cx="324.20" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="1"/>
-        <circle cx="497.54" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="2"/>
-        <circle cx="157.19" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="0"/>
-        <circle cx="330.52" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="1"/>
-        <circle cx="503.86" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="2"/>
-        <circle cx="163.51" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="0"/>
-        <circle cx="336.84" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="1"/>
-        <circle cx="510.17" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="2"/>
-        <circle cx="176.14" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="0"/>
-        <circle cx="349.48" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="1"/>
-        <circle cx="522.81" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="2"/>
-        <circle cx="182.46" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="0"/>
-        <circle cx="355.80" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="1"/>
-        <circle cx="529.13" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="2"/>
-        <circle cx="188.78" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="0"/>
-        <circle cx="362.12" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="1"/>
-        <circle cx="535.45" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="2"/>
-        <circle cx="195.10" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="0"/>
-        <circle cx="368.43" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="1"/>
-        <circle cx="541.77" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="2"/>
-        <circle cx="201.42" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="0"/>
-        <circle cx="374.75" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="1"/>
-        <circle cx="548.09" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="2"/>
-        <circle cx="207.74" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="0"/>
-        <circle cx="381.07" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="1"/>
-        <circle cx="554.41" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0036" data-ci="2"/>
-        <circle cx="214.06" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="0"/>
-        <circle cx="387.39" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="1"/>
-        <circle cx="560.72" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="2"/>
-        <circle cx="220.38" cy="130.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="0"/>
-        <circle cx="393.71" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="1"/>
-        <circle cx="567.04" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="2"/>
-        <circle cx="226.70" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="0"/>
-        <circle cx="400.03" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="1"/>
-        <circle cx="573.36" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="2"/>
-        <circle cx="233.01" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="0"/>
-        <circle cx="406.35" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="1"/>
-        <circle cx="579.68" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="2"/>
-        <circle cx="239.33" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="0"/>
-        <circle cx="412.67" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="1"/>
-        <circle cx="586.00" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="2"/>
+        <circle cx="94.00" cy="86.26" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="0"/>
+        <circle cx="224.00" cy="97.87" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="1"/>
+        <circle cx="354.00" cy="100.39" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="2"/>
+        <circle cx="484.00" cy="128.74" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0030" data-ci="3"/>
+        <circle cx="98.64" cy="82.39" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="0"/>
+        <circle cx="228.64" cy="99.13" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="1"/>
+        <circle cx="358.64" cy="109.39" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="2"/>
+        <circle cx="488.64" cy="146.38" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0040" data-ci="3"/>
+        <circle cx="103.27" cy="82.39" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="0"/>
+        <circle cx="233.27" cy="100.39" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="1"/>
+        <circle cx="363.27" cy="112.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="2"/>
+        <circle cx="493.27" cy="150.43" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0041" data-ci="3"/>
+        <circle cx="107.91" cy="86.26" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="0"/>
+        <circle cx="237.91" cy="99.13" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="1"/>
+        <circle cx="367.91" cy="121.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="2"/>
+        <circle cx="497.91" cy="166.81" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0042" data-ci="3"/>
+        <circle cx="112.55" cy="94.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="0"/>
+        <circle cx="242.55" cy="108.13" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="1"/>
+        <circle cx="372.55" cy="127.39" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="2"/>
+        <circle cx="502.55" cy="154.57" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0065" data-ci="3"/>
+        <circle cx="117.18" cy="88.87" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="0"/>
+        <circle cx="247.18" cy="108.13" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="1"/>
+        <circle cx="377.18" cy="123.61" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="2"/>
+        <circle cx="507.18" cy="207.76" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0039" data-ci="3"/>
+        <circle cx="121.82" cy="103.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="0"/>
+        <circle cx="251.82" cy="113.26" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="1"/>
+        <circle cx="381.82" cy="124.87" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="2"/>
+        <circle cx="511.82" cy="199.57" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0025" data-ci="3"/>
+        <circle cx="126.45" cy="101.74" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="0"/>
+        <circle cx="256.45" cy="114.61" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="1"/>
+        <circle cx="386.45" cy="121.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="2"/>
+        <circle cx="516.45" cy="203.62" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0027" data-ci="3"/>
+        <circle cx="131.09" cy="100.39" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="0"/>
+        <circle cx="261.09" cy="112.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="1"/>
+        <circle cx="391.09" cy="142.24" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="2"/>
+        <circle cx="521.09" cy="207.76" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0024" data-ci="3"/>
+        <circle cx="135.73" cy="101.74" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="0"/>
+        <circle cx="265.73" cy="113.26" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="1"/>
+        <circle cx="395.73" cy="134.05" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="2"/>
+        <circle cx="525.73" cy="220.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0044" data-ci="3"/>
+        <circle cx="140.36" cy="104.26" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="0"/>
+        <circle cx="270.36" cy="112.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="1"/>
+        <circle cx="400.36" cy="150.43" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="2"/>
+        <circle cx="530.36" cy="207.76" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0023" data-ci="3"/>
+        <circle cx="145.00" cy="99.13" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="0"/>
+        <circle cx="275.00" cy="113.26" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="1"/>
+        <circle cx="405.00" cy="127.39" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="2"/>
+        <circle cx="535.00" cy="265.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0028" data-ci="3"/>
+        <circle cx="149.64" cy="110.74" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="0"/>
+        <circle cx="279.64" cy="121.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="1"/>
+        <circle cx="409.64" cy="154.57" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="2"/>
+        <circle cx="539.64" cy="253.75" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0045" data-ci="3"/>
+        <circle cx="154.27" cy="110.74" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="0"/>
+        <circle cx="284.27" cy="123.61" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="1"/>
+        <circle cx="414.27" cy="150.43" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="2"/>
+        <circle cx="544.27" cy="259.42" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0026" data-ci="3"/>
+        <circle cx="158.91" cy="110.74" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="0"/>
+        <circle cx="288.91" cy="124.87" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="1"/>
+        <circle cx="418.91" cy="162.76" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="2"/>
+        <circle cx="548.91" cy="259.42" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0037" data-ci="3"/>
+        <circle cx="163.55" cy="109.39" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="0"/>
+        <circle cx="293.55" cy="123.61" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="1"/>
+        <circle cx="423.55" cy="170.95" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="2"/>
+        <circle cx="553.55" cy="259.42" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0011" data-ci="3"/>
+        <circle cx="168.18" cy="110.74" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="0"/>
+        <circle cx="298.18" cy="123.61" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="1"/>
+        <circle cx="428.18" cy="162.76" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="2"/>
+        <circle cx="558.18" cy="276.25" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0035" data-ci="3"/>
+        <circle cx="177.45" cy="115.87" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="0"/>
+        <circle cx="307.45" cy="126.13" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="1"/>
+        <circle cx="437.45" cy="191.38" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="2"/>
+        <circle cx="567.45" cy="298.75" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0021" data-ci="3"/>
+        <circle cx="182.09" cy="114.61" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="0"/>
+        <circle cx="312.09" cy="259.42" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="1"/>
+        <circle cx="442.09" cy="225.67" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="2"/>
+        <circle cx="572.09" cy="354.01" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0033" data-ci="3"/>
+        <circle cx="186.73" cy="122.26" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="0"/>
+        <circle cx="316.73" cy="183.19" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="1"/>
+        <circle cx="446.73" cy="310.00" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="2"/>
+        <circle cx="576.73" cy="354.01" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0031" data-ci="3"/>
+        <circle cx="191.36" cy="312.97" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="0"/>
+        <circle cx="321.36" cy="325.66" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="1"/>
+        <circle cx="451.36" cy="339.34" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="2"/>
+        <circle cx="581.36" cy="363.82" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0046" data-ci="3"/>
+        <circle cx="196.00" cy="314.86" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="0"/>
+        <circle cx="326.00" cy="327.64" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="1"/>
+        <circle cx="456.00" cy="344.20" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="2"/>
+        <circle cx="586.00" cy="363.82" r="2.5" fill="#5F5E5A" fill-opacity="0.6" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0032" data-ci="3"/>
 
-        <polyline points="169.83,130.00 343.16,220.00 516.49,220.00" fill="none" stroke="#BA7517" stroke-width="2" stroke-opacity="0.85"/>
-        <circle cx="169.83" cy="130.00" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="0"/>
-        <circle cx="343.16" cy="220.00" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="1"/>
-        <circle cx="516.49" cy="220.00" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="2"/>
-        <circle cx="169.83" cy="130.00" r="8" fill="none" stroke="#2c2c2a" stroke-width="1.5"/>
-        <text x="169.83" y="118.0" text-anchor="middle" font-size="11" font-weight="500" fill="#2c2c2a">now</text>
+        <polyline points="172.82,115.87 302.82,124.87 432.82,179.05 562.82,270.67" fill="none" stroke="#BA7517" stroke-width="2" stroke-opacity="0.85"/>
+        <circle cx="172.82" cy="115.87" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="0"/>
+        <circle cx="302.82" cy="124.87" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="1"/>
+        <circle cx="432.82" cy="179.05" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="2"/>
+        <circle cx="562.82" cy="270.67" r="4" fill="#BA7517" stroke="rgba(0,0,0,0)" stroke-width="7" data-id="s0020" data-ci="3"/>
+        <circle cx="172.82" cy="115.87" r="8" fill="none" stroke="#2c2c2a" stroke-width="1.5"/>
+        <text x="172.82" y="103.87" text-anchor="middle" font-size="11" font-weight="500" fill="#2c2c2a">now</text>
 
         <g transform="translate(80, 470)">
           <line x1="0" y1="3" x2="22" y2="3" stroke="#BA7517" stroke-width="2.5"/>
           <circle cx="11" cy="3" r="4" fill="#BA7517"/>
           <text x="30" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Current operations (s0020)</text>
           <circle cx="226" cy="3" r="2.5" fill="#5F5E5A" opacity="0.7"/>
-          <text x="238" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Alternative strategies (<tspan class="bb-val" data-key="lib.n_alternatives">23</tspan>), one dot per hydroclimate</text>
+          <text x="238" y="6" font-size="11" dominant-baseline="middle" fill="#5f5e5a">Alternative strategies (<tspan class="bb-val" data-key="lib.n_alternatives">22</tspan>), one dot per hydroclimate</text>
         </g>
       </svg>
       <div class="figure-readout" id="fig2-readout" aria-live="polite">Hover over a dot to split its value into baseline + climate effect + operations effect; click a dot to pin it.</div>
       <figcaption class="caption">
-        <span class="num">Figure 2.</span> Modeled tier label for Shasta Reservoir
-        reservoir storage across <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">24</span> modeled
-        strategies and <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">3</span> modeled hydroclimates,
+        <span class="num">Figure 2.</span> Modeled tier value for Shasta Reservoir
+        reservoir storage across <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">23</span> modeled
+        strategies and <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">4</span> modeled hydroclimates,
         shown as one dot per strategy per hydroclimate.
-        <strong>Dev build:</strong> the vertical axis is the integer tier
-        level served by the API, as in Figure 1, so dots sharing a tier label
-        sit at the same height. Hydroclimate codes:
-BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.        Current operations (s0020) is
+        The vertical axis is the continuous tier value served by the API, as
+        in Figure 1. <strong>Dev build:</strong> values predate the data lock.
+        Hydroclimate codes:
+BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II; HC3 = TaiESM1 (label TBD).        Current operations (s0020) is
         shown in gold. Within each column, strategies are spaced evenly
-        across the width and kept in a fixed order (by average tier label
+        across the width and kept in a fixed order (by average tier value
         across the hydroclimates), so a strategy occupies the same
-        relative position in every column. Data: COEQWAL integer tier levels
-        for Shasta Reservoir reservoir storage (location
+        relative position in every column. Data: COEQWAL continuous tier
+        values for Shasta Reservoir reservoir storage (location
         SHSTA, tier code RES_STOR), from the
         COEQWAL API.
       </figcaption>
 
       <script type="application/json" id="fig2-data">
 {
- "title": "Shasta Reservoir — reservoir storage, modeled integer tier labels and operations/climate decomposition (dev build)",
+ "title": "Shasta Reservoir — reservoir storage, modeled continuous tier values and operations/climate decomposition (dev build)",
  "place": "Shasta Reservoir",
  "location_id": "SHSTA",
  "tier_code": "RES_STOR",
  "tier_name": "Reservoir storage",
  "dev_build": true,
- "resolution": "integer",
+ "resolution": "continuous",
  "source": [
   "/api/scenarios",
   "/api/tiers/scenarios/*/locations?codes=RES_STOR"
@@ -794,7 +923,7 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
   "3": "At-risk",
   "4": "Critical"
  },
- "tier_value_note": "Integer tier level served by the API (dev build); 1 is best (Optimal), 4 is worst (Critical).",
+ "tier_value_note": "Continuous tier value (tier_continuous) served by the API; lower is better. A value sits inside its integer tier label's band: tier_level <= value <= tier_level + 1, so e.g. values between 2 and 3 carry the Tier 2 (Acceptable) label. tier_labels lists the served integer labels.",
  "hydroclimates": [
   {
    "code": "BL",
@@ -807,14 +936,19 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
   {
    "code": "HC2",
    "label": "Warmer and Drier II"
+  },
+  {
+   "code": "HC3",
+   "label": "TaiESM1 (label TBD)"
   }
  ],
  "baseline_scenario": "s0020",
  "decomposition_note": "For each strategy and hydroclimate: tier_value = baseline strategy's value under today's climate + climate_effect (same for all strategies) + operations_effect (strategy value minus the baseline strategy under the same hydroclimate).",
  "climate_effect": [
-  0,
-  1,
-  1
+  0.0,
+  0.1,
+  0.702,
+  1.72
  ],
  "scenarios": [
   {
@@ -822,89 +956,22 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
    "name": "No flow requirements",
    "is_current_operations": false,
    "tier_values": [
-    2,
-    2,
-    2
+    1.514,
+    1.643,
+    1.671,
+    1.986
+   ],
+   "tier_labels": [
+    1,
+    1,
+    1,
+    1
    ],
    "operations_effect": [
-    0,
-    -1,
-    -1
-   ]
-  },
-  {
-   "id": "s0025",
-   "name": "Groundwater pumping limits in the San Joaquin Valley",
-   "is_current_operations": false,
-   "tier_values": [
-    2,
-    2,
-    3
-   ],
-   "operations_effect": [
-    0,
-    -1,
-    0
-   ]
-  },
-  {
-   "id": "s0026",
-   "name": "Groundwater pumping limits and reduced crop acreage in the San Joaquin Valley",
-   "is_current_operations": false,
-   "tier_values": [
-    2,
-    2,
-    3
-   ],
-   "operations_effect": [
-    0,
-    -1,
-    0
-   ]
-  },
-  {
-   "id": "s0027",
-   "name": "Groundwater pumping limits in the Central Valley",
-   "is_current_operations": false,
-   "tier_values": [
-    2,
-    2,
-    3
-   ],
-   "operations_effect": [
-    0,
-    -1,
-    0
-   ]
-  },
-  {
-   "id": "s0028",
-   "name": "Groundwater pumping limits and reduced crop acreage in the Central Valley",
-   "is_current_operations": false,
-   "tier_values": [
-    2,
-    2,
-    3
-   ],
-   "operations_effect": [
-    0,
-    -1,
-    0
-   ]
-  },
-  {
-   "id": "s0039",
-   "name": "Increase Delta outflows (65% of unimpaired flow)",
-   "is_current_operations": false,
-   "tier_values": [
-    2,
-    2,
-    3
-   ],
-   "operations_effect": [
-    0,
-    -1,
-    0
+    -0.329,
+    -0.3,
+    -0.874,
+    -1.577
    ]
   },
   {
@@ -912,14 +979,22 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
    "name": "Reduce delta outflows (35% unimpaired flow)",
    "is_current_operations": false,
    "tier_values": [
-    2,
-    2,
-    3
+    1.471,
+    1.657,
+    1.771,
+    2.182
+   ],
+   "tier_labels": [
+    1,
+    1,
+    1,
+    2
    ],
    "operations_effect": [
-    0,
-    -1,
-    0
+    -0.372,
+    -0.286,
+    -0.774,
+    -1.381
    ]
   },
   {
@@ -927,14 +1002,22 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
    "name": "Maintain Delta outflows (45% of unimpaired flows)",
    "is_current_operations": false,
    "tier_values": [
-    2,
-    2,
-    3
+    1.471,
+    1.671,
+    1.8,
+    2.227
+   ],
+   "tier_labels": [
+    1,
+    1,
+    1,
+    2
    ],
    "operations_effect": [
-    0,
-    -1,
-    0
+    -0.372,
+    -0.272,
+    -0.745,
+    -1.336
    ]
   },
   {
@@ -942,29 +1025,22 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
    "name": "Increase Delta outflows (55% of unimpaired flows)",
    "is_current_operations": false,
    "tier_values": [
-    2,
-    2,
-    3
+    1.514,
+    1.657,
+    1.9,
+    2.409
+   ],
+   "tier_labels": [
+    1,
+    1,
+    1,
+    2
    ],
    "operations_effect": [
-    0,
-    -1,
-    0
-   ]
-  },
-  {
-   "id": "s0044",
-   "name": "Increase Shasta carry-over storage",
-   "is_current_operations": false,
-   "tier_values": [
-    2,
-    2,
-    3
-   ],
-   "operations_effect": [
-    0,
-    -1,
-    0
+    -0.329,
+    -0.286,
+    -0.645,
+    -1.154
    ]
   },
   {
@@ -972,74 +1048,91 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
    "name": "Delta Conveyance Project",
    "is_current_operations": false,
    "tier_values": [
-    2,
-    2,
-    3
+    1.6,
+    1.757,
+    1.971,
+    2.273
+   ],
+   "tier_labels": [
+    1,
+    1,
+    1,
+    2
    ],
    "operations_effect": [
-    0,
-    -1,
-    0
+    -0.243,
+    -0.186,
+    -0.574,
+    -1.29
    ]
   },
   {
-   "id": "s0011",
-   "name": "Current operations with historical land use",
+   "id": "s0039",
+   "name": "Increase Delta outflows (65% of unimpaired flow)",
    "is_current_operations": false,
    "tier_values": [
-    2,
-    3,
-    3
+    1.543,
+    1.757,
+    1.929,
+    2.864
+   ],
+   "tier_labels": [
+    1,
+    1,
+    1,
+    2
    ],
    "operations_effect": [
-    0,
-    0,
-    0
+    -0.3,
+    -0.186,
+    -0.616,
+    -0.699
    ]
   },
   {
-   "id": "s0020",
-   "name": "Current operations",
-   "is_current_operations": true,
-   "tier_values": [
-    2,
-    3,
-    3
-   ],
-   "operations_effect": [
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "s0021",
-   "name": "Current operations without TUCPs",
+   "id": "s0025",
+   "name": "Groundwater pumping limits in the San Joaquin Valley",
    "is_current_operations": false,
    "tier_values": [
-    2,
-    3,
-    3
+    1.7,
+    1.814,
+    1.943,
+    2.773
+   ],
+   "tier_labels": [
+    1,
+    1,
+    1,
+    2
    ],
    "operations_effect": [
-    0,
-    0,
-    0
+    -0.143,
+    -0.129,
+    -0.602,
+    -0.79
    ]
   },
   {
-   "id": "s0023",
-   "name": "Current USBR operations without TUCPs",
+   "id": "s0027",
+   "name": "Groundwater pumping limits in the Central Valley",
    "is_current_operations": false,
    "tier_values": [
-    2,
-    3,
-    3
+    1.686,
+    1.829,
+    1.9,
+    2.818
+   ],
+   "tier_labels": [
+    1,
+    1,
+    1,
+    2
    ],
    "operations_effect": [
-    0,
-    0,
-    0
+    -0.157,
+    -0.114,
+    -0.645,
+    -0.745
    ]
   },
   {
@@ -1047,74 +1140,91 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
    "name": "Current USBR operations",
    "is_current_operations": false,
    "tier_values": [
+    1.671,
+    1.8,
+    2.136,
+    2.864
+   ],
+   "tier_labels": [
+    1,
+    1,
     2,
-    3,
-    3
+    2
    ],
    "operations_effect": [
-    0,
-    0,
-    0
+    -0.172,
+    -0.143,
+    -0.409,
+    -0.699
    ]
   },
   {
-   "id": "s0033",
-   "name": "Salmon-friendly flows with groundwater regulations",
+   "id": "s0044",
+   "name": "Increase Shasta carry-over storage",
    "is_current_operations": false,
    "tier_values": [
+    1.686,
+    1.814,
+    2.045,
+    3.0
+   ],
+   "tier_labels": [
+    1,
+    1,
     2,
-    3,
-    3
+    2
    ],
    "operations_effect": [
-    0,
-    0,
-    0
+    -0.157,
+    -0.129,
+    -0.5,
+    -0.563
    ]
   },
   {
-   "id": "s0035",
-   "name": "Prioritizing human health delivery levels to community water systems",
+   "id": "s0023",
+   "name": "Current USBR operations without TUCPs",
    "is_current_operations": false,
    "tier_values": [
+    1.714,
+    1.8,
+    2.227,
+    2.864
+   ],
+   "tier_labels": [
+    1,
+    1,
     2,
-    3,
-    3
+    2
    ],
    "operations_effect": [
-    0,
-    0,
-    0
+    -0.129,
+    -0.143,
+    -0.318,
+    -0.699
    ]
   },
   {
-   "id": "s0036",
-   "name": "Prioritizing functional delivery levels to community water systems",
+   "id": "s0028",
+   "name": "Groundwater pumping limits and reduced crop acreage in the Central Valley",
    "is_current_operations": false,
    "tier_values": [
-    2,
-    3,
+    1.657,
+    1.814,
+    1.971,
+    3.5
+   ],
+   "tier_labels": [
+    1,
+    1,
+    1,
     3
    ],
    "operations_effect": [
-    0,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "s0037",
-   "name": "Prioritizing full demands of community water systems",
-   "is_current_operations": false,
-   "tier_values": [
-    2,
-    3,
-    3
-   ],
-   "operations_effect": [
-    0,
-    0,
-    0
+    -0.186,
+    -0.129,
+    -0.574,
+    -0.063
    ]
   },
   {
@@ -1122,14 +1232,183 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
    "name": "Relax Delta salinity standards",
    "is_current_operations": false,
    "tier_values": [
+    1.786,
+    1.9,
+    2.273,
+    3.375
+   ],
+   "tier_labels": [
+    1,
+    1,
     2,
-    3,
     3
    ],
    "operations_effect": [
-    0,
-    0,
-    0
+    -0.057,
+    -0.043,
+    -0.272,
+    -0.188
+   ]
+  },
+  {
+   "id": "s0026",
+   "name": "Groundwater pumping limits and reduced crop acreage in the San Joaquin Valley",
+   "is_current_operations": false,
+   "tier_values": [
+    1.786,
+    1.929,
+    2.227,
+    3.438
+   ],
+   "tier_labels": [
+    1,
+    1,
+    2,
+    3
+   ],
+   "operations_effect": [
+    -0.057,
+    -0.014,
+    -0.318,
+    -0.125
+   ]
+  },
+  {
+   "id": "s0037",
+   "name": "Prioritizing full demands of community water systems",
+   "is_current_operations": false,
+   "tier_values": [
+    1.786,
+    1.943,
+    2.364,
+    3.438
+   ],
+   "tier_labels": [
+    1,
+    1,
+    2,
+    3
+   ],
+   "operations_effect": [
+    -0.057,
+    0.0,
+    -0.181,
+    -0.125
+   ]
+  },
+  {
+   "id": "s0011",
+   "name": "Current operations with historical land use",
+   "is_current_operations": false,
+   "tier_values": [
+    1.771,
+    1.929,
+    2.455,
+    3.438
+   ],
+   "tier_labels": [
+    1,
+    1,
+    2,
+    3
+   ],
+   "operations_effect": [
+    -0.072,
+    -0.014,
+    -0.09,
+    -0.125
+   ]
+  },
+  {
+   "id": "s0035",
+   "name": "Prioritizing human health delivery levels to community water systems",
+   "is_current_operations": false,
+   "tier_values": [
+    1.786,
+    1.929,
+    2.364,
+    3.625
+   ],
+   "tier_labels": [
+    1,
+    1,
+    2,
+    3
+   ],
+   "operations_effect": [
+    -0.057,
+    -0.014,
+    -0.181,
+    0.062
+   ]
+  },
+  {
+   "id": "s0020",
+   "name": "Current operations",
+   "is_current_operations": true,
+   "tier_values": [
+    1.843,
+    1.943,
+    2.545,
+    3.563
+   ],
+   "tier_labels": [
+    1,
+    1,
+    2,
+    3
+   ],
+   "operations_effect": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "id": "s0021",
+   "name": "Current operations without TUCPs",
+   "is_current_operations": false,
+   "tier_values": [
+    1.843,
+    1.957,
+    2.682,
+    3.875
+   ],
+   "tier_labels": [
+    1,
+    1,
+    2,
+    3
+   ],
+   "operations_effect": [
+    0.0,
+    0.014,
+    0.137,
+    0.312
+   ]
+  },
+  {
+   "id": "s0033",
+   "name": "Salmon-friendly flows with groundwater regulations",
+   "is_current_operations": false,
+   "tier_values": [
+    1.829,
+    3.438,
+    3.063,
+    4.489
+   ],
+   "tier_labels": [
+    1,
+    3,
+    3,
+    4
+   ],
+   "operations_effect": [
+    -0.014,
+    1.495,
+    0.518,
+    0.926
    ]
   },
   {
@@ -1137,29 +1416,22 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
    "name": "Salmon-friendly flows",
    "is_current_operations": false,
    "tier_values": [
+    1.914,
+    2.591,
+    4.0,
+    4.489
+   ],
+   "tier_labels": [
+    1,
+    2,
     3,
-    3,
-    3
+    4
    ],
    "operations_effect": [
-    1,
-    0,
-    0
-   ]
-  },
-  {
-   "id": "s0032",
-   "name": "Functional environmental flows with groundwater regulations",
-   "is_current_operations": false,
-   "tier_values": [
-    3,
-    3,
-    3
-   ],
-   "operations_effect": [
-    1,
-    0,
-    0
+    0.071,
+    0.648,
+    1.455,
+    0.926
    ]
   },
   {
@@ -1167,14 +1439,45 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
    "name": "Functional environmental flows",
    "is_current_operations": false,
    "tier_values": [
-    3,
-    3,
-    3
+    4.033,
+    4.174,
+    4.326,
+    4.598
+   ],
+   "tier_labels": [
+    4,
+    4,
+    4,
+    4
    ],
    "operations_effect": [
-    1,
-    0,
-    0
+    2.19,
+    2.231,
+    1.781,
+    1.035
+   ]
+  },
+  {
+   "id": "s0032",
+   "name": "Functional environmental flows with groundwater regulations",
+   "is_current_operations": false,
+   "tier_values": [
+    4.054,
+    4.196,
+    4.38,
+    4.598
+   ],
+   "tier_labels": [
+    4,
+    4,
+    4,
+    4
+   ],
+   "operations_effect": [
+    2.211,
+    2.253,
+    1.835,
+    1.035
    ]
   }
  ]
@@ -1183,67 +1486,65 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
 
       <div class="sr-only">
         <table>
-          <caption>Modeled tier label (integer, 1 = Optimal, 4 = Critical; dev build) for Shasta Reservoir reservoir storage for each of the <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">24</span> modeled strategies under each of the <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">3</span> hydroclimates. Rows in the same order as Figure 2; current operations is strategy s0020.</caption>
+          <caption>Modeled continuous tier value (lower is better; a value between N and N+1 carries the Tier N label; dev build) for Shasta Reservoir reservoir storage for each of the <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">23</span> modeled strategies under each of the <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">4</span> hydroclimates. Rows in the same order as Figure 2; current operations is strategy s0020.</caption>
           <thead>
-            <tr><th scope="col">Strategy</th><th scope="col">Today&#39;s climate (BL)</th><th scope="col">Warmer and Drier I (HC1)</th><th scope="col">Warmer and Drier II (HC2)</th></tr>
+            <tr><th scope="col">Strategy</th><th scope="col">Today&#39;s climate (BL)</th><th scope="col">Warmer and Drier I (HC1)</th><th scope="col">Warmer and Drier II (HC2)</th><th scope="col">TaiESM1 (label TBD) (HC3)</th></tr>
           </thead>
           <tbody>
-          <tr><th scope="row">s0030</th><td>2</td><td>2</td><td>2</td></tr>
-          <tr><th scope="row">s0025</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0026</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0027</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0028</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0039</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0040</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0041</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0042</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0044</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0065</th><td>2</td><td>2</td><td>3</td></tr>
-          <tr><th scope="row">s0011</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0020 — current operations</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0021</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0023</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0024</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0033</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0035</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0036</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0037</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0045</th><td>2</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0031</th><td>3</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0032</th><td>3</td><td>3</td><td>3</td></tr>
-          <tr><th scope="row">s0046</th><td>3</td><td>3</td><td>3</td></tr>
+          <tr><th scope="row">s0030</th><td>1.51</td><td>1.64</td><td>1.67</td><td>1.99</td></tr>
+          <tr><th scope="row">s0040</th><td>1.47</td><td>1.66</td><td>1.77</td><td>2.18</td></tr>
+          <tr><th scope="row">s0041</th><td>1.47</td><td>1.67</td><td>1.80</td><td>2.23</td></tr>
+          <tr><th scope="row">s0042</th><td>1.51</td><td>1.66</td><td>1.90</td><td>2.41</td></tr>
+          <tr><th scope="row">s0065</th><td>1.60</td><td>1.76</td><td>1.97</td><td>2.27</td></tr>
+          <tr><th scope="row">s0039</th><td>1.54</td><td>1.76</td><td>1.93</td><td>2.86</td></tr>
+          <tr><th scope="row">s0025</th><td>1.70</td><td>1.81</td><td>1.94</td><td>2.77</td></tr>
+          <tr><th scope="row">s0027</th><td>1.69</td><td>1.83</td><td>1.90</td><td>2.82</td></tr>
+          <tr><th scope="row">s0024</th><td>1.67</td><td>1.80</td><td>2.14</td><td>2.86</td></tr>
+          <tr><th scope="row">s0044</th><td>1.69</td><td>1.81</td><td>2.04</td><td>3.00</td></tr>
+          <tr><th scope="row">s0023</th><td>1.71</td><td>1.80</td><td>2.23</td><td>2.86</td></tr>
+          <tr><th scope="row">s0028</th><td>1.66</td><td>1.81</td><td>1.97</td><td>3.50</td></tr>
+          <tr><th scope="row">s0045</th><td>1.79</td><td>1.90</td><td>2.27</td><td>3.38</td></tr>
+          <tr><th scope="row">s0026</th><td>1.79</td><td>1.93</td><td>2.23</td><td>3.44</td></tr>
+          <tr><th scope="row">s0037</th><td>1.79</td><td>1.94</td><td>2.36</td><td>3.44</td></tr>
+          <tr><th scope="row">s0011</th><td>1.77</td><td>1.93</td><td>2.46</td><td>3.44</td></tr>
+          <tr><th scope="row">s0035</th><td>1.79</td><td>1.93</td><td>2.36</td><td>3.62</td></tr>
+          <tr><th scope="row">s0020 — current operations</th><td>1.84</td><td>1.94</td><td>2.54</td><td>3.56</td></tr>
+          <tr><th scope="row">s0021</th><td>1.84</td><td>1.96</td><td>2.68</td><td>3.88</td></tr>
+          <tr><th scope="row">s0033</th><td>1.83</td><td>3.44</td><td>3.06</td><td>4.49</td></tr>
+          <tr><th scope="row">s0031</th><td>1.91</td><td>2.59</td><td>4.00</td><td>4.49</td></tr>
+          <tr><th scope="row">s0046</th><td>4.03</td><td>4.17</td><td>4.33</td><td>4.60</td></tr>
+          <tr><th scope="row">s0032</th><td>4.05</td><td>4.20</td><td>4.38</td><td>4.60</td></tr>
           </tbody>
         </table>
         <table>
-          <caption>Operations effect for each strategy: its tier label minus current operations (s0020) under the same hydroclimate; positive means a worse (higher) tier label than current operations. The climate effect is the same for every strategy and is the change in s0020 from its label under today&#39;s climate: HC1 <span class="bb-val" data-key="fig2.climate_effect.HC1" title="Change in the baseline strategy&#39;s (s0020) tier label from BL to HC1 — the climate effect shared by every strategy in that column.">+1</span>, HC2 <span class="bb-val" data-key="fig2.climate_effect.HC2" title="Change in the baseline strategy&#39;s (s0020) tier label from BL to HC2 — the climate effect shared by every strategy in that column.">+1</span> tier. Every value in the table above equals the s0020 label under today&#39;s climate (<span class="bb-val" data-key="s4.base_tier.BL" title="Reservoir storage tier at Shasta for current operations (s0020) under BL.">2</span>) plus the climate effect plus the operations effect. All values are integers in this dev build.</caption>
+          <caption>Operations effect for each strategy: its continuous tier value minus current operations (s0020) under the same hydroclimate; positive means a worse (higher) tier value than current operations. The climate effect is the same for every strategy and is the change in s0020 from its value under today&#39;s climate: HC1 <span class="bb-val" data-key="fig2.climate_effect.HC1" title="Change in the baseline strategy&#39;s (s0020) continuous tier value from BL to HC1 — the climate effect shared by every strategy in that column.">+0.10</span>, HC2 <span class="bb-val" data-key="fig2.climate_effect.HC2" title="Change in the baseline strategy&#39;s (s0020) continuous tier value from BL to HC2 — the climate effect shared by every strategy in that column.">+0.70</span>, HC3 <span class="bb-val" data-key="fig2.climate_effect.HC3" title="Change in the baseline strategy&#39;s (s0020) continuous tier value from BL to HC3 — the climate effect shared by every strategy in that column.">+1.72</span> tier. Every value in the table above equals the s0020 value under today&#39;s climate (<span class="bb-val" data-key="s4.base_value.BL" title="Continuous Reservoir storage tier value at Shasta for current operations (s0020) under BL.">1.84</span>) plus the climate effect plus the operations effect.</caption>
           <thead>
-            <tr><th scope="col">Strategy</th><th scope="col">Operations effect, BL</th><th scope="col">Operations effect, HC1</th><th scope="col">Operations effect, HC2</th></tr>
+            <tr><th scope="col">Strategy</th><th scope="col">Operations effect, BL</th><th scope="col">Operations effect, HC1</th><th scope="col">Operations effect, HC2</th><th scope="col">Operations effect, HC3</th></tr>
           </thead>
           <tbody>
-          <tr><th scope="row">s0030</th><td>+0</td><td>−1</td><td>−1</td></tr>
-          <tr><th scope="row">s0025</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0026</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0027</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0028</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0039</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0040</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0041</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0042</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0044</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0065</th><td>+0</td><td>−1</td><td>+0</td></tr>
-          <tr><th scope="row">s0011</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0020 — current operations</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0021</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0023</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0024</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0033</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0035</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0036</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0037</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0045</th><td>+0</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0031</th><td>+1</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0032</th><td>+1</td><td>+0</td><td>+0</td></tr>
-          <tr><th scope="row">s0046</th><td>+1</td><td>+0</td><td>+0</td></tr>
+          <tr><th scope="row">s0030</th><td>−0.33</td><td>−0.30</td><td>−0.87</td><td>−1.58</td></tr>
+          <tr><th scope="row">s0040</th><td>−0.37</td><td>−0.29</td><td>−0.77</td><td>−1.38</td></tr>
+          <tr><th scope="row">s0041</th><td>−0.37</td><td>−0.27</td><td>−0.74</td><td>−1.34</td></tr>
+          <tr><th scope="row">s0042</th><td>−0.33</td><td>−0.29</td><td>−0.65</td><td>−1.15</td></tr>
+          <tr><th scope="row">s0065</th><td>−0.24</td><td>−0.19</td><td>−0.57</td><td>−1.29</td></tr>
+          <tr><th scope="row">s0039</th><td>−0.30</td><td>−0.19</td><td>−0.62</td><td>−0.70</td></tr>
+          <tr><th scope="row">s0025</th><td>−0.14</td><td>−0.13</td><td>−0.60</td><td>−0.79</td></tr>
+          <tr><th scope="row">s0027</th><td>−0.16</td><td>−0.11</td><td>−0.65</td><td>−0.74</td></tr>
+          <tr><th scope="row">s0024</th><td>−0.17</td><td>−0.14</td><td>−0.41</td><td>−0.70</td></tr>
+          <tr><th scope="row">s0044</th><td>−0.16</td><td>−0.13</td><td>−0.50</td><td>−0.56</td></tr>
+          <tr><th scope="row">s0023</th><td>−0.13</td><td>−0.14</td><td>−0.32</td><td>−0.70</td></tr>
+          <tr><th scope="row">s0028</th><td>−0.19</td><td>−0.13</td><td>−0.57</td><td>−0.06</td></tr>
+          <tr><th scope="row">s0045</th><td>−0.06</td><td>−0.04</td><td>−0.27</td><td>−0.19</td></tr>
+          <tr><th scope="row">s0026</th><td>−0.06</td><td>−0.01</td><td>−0.32</td><td>−0.12</td></tr>
+          <tr><th scope="row">s0037</th><td>−0.06</td><td>+0.00</td><td>−0.18</td><td>−0.12</td></tr>
+          <tr><th scope="row">s0011</th><td>−0.07</td><td>−0.01</td><td>−0.09</td><td>−0.12</td></tr>
+          <tr><th scope="row">s0035</th><td>−0.06</td><td>−0.01</td><td>−0.18</td><td>+0.06</td></tr>
+          <tr><th scope="row">s0020 — current operations</th><td>+0.00</td><td>+0.00</td><td>+0.00</td><td>+0.00</td></tr>
+          <tr><th scope="row">s0021</th><td>+0.00</td><td>+0.01</td><td>+0.14</td><td>+0.31</td></tr>
+          <tr><th scope="row">s0033</th><td>−0.01</td><td>+1.50</td><td>+0.52</td><td>+0.93</td></tr>
+          <tr><th scope="row">s0031</th><td>+0.07</td><td>+0.65</td><td>+1.46</td><td>+0.93</td></tr>
+          <tr><th scope="row">s0046</th><td>+2.19</td><td>+2.23</td><td>+1.78</td><td>+1.03</td></tr>
+          <tr><th scope="row">s0032</th><td>+2.21</td><td>+2.25</td><td>+1.83</td><td>+1.03</td></tr>
           </tbody>
         </table>
       </div>
@@ -1266,21 +1567,25 @@ BL = Today&#39;s climate; HC1 = Warmer and Drier I; HC2 = Warmer and Drier II.  
     <p>
       Looking across the full scenario matrix in Figure 1, modeled
       tier labels at Shasta Reservoir
-      stay between Tier <span class="bb-val" data-key="s1.tier_min" title="Lowest Reservoir storage tier at Shasta across all 72 scenarios.">2</span> and
-      Tier <span class="bb-val" data-key="s1.tier_max" title="Highest Reservoir storage tier at Shasta across all 72 scenarios.">3</span>.
+      stay between Tier <span class="bb-val" data-key="s1.tier_min" title="Lowest Reservoir storage tier at Shasta across all 92 scenarios.">1</span> and
+      Tier <span class="bb-val" data-key="s1.tier_max" title="Highest Reservoir storage tier at Shasta across all 92 scenarios.">4</span>.
       Within each hydroclimate column:
       under Today&#39;s climate,
 strategies span
-      Tier <span class="bb-val" data-key="s5.range.BL.min" title="Lowest tier among the 24 strategies under BL.">2</span> to
-      Tier <span class="bb-val" data-key="s5.range.BL.max" title="Highest tier among the 24 strategies under BL.">3</span>; 
+      Tier <span class="bb-val" data-key="s5.range.BL.min" title="Lowest tier among the 23 strategies under BL.">1</span> to
+      Tier <span class="bb-val" data-key="s5.range.BL.max" title="Highest tier among the 23 strategies under BL.">4</span>; 
       under Warmer and Drier I,
 strategies span
-      Tier <span class="bb-val" data-key="s5.range.HC1.min" title="Lowest tier among the 24 strategies under HC1.">2</span> to
-      Tier <span class="bb-val" data-key="s5.range.HC1.max" title="Highest tier among the 24 strategies under HC1.">3</span>; 
+      Tier <span class="bb-val" data-key="s5.range.HC1.min" title="Lowest tier among the 23 strategies under HC1.">1</span> to
+      Tier <span class="bb-val" data-key="s5.range.HC1.max" title="Highest tier among the 23 strategies under HC1.">4</span>; 
       under Warmer and Drier II,
 strategies span
-      Tier <span class="bb-val" data-key="s5.range.HC2.min" title="Lowest tier among the 24 strategies under HC2.">2</span> to
-      Tier <span class="bb-val" data-key="s5.range.HC2.max" title="Highest tier among the 24 strategies under HC2.">3</span>.
+      Tier <span class="bb-val" data-key="s5.range.HC2.min" title="Lowest tier among the 23 strategies under HC2.">1</span> to
+      Tier <span class="bb-val" data-key="s5.range.HC2.max" title="Highest tier among the 23 strategies under HC2.">4</span>; 
+      under TaiESM1 (label TBD),
+strategies span
+      Tier <span class="bb-val" data-key="s5.range.HC3.min" title="Lowest tier among the 23 strategies under HC3.">1</span> to
+      Tier <span class="bb-val" data-key="s5.range.HC3.max" title="Highest tier among the 23 strategies under HC3.">4</span>.
     </p>
     <p>
       This brief reports one place within the reservoir storage sector.
@@ -1370,18 +1675,19 @@ strategies span
       the model itself decides.
     </p>
     <p class="disclaimer">
-      The tier values shown reflect <span class="bb-val" data-key="lib.n_scenarios" title="Number of scenarios in the modeled library with a Reservoir storage tier at Shasta: 24 strategies x 3 hydroclimates.">72</span>
+      The tier values shown reflect <span class="bb-val" data-key="lib.n_scenarios" title="Number of scenarios in the modeled library with a Reservoir storage tier at Shasta: 23 strategies x 4 hydroclimates.">92</span>
       scenarios from the COEQWAL library — pairings of
-      <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">24</span> strategies with
-      <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">3</span> hydroclimates — at this single
+      <span class="bb-val" data-key="lib.n_strategies" title="Number of distinct water management strategies (sibling groups) in the library.">23</span> strategies with
+      <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">4</span> hydroclimates — at this single
       LOI. They don't span every possible scenario, don't quantify
       uncertainty around the modeled values, and don't characterize
       other places. Other LOIs in the reservoir storage sector, in
       different parts of the system, may show different patterns;
       see the area summary in the theme briefs and the explorer
-      for the full LOI set. This dev build additionally reports tier
-      labels at whole-number resolution only: differences within a tier
-      are real in the underlying model results but are not visible here.
+      for the full LOI set. This dev build additionally uses data that
+      predates the project's data lock: values may still change before
+      publication, and the names shown for the two newest hydroclimates
+      are placeholders pending team confirmation.
     </p>
   </section>
 
@@ -1406,7 +1712,7 @@ strategies span
     </div>
     <div class="meta-row">
       <span>LOI brief DEV BUILD · builder v0.1.0</span>
-      <span>Built 2026-06-11T17:59:23Z · cache fetched 2026-06-06T16:35:00Z</span>
+      <span>Built 2026-07-01T21:15:54Z · cache fetched 2026-06-25T00:00:00Z</span>
       <span>Design reference: loi_brief_prototype_v0_6.html</span>
       <span>Dev build — not for publication or citation</span>
     </div>
