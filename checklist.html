@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COEQWAL pre-launch checklist</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:28px 24px; }
+  header h1 { margin:0 0 6px; font-size:26px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  header a { color:#fff; }
+  main { max-width:820px; margin:0 auto; padding:24px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--line); padding-bottom:6px; margin:32px 0 12px; font-weight:normal; color:var(--accent); }
+  h2 .date { font-size:14px; color:var(--muted); margin-left:10px; }
+  p { margin:0 0 14px; }
+  code { font:14px/1.4 Menlo, Consolas, monospace; background:#eef2f5; padding:1px 4px; border-radius:3px; }
+  .item { background:#fff; border:1px solid var(--line); border-radius:6px; padding:10px 14px; margin:10px 0; }
+  .item .who { display:inline-block; font-size:12.5px; text-transform:uppercase; letter-spacing:.05em;
+               color:var(--accent); background:#e7eef4; border-radius:10px; padding:1px 9px; margin-right:8px; }
+  .item .who.team { color:#7a5ea8; background:#efeaf7; }
+  .item .who.ext { color:#2e7d4f; background:#e7f2ea; }
+  .item p { font-size:14.5px; margin:5px 0 0; }
+  .src { font-size:13px; color:var(--muted); }
+  a { color:var(--accent); }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin:36px auto 0; max-width:820px; padding-left:24px; padding-right:24px; padding-bottom:24px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>COEQWAL pre-launch checklist</h1>
+  <p>Every open item from across the working pages, in one place, mapped to the three dates that matter. Compiled 2026-07-11. <a href="index.html">Back to working pages</a>.</p>
+</header>
+<main>
+
+<p>Open items were previously scattered across <a href="pipeline.html">pipeline.html</a>,
+<a href="terminology.html">terminology.html</a>, <a href="map-basemap.html">map-basemap.html</a>,
+the map's PROJECT_NOTES, and the brief tracker. This page gathers them. When an item closes,
+strike it here with a date rather than deleting it, and update the page it came from.</p>
+
+<h2>Before content freeze <span class="date">July 29, 2026</span></h2>
+
+<div class="item"><span class="who">Eric</span>Refresh the brief tracker's data-status section to the 2026-07-02 lock — <strong>done 2026-07-11</strong> (dated update notes added)
+  <p>The tracker reported the pre-June-25 world: "72 codes / 24 strategies each", "CWS in flux, 79–124". Dated notes now state the canonical facts (115 = 5 × 23, s0036 removed, CWS settled at 74). The strategy table itself still shows the pre-landing 24; a full table refresh is optional and Eric's call.</p>
+  <p class="src">Source: brief-tracker index · found and noted in the 2026-07-11 cross-project review</p></div>
+
+<div class="item"><span class="who">Eric</span>Fold the 2026-07-11 dated update notes into the concepts and terminology source documents, then regenerate the pages
+  <p>concepts.html and terminology.html currently carry correction notes for the 06-25 landing; the underlying source docs still predate it.</p>
+  <p class="src">Source: 2026-07-11 consistency review</p></div>
+
+<div class="item"><span class="who">Eric</span>Fix the theme-narrative link in the coeqwal-briefs builder template
+  <p>The Jinja2 template emits the un-prefixed link; the deployed <code>baselines_dev.html</code> was patched by hand (<code>../../water-themes/…</code>) and the next builder run will re-break it until the template matches.</p>
+  <p class="src">Source: 2026-07-11 consistency review</p></div>
+
+<div class="item"><span class="who team">Team</span>Decide public labels and figure column order for TaiESM1 and EC-Earth3-Veg
+  <p>Dev briefs show bare climate-model names until this is settled; it gates final brief figures.</p>
+  <p class="src">Source: pipeline.html open items</p></div>
+
+<div class="item"><span class="who team">Team</span>Theme naming decisions
+  <p>Two narrative page titles are title case at source ("Rivers and Salmon", "Understanding Today's Water System") vs the sentence-case convention; and the Delta narrative is titled "Balancing needs in the Delta" while the canonical theme name is "The Delta as a living place".</p>
+  <p class="src">Source: terminology.html convention · 2026-07-11 review</p></div>
+
+<h2>Before handoff <span class="date">August 1, 2026</span></h2>
+
+<div class="item"><span class="who ext">Website team</span>§9 "Explore further" deep-link URL scheme
+  <p>Each brief's §9 link is a pre-configured deep link into the live explorer; the URL scheme is pending. The prototypes' <code>/findings/…</code> and <code>/explore?…</code> links are stand-ins until this lands.</p>
+  <p class="src">Source: pipeline.html · COEQWAL_Discoverability_Strategy §5</p></div>
+
+<div class="item"><span class="who ext">Website team</span>Confirm the exact path for brief assets in the website repo
+  <p>Candidate: <code>apps/main/public/briefs/{brief-id}_v{N}.{html,json}</code>.</p>
+  <p class="src">Source: pipeline.html open items</p></div>
+
+<div class="item"><span class="who">Eric</span>Agree the handoff format with the website team
+  <p>What files, delivered how — the tracker's freeze-and-handoff phase item.</p>
+  <p class="src">Source: brief tracker timeline</p></div>
+
+<h2>Before launch <span class="date">September 3, 2026</span></h2>
+
+<div class="item"><span class="who">Eric</span>Formal final verification pass on the real-data briefs
+  <p>The pass that gates public display; until then dev-brief values are "near-final, not citable".</p>
+  <p class="src">Source: pipeline.html</p></div>
+
+<div class="item"><span class="who team">Team</span>Normalize the groundwater sector's tier-2 label
+  <p>GW retains "Compromised" where the universal scale says "Acceptable" — flagged in the terminology doc.</p>
+  <p class="src">Source: terminology.html</p></div>
+
+<div class="item"><span class="who ext">Data team</span>Resolve the CWS strategy-specific location exception
+  <p>CWS count settled at 74 with one exception under review.</p>
+  <p class="src">Source: pipeline.html</p></div>
+
+<h2>Water map <span class="date">before wide promotion — not launch-gated</span></h2>
+
+<div class="item"><span class="who">Eric</span>Settle basemap licensing with CARTO
+  <p>Send the grant-program note; options 2–3 are fallbacks. Details on <a href="map-basemap.html">the basemap page</a>.</p>
+  <p class="src">Source: map-basemap.html · status: open, decision pending</p></div>
+
+<div class="item"><span class="who team">Team</span>Hydroclimate vocabulary: harmonize or document the two public naming systems
+  <p>The map says "Moderate / Severe climate change"; the briefs say "Warmer and Drier I / II" for the same runs (CC50 / CC95). A visitor moving between surfaces sees two names for one climate. Likewise the map's scenario labels are run-listing descriptions rather than the canonical short titles, and its s0020 label says "Baseline" where the canon says "current operations". Decide: adopt one vocabulary, or document the mapping visibly on both surfaces.</p>
+  <p class="src">Source: 2026-07-11 cross-project review (map scenario metadata vs terminology.html)</p></div>
+
+<div class="item"><span class="who">Eric</span>Decide whether the map should be indexable — <strong>decided and done 2026-07-11</strong>
+  <p>Eric's call: every page on the GitHub site stays non-discoverable until shared deliberately. The robots noindex meta was added to the deployed map <em>and</em> to <code>build/make_html.py</code>, so rebuilds keep it. Revisit only if the team later wants the map publicly findable (which also interacts with the CARTO item).</p>
+  <p class="src">Source: 2026-07-11 cross-project review · Eric's decision 2026-07-11</p></div>
+
+<div class="item"><span class="who">Eric</span>Map polish backlog
+  <p>Region-90 confirmation, a real-phone load check, reservoir-label / small-reservoir cleanup. The map also still serves s0036 (removed from the API library) because it builds from the raw CalSim run set — fine, but say so in the About panel if the two libraries will be compared.</p>
+  <p class="src">Source: map PROJECT_NOTES · 2026-07-11 review</p></div>
+
+<h2>Standing hygiene</h2>
+
+<div class="item"><span class="who">Eric / Claude</span>Run the site checker after every deploy session
+  <p><code>python3 tools/site_check.py &lt;repo-clones&gt;</code> — links, noindex, timestamp timezones; add <code>--live</code> on a normal network to confirm the deploy landed. Keep the <a href="facts.html">facts ledger</a>'s echo lists current when a canonical fact moves.</p>
+  <p class="src">Source: 2026-07-11 cross-project review</p></div>
+
+<footer>
+Compiled 2026-07-11 from pipeline.html, terminology.html, map-basemap.html, the map's PROJECT_NOTES, the brief tracker, and the 2026-07-11 cross-project review. Questions: Eric Danner.
+</footer>
+</main>
+</body>
+</html>

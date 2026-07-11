@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COEQWAL canonical facts ledger</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:28px 24px; }
+  header h1 { margin:0 0 6px; font-size:26px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  header a { color:#fff; }
+  main { max-width:960px; margin:0 auto; padding:24px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--line); padding-bottom:6px; margin:32px 0 12px; font-weight:normal; color:var(--accent); }
+  p { margin:0 0 14px; }
+  code { font:14px/1.4 Menlo, Consolas, monospace; background:#eef2f5; padding:1px 4px; border-radius:3px; }
+  table { border-collapse:collapse; width:100%; background:#fff; font-size:14px; margin:0 0 16px; }
+  th, td { border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top; }
+  th { background:#eef2f5; }
+  .stale { color:#b3541e; }
+  .div { color:#7a5ea8; }
+  .ok { color:#2e7d4f; }
+  blockquote { border-left:3px solid var(--accent); margin:0 0 14px; padding:6px 14px; background:#fff; }
+  blockquote p { margin:0; }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin:36px auto 0; max-width:960px; padding-left:24px; padding-right:24px; padding-bottom:24px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>COEQWAL canonical facts ledger</h1>
+  <p>Every load-bearing fact, its authority, and where it is echoed — so drift gets caught mechanically. First compiled 2026-07-11. <a href="index.html">Back to working pages</a>.</p>
+</header>
+<main>
+
+<p>Pages don't go stale on their own; <em>facts move and their copies don't</em>. This ledger
+lists each fact that appears in more than one place, the single authority that owns it, and
+the surfaces that echo it. To audit: check each echo against the authority column. When a
+fact changes, update the authority first, then walk its echo list.</p>
+
+<blockquote><p><strong>Quarantine rule.</strong> The synthetic prototypes (the v0.x briefs,
+the demos, the gallery figures) deliberately carry prototype-era numbers — 24 strategies ×
+4 climates, 96 scenarios, an editorial "HC3", s0036 as a served strategy. Their synthetic
+banner is the quarantine boundary: facts inside it are <em>not</em> enforced. Enforced
+surfaces are the hub pages, the brief tracker, the real-data (dev) briefs, the water map,
+and anything headed to the public site.</p></blockquote>
+
+<h2>Scenario library and data platform</h2>
+<table><thead><tr><th>Fact</th><th>Canonical value</th><th>Authority</th><th>Echoes and status</th></tr></thead><tbody>
+<tr><td>Served library</td><td>115 scenarios = 5 hydroclimates × 23 strategies</td><td>2026-07-02 API snapshot (source of record; dataset declared essentially locked)</td><td><span class="ok">pipeline.html, terminology.html + concepts.html (dated notes), review hub, dev briefs</span>; <span class="ok">brief-tracker (dated notes added 2026-07-11; its strategy table still shows the pre-landing 24)</span></td></tr>
+<tr><td>s0036</td><td>Removed from the served library (confirmed intentional 2026-07-01); its EC-Earth3-Veg twin s0148 was never run</td><td>Same snapshot + data-team confirmation</td><td><span class="ok">terminology.html + brief-tracker dated notes</span>; <span class="div">the water map still offers it (theme 4.2) — the map builds from the raw CalSim run set, not the API; documented divergence, not a bug</span></td></tr>
+<tr><td>Served hydroclimates</td><td>ids 2 (Historical), 3 (CC50), 4 (CC95), 5 (TaiESM1), 7 (EC-Earth3-Veg); editorial labels for 5 and 7 are TBD</td><td>Live API + 2026-07-02 snapshot</td><td><span class="ok">pipeline.html, terminology.html dated note, dev briefs (bare model names by design)</span>; <span class="div">map serves only Historical/CC50/CC95, with its own labels — see Terminology below</span></td></tr>
+<tr><td>Location counts</td><td>AG 132 · ENV 17 · GW 42 · RES 8 (stable); CWS settled at 74 (one strategy-specific exception under review)</td><td>2026-07-02 snapshot</td><td><span class="ok">pipeline.html; brief-tracker (dated note added 2026-07-11)</span></td></tr>
+<tr><td>Result pathways</td><td>Integer <code>tier_level</code> = label, counts, prose; <code>tier_continuous</code> = figure positions, means, decomposition; always <code>tier_level</code> ≤ value &lt; <code>tier_level</code>+1</td><td>Builder verification against full cache (2026-07-01)</td><td><span class="ok">pipeline.html, methods pages</span></td></tr>
+</tbody></table>
+
+<h2>Terminology (see <a href="terminology.html">terminology.html</a> for the full canon)</h2>
+<table><thead><tr><th>Fact</th><th>Canonical value</th><th>Authority</th><th>Echoes and status</th></tr></thead><tbody>
+<tr><td>Umbrella term</td><td>"sector", not "outcome", in new writing (codebase keeps "outcome" until a post-launch rename)</td><td>Terminology doc</td><td><span class="ok">hub pages, review hub (fixed 2026-07-11), dev briefs, findings tab ("By sector")</span></td></tr>
+<tr><td>Tier labels</td><td>1 Optimal · 2 Acceptable · 3 At-risk · 4 Critical</td><td>AC Workshop intro deck, slide 15</td><td><span class="ok">briefs, demos</span>; <span class="stale">GW sector still uses tier-2 "Compromised" — flagged for normalization</span>; note: the map's "Critical" is a <em>water-year type</em> (40-30-30 index), an unrelated hydrology term — watch the collision when map and briefs cross-link</td></tr>
+<tr><td>Strategy naming</td><td>"current operations" (never bare "baseline" for the strategy); baseline = s0020 × Historical only</td><td>methods/baseline-terminology.html</td><td><span class="ok">hub pages, briefs</span>; <span class="div">map's s0020 label is "DWR 2023 Baseline with TUCPs &amp; 2020 land use" — divergence to resolve or document</span></td></tr>
+<tr><td>Hydroclimate public names</td><td>"Warmer and Drier I" (CC50), "Warmer and Drier II" (CC95); never "HC1"/"HC2" in public text</td><td>Terminology doc</td><td><span class="ok">briefs</span>; <span class="div">map uses "Moderate climate change" / "Severe climate change" — team decision: harmonize or document both vocabularies</span></td></tr>
+<tr><td>Scenario short titles</td><td>The Short Title column of the scenario table (e.g. "GW pumping limits — San Joaquin Valley")</td><td>Completed Scenario Listing / terminology doc</td><td><span class="div">map picker uses run-listing descriptions ("Limiting groundwater pumping in the San Joaquin", "USBR Alt3 with 2020 land use — 45% unimpaired…") — divergence to resolve or document</span></td></tr>
+<tr><td>Theme names</td><td>Sentence case; card-short forms "Farms and groundwater", "Rivers and salmon"; <em>BASELINES</em> all-caps italic</td><td>Terminology doc (convention 2026-05-17)</td><td><span class="ok">review hub cards (fixed 2026-07-11)</span>; <span class="stale">two narrative page titles still title case at source ("Rivers and Salmon", "Understanding Today's Water System"); Delta narrative titled "Balancing needs in the Delta" vs canonical theme "The Delta as a living place" — team naming decision</span></td></tr>
+</tbody></table>
+
+<h2>Dates</h2>
+<table><thead><tr><th>Fact</th><th>Canonical value</th><th>Authority</th><th>Echoes and status</th></tr></thead><tbody>
+<tr><td>Brief content freeze</td><td>2026-07-29</td><td>Brief timeline (tracker)</td><td><span class="ok">pipeline.html, brief-tracker</span></td></tr>
+<tr><td>Handoff to website team</td><td>2026-08-01</td><td>Brief timeline (tracker)</td><td><span class="ok">brief-tracker, coeqwal-home index card</span></td></tr>
+<tr><td>Website launch</td><td>2026-09-03</td><td>Team schedule</td><td><span class="ok">pipeline.html</span> (only place it appears — fine)</td></tr>
+<tr><td>Dataset lock</td><td>Declared 2026-07-02 (ahead of the early-August estimate)</td><td>Data-platform team</td><td><span class="ok">pipeline.html</span></td></tr>
+</tbody></table>
+
+<h2>Water map (authority: the map's own embedded data + PROJECT_NOTES in the map repo)</h2>
+<table><thead><tr><th>Fact</th><th>Canonical value</th><th>Echoes and status</th></tr></thead><tbody>
+<tr><td>Map scenario set</td><td>43 raw CalSim runs (incl. embedded default s0020) — a different set from the API's 115: the map reads DSS/CSV exports directly</td><td><span class="ok">map-data-flow.html, index card</span> — keep the two libraries clearly distinguished in prose</td></tr>
+<tr><td>Feature counts</td><td>766 rivers &amp; canals (434 major + 332 zoom-gated minor) · 62 reservoirs · 223 delivery areas · 2 pumps</td><td><span class="ok">map-data-flow.html (verified against the data block 2026-07-11)</span></td></tr>
+<tr><td>Period</td><td>Water years 1922–2021 (1,200 months)</td><td><span class="ok">index card, map-data-flow.html (verified)</span></td></tr>
+<tr><td>Page size / zoom</td><td>6.5 MB; maxZoom 12; scenario JSONs ~5 MB each</td><td><span class="ok">map-data-flow.html, map-basemap.html (verified)</span></td></tr>
+</tbody></table>
+
+<h2>API</h2>
+<table><thead><tr><th>Fact</th><th>Canonical value</th></tr></thead><tbody>
+<tr><td>Base / docs</td><td><code>https://api.coeqwal.org/api</code> · OpenAPI at <code>/docs</code></td></tr>
+<tr><td>hydroclimate_id map</td><td>2→Historical/BL · 3→CC50/HC1 · 4→CC95/HC2 · 5→TaiESM1 · 7→EC-Earth3-Veg (encoded once in <code>builder/briefbuilder/config.py</code>)</td></tr>
+</tbody></table>
+
+<p><em>Surfaces not yet audited against this ledger: the coeqwal-briefs builder templates and
+config, coeqwal-viz, and the shared source documents — pending folder access. Extend the
+echo columns when those are swept.</em></p>
+
+<footer>
+Compiled from pipeline.html, terminology.html, the 2026-07-02 snapshot facts recorded there, the map's embedded data, and the brief tracker. The cited authorities remain canonical; this page is an index of them. Questions: Eric Danner.<br>
+Page created 2026-07-11.
+</footer>
+</main>
+</body>
+</html>
