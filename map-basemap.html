@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water map — basemap licensing options</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.55 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:22px 24px; }
+  header h1 { margin:0 0 4px; font-size:23px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  main { max-width:760px; margin:0 auto; padding:24px 24px 48px; }
+  h2 { font-size:17px; font-weight:normal; color:var(--accent); margin:28px 0 8px;
+       padding-bottom:6px; border-bottom:1px solid var(--line); }
+  p { margin:10px 0; }
+  a { color:var(--accent); }
+  .status { display:inline-block; background:#fff; border:1px solid var(--line); border-radius:999px;
+            padding:3px 14px; font-size:13.5px; color:var(--muted); margin-bottom:6px; }
+  .option { background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px 16px; margin:12px 0; }
+  .option .oname { color:var(--accent); font-size:16.5px; }
+  .option .otag { font-size:12.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-left:6px; }
+  .option p { font-size:14.5px; margin:6px 0 0; }
+  .muted { color:var(--muted); }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin-top:36px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Water map &mdash; basemap licensing options</h1>
+  <p>An open item on the map's pre-publication checklist &middot; written 2026-07-11</p>
+</header>
+<main>
+
+<span class="status">Status: open &mdash; decision pending</span>
+
+<h2>What the basemap is</h2>
+<p>The basemap is the light-gray background of streets, city names, and terrain that the
+<a href="https://emdanner-ucsc.github.io/coeqwal-calsim-map/CalSim3_water_map.html">water map's</a>
+rivers and reservoirs are drawn on top of. It is not stored in the project: every time a
+visitor pans or zooms, their browser fetches small square images ("tiles") from CARTO, a
+mapping company, using CARTO's free "Positron" style. The map credits
+"&copy;&nbsp;OpenStreetMap &copy;&nbsp;CARTO" in the corner, as CARTO's terms require.</p>
+
+<h2>The issue</h2>
+<p>Whether we are <em>licensed</em> to keep using CARTO's free tiles on a public site is
+ambiguous. <a href="https://docs.carto.com/faqs/carto-basemaps">CARTO's FAQ</a> says the
+basemaps are free for non-commercial use "by CARTO grantees" &mdash; a program one applies
+to &mdash; with details deferred to their <a href="https://carto.com/basemaps/">basemaps
+page</a> and legal terms. A modest-traffic academic page with proper attribution is very
+unlikely to draw complaints, and the map caps zoom at level&nbsp;12, which keeps tile usage
+light. This is a diligence item, not a danger &mdash; but it should be settled before the
+map is promoted widely.</p>
+
+<h2>Options</h2>
+
+<div class="option">
+  <span class="oname">1 &middot; Ask CARTO / apply to their grants program</span><span class="otag">preferred</span>
+  <p>A public-interest university water project is exactly who the program is for. Free,
+  zero code changes, and explicit permission in writing. Small administrative effort.</p>
+</div>
+
+<div class="option">
+  <span class="oname">2 &middot; Switch to a clearly-licensed free provider</span><span class="otag">fallback</span>
+  <p><a href="https://operations.osmfoundation.org/policies/tiles/">OpenStreetMap's own tile
+  server</a> explicitly allows light use on public sites with attribution &mdash; a one-line
+  code change, but the style is busier and more colorful, so the data layers would compete
+  with the background. Stadia Maps offers Positron-like clean styles on a free
+  non-commercial tier, but requires an API key and adds a new company dependency.</p>
+</div>
+
+<div class="option">
+  <span class="oname">3 &middot; Self-host the basemap</span><span class="otag">most permanent</span>
+  <p>Download a one-file basemap of California (Protomaps format), keep it in the repository
+  next to everything else, and depend on no outside company at all. Fully consistent with the
+  map's static-files philosophy, but a real chunk of work to swap the map renderer &mdash;
+  worth it only if option&nbsp;1 fails.</p>
+</div>
+
+<div class="option">
+  <span class="oname">4 &middot; US government tiles (USGS)</span><span class="otag">public domain</span>
+  <p>Zero licensing worry, ever &mdash; but the topographic style is visually heavy for a map
+  whose whole design goal is a calm background.</p>
+</div>
+
+<h2>Recommendation</h2>
+<p>Send CARTO a short note or grant application describing the project; treat options
+2&ndash;3 as fallbacks if they decline or don't reply. No urgency at current traffic levels,
+but it should be resolved before wide public promotion.</p>
+
+<p class="muted">Sources: <a href="https://docs.carto.com/faqs/carto-basemaps">CARTO Basemaps FAQ</a> &middot;
+<a href="https://carto.com/basemaps/">CARTO basemaps</a> &middot;
+<a href="https://github.com/CartoDB/basemap-styles">CARTO basemap-styles repo</a> &middot;
+<a href="https://operations.osmfoundation.org/policies/tiles/">OSM Tile Usage Policy</a></p>
+
+<footer>
+  CalSim3 Central Valley water map &middot; working note &middot; Questions: Eric Danner.
+</footer>
+
+</main>
+</body>
+</html>

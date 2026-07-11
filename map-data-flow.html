@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the water map handles data</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5b6770; --line:#d9dee3; --accent:#1f5c8b; --bg:#fafbfc;
+          --mac:#8a6d3b; --build:#1f5c8b; --gh:#5b6770; --browser:#2e7d4f; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.5 Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--accent); color:#fff; padding:22px 24px; }
+  header h1 { margin:0 0 4px; font-size:23px; font-weight:normal; }
+  header p { margin:0; opacity:.85; font-size:14px; }
+  main { max-width:820px; margin:0 auto; padding:24px 24px 48px; }
+
+  .stage { border:1px solid var(--line); border-left:5px solid var(--stage, var(--accent));
+           border-radius:8px; background:#fff; padding:14px 18px 16px; }
+  .stage h2 { margin:0 0 2px; font-size:17px; font-weight:normal; color:var(--stage, var(--accent)); }
+  .stage .where { font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-bottom:10px; }
+  .boxes { display:flex; flex-wrap:wrap; gap:10px; }
+  .file { flex:1 1 220px; border:1px solid var(--line); border-radius:6px; padding:9px 12px; background:var(--bg); }
+  .file .fname { font:13.5px/1.35 ui-monospace, Menlo, Consolas, monospace; color:var(--ink); }
+  .file .fsize { font-size:13px; color:var(--accent); }
+  .file .fdesc { font-size:13.5px; color:var(--muted); margin-top:3px; }
+  .stagenote { font-size:14px; color:var(--muted); margin:10px 0 0; }
+
+  .arrow { display:flex; align-items:center; gap:12px; padding:6px 0 6px 28px; }
+  .arrow .line { width:2px; height:34px; background:var(--accent); position:relative; flex:none; }
+  .arrow .line::after { content:''; position:absolute; bottom:-1px; left:-5px; border:6px solid transparent; border-top:9px solid var(--accent); }
+  .arrow .lbl { font-size:14px; color:var(--ink); background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px 14px; }
+  .arrow .sub { font-size:13px; color:var(--muted); }
+
+  .keyidea { margin-top:28px; border:1px solid var(--line); border-radius:8px; padding:14px 18px; background:#fff; font-size:15px; }
+  .keyidea b { color:var(--accent); font-weight:normal; }
+  footer { color:var(--muted); font-size:13px; border-top:1px solid var(--line); padding-top:12px; margin-top:32px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>How the water map handles data</h1>
+  <p>CalSim3_water_map.html &middot; from 12&nbsp;GB of model output to a page any phone can open</p>
+</header>
+<main>
+
+<div class="stage" style="--stage:var(--mac)">
+  <h2>1 &middot; The raw material</h2>
+  <div class="where">On your Mac &mdash; never published</div>
+  <div class="boxes">
+    <div class="file">
+      <div class="fname">s0020_coeqwal_calsim_output.csv</div>
+      <div class="fsize">~290 MB &mdash; one per scenario (43 total)</div>
+      <div class="fdesc">Everything CalSim3 simulated: 21,493 variables &times; 1,200 months</div>
+    </div>
+    <div class="file">
+      <div class="fname">cvhydroregion.gpkg&ensp;/&ensp;Shapefiles</div>
+      <div class="fsize">~280 MB</div>
+      <div class="fdesc">Map shapes: every river, canal, reservoir, and delivery area</div>
+    </div>
+  </div>
+  <p class="stagenote">Far too big for a web page &mdash; and 99% of it is variables the map never shows.</p>
+</div>
+
+<div class="arrow"><div class="line"></div><span class="lbl">Python build scripts</span><span class="sub">run occasionally, ahead of time &mdash; this is where all the computing happens</span></div>
+
+<div class="stage" style="--stage:var(--build)">
+  <h2>2 &middot; The distilled files</h2>
+  <div class="where">Made by build/rebuild_data.py &middot; make_html.py &middot; build_scenario.py</div>
+  <div class="boxes">
+    <div class="file">
+      <div class="fname">CalSim3_water_map.html</div>
+      <div class="fsize">6.5 MB &mdash; the map itself</div>
+      <div class="fdesc">Page design + drawing code + the default scenario's numbers written directly inside it</div>
+    </div>
+    <div class="file">
+      <div class="fname">scenarios/s0021.json &hellip; (43 files)</div>
+      <div class="fsize">~5 MB each</div>
+      <div class="fdesc">The same distillation, one file per scenario</div>
+    </div>
+  </div>
+  <p class="stagenote">The scripts keep only what gets drawn &mdash; 766 rivers &amp; canals, 62 reservoirs, 223 delivery areas &mdash; simplify the shapes, and round the numbers. About 2% of the original size.</p>
+</div>
+
+<div class="arrow"><div class="line"></div><span class="lbl">git push</span><span class="sub">from your Mac (or via a bundle / your signed-in browser)</span></div>
+
+<div class="stage" style="--stage:var(--gh)">
+  <h2>3 &middot; The public shelf</h2>
+  <div class="where">GitHub Pages &mdash; free file hosting, no computation</div>
+  <p class="stagenote" style="margin-top:2px">GitHub simply hands out copies of the finished files to whoever asks. There is no server "thinking" &mdash; if GitHub is up, the map is up. Nothing changes here until you push again.</p>
+</div>
+
+<div class="arrow"><div class="line"></div><span class="lbl">one visit</span><span class="sub">the visitor downloads the page once (6.5 MB)</span></div>
+
+<div class="stage" style="--stage:var(--browser)">
+  <h2>4 &middot; The visitor's browser</h2>
+  <div class="where">Where all the animation happens &mdash; on their computer, not yours</div>
+  <div class="boxes">
+    <div class="file">
+      <div class="fname">opens the map</div>
+      <div class="fdesc">Default scenario s0020 is already inside the page &mdash; works immediately</div>
+    </div>
+    <div class="file">
+      <div class="fname">picks another scenario</div>
+      <div class="fdesc">Fetches just that one file (~1&ndash;2 MB compressed); A/B keeps two in memory</div>
+    </div>
+    <div class="file">
+      <div class="fname">background map</div>
+      <div class="fdesc">The only outside pieces: basemap tiles (CARTO) and the Leaflet drawing library</div>
+    </div>
+  </div>
+</div>
+
+<div class="keyidea">
+  <b>The key idea:</b> every number a visitor ever sees was computed in advance by the build scripts.
+  GitHub is a shelf of finished files, and the visitor's own browser is the projector. That is why
+  hosting is free, nothing needs maintenance, and the map cannot "go down" on its own &mdash; and also
+  why adding a new scenario means running a script and pushing one new file.
+</div>
+
+<footer>
+  CalSim3 Central Valley water map &middot; COEQWAL scenario data &middot; diagram generated 2026-07-11
+</footer>
+
+</main>
+</body>
+</html>
