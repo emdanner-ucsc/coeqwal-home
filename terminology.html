@@ -61,6 +61,7 @@
 </tbody></table>
 <p><em>Served HC set (authority: live API + the team's Completed Scenario Listing, confirmed 2026-06-09): <strong>BL + HC1 + HC2 only</strong> — three hydroclimates, each paired with all 24 strategies (72 served scenario codes). The API exposes these as <code>hydroclimate_id</code> 2 / 3 / 4; that numbering is distinct from the editorial index in the first column. Two further <strong>real</strong> climates are run but <strong>not yet served</strong>: TaiESM1 (run names <code>cqlTAI</code>, s0107–s0131) — the model previously carrying the "HC3" editorial label — and EC-Earth3-Veg (<code>cqlECV</code>, s0133–s0157). When the API serves them they become new columns; their editorial codes are TBD.</em></p>
 <p><em>Correction (2026-06-09): an earlier version of this section listed "BL + HC1–HC3" as the canonical served set and described EC-Earth3-Veg as retired from the pipeline — both were stale. There is no served HC3; TaiESM1 and EC-Earth3-Veg are run-but-unserved per the 2026-06-06 listing. CESM2-LENS / "Warmer and Drier IV" remains explored-only and is not in the current run set.</em></p>
+<p><em>Update (2026-07-11): the table and notes above are superseded on the served set. On 2026-06-25 the API landed TaiESM1 (as <code>hydroclimate_id</code> 5) and EC-Earth3-Veg (as <code>hydroclimate_id</code> 7), so all five modeled hydroclimates are now served: the library is 115 scenarios = 5 hydroclimates × 23 strategies (strategy s0036 was removed — confirmed intentional 2026-07-01). Editorial short titles and figure column order for the two new hydroclimates are still TBD; they carry their climate-model names until settled. See the <a href="pipeline.html">pipeline page</a>, § "Data evolution and the lock".</em></p>
 <p><strong>CalSim 3 HC labels (coeqwal_cs3_scenario_listing):</strong></p>
 <ul>
 <li>0 (API id 2): <code>2023 DWR Historical Adjusted</code></li>
@@ -97,6 +98,7 @@
 <tr><td>s0065</td><td>Delta as Living Place</td><td>Improving Delta export reliability</td><td>Delta Conveyance Project</td></tr>
 </tbody></table>
 <p><strong>Baseline:</strong> <code>s0020</code> (Current operations, DWR 2023, recent land use, with TUCPs). All alternative scenarios are evaluated against s0020 paired with a Hydroclimate BL baseline.</p>
+<p><em>Update (2026-07-11): s0036 (Prioritizing functional delivery levels), listed in the table above, was removed from the served library on 2026-06-25 (confirmed intentional 2026-07-01); the served strategy count is 23.</em></p>
 <hr>
 <h2 id="themes">Themes</h2>
 <p>Themes split into <strong>use-case themes</strong> (sector-specific lenses) and <strong>cross-cutting themes</strong> (frames that apply across all sectors). This grouping matches the AC Workshop intro deck (slide 7).</p>
@@ -187,7 +189,7 @@
 </main>
 <footer>
 Generated from the project's conventions reference document; that document remains authoritative. Questions: Eric Danner.<br>
-Page generated 2026-07-03 08:26 AM PDT.
+Page generated 2026-07-03 08:26 AM PDT · dated update notes added 2026-07-11.
 </footer>
 </body>
 </html>
