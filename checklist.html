@@ -47,13 +47,13 @@ strike it here with a date rather than deleting it, and update the page it came 
   <p>The tracker reported the pre-June-25 world: "72 codes / 24 strategies each", "CWS in flux, 79–124". Dated notes now state the canonical facts (115 = 5 × 23, s0036 removed, CWS settled at 74). The strategy table itself still shows the pre-landing 24; a full table refresh is optional and Eric's call.</p>
   <p class="src">Source: brief-tracker index · found and noted in the 2026-07-11 cross-project review</p></div>
 
-<div class="item"><span class="who">Eric</span>Fold the 2026-07-11 dated update notes into the concepts and terminology source documents, then regenerate the pages
-  <p>concepts.html and terminology.html currently carry correction notes for the 06-25 landing; the underlying source docs still predate it.</p>
-  <p class="src">Source: 2026-07-11 consistency review</p></div>
+<div class="item"><span class="who">Eric</span>Fold the 2026-07-11 dated update notes into the concepts and terminology source documents — <strong>done 2026-07-11</strong>
+  <p>Matching dated notes were written into <code>shared/coeqwal_conventions.md</code> and <code>shared/coeqwal_core_concepts.md</code> on Eric's machine, so the source docs and the generated pages now agree. Nothing left to regenerate urgently; the next regeneration inherits the notes.</p>
+  <p class="src">Source: 2026-07-11 consistency review · closed in the cross-project audit</p></div>
 
-<div class="item"><span class="who">Eric</span>Fix the theme-narrative link in the coeqwal-briefs builder template
-  <p>The Jinja2 template emits the un-prefixed link; the deployed <code>baselines_dev.html</code> was patched by hand (<code>../../water-themes/…</code>) and the next builder run will re-break it until the template matches.</p>
-  <p class="src">Source: 2026-07-11 consistency review</p></div>
+<div class="item"><span class="who">Eric</span>Fix the theme-narrative link in the coeqwal-briefs builder — <strong>done 2026-07-11</strong>
+  <p>The link lives in <code>builder/briefbuilder/config.py</code> (not the template); the <code>../../water-themes/…</code> prefix is now applied there with a comment, matching the hand-patched deployed copy. Takes effect on the next builder run. The local coeqwal-briefs repo has this as an uncommitted change for Eric to commit.</p>
+  <p class="src">Source: 2026-07-11 consistency review · closed in the cross-project audit</p></div>
 
 <div class="item"><span class="who team">Team</span>Decide public labels and figure column order for TaiESM1 and EC-Earth3-Veg
   <p>Dev briefs show bare climate-model names until this is settled; it gates final brief figures.</p>
@@ -98,7 +98,7 @@ strike it here with a date rather than deleting it, and update the page it came 
   <p class="src">Source: map-basemap.html · status: open, decision pending</p></div>
 
 <div class="item"><span class="who team">Team</span>Hydroclimate vocabulary: harmonize or document the two public naming systems
-  <p>The map says "Moderate / Severe climate change"; the briefs say "Warmer and Drier I / II" for the same runs (CC50 / CC95). A visitor moving between surfaces sees two names for one climate. Likewise the map's scenario labels are run-listing descriptions rather than the canonical short titles, and its s0020 label says "Baseline" where the canon says "current operations". Decide: adopt one vocabulary, or document the mapping visibly on both surfaces.</p>
+  <p>The map says "Moderate / Severe climate change"; the briefs say "Warmer and Drier I / II" for the same runs (CC50 / CC95). A visitor moving between surfaces sees two names for one climate. Likewise the map's scenario labels are run-listing descriptions rather than the canonical short titles, and its s0020 label says "Baseline" where the canon says "current operations". Decide: adopt one vocabulary, or document the mapping visibly on both surfaces. (The audit also found a third variant: the builder's briefs label the BL column "Today's climate" where the terminology doc says "Historical" — fold it into the same decision.)</p>
   <p class="src">Source: 2026-07-11 cross-project review (map scenario metadata vs terminology.html)</p></div>
 
 <div class="item"><span class="who">Eric</span>Decide whether the map should be indexable — <strong>decided and done 2026-07-11</strong>
