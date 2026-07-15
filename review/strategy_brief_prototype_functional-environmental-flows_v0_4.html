@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Functional environmental flows — s0046 — COEQWAL Findings</title>
-<meta name="description" content="A COEQWAL strategy background brief describing scenario s0046 (Functional environmental flows): functional flow requirements on tributaries to the Sacramento and San Joaquin rivers. Background only — no modeled results.">
+<title>Functional environmental flows — COEQWAL Findings</title>
+<meta name="description" content="A COEQWAL strategy background brief describing functional environmental flows, one of 24 management strategies in the COEQWAL scenario library: functional flow requirements on tributaries to the Sacramento and San Joaquin rivers. Background only — no modeled results.">
 
 <!--
   COEQWAL strategy brief — PROTOTYPE
@@ -29,6 +29,24 @@
     name / short_description — builder/snapshots/2026-06-18/scenarios.json
     run_name / web_platform_id / lineage — builder/reference/scenario_listing.json
     theme tags / §5 membership — _meta/COEQWAL_Brief_Inventory.xlsx (Strategies (24))
+
+  v0_4 (2026-07-15): strategy-naming decision applied (see
+  _meta/COEQWAL_Strategy_Naming_Proposal.html and NOTES 2026-07-15).
+  Public identity is the descriptive name alone: run ID dropped from
+  <title>, meta description, h1, and all reader-facing prose; identity
+  sentence added after the TL;DR; §3 anchor reworded from "the s0020
+  reference" to current operations; §5 related list led by public
+  names (proposal's normalized set) instead of run IDs; references
+  note (run-ID table, five hydroclimates x strategy/current-operations)
+  added ahead of the footer. Filename slug now derives from the name
+  (functional-environmental-flows), never a run ID. Title subtitle
+  adapted to the background register ("a management strategy in the
+  COEQWAL scenario library") because this brief carries no modeled
+  results — the proposal's "modeled tier results across five
+  hydroclimates" title pattern belongs to results briefs.
+  sibling_group s0046 remains the machine key (footer RunID,
+  explore-link query string); devnotes keep run IDs as internal
+  vocabulary.
 
   v0_3 (2026-06-18, restyle): rebuilt onto the baselines_v0_7 / loi_v0_6
   cream-paper masthead shell for cross-brief consistency — accent moved
@@ -123,7 +141,15 @@ h1 {
   margin: 0 0 3rem;
   color: var(--ink);
 }
-h1 .scenario-id { color: var(--ink-faint); font-weight: 400; }
+h1 .subtitle {
+  display: block;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  font-weight: 400;
+  margin-top: 0.55rem;
+}
 
 /* ── Section structure ──────────────────────────────────────────── */
 section { margin: 3.2rem 0; }
@@ -157,6 +183,9 @@ em { font-style: italic; color: var(--ink); }
   font-weight: 400;
   margin: 0;
 }
+
+/* ── Identity sentence (follows the TL;DR) ──────────────────────── */
+p.identity { margin-top: 1.6rem; color: var(--ink-soft); }
 
 /* ── §3 Configuration table ─────────────────────────────────────── */
 table.config {
@@ -209,12 +238,43 @@ ul.related-list {
   line-height: 1.55;
 }
 ul.related-list li { margin: 0.5rem 0; color: var(--ink-soft); }
-ul.related-list .sid {
-  font-family: var(--mono);
-  font-size: 0.85em;
+ul.related-list .sname {
   font-weight: 500;
-  color: var(--accent);
-  margin-right: 0.3em;
+  color: var(--ink);
+}
+
+/* ── References note (run-ID table, footer-adjacent) ────────────── */
+.refs-intro {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+}
+table.refs {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  margin: 0.4rem 0 0.2rem;
+}
+table.refs thead th {
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  font-weight: 700;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink-soft);
+}
+table.refs tbody td {
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+table.refs td.runid {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  color: var(--ink-soft);
+  white-space: nowrap;
 }
 
 /* ── Disclaimer ─────────────────────────────────────────────────── */
@@ -314,6 +374,9 @@ ul.related-list .sid {
   table.config { font-size: 0.78rem; break-inside: avoid; }
   table.config thead { display: table-header-group; }
   table.config tr { break-inside: avoid; }
+  table.refs { font-size: 0.74rem; break-inside: avoid; }
+  table.refs thead { display: table-header-group; }
+  table.refs tr { break-inside: avoid; }
   ul.related-list li { break-inside: avoid; }
   .print-hint { display: none; }
   .footer { margin-top: 2.5rem; }
@@ -328,6 +391,8 @@ ul.related-list .sid {
   .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
   ul.related-list { font-size: 0.92rem; }
   table.config { font-size: 0.78rem; }
+  table.refs { font-size: 0.74rem; }
+  h1 .subtitle { font-size: 1rem; }
   .footer { flex-direction: column; }
   .masthead { font-size: 0.65rem; }
 }
@@ -345,17 +410,20 @@ ul.related-list .sid {
 
   <div class="devnote">
     <span class="label">DEVNOTE — PROTOTYPE</span>
-    Strategy brief template, populated with s0046 (Functional environmental flows) as the worked example — one of the 24 served strategies. Seven sections plus a metadata footer. No modeled results — the brief describes the operational configuration only. Devnote boxes are visible in the prototype and hidden in print.
+    Strategy brief template, populated with the functional-environmental-flows strategy (sibling_group s0046) as the worked example — one of the 24 strategies. Seven sections plus a references note and metadata footer. No modeled results — the brief describes the operational configuration only. 2026-07-15 naming decision applied: descriptive name is the public identity; run IDs live only in the references note, the sidecar, and these devnotes. Devnote boxes are visible in the prototype and hidden in print.
   </div>
 
   <!-- ─── §1 HEADLINE ──────────────────────────────────────────── -->
   <div class="eyebrow">Operational Strategy · Environment</div>
   <h1>
     Functional environmental flows
-    <span class="scenario-id">— s0046</span>
+    <span class="subtitle">A management strategy in the COEQWAL scenario library</span>
   </h1>
   <p class="tldr">
-    Scenario s0046 imposes minimum flow requirements on tributaries to the Sacramento and San Joaquin rivers, derived from natural-flow estimates with seasonal scaling. It is a variation of the functional-flows approach that applies the requirements to the tributaries only, leaving the downstream main stems and Delta outflow as they are under current operations. Everything else in the scenario matches current operations; the only intentional change is this tributary flow requirement set.
+    This strategy imposes minimum flow requirements on tributaries to the Sacramento and San Joaquin rivers, derived from natural-flow estimates with seasonal scaling. It is a variation of the functional-flows approach that applies the requirements to the tributaries only, leaving the downstream main stems and Delta outflow as they are under current operations. Everything else in the strategy matches current operations; the only intentional change is this tributary flow requirement set.
+  </p>
+  <p class="identity">
+    This brief describes <em>functional environmental flows</em>, one of 24 management strategies in the COEQWAL scenario library. Each strategy is simulated once under each of five hydroclimates; the references note at the end of this brief lists the model runs.
   </p>
 
   <!-- ─── §2 WHAT THIS STRATEGY CHANGES ───────────────────────── -->
@@ -365,7 +433,7 @@ ul.related-list .sid {
       The strategy adds new minimum flow requirements on tributaries to the Sacramento and San Joaquin rivers. The flow values were developed by the COEQWAL eflows team based on natural-flow estimates, with selected seasonal components added and scaled according to expected water availability in each year.
     </p>
     <p>
-      This is the tributaries-only variation of the functional-flows approach. A broader version of the same idea also places requirements on the main stems of the two rivers and on Delta outflow; s0046 deliberately leaves those downstream requirements out, so the only change from current operations is on the tributaries themselves.
+      This is the tributaries-only variation of the functional-flows approach. A broader version of the same idea also places requirements on the main stems of the two rivers and on Delta outflow; this strategy deliberately leaves those downstream requirements out, so the only change from current operations is on the tributaries themselves.
     </p>
     <p>
       The requirements are minimums, not maximums. Simulated flows are frequently larger than the functional minimum at any given location and timestep. Where a functional flow requirement coincides with a pre-existing minimum (for example, an existing biological-opinion flow), the larger of the two values is used.
@@ -379,14 +447,14 @@ ul.related-list .sid {
   <section>
     <h2><span class="num">§3</span> The configuration in detail</h2>
     <p>
-      The table compares the eight operational fields that define this scenario against the s0020 reference (DWR Adjusted Hydrology with 2020 Land Use and TUCPs). Rows that match the reference are shown quieter; rows that differ are highlighted.
+      The table compares the eight operational fields that define this strategy against current operations — the strategy that represents existing operational rules, recent (2020) land use, and TUCPs. Rows that match current operations are shown quieter; rows that differ are highlighted.
     </p>
     <table class="config">
       <thead>
         <tr>
           <th>Aspect</th>
-          <th>s0020 reference</th>
-          <th>s0046</th>
+          <th>Current operations</th>
+          <th>This strategy</th>
         </tr>
       </thead>
       <tbody>
@@ -410,7 +478,7 @@ ul.related-list .sid {
   <section>
     <h2><span class="num">§4</span> Lineage and source</h2>
     <p>
-      Scenario s0046 was developed by the COEQWAL eflows team. It is built on current operations under DWR's adjusted historical hydrology with the 2020 LandIQ land-use dataset, with functional minimum flow requirements added on tributaries to the Sacramento and San Joaquin rivers. It is the second version of the functional-flows configuration (EflowsV2): a variation that removes the downstream Sacramento, San Joaquin, and Delta-outflow requirements present in the broader functional-flows scenario, keeping only the tributary requirements. The CalSim model files for this scenario are referenced by the RunID in the footer.
+      This strategy was developed by the COEQWAL eflows team. It is built on current operations under DWR's adjusted historical hydrology with the 2020 LandIQ land-use dataset, with functional minimum flow requirements added on tributaries to the Sacramento and San Joaquin rivers. It is the second version of the functional-flows configuration (EflowsV2): a variation that removes the downstream Sacramento, San Joaquin, and Delta-outflow requirements present in the broader functional-flows scenario, keeping only the tributary requirements. The CalSim model files for this strategy are referenced by the run IDs in the references note at the end of this brief.
     </p>
   </section>
 
@@ -419,16 +487,16 @@ ul.related-list .sid {
     <h2><span class="num">§5</span> Related strategies</h2>
     <h3>Related strategies — Environment</h3>
     <ul class="related-list">
-      <li><span class="sid">s0030</span> — No flow requirements. Current operations without minimum flow requirements on Central Valley rivers.</li>
-      <li><span class="sid">s0031</span> — Salmon-friendly flows. Sacramento River flow requirements and Shasta cold-water storage protection to support Sacramento River winter-run Chinook salmon life-cycle needs.</li>
-      <li><span class="sid">s0032</span> — Functional environmental flows with groundwater regulations. The s0046 tributary flow requirements combined with groundwater pumping limits and reduced irrigated acreage, reflecting compliance with SGMA.</li>
-      <li><span class="sid">s0033</span> — Salmon-friendly flows with groundwater regulations. The s0031 salmon flows combined with groundwater pumping limits and reduced irrigated acreage, reflecting compliance with SGMA.</li>
-      <li><span class="sid">s0039</span> — Increase Delta outflows (65% of unimpaired flow). USBR Alternative 3 for the Long-Term Operation of the Central Valley Project; raises Delta outflow requirements to roughly 65% of unimpaired volume.</li>
-      <li><span class="sid">s0042</span> — Increase Delta outflows (55% of unimpaired flow). As s0039 at roughly the 55% level.</li>
+      <li><span class="sname">No minimum flow requirements.</span> Current operations without minimum flow requirements on Central Valley rivers.</li>
+      <li><span class="sname">Salmon-friendly flows.</span> Sacramento River flow requirements and Shasta cold-water storage protection to support Sacramento River winter-run Chinook salmon life-cycle needs.</li>
+      <li><span class="sname">Functional environmental flows with groundwater regulations.</span> The same tributary flow requirements as this strategy, combined with groundwater pumping limits and reduced irrigated acreage, reflecting compliance with SGMA.</li>
+      <li><span class="sname">Salmon-friendly flows with groundwater regulations.</span> The salmon-friendly flows combined with groundwater pumping limits and reduced irrigated acreage, reflecting compliance with SGMA.</li>
+      <li><span class="sname">Increase Delta outflows (65% of unimpaired flow).</span> USBR Alternative 3 for the Long-Term Operation of the Central Valley Project; raises Delta outflow requirements to roughly 65% of unimpaired volume.</li>
+      <li><span class="sname">Increase Delta outflows (55% of unimpaired flow).</span> The same approach at roughly the 55% level.</li>
     </ul>
     <div class="devnote">
       <span class="label">DEVNOTE — §5 REGENERATED FROM TAGS</span>
-      This list is the live pivot of the finalized Theme tag(s) column: every other served strategy carrying the Environment tag, in scenario-ID order. s0046 is single-tag (Environment), so it renders one subsection. s0032 and s0033 also carry Farms and groundwater, and s0039 and s0042 also carry Delta as a living place — so those scenarios' own briefs render two subsections each. Open decision: whether to truncate a long subsection to a top-N with a "see all" overflow link, or accept the full list as the price of selection-neutrality.
+      This list is the live pivot of the finalized Theme tag(s) column: every other served strategy carrying the Environment tag, in scenario-ID order (s0030, s0031, s0032, s0033, s0039, s0042). Per the 2026-07-15 naming decision, items lead with the public name (normalized set from the naming proposal — "No minimum flow requirements" for s0030) and the run IDs stay in this devnote only. s0046 is single-tag (Environment), so it renders one subsection. s0032 and s0033 also carry Farms and groundwater, and s0039 and s0042 also carry Delta as a living place — so those scenarios' own briefs render two subsections each. Open decision: whether to truncate a long subsection to a top-N with a "see all" overflow link, or accept the full list as the price of selection-neutrality.
     </div>
   </section>
 
@@ -457,6 +525,34 @@ ul.related-list .sid {
     </p>
   </section>
 
+  <!-- ─── REFERENCES NOTE (run IDs; footer-adjacent) ───────────── -->
+  <section class="refs-note">
+    <h2>References — model runs</h2>
+    <p class="refs-intro">
+      Each strategy is simulated once under each of five hydroclimates. The table lists the model run behind this strategy and the current-operations run it is compared against, for each hydroclimate, so any reader can trace this page to specific CalSim runs.
+    </p>
+    <table class="refs">
+      <thead>
+        <tr>
+          <th>Hydroclimate</th>
+          <th>This strategy</th>
+          <th>Current operations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Historical (adjusted)</td><td class="runid">s0046</td><td class="runid">s0020</td></tr>
+        <tr><td>Warmer and Drier I (cc50)</td><td class="runid">s0084</td><td class="runid">s0047</td></tr>
+        <tr><td>Warmer and Drier II (cc95)</td><td class="runid">s0104</td><td class="runid">s0056</td></tr>
+        <tr><td>TaiESM1 (public label pending)</td><td class="runid">s0130</td><td class="runid">s0108</td></tr>
+        <tr><td>EC-Earth3-Veg (public label pending)</td><td class="runid">s0156</td><td class="runid">s0134</td></tr>
+      </tbody>
+    </table>
+    <div class="devnote">
+      <span class="label">DEVNOTE — REFERENCES NOTE</span>
+      Added per the 2026-07-15 naming decision: run IDs appear in exactly two reader-traceable places — this note and the machine-readable sidecar. Run IDs from the naming proposal's 24-strategy table (row 3.2). Hydroclimate labels for TaiESM1 and EC-Earth3-Veg are pending a team decision; the note format works either way.
+    </div>
+  </section>
+
   <!-- ─── FOOTER (metadata) ────────────────────────────────────── -->
   <footer class="footer">
     <div class="meta-row">
@@ -466,7 +562,7 @@ ul.related-list .sid {
       <span>RunID <code>s0046_DCRadjHist_2020LU_EflowsV2</code></span>
       <span>Web platform ID 3.2</span>
       <span>Brief v1.0</span>
-      <span>Updated June 18, 2026 · 1:40 PM PDT</span>
+      <span>Updated July 15, 2026 · 11:26 AM PDT</span>
     </div>
   </footer>
 
