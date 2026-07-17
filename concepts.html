@@ -36,7 +36,7 @@
 <body>
 <header>
   <h1>COEQWAL core concepts</h1>
-  <p>The ideas the project is built on, one short entry each. Source document last updated 2026-06-12 10:01 AM PDT. <a href="index.html">Back to working pages</a>.</p>
+  <p>The ideas the project is built on, one short entry each. Source document last updated 2026-07-17 08:45 AM PDT. <a href="index.html">Back to working pages</a>.</p>
 </header>
 <main>
 <p><em>A curated list of the ideas the project is built on — for personal reference and for sharing with collaborators. Each concept gets a name, a short plain-language statement, and a pointer to the canonical doc that treats it fully.</em></p>
@@ -49,8 +49,7 @@
 <h2 id="b-the-modeling-foundation">B. The modeling foundation</h2>
 <p><strong>4. CalSim as the engine.</strong> The same model the U.S. Bureau of Reclamation and DWR use for actual planning, representing the Central Valley water system as a network: inflows, reservoir storage and releases, deliveries. COEQWAL runs it many times under different rules and climates. 100-year simulation period.</p>
 <p><strong>5. Scenario = strategy × hydroclimate.</strong> Every scenario pairs one water management strategy (the rules, priorities, and policies for allocating water) with one hydroclimate (the temperature, rain, and snow that determine how much water there is). The pairing is the unit of analysis; results belong to the pair, never to a strategy alone.</p>
-<p><strong>6. The scenario library.</strong> 24 strategies × 3 served hydroclimates (Historical, Warmer and Drier I, Warmer and Drier II), spanning current-operations variants, groundwater limits (SGMA), environmental and salmon-friendly flows, community water system priorities, Delta outflow levels, and Delta conveyance. Two further climates are run but not yet served.</p>
-<p><em>Update (2026-07-11): the paragraph above reflects the source document of 2026-06-12. On 2026-06-25 the API landed the two remaining hydroclimates (TaiESM1 and EC-Earth3-Veg), and strategy s0036 was removed (confirmed intentional), so the served library is now 115 scenarios = 5 hydroclimates × 23 strategies. Public labels for the two newest hydroclimates are pending. Details on the <a href="pipeline.html">pipeline page</a>.</em></p>
+<p><strong>6. The scenario library.</strong> 23 strategies × 5 hydroclimates — 115 served scenarios. The strategies span current-operations variants, groundwater limits (SGMA), environmental and salmon-friendly flows, community water system priorities, Delta outflow levels, and Delta conveyance. The hydroclimates are Historical hydroclimate and four projected climates named by stress level (public names adopted 2026-07-16): Moderate climate stress (EC-Earth3-Veg, slightly warmer and wetter), Moderate-high climate stress (CC50), High climate stress (CC95), and Extreme climate stress (TaiESM1). All five have been served since 2026-06-25.</p>
 <p><strong>7. Current operations as the anchor (s0020).</strong> One strategy — existing operational rules as specified by DWR in 2023 — serves as the reference all other strategies are measured against. In user-facing language it is always "current operations," never "baseline operations."</p>
 <hr>
 <h2 id="c-how-results-are-measured">C. How results are measured</h2>
@@ -76,7 +75,7 @@
 <p><strong>23. Averages can hide the worst-off.</strong> A sector mean can improve while a tail of small, rural, or historically excluded communities stays at Tier 4. "Percent of locations at Critical" is the most direct public-facing equity measure, and visualizations are obligated to surface, not minimize, the worst-off locations.</p>
 <hr>
 <h2 id="f-how-it-s-communicated">F. How it's communicated</h2>
-<p><strong>24. Plain-language discipline.</strong> A small controlled vocabulary, used verbatim: "current operations" (never "baseline" alone in public text), "alternative operations" (never "proposal"), named climates ("Warmer and Drier I", never "HC1"), named tiers (never bare numbers), "sector" rather than "outcome" in new writing. Terminology is a design surface, maintained as deliberately as the visuals.</p>
+<p><strong>24. Plain-language discipline.</strong> A small controlled vocabulary, used verbatim: "current operations" (never "baseline" alone in public text), "alternative operations" (never "proposal"), named climates ("Moderate-high climate stress", never "HC1"), named tiers (never bare numbers), "sector" rather than "outcome" in new writing. Terminology is a design surface, maintained as deliberately as the visuals.</p>
 <hr>
 <h2 id="g-future-directions">G. Future directions</h2>
 <p><em>Concepts that are part of the project's thinking but not expected in the launch product. Held here rather than discarded; when one ships, move it back into the conceptual section it belongs to (these two would return to F).</em></p>
@@ -87,7 +86,7 @@
 </main>
 <footer>
 Generated from the project's curated concepts document, which carries pointers to the full reference documents behind each concept; those documents remain authoritative. Questions: Eric Danner.<br>
-Page generated 2026-07-03 08:26 AM PDT · dated update note added 2026-07-11.
+Page generated 2026-07-17 08:47 AM PDT.
 </footer>
 </body>
 </html>

@@ -133,11 +133,11 @@ footer{padding:18px 26px 36px;font-size:.76rem;color:var(--ink3);max-width:900px
    (Scenarios, Hydroclimates, In-Depth Outcomes, LOIs tabs)
    ============================================================ */
 const CLIMATES=[
- {id:"hist",   name:"Historical",          stress:0.00, desc:"Historical temperature and precipitation over Central Valley inflow basins (DWR DCR2023 baseline)."},
- {id:"mod",    name:"Moderate risk",       stress:0.15, desc:"+1.2 °C, somewhat wetter (LOCA2 EC-Earth3-Veg SSP370; 44% level-of-concern)."},
- {id:"modhigh",name:"Moderate-high risk",  stress:0.40, desc:"+1.5 °C, −1.5% precipitation (DWR WGEN 50th percentile level-of-concern, CC50)."},
- {id:"high",   name:"High risk",           stress:0.70, desc:"+1.8 °C, slight precipitation decline (DWR WGEN 95th percentile level-of-concern, CC95)."},
- {id:"extreme",name:"Extreme risk",        stress:1.00, desc:"+1.9 °C, −7.2% precipitation (LOCA2 TaiESM1 SSP370)."}
+ {id:"hist",   name:"Historical hydroclimate", stress:0.00, desc:"Temperature, precipitation, and streamflow patterns reflect historical conditions (DWR DCR2023 baseline)."},
+ {id:"mod",    name:"Moderate climate stress", stress:0.15, desc:"Slightly warmer and wetter conditions (+7% runoff change; LOCA2 EC-Earth3-Veg SSP370, 40th percentile level of concern)."},
+ {id:"modhigh",name:"Moderate-high climate stress", stress:0.40, desc:"Warmer and slightly drier conditions (−1% runoff change; DWR WGEN CC50, 50th percentile level of concern)."},
+ {id:"high",   name:"High climate stress", stress:0.70, desc:"Much warmer and much drier conditions (−7% runoff change; DWR WGEN CC95, 95th percentile level of concern)."},
+ {id:"extreme",name:"Extreme climate stress", stress:1.00, desc:"Warmer and substantially drier conditions (−19% runoff change; LOCA2 TaiESM1 SSP370, 99th percentile level of concern)."}
 ];
 const THEMES=[
  {id:"cur",   name:"Current operations"},

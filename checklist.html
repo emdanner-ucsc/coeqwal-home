@@ -55,8 +55,8 @@ strike it here with a date rather than deleting it, and update the page it came 
   <p>The link lives in <code>builder/briefbuilder/config.py</code> (not the template); the <code>../../water-themes/…</code> prefix is now applied there with a comment, matching the hand-patched deployed copy. Takes effect on the next builder run. The local coeqwal-briefs repo has this as an uncommitted change for Eric to commit.</p>
   <p class="src">Source: 2026-07-11 consistency review · closed in the cross-project audit</p></div>
 
-<div class="item"><span class="who team">Team</span>Decide public labels and figure column order for TaiESM1 and EC-Earth3-Veg
-  <p>Dev briefs show bare climate-model names until this is settled; it gates final brief figures.</p>
+<div class="item"><span class="who team">Team</span>Decide public labels and figure column order for TaiESM1 and EC-Earth3-Veg — <strong>decided 2026-07-16</strong>
+  <p>Public names adopted on the climate-stress scale: Historical hydroclimate; Moderate climate stress (EC-Earth3-Veg, 40th percentile level of concern, +7% runoff); Moderate-high climate stress (CC50, 50th, −1%); High climate stress (CC95, 95th, −7%); Extreme climate stress (TaiESM1, 99th, −19%). Column order Historical → Moderate → Moderate-high → High → Extreme. Encoded in <code>builder/briefbuilder/config.py</code> and <code>shared/coeqwal_conventions.md</code>; figure-label wrap at 5 columns still needs the eyeball pass (coeqwal-briefs OPEN_ITEMS Step 1).</p>
   <p class="src">Source: pipeline.html open items</p></div>
 
 <div class="item"><span class="who team">Team</span>Theme naming decisions
@@ -98,7 +98,7 @@ strike it here with a date rather than deleting it, and update the page it came 
   <p class="src">Source: map-basemap.html · status: open, decision pending</p></div>
 
 <div class="item"><span class="who team">Team</span>Hydroclimate vocabulary: harmonize or document the two public naming systems
-  <p>The map says "Moderate / Severe climate change"; the briefs say "Warmer and Drier I / II" for the same runs (CC50 / CC95). A visitor moving between surfaces sees two names for one climate. Likewise the map's scenario labels are run-listing descriptions rather than the canonical short titles, and its s0020 label says "Baseline" where the canon says "current operations". Decide: adopt one vocabulary, or document the mapping visibly on both surfaces. (The audit also found a third variant: the builder's briefs label the BL column "Today's climate" where the terminology doc says "Historical" — fold it into the same decision.)</p>
+  <p>The canonical names are now the climate-stress scale adopted 2026-07-16 ("Moderate-high climate stress" for CC50, "High climate stress" for CC95, etc. — see terminology). The map still says "Moderate / Severe climate change" for the same runs; a visitor moving between surfaces sees two names for one climate. Likewise the map's scenario labels are run-listing descriptions rather than the canonical short titles, and its s0020 label says "Baseline" where the canon says "current operations". Remaining decision: update the map to the adopted vocabulary, or document the mapping visibly on both surfaces. (The third variant found by the audit — the builder's BL column label "Today's climate" — was resolved 2026-07-16: now "Historical hydroclimate".)</p>
   <p class="src">Source: 2026-07-11 cross-project review (map scenario metadata vs terminology.html)</p></div>
 
 <div class="item"><span class="who">Eric</span>Decide whether the map should be indexable — <strong>decided and done 2026-07-11</strong>
