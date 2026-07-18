@@ -10,6 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_9 (2026-07-18, third pass): strategies table made collapsible
+   *   (<details>, collapsed by default) so the Background reading
+   *   section stays compact; card body now defines a scenario as one
+   *   strategy combined with one hydroclimate (24 × 5 = 120 scenarios,
+   *   115 served). Conceptual correction from Eric: the table is the
+   *   scenario matrix (cell = scenario), not a second copy of the
+   *   strategy list — the pickers describe the components, the table
+   *   shows their combinations. Single worked-example row link kept.
+   *
    * v0_9 (2026-07-18, second pass): "The 24 strategies at a glance"
    *   table added to Background reading, above the two pickers.
    *   Public names per the 2026-07-15 naming decision, grouped by the
@@ -383,9 +392,25 @@
     outline: none;
   }
 
-  /* Strategies-at-a-glance table (v0_9 second pass) */
+  /* Strategies-at-a-glance table (v0_9 second pass; collapsible third pass) */
   .strategy-table-card { margin-bottom: 22px; }
-  .strategy-table-wrap { margin-top: 16px; overflow-x: auto; }
+  .strategy-details { margin-top: 14px; }
+  .strategy-details summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-eyebrow);
+    padding: 10px 14px;
+    background: var(--cream-page);
+    border: 1px solid var(--rule-on-cream);
+    border-radius: 2px;
+    list-style: none;
+    user-select: none;
+  }
+  .strategy-details summary::-webkit-details-marker { display: none; }
+  .strategy-details summary::before { content: "▸  "; }
+  .strategy-details[open] summary::before { content: "▾  "; }
+  .strategy-table-wrap { margin-top: 12px; overflow-x: auto; }
   table.strategy-table {
     width: 100%;
     border-collapse: collapse;
@@ -887,15 +912,17 @@
     <div class="layer-label">Background reading</div>
   </div>
   <p class="layer-intro">
-    The table shows all 24 modeled strategies and the individual model runs behind them — one run per strategy per hydroclimate. Then pick one strategy or one hydroclimate to read a short background brief — what the strategy does, or what the climate model assumes.
+    The table shows how the scenario library is built — each scenario pairs one strategy with one hydroclimate. Then pick one strategy or one hydroclimate to read a short background brief — what the strategy does, or what the climate model assumes.
   </p>
 
   <div class="card strategy-table-card">
     <div class="card-eyebrow">Orientation</div>
     <h2 class="card-title">The 24 strategies at a glance</h2>
     <p class="card-body">
-      COEQWAL models 24 management strategies, each simulated once under each of five hydroclimates. Each code identifies one model run — one strategy under one hydroclimate. Hydroclimate columns run from historical conditions to extreme climate stress.
+      COEQWAL models 24 management strategies, each simulated once under each of five hydroclimates. A scenario is one strategy combined with one hydroclimate: 24 strategies × 5 hydroclimates gives 120 scenarios, of which 115 are currently in the served library. Each code in the table identifies one scenario; hydroclimate columns run from historical conditions to extreme climate stress.
     </p>
+    <details class="strategy-details">
+      <summary>See the full table — all 24 strategies and their scenario codes</summary>
     <div class="strategy-table-wrap">
       <table class="strategy-table">
         <thead>
@@ -1024,6 +1051,7 @@
       appear on public pages is an open team decision — the 2026-07-15 naming
       proposal confines them to each brief's references note.
     </div>
+    </details>
   </div>
 
   <div class="picker-grid">
