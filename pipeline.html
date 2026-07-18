@@ -39,7 +39,7 @@
   <p>How a published brief page gets from the data API to coeqwal.org. Source document last updated 2026-07-17 08:45 AM PDT. <a href="index.html">Back to working pages</a>.</p>
 </header>
 <main>
-<p><em>How a published brief page gets from the data API to coeqwal.org.</em> <em>Last updated: 2026-07-01</em></p>
+<p><em>How a published brief page gets from the data API to coeqwal.org.</em> <em>Last updated: 2026-07-18</em></p>
 <hr>
 <h2 id="context">Context</h2>
 <p>The COEQWAL stack is described in <code>coeqwal_project_ecosystem.md</code> — a Next.js 15 static-export website, a FastAPI backend at <code>api.coeqwal.org</code>, and a PostgreSQL data platform feeding it. This document covers a narrower question: how individual brief pages (theme, LOI, strategy) are produced and published.</p>
@@ -74,9 +74,10 @@
 <li><strong>Per-user customization.</strong> Briefs are the same for every reader.</li>
 <li><strong>Personalization, filters, interactivity.</strong> Those live in the explorer.</li>
 </ul>
-<h2 id="during-prototype-phase">During prototype phase</h2>
-<p>Eric is currently authoring brief content in HTML by hand, using MATLAB to look at the data. Values are typed in directly. This is fine for prototypes. When the Python build step is built, the same HTML templates can be parameterized and the manually-typed values come out of the JSON sidecar instead. The MATLAB pipeline is not in the production loop.</p>
-<p><strong>Provenance note (2026-06-03):</strong> the prototype CSV (<code>coeqwal-viz/data/coeqwal_data_hc_continuous.csv</code>) mixes real API-derived integer tiers with synthetic fractional values and a synthetic HC3 (gap-fill layers in <code>fetch_tier_data.m</code>). It is prototype-figure material only and is not an input to this pipeline. The production build step reads from the API exclusively.</p>
+<h2 id="development-builds">Development builds</h2>
+<p><em>Rewritten 2026-07-18. The earlier version of this section described the pre-builder prototype phase — brief HTML authored by hand, with values read from MATLAB and typed in directly. That phase ended when the builder came online (2026-06-06), and MATLAB is no longer part of the brief workflow in development or production.</em></p>
+<p>Brief development uses the same pipeline as production publishing. Dev briefs are built with <code>build.py fetch | render | verify</code> in the coeqwal-briefs repo, reading from the cached <code>2026-07-02</code> API snapshot — the locked source of record (see "Data evolution and the lock"). Every value in a dev brief traces to a cached API payload through the same verification stage a published brief will use; the only difference between a dev build and a published one is that dev outputs (<code>builder/output/*_dev.html</code>) are unversioned working files, not version-locked artifacts. The invariant is unchanged in both cases: data is fetched from the API once at build time, never at view time.</p>
+<p><strong>Provenance note (2026-06-03, historical):</strong> the prototype CSV (<code>coeqwal-viz/data/coeqwal_data_hc_continuous.csv</code>) mixed real API-derived integer tiers with synthetic fractional values and a synthetic HC3 (gap-fill layers in <code>fetch_tier_data.m</code>). It was prototype-figure material only and was never an input to this pipeline; it is fully retired now that <code>tier_continuous</code> is served by the API. Kept here so figures from that era can be traced to their source.</p>
 <h2 id="build-approach-agreed-2026-06-04-build-started-2026-06-06">Build approach (agreed 2026-06-04; build started 2026-06-06)</h2>
 <p><strong>Status 2026-06-09: all three builder stages are built.</strong> Stage 1 (2026-06-06): cache-first API client, hydroclimate/brief config, data layer, verification stage, CLI (<code>build.py fetch | summary | verify</code>); real Folsom data cached (72 scenarios), headline numbers recomputed and independently verified. Stage 2 (2026-06-06 evening): Jinja2 template extracted from LOI brief v0.6 (<code>builder/templates/loi_brief.html.j2</code>), shared computed structure (<code>compute.py</code>), <code>build.py render</code> with rendered-output verification. Stage 3 (2026-06-06 night): JSON sidecar emission (<code>briefbuilder/sidecar.py</code>) per <code>builder/SIDECAR_SCHEMA.md</code>, emitted only on a passing build; <code>verify.verify_sidecar</code> independently recomputes every value and payload hash from the raw cache (tamper-tested). Dev briefs + sidecars for Folsom and Shasta build end-to-end from real cached data in <code>builder/output/</code>. Details in coeqwal-briefs NOTES 2026-06-06 and 2026-06-07.</p>
 <p><strong>Status 2026-07-01: the anticipated data landed, and the builder consumes it.</strong> The 2026-06-25 API snapshot cleared both long-standing data gates: every location record now carries a continuous <code>tier_continuous</code> value alongside the integer <code>tier_level</code>, and the library grew to <strong>115 scenarios = 5 hydroclimates × 23 strategies</strong> (TaiESM1 and EC-Earth3-Veg landed as hydroclimate ids 5 and 7; strategy s0036 was removed — confirmed intentional). The builder's figures were wired to the continuous values the same week (the "clean-render step"): integer <code>tier_level</code> remains the tier label and drives every count and prose claim (the signed-off exclude-BL §1 method), while <code>tier_continuous</code> drives figure positions, means, the climate/operations decomposition, the hidden data tables, and the JSON block. A continuous value always sits inside its label's band (<code>tier_level</code> ≤ value ≤ <code>tier_level</code> + 1, verified against the full cache). Both dev briefs re-rendered and verified.</p>
@@ -117,7 +118,7 @@
 </main>
 <footer>
 Generated from the project's pipeline document; that document remains authoritative. Some entries reference internal project files and logs. Questions: Eric Danner.<br>
-Page generated 2026-07-17 08:47 AM PDT.
+Page generated 2026-07-18 09:52 AM PDT.
 </footer>
 </body>
 </html>
