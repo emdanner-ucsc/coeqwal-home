@@ -10,6 +10,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_9 (2026-07-18, second pass): "The 24 strategies at a glance"
+   *   table added to Background reading, above the two pickers.
+   *   Public names per the 2026-07-15 naming decision, grouped by the
+   *   six picker families; run IDs for all five hydroclimates in the
+   *   public column order adopted 2026-07-16 (Historical → Moderate →
+   *   Moderate-high → High → Extreme; note this reorders the naming-
+   *   proposal table, whose columns are in internal order). Run IDs
+   *   retained per Eric 2026-07-18 — the team has not settled where
+   *   run IDs surface publicly; flagged in a REVIEW note on the card.
+   *   Strategy 4.2 row marked not in the served library (s0036
+   *   removed; its EC-Earth3-Veg twin never run). The Functional
+   *   environmental flows name links to the worked-example brief.
+   *
    * v0_9 (2026-07-18): fully populated for the colleague walk-through.
    *   - Team-review banner added above the site header: layout is
    *     illustrative (not the production design system — see the v0_7
@@ -368,6 +381,65 @@
     font-size: 14px;
     color: var(--text-dark);
     outline: none;
+  }
+
+  /* Strategies-at-a-glance table (v0_9 second pass) */
+  .strategy-table-card { margin-bottom: 22px; }
+  .strategy-table-wrap { margin-top: 16px; overflow-x: auto; }
+  table.strategy-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .strategy-table th, .strategy-table td {
+    text-align: left;
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--rule-on-cream);
+  }
+  .strategy-table thead th {
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-eyebrow);
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+  .strategy-table thead tr:last-child th {
+    border-bottom: 2px solid var(--rule-strong);
+  }
+  .strategy-table thead th.span-head {
+    font-weight: 600;
+    color: var(--text-mid);
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .strategy-table td.run-id {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-mid);
+    white-space: nowrap;
+  }
+  .strategy-table td.strategy-name { min-width: 240px; }
+  .strategy-table tr.family-row td {
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-dark);
+    background: var(--cream-page);
+    padding-top: 9px;
+  }
+  .strategy-table a {
+    color: var(--text-eyebrow);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .table-footnote {
+    font-size: 12px;
+    color: var(--text-mid);
+    margin: 10px 0 0 0;
   }
 
   /* Featured */
@@ -815,8 +887,144 @@
     <div class="layer-label">Background reading</div>
   </div>
   <p class="layer-intro">
-    Pick one strategy and one hydroclimate to read a short background brief — what the strategy does, or what the climate model assumes.
+    The table shows all 24 modeled strategies and the individual model runs behind them — one run per strategy per hydroclimate. Then pick one strategy or one hydroclimate to read a short background brief — what the strategy does, or what the climate model assumes.
   </p>
+
+  <div class="card strategy-table-card">
+    <div class="card-eyebrow">Orientation</div>
+    <h2 class="card-title">The 24 strategies at a glance</h2>
+    <p class="card-body">
+      COEQWAL models 24 management strategies, each simulated once under each of five hydroclimates. Each code identifies one model run — one strategy under one hydroclimate. Hydroclimate columns run from historical conditions to extreme climate stress.
+    </p>
+    <div class="strategy-table-wrap">
+      <table class="strategy-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Strategy</th>
+            <th colspan="5" class="span-head">Model run under each hydroclimate</th>
+          </tr>
+          <tr>
+            <th>Historical</th>
+            <th>Moderate</th>
+            <th>Moderate-high</th>
+            <th>High</th>
+            <th>Extreme</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="family-row"><td colspan="6">Current operations and variants</td></tr>
+          <tr>
+            <td class="strategy-name">Current operations</td>
+            <td class="run-id">s0020</td><td class="run-id">s0134</td><td class="run-id">s0047</td><td class="run-id">s0056</td><td class="run-id">s0108</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Current operations with historical land use</td>
+            <td class="run-id">s0011</td><td class="run-id">s0133</td><td class="run-id">s0048</td><td class="run-id">s0057</td><td class="run-id">s0107</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Current operations without TUCPs</td>
+            <td class="run-id">s0021</td><td class="run-id">s0135</td><td class="run-id">s0049</td><td class="run-id">s0058</td><td class="run-id">s0109</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Current USBR operations</td>
+            <td class="run-id">s0024</td><td class="run-id">s0137</td><td class="run-id">s0050</td><td class="run-id">s0059</td><td class="run-id">s0111</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Current USBR operations without TUCPs</td>
+            <td class="run-id">s0023</td><td class="run-id">s0136</td><td class="run-id">s0051</td><td class="run-id">s0060</td><td class="run-id">s0110</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Groundwater management</td></tr>
+          <tr>
+            <td class="strategy-name">Groundwater pumping limits in the San Joaquin Valley</td>
+            <td class="run-id">s0025</td><td class="run-id">s0138</td><td class="run-id">s0067</td><td class="run-id">s0087</td><td class="run-id">s0112</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Groundwater pumping limits and reduced crop acreage in the San Joaquin Valley</td>
+            <td class="run-id">s0026</td><td class="run-id">s0139</td><td class="run-id">s0068</td><td class="run-id">s0088</td><td class="run-id">s0113</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Groundwater pumping limits in the Central Valley</td>
+            <td class="run-id">s0027</td><td class="run-id">s0140</td><td class="run-id">s0062</td><td class="run-id">s0063</td><td class="run-id">s0114</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Groundwater pumping limits and reduced crop acreage in the Central Valley</td>
+            <td class="run-id">s0028</td><td class="run-id">s0141</td><td class="run-id">s0069</td><td class="run-id">s0089</td><td class="run-id">s0115</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Environmental flows</td></tr>
+          <tr>
+            <td class="strategy-name">No minimum flow requirements</td>
+            <td class="run-id">s0030</td><td class="run-id">s0143</td><td class="run-id">s0071</td><td class="run-id">s0091</td><td class="run-id">s0117</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy_brief_prototype_functional-environmental-flows_v0_4.html" target="_blank" rel="noopener">Functional environmental flows →</a></td>
+            <td class="run-id">s0046</td><td class="run-id">s0156</td><td class="run-id">s0084</td><td class="run-id">s0104</td><td class="run-id">s0130</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Functional environmental flows with groundwater regulations</td>
+            <td class="run-id">s0032</td><td class="run-id">s0145</td><td class="run-id">s0073</td><td class="run-id">s0093</td><td class="run-id">s0119</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Salmon-friendly flows</td>
+            <td class="run-id">s0031</td><td class="run-id">s0144</td><td class="run-id">s0072</td><td class="run-id">s0092</td><td class="run-id">s0118</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Salmon-friendly flows with groundwater regulations</td>
+            <td class="run-id">s0033</td><td class="run-id">s0146</td><td class="run-id">s0074</td><td class="run-id">s0094</td><td class="run-id">s0120</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Community water systems</td></tr>
+          <tr>
+            <td class="strategy-name">Prioritizing human health delivery levels to community water systems</td>
+            <td class="run-id">s0035</td><td class="run-id">s0147</td><td class="run-id">s0075</td><td class="run-id">s0095</td><td class="run-id">s0121</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Prioritizing functional delivery levels to community water systems&thinsp;*</td>
+            <td class="run-id">s0036</td><td class="run-id">s0148</td><td class="run-id">s0076</td><td class="run-id">s0096</td><td class="run-id">s0122</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Prioritizing full demands of community water systems</td>
+            <td class="run-id">s0037</td><td class="run-id">s0149</td><td class="run-id">s0077</td><td class="run-id">s0097</td><td class="run-id">s0123</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Delta outflows</td></tr>
+          <tr>
+            <td class="strategy-name">Reduce Delta outflows (35% of unimpaired flow)</td>
+            <td class="run-id">s0040</td><td class="run-id">s0151</td><td class="run-id">s0079</td><td class="run-id">s0099</td><td class="run-id">s0125</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Maintain Delta outflows (45% of unimpaired flow)</td>
+            <td class="run-id">s0041</td><td class="run-id">s0152</td><td class="run-id">s0080</td><td class="run-id">s0100</td><td class="run-id">s0126</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Increase Delta outflows (55% of unimpaired flow)</td>
+            <td class="run-id">s0042</td><td class="run-id">s0153</td><td class="run-id">s0081</td><td class="run-id">s0101</td><td class="run-id">s0127</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Increase Delta outflows (65% of unimpaired flow)</td>
+            <td class="run-id">s0039</td><td class="run-id">s0150</td><td class="run-id">s0078</td><td class="run-id">s0098</td><td class="run-id">s0124</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Storage, salinity &amp; conveyance</td></tr>
+          <tr>
+            <td class="strategy-name">Increase Shasta carry-over storage</td>
+            <td class="run-id">s0044</td><td class="run-id">s0154</td><td class="run-id">s0082</td><td class="run-id">s0102</td><td class="run-id">s0128</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Relax Delta salinity standards</td>
+            <td class="run-id">s0045</td><td class="run-id">s0155</td><td class="run-id">s0083</td><td class="run-id">s0103</td><td class="run-id">s0129</td>
+          </tr>
+          <tr>
+            <td class="strategy-name">Delta Conveyance Project</td>
+            <td class="run-id">s0065</td><td class="run-id">s0157</td><td class="run-id">s0085</td><td class="run-id">s0105</td><td class="run-id">s0131</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-footnote">* Not currently in the served scenario library; planned run codes shown.</p>
+    <div class="note">
+      <b>REVIEW</b>
+      Run IDs are shown in this table for team review. Where (or whether) run IDs
+      appear on public pages is an open team decision — the 2026-07-15 naming
+      proposal confines them to each brief's references note.
+    </div>
+  </div>
 
   <div class="picker-grid">
     <div class="card picker-card">
