@@ -10,6 +10,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_10 (2026-07-19, second pass): correction per Eric — the
+   *   Functional environmental flows strategy brief (v0_4) is a
+   *   REFERENCE brief, not a results brief: it describes the
+   *   operational configuration and carries no modeled results (its
+   *   own header devnote says so; its subtitle is deliberately in the
+   *   background register). The first pass had moved it into the
+   *   results band on a mistaken line in the 2026-07-19 decision
+   *   record. Reverted: the "Results for a single strategy" card is
+   *   removed from the results band and the worked-example link is
+   *   restored on the strategy-picker card, where it belongs as the
+   *   one built strategy reference brief. Footer and band intros
+   *   adjusted to match. Open question raised by Eric same day, not
+   *   yet decided: whether to generate a results brief for every
+   *   individual scenario (one per strategy × hydroclimate cell) —
+   *   which would give the strategies-table cells destinations and
+   *   would need its own naming and template conventions.
+   *
    * v0_10 (2026-07-19): page divided into two labeled brief classes,
    *   per the 2026-07-19 decision — "results briefs" (report modeled
    *   tier results) and "reference briefs" (part of the COEQWAL
@@ -829,7 +846,7 @@
     <div class="layer-meta">Report modeled tier results</div>
   </div>
   <p class="layer-intro">
-    Results briefs report modeled tier results from the scenario library — for the baseline, for each water theme, for one strategy, and for individual sectors and places.
+    Results briefs report modeled tier results from the scenario library — for the baseline, for each water theme, and for individual sectors and places.
   </p>
 
   <div class="layer-header on-navy">
@@ -907,29 +924,6 @@
     carve-out) — that decision also bears on whether this classification
     holds.
   </div>
-
-  <h3 class="sub-heading">Results for a single strategy</h3>
-  <p class="sub-heading-sub">
-    One worked example is built so far; strategy results briefs for the other strategies are to come.
-  </p>
-
-  <!-- v0_10: worked example moved here from the strategy-picker card in the
-       reference band — this brief reports modeled results, while the
-       picker's stated purpose is descriptive. -->
-  <a class="card" href="strategy_brief_prototype_functional-environmental-flows_v0_4.html" target="_blank" rel="noopener">
-    <div class="card-eyebrow">Strategy results — worked example</div>
-    <h3 class="card-title">Functional environmental flows</h3>
-    <p class="card-body">
-      Reports modeled tier results for the functional environmental flows strategy under all five hydroclimates, compared with current operations under each matching hydroclimate.
-    </p>
-    <div class="card-foot">
-      <span class="card-stats">
-        <span><em>1</em>strategy</span>
-        <span><em>5</em>hydroclimates</span>
-      </span>
-      <span class="read-link">Read brief →</span>
-    </div>
-  </a>
 </section>
 
 <!-- ===================== LAYER 2: BROWSE ALL (results briefs, continued) ===================== -->
@@ -1028,7 +1022,7 @@
     <div class="layer-meta">Describe the COEQWAL process — no results</div>
   </div>
   <p class="layer-intro">
-    Reference briefs describe the pieces the scenario library is built from and contain no model results. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The pickers will hold a short reference brief for each strategy and each hydroclimate — what the strategy does, or what the climate model assumes. Technical descriptions of how each sector's tiers are calculated will also live here.
+    Reference briefs describe the pieces the scenario library is built from and contain no model results. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The pickers will hold a short reference brief for each strategy and each hydroclimate — what the strategy does, or what the climate model assumes. One worked example is built (functional environmental flows); the rest are to come. Technical descriptions of how each sector's tiers are calculated will also live here.
   </p>
 
   <div class="card strategy-table-card">
@@ -1218,11 +1212,12 @@
           </optgroup>
         </select>
       </div>
-      <!-- v0_10: worked-example link moved to the results band — it reports
-           results, so it no longer sits in this descriptive card. -->
+      <!-- v0_10 second pass: worked-example link restored here — the brief
+           describes the operational configuration and carries no modeled
+           results (its own header devnote), so it is a reference brief. -->
       <div class="card-foot">
         <span class="card-stats"><span><em>24</em>strategies</span></span>
-        <span class="read-link">Strategy reference briefs to come</span>
+        <a class="read-link" href="strategy_brief_prototype_functional-environmental-flows_v0_4.html" target="_blank" rel="noopener">Worked example: Functional environmental flows →</a>
       </div>
     </div>
 
@@ -1270,7 +1265,7 @@
   <h3>What is a brief?</h3>
   <div>
     <p>A brief is a short, citable document. Briefs on this page fall into two classes.</p>
-    <p><em>Results briefs</em> report modeled tier results from a fixed set of simulations — for a theme, a sector, a place, or a strategy. They report what the model produces; they do not predict what will happen, judge whether results are acceptable, or recommend any course of action.</p>
+    <p><em>Results briefs</em> report modeled tier results from a fixed set of simulations — for a theme, a sector, or a place. They report what the model produces; they do not predict what will happen, judge whether results are acceptable, or recommend any course of action.</p>
     <p><em>Reference briefs</em> describe the pieces the simulations are built from — what a strategy changes about system operations, or what a hydroclimate model assumes. They are part of the COEQWAL process and contain no model results.</p>
   </div>
 </section>
