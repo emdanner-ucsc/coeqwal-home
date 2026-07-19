@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community water systems — Theme narrative | COEQWAL</title>
+<meta name="description" content="The COEQWAL community-water-systems theme narrative: can California&#x27;s communities reliably access safe and affordable drinking water in wet years, dry years, and a changing climate?">
+
+<!-- COEQWAL Community water systems (cws) theme NARRATIVE prototype v0.2 — rebuilt 2026-07-18 from the team's latest "Securing community water supplies.docx". Metric scope newly narrowed to CVP/SWP surface-water deliveries (groundwater excluded, pointed to GW Storage indicator); reliability computed vs SWRCB DDW-derived potable demands; §6 populated with real model findings (drinking-water vs env-flows trade-off; foothill/Sac Valley vs export-dependent geography; HH&S + storage strategies under extreme conditions). Typo fixes vs docx: 'how reliable specific water supplies', 'major water projects', 'affects'. Open decisions flagged inline: public display name (doc title is directive), 38M/97% source, §6 evaluative-verb policy. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for [TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+
+/* ── Section structure (lighter rhythm — no rules between sections) */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Stub markers ───────────────────────────────────────────────── */
+.stub {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.45em;
+  border-radius: 2px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ── Figure placeholder ─────────────────────────────────────────── */
+.figure-stub {
+  margin: 1.2rem 0 0;
+  border: 1.5px dashed var(--ink-faint);
+  background:
+    repeating-linear-gradient(-45deg,
+      transparent 0, transparent 12px,
+      rgba(0,0,0,0.025) 12px, rgba(0,0,0,0.025) 13px);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+.figure-stub .label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.6rem;
+}
+.figure-stub .desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 28em;
+}
+.figure-stub code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.05);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.95rem 0 0;
+}
+.caption .num { font-weight: 700; color: var(--ink); }
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ── Inline term gloss ──────────────────────────────────────────── */
+.term {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── Related briefs section ─────────────────────────────────────── */
+.related-briefs h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 1.6rem 0 0.6rem;
+}
+.related-briefs h3:first-of-type {
+  margin-top: 0.4rem;
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.related-list li {
+  margin: 0.36rem 0;
+  padding: 0;
+}
+.related-list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+}
+.related-list a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.related-rule {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin: 0.55rem 0 0;
+  line-height: 1.6;
+}
+.related-rule a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  font-style: normal;
+}
+.related-rule a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  transition: transform 0.2s;
+}
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Devnotes (build-time annotations, hidden in print) ─────────── */
+.devnote {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--stub);
+  background: var(--stub-bg);
+  border-left: 2px solid var(--stub);
+  padding: 0.5rem 0.75rem;
+  margin: 0.9rem 0 0;
+  line-height: 1.55;
+}
+.devnote::before {
+  content: 'NOTE  ';
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.devnote.q::before {
+  content: 'SOURCE  ';
+}
+.devnote code {
+  background: rgba(176, 130, 74, 0.13);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .figure-stub { aspect-ratio: 16 / 8; }
+  figure { break-inside: avoid; }
+  .devnote { display: none; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #888;
+  }
+  .related-list a[href]::after { content: ''; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  .related-list { font-size: 0.92rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+
+/* ── Narrative-variant additions ────────────────────────────────── */
+.lede-meta {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--ink-faint);
+  margin: -2rem 0 2.8rem;
+}
+section ul { margin: 0 0 1.1rem; padding-left: 1.25rem; }
+section li { margin: 0.4rem 0; padding-left: 0.15rem; }
+.box {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-faint);
+  padding: 1rem 1.25rem;
+  margin: 1.2rem 0;
+  border-radius: 0 3px 3px 0;
+}
+.box .box-title {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  margin: 0 0 0.55rem;
+}
+.box p { margin: 0 0 0.7rem; }
+.box p:last-child { margin-bottom: 0; }
+.closing {
+  font-size: 1.12rem;
+  line-height: 1.55;
+  font-style: italic;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Theme Narrative · Public</span>
+  </header>
+
+  <div class="eyebrow">Community water systems · Public Narrative</div>
+  <h1>Community water systems</h1>
+  <p class="lede-meta">Theme narrative (public). Source: "Securing community water supplies.docx" (team revision, received 2026-07-18). Generated: 2026-07-18.</p>
+
+  <div class="devnote">v0_2 rebuilt from the latest team document. Published title stays "Community water systems" — one public display name per theme is an open decision (the team document title is "Securing community water supplies"). The theme's metric scope is newly narrowed to CVP/SWP surface-water deliveries; §2–§4 carry the team's new scope and methods statements.</div>
+
+  <section>
+    <h2><span class="num">1.</span> The core question</h2>
+    <p>How can we ensure reliable drinking water access for Californians in wet years, dry years, and a changing climate?</p>
+    <p>Almost 38 million Californians, 97% of the state's population, depend on community water systems for daily life, for drinking, cooking, bathing, schools, hospitals, and local businesses. When these systems are stressed, the impacts are immediate and personal.</p>
+    <div class="devnote q">The 38 million / 97% figure needs a citable source before public use.</div>
+    <div class="figure-stub" role="img" aria-label="Figure placeholder">
+      <div class="label">Figure — placeholder</div>
+      <div class="desc">Community water system size and location in California — map of systems sized by population served (&lt;500; 500–3,300; 3,300–10,000; 10,000 to 100,000+).</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span> Why this matters</h2>
+    <p>Community water systems serve cities, towns, and rural communities across California. Some rely on surface water delivered through rivers and canals, while others depend on groundwater wells, many use a combination of both.</p>
+    <p>In wet years, water supplies are generally more stable. In dry years, shortages can emerge, especially when reservoir storage is low or groundwater levels decline. Smaller and rural systems are often more vulnerable because they have fewer backup options and limited financial resources.</p>
+    <p>Particularly for surface water, water rights and operating rules also shape outcomes. Senior water rights holders may continue to receive deliveries even when supplies shrink, while lower-priority users may face larger reductions. This can create uneven impacts across communities.</p>
+    <p>Climate change adds new uncertainty. Snowpack is declining, heat increases evaporation, and droughts may become longer and more severe. These shifts affect how much water is available and when. Understanding how reliable specific water supplies or sources are under changing conditions helps communities anticipate risks, plan ahead, and ensure consistent access to water.</p>
+    <p>The community surface water deliveries outcome focuses on surface water deliveries from California's major water projects to community water systems. This assessment does not consider the use of groundwater, which is an important water source for many communities. However, information on groundwater level trends in Central Valley aquifers can be explored alongside this outcome to provide a more complete understanding of water supply reliability.</p>
+    <div class="figure-stub" role="img" aria-label="Figure placeholder">
+      <div class="label">Figure — placeholder</div>
+      <div class="desc">Differences in community water systems and impacts on equity and resilience of water supply distribution — surface water source (rivers, dams and reservoirs, pipes or canals) vs. groundwater source.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span> What this theme focuses on</h2>
+    <div class="box">
+      <span class="box-title">Box 1: Water source diversity</span>
+      <p>Community water systems rely on different combinations of surface water and groundwater, some of which are not represented in CalSim. These differences shape how systems experience risk. We focus exclusively on surface water deliveries from the state's major water projects — the Central Valley Project and State Water Project — to community water systems. For communities that rely partially or exclusively on groundwater, the Groundwater Storage outcome may provide additional insight into water supply reliability.</p>
+    </div>
+    <div class="box">
+      <span class="box-title">Box 2: Storage, groundwater &amp; drought response</span>
+      <p>Reservoir storage and groundwater act as buffers during dry periods. When surface water deliveries decline, systems may increase groundwater pumping or rely on stored supplies. However, groundwater responds slowly and if pumping exceeds recharge over time, water levels can drop, increasing costs and long-term risks.</p>
+      <p>Groundwater and surface water are also connected. Reduced groundwater pumping and increased recharge can improve streamflows and reservoir conditions over time, helping sustain water supplies during drought and supporting broader watershed resilience.</p>
+    </div>
+    <div class="box">
+      <span class="box-title">Box 3: Distribution of impacts</span>
+      <p>Water deliveries are not determined by need alone. Existing water rights, contracts, operating rules, infrastructure, and patterns of water availability can all influence how shortages are experienced across communities.</p>
+      <p>Some communities consistently maintain reliable water supplies across scenarios and climate conditions, while others remain vulnerable regardless of management strategy. Understanding who benefits and who remains at risk is an important part of evaluating distributional equity.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span> What to keep in mind as you explore this theme</h2>
+    <ul>
+      <li>Community water systems depend on different combinations of surface water and groundwater.</li>
+      <li>Surface water deliveries from the state's major water projects are determined by contracts and water rights, as well as availability, and may not fully satisfy community demands. Demands that exceed deliveries may be met from other sources (groundwater, other supplies).</li>
+      <li>The community surface water outcome focuses only on modeled annual surface water deliveries from sources represented in the CalSim 3 model. For areas that rely partially or exclusively on groundwater, the Groundwater Storage outcome may also be a relevant indicator of water supply reliability.</li>
+      <li>Delivery reliability is calculated by comparing surface water deliveries and recent potable water demands satisfied by those deliveries, which are estimated from State Water Resources Control Board's Division of Drinking Water data.</li>
+      <li>When deliveries fall below demands, it does not necessarily mean taps run dry. Where water suppliers have other sources (e.g. groundwater, local surface water) or long-term storage, reduced deliveries will not have as big (or even any) impact compared to water suppliers without these alternatives. Community water system outcomes reported do not consider a community's complete supply portfolio.</li>
+      <li>Reliability reflects delivery patterns over time, not just single-year conditions. Multiple consecutive drought years often have greater impacts than a single dry year because stresses on both surface water and groundwater systems accumulate over time.</li>
+      <li>Impacts are not evenly distributed across communities. Some systems consistently experience more reliable supplies than others.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span> What management strategies are explored</h2>
+    <p>This theme allows you to explore how prioritizing surface water deliveries to community water systems affects:</p>
+    <ul>
+      <li>Community surface water deliveries reliability</li>
+      <li>Reservoir storage patterns</li>
+      <li>Groundwater availability and trends</li>
+      <li>Regional differences across communities</li>
+      <li>Performance during drought and extreme conditions</li>
+    </ul>
+    <p>Looking at these factors together helps show how communities experience water security under different conditions.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span> What the models show</h2>
+    <div class="devnote">Open decision (flagged 2026-07-18): §6 across all five theme narratives reports model findings in evaluative vocabulary (improve / reduce / decline / deleterious). The prose-style rules disallow these verbs in public COEQWAL text; the team is to decide whether narratives follow the same rule as briefs. Team wording is kept unedited below.</div>
+    <p><strong>Trade-offs:</strong> Community water deliveries are relatively stable across many scenarios. In fact, many management strategies produce only modest changes in drinking water reliability. The most important differences often emerge during extreme hydroclimate conditions, in how impacts are distributed across communities, and in the trade-offs between drinking water reliability, environmental flows, and other water uses.</p>
+    <p>One of the clearest trade-offs emerging from the model is between drinking water deliveries and environmental flows. Several scenarios that improve drinking water reliability, particularly those prioritizing human health and safety allocations or reducing delivery constraints, also reduce environmental flow outcomes, although not all environmental flows scenarios have the same deleterious effect on drinking water. These results highlight the challenge of balancing community water security with ecosystem needs.</p>
+    <p>The results also suggest that reducing irrigated acreage can improve drinking water reliability by reducing overall water demand and competition for water. Similarly, limiting groundwater pumping can improve long-term water supply reliability by helping preserve groundwater storage and reducing future supply vulnerabilities.</p>
+    <p><strong>Equity:</strong> Community surface water deliveries are not distributed evenly across California. Some communities consistently maintain reliable water supplies across scenarios and climate conditions, while others remain vulnerable regardless of management strategy.</p>
+    <p>The results reveal important geographic differences. Many foothill and Sacramento Valley systems perform well across scenarios, while export-dependent communities experience more frequent shortages and lower performance tiers, particularly in the Central Coast and Southern California. These differences reflect a combination of source water availability, infrastructure limits, and contractual arrangements.</p>
+    <p>Importantly, the community surface water deliveries tiers do not provide a complete picture of distributional equity. The results measure changes in modeled surface water deliveries, but do not account for differences in local storage capacity, groundwater availability, alternative water supplies, financial resources, or other factors that influence a community's ability to respond to shortages. As a result, the same tier value or change in tier value may have very different implications for different communities.</p>
+    <p><strong>Resilience:</strong> A resilient community water system can handle drought and variability without severe disruption. Results suggest that community water deliveries are generally resilient across many scenarios and hydroclimates, although some communities experience larger declines than others.</p>
+    <p>Under hotter and drier future hydroclimates, drinking water reliability generally decreases. The largest declines occur under the most extreme climate conditions, where some communities shift from high reliability to substantially lower levels of performance.</p>
+    <p>Several management strategies support community surface water deliveries under extreme climate conditions, especially guaranteeing human health and safety deliveries to communities and maintaining reservoir storage. These strategies help sustain drinking water deliveries even as climate stress increases.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">7.</span> How to explore this theme further</h2>
+    <p>Explore how water management choices affect community surface water reliability and groundwater conditions across regions and climate conditions, and how these differences shape trade-offs, distributional equity, and resilience.</p>
+    <p>Pay particular attention to which areas consistently benefit, which remain vulnerable, and how drinking water outcomes change relative to environmental flows and other water uses across scenarios and hydroclimates.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span> Closing line</h2>
+    <p class="closing">Together, these views make trade-offs, equity, and resilience visible, providing a shared, data-grounded basis for comparison, discussion, and learning.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Version 0.2 (narrative prototype)</span>
+      <span>Updated 2026-07-18</span>
+    </div>
+  </footer>
+
+</article>
+
+<p class="print-hint">
+  Save this narrative as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Understanding today's water system — Theme narrative | COEQWAL</title>
+<meta name="description" content="The COEQWAL baseline theme narrative: how California's current water management system performs under both historical and future climate conditions, and what that reveals about future water challenges.">
+
+<!-- COEQWAL Understanding today's water system (baseline / current-operations) theme NARRATIVE prototype v0.2 — rebuilt 2026-07-18 from the team's latest "Understanding todays water system.docx". Central Valley scoping added by the team; two new §4 caveats (multiple agency representations of current operations; CalSim 3 as simplification); team dropped the good-performance-in-one-outcome bullet (not restored). The three reconciliation edits agreed with the Baselines results brief (E: baseline terminology; C: two senses of trade-off; D: handoff link) were absent from the team revision and are RE-APPLIED, marked with visible devnotes; Edit C/D links repointed to builder/output/baselines_dev.html. Open decisions flagged inline: §6 evaluative-verb policy. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for [TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+
+/* ── Section structure (lighter rhythm — no rules between sections) */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Stub markers ───────────────────────────────────────────────── */
+.stub {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.45em;
+  border-radius: 2px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.95rem 0 0;
+}
+.caption .num { font-weight: 700; color: var(--ink); }
+
+/* ── Inline term gloss ──────────────────────────────────────────── */
+.term {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #888;
+  }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+
+/* ── Narrative-variant additions ────────────────────────────────── */
+.lede-meta {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--ink-faint);
+  margin: -2rem 0 2.8rem;
+}
+section ul { margin: 0 0 1.1rem; padding-left: 1.25rem; }
+section li { margin: 0.4rem 0; padding-left: 0.15rem; }
+.box {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-faint);
+  padding: 1rem 1.25rem;
+  margin: 1.2rem 0;
+  border-radius: 0 3px 3px 0;
+}
+.box .box-title {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  margin: 0 0 0.55rem;
+}
+.box p { margin: 0 0 0.7rem; }
+.box p:last-child { margin-bottom: 0; }
+.closing {
+  font-size: 1.12rem;
+  line-height: 1.55;
+  font-style: italic;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Theme Narrative · Public</span>
+  </header>
+
+  <div class="eyebrow">Understanding today's water system · Public Narrative</div>
+  <h1>Understanding today's water system</h1>
+  <p class="lede-meta">Theme narrative (public). Source: "Understanding todays water system.docx" (team revision, received 2026-07-18). Generated: 2026-07-18.</p>
+
+  <div class="devnote">v0_2 rebuilt from the latest team document. The three reconciliation edits agreed with the Baselines results brief (Edit E — baseline terminology; Edit C — two senses of trade-off; Edit D — handoff link) were absent from the team's revision and are re-applied below, marked where they occur. The team's new Box&nbsp;3 text is kept and merged with Edit&nbsp;E. One v0_1 bullet ("good performance in one outcome ≠ all outcomes") was dropped by the team and is not restored.</div>
+
+  <section>
+    <h2><span class="num">1.</span> The core question</h2>
+    <p>How does California's current water management system for the Central Valley perform under both historical and future climate conditions, and what can that tell us about future water challenges and opportunities?</p>
+    <p>Before exploring alternative management strategies, it is important to understand how today's system performs. This theme provides a foundation for understanding the strengths, vulnerabilities, trade-offs, and inequities that already exist within California's water system and how those conditions may change under different future hydroclimates.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span> Why this matters</h2>
+    <p>California's Central Valley water system reflects more than a century of investments in reservoirs, canals, levees, groundwater development, environmental regulations, water rights, contracts, and operating agreements. Together, these decisions determine how water is stored, moved, allocated, and managed across the state.</p>
+    <p>The current system supports millions of Californians, one of the world's most productive agricultural economies, and diverse freshwater and estuarine ecosystems. At the same time, it faces ongoing challenges, including drought, groundwater depletion, ecosystem declines, water quality concerns, and unequal impacts across communities and regions.</p>
+    <p>Future climate conditions add another layer of uncertainty. While water managers can influence how water is managed, they cannot control future precipitation, temperature, snowpack, or drought frequency. Understanding how today's system performs under both historical and future hydroclimates helps reveal where existing vulnerabilities already exist and where adaptation may be needed.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span> What this theme focuses on</h2>
+    <div class="box">
+      <span class="box-title">Box 1: Today's water management system</span>
+      <p>California's water system includes reservoirs, rivers, groundwater basins, canals, pumps, treatment facilities, flood infrastructure, and water delivery networks. It is governed by a complex set of water rights, contracts, regulations, and operating rules that determine how water is managed across the state.</p>
+    </div>
+    <p>This theme examines how the current management system performs across a wide range of outcomes, including drinking water reliability, agricultural production, groundwater conditions, reservoir storage, Delta salinity conditions, environmental flows, and ecosystem health.</p>
+    <div class="box">
+      <span class="box-title">Box 2: Historical and future hydroclimates</span>
+      <p>The same water management system can perform differently under different climate conditions. We can pair today's management system with both historical and future hydroclimates to explore how changing temperature, precipitation, snowpack, runoff timing, and drought frequency may affect water resource-related outcomes.</p>
+      <p>By keeping management constant and changing hydroclimates, we can explore how climate alone influences water availability, ecosystem conditions, and system performance.</p>
+    </div>
+    <div class="box">
+      <span class="box-title">Box 3: A reference point for comparison</span>
+      <p>Policies governing Central Valley water management are continually evolving, making the precise definition of "current operations" especially challenging. Despite the potential for imprecision, selecting a version of recent reality to represent current operations is helpful as it serves as a common reference point. Comparing current operations across hydroclimates helps reveal climate-driven changes. Comparing alternative management strategies to current operations within the same hydroclimate helps reveal management-driven changes. Together, these comparisons help distinguish the effects of climate change, management decisions, and their interactions.</p>
+      <p>Current operations carries two names, depending on the climate it runs in. Paired with the historical hydroclimate, it is <em>the baseline</em> — today's conditions as actually experienced. Paired with a future hydroclimate, it becomes a <em>climate-projected baseline</em> — where current operations would land if the climate changed but management did not. Both are the same operations; only the climate differs.</p>
+    </div>
+    <div class="devnote">Edit E re-applied: the second paragraph of Box 3 (baseline / climate-projected baseline terminology) is the reconciliation text agreed with the Baselines brief, merged after the team's new definitional paragraph.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span> What to keep in mind as you explore this theme</h2>
+    <ul>
+      <li>The current system is not a neutral starting point. It reflects decades of investments, policies, regulations, infrastructure decisions, and negotiated trade-offs.</li>
+      <li>Current operations represent today's water management system, not an ideal or optimal future.</li>
+      <li>There are many different representations of "current operations" used by different government agencies that reflect distinct decisions and assumptions.</li>
+      <li>Models are a simplification of reality. The current operations represented in the CalSim 3 model may not capture all aspects of water management as they exist in reality.</li>
+      <li>The same management strategy can produce very different outcomes under different hydroclimates.</li>
+      <li>Differences between hydroclimates when using the same management strategies reveal climate-driven changes.</li>
+      <li>Differences between management strategies reveal management-driven changes.</li>
+      <li>Existing inequities may already be visible under current conditions.</li>
+      <li>Future hydroclimates are not predictions. They represent alternative plausible futures that help test how the system responds to different climate conditions.</li>
+      <li>Results represent long-term patterns or tendencies across many years rather than predictions for any single year.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span> What management strategies are explored</h2>
+    <p>This theme focuses on the current operations scenario and provides the foundation for understanding the broader range of management strategies currently explored here. These strategies include:</p>
+    <ul>
+      <li>Environmental flow alternatives</li>
+      <li>Drinking water prioritization strategies</li>
+      <li>Groundwater management approaches</li>
+      <li>Agricultural land-use transitions</li>
+      <li>Delta management and conveyance strategies</li>
+      <li>Reservoir operation alternatives</li>
+      <li>Infrastructure investments</li>
+    </ul>
+    <p>Comparing these strategies to current operations helps reveal how different management choices may affect outcomes under both historical and future climate conditions.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span> What the models show</h2>
+    <div class="devnote">Open decision (flagged 2026-07-18): §6 across all five theme narratives reports model findings in evaluative vocabulary (improve / worsen / decline). The prose-style rules disallow these verbs in public COEQWAL text; the team is to decide whether narratives follow the same rule as briefs. Team wording is kept unedited below.</div>
+    <p><strong>Trade-offs:</strong> The current system reflects ongoing trade-offs among competing water uses and objectives. Water allocated to one purpose is often unavailable for another. These trade-offs already exist under current conditions and can become more pronounced under future climate stress.</p>
+    <p>Examining current operations across different hydroclimates helps reveal which trade-offs remain relatively stable and which become more difficult to manage as water availability changes.</p>
+    <p>Two senses of "trade-off" run through COEQWAL, and it helps to keep them apart. One is the <em>standing</em> trade-off — competing uses that exist at any moment, visible even when nothing about management changes. The other is the <em>strategy</em> trade-off — the cost of one management choice measured against another, which only becomes readable when you compare strategies. Current operations on its own shows the standing trade-offs and how climate sharpens them; reading a strategy trade-off requires the briefs where the management strategy changes. The baseline results — current operations across the historical and projected hydroclimates — are presented in the <a href="../builder/output/baselines_dev.html">Baselines brief</a>.</p>
+    <div class="devnote">Edit C re-applied: the "two senses of trade-off" paragraph above is the reconciliation text agreed with the Baselines brief; the link now points at the real-data baselines build rather than the synthetic v0_8 brief.</div>
+    <p><strong>Equity:</strong> Current management policies do not affect all communities, regions, sectors, or ecosystems equally. Some benefit from more reliable supplies, greater storage access, stronger water rights, or diversified water sources, while others face greater vulnerability.</p>
+    <p>Understanding these existing patterns provides a starting point for evaluating whether future management strategies improve or worsen distributional equity across California's water system.</p>
+    <p><strong>Resilience:</strong> Resilience can be understood by examining how the current system performs across a range of hydroclimates. If outcomes remain relatively stable under hotter, drier, wetter, or more variable conditions, the system can be considered more resilient. If outcomes decline substantially as climate conditions change, the system may be more vulnerable.</p>
+    <p>Comparing current operations across alternative futures helps identify which outcomes, regions, and communities are most sensitive to climate change and where adaptation may be needed.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">7.</span> How to explore this theme further</h2>
+    <p>Begin by exploring current operations under the historical hydroclimate. Then compare the same management system under future hydroclimates. Ask:</p>
+    <ul>
+      <li>Which outcomes remain relatively stable across climates?</li>
+      <li>Which outcomes decline under hotter or drier conditions?</li>
+      <li>Which communities, regions, or ecosystems become more vulnerable?</li>
+      <li>Which outcomes appear most resilient to climate change?</li>
+      <li>How do climate conditions change existing trade-offs?</li>
+    </ul>
+    <p>Once you understand how climate affects today's water system, explore alternative management strategies to see how different approaches may improve or worsen outcomes relative to current operations.</p>
+    <p>The modeled results for current operations — each of nine areas of the water system, across the historical baseline and four projected hydroclimates — are laid out in the <a href="../builder/output/baselines_dev.html">Baselines brief</a>; start there to see the pattern this theme describes. Understanding today's water system provides a foundation for interpreting every scenario explored throughout COEQWAL.</p>
+    <div class="devnote">Edit D re-applied: the handoff paragraph above is the reconciliation text agreed with the Baselines brief, updated for the five-hydroclimate library and repointed to the real-data build.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span> Closing line</h2>
+    <p class="closing">Together, these views make trade-offs, equity, and resilience visible, providing a shared, data-grounded basis for comparison, discussion, and learning.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Version 0.2 (narrative prototype)</span>
+      <span>Updated 2026-07-18</span>
+    </div>
+  </footer>
+
+</article>
+
+<p class="print-hint">
+  Save this narrative as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rivers and Salmon — Theme narrative | COEQWAL</title>
+<meta name="description" content="The COEQWAL rivers-and-salmon theme narrative: can California&#x27;s rivers support healthy salmon and ecosystems while also providing water for people and farms?">
+
+<!-- COEQWAL Rivers and Salmon (eco) theme NARRATIVE prototype v0.2 — rebuilt 2026-07-18 from the team's latest "Protecting rivers and salmon.docx" (heavily expanded: winter-run extinction risk, Shasta cold-water pool, McCloud reintroduction, '-R' scenario variants — subset on Exploratory Tools, all in data download; -R accounting not yet in conventions, verification deferred per Eric 2026-07-18). Unnumbered scene-setting intro added before §1 (new structural element vs template). Two XX placeholders in §6 carried as visible stubs; broken bold span in resilience para normalized. Typo fixes vs docx: 'Central Valley rivers', 'whether there are sufficient cold-water releases', 'McCloud River', stray double periods. Open decisions flagged inline: display name (three candidate forms), §6 evaluative-verb policy. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for [TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+
+/* ── Section structure (lighter rhythm — no rules between sections) */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Stub markers ───────────────────────────────────────────────── */
+.stub {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--stub-bg);
+  color: var(--stub);
+  padding: 0.05em 0.45em;
+  border-radius: 2px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* ── Figure placeholder ─────────────────────────────────────────── */
+.figure-stub {
+  margin: 1.2rem 0 0;
+  border: 1.5px dashed var(--ink-faint);
+  background:
+    repeating-linear-gradient(-45deg,
+      transparent 0, transparent 12px,
+      rgba(0,0,0,0.025) 12px, rgba(0,0,0,0.025) 13px);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+.figure-stub .label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.6rem;
+}
+.figure-stub .desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 28em;
+}
+.figure-stub code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.05);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.95rem 0 0;
+}
+.caption .num { font-weight: 700; color: var(--ink); }
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ── Inline term gloss ──────────────────────────────────────────── */
+.term {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── Related briefs section ─────────────────────────────────────── */
+.related-briefs h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 1.6rem 0 0.6rem;
+}
+.related-briefs h3:first-of-type {
+  margin-top: 0.4rem;
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.related-list li {
+  margin: 0.36rem 0;
+  padding: 0;
+}
+.related-list a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+}
+.related-list a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.related-rule {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin: 0.55rem 0 0;
+  line-height: 1.6;
+}
+.related-rule a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  font-style: normal;
+}
+.related-rule a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow {
+  display: inline-block;
+  margin-left: 0.3em;
+  transition: transform 0.2s;
+}
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Devnotes (build-time annotations, hidden in print) ─────────── */
+.devnote {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--stub);
+  background: var(--stub-bg);
+  border-left: 2px solid var(--stub);
+  padding: 0.5rem 0.75rem;
+  margin: 0.9rem 0 0;
+  line-height: 1.55;
+}
+.devnote::before {
+  content: 'NOTE  ';
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.devnote.q::before {
+  content: 'SOURCE  ';
+}
+.devnote code {
+  background: rgba(176, 130, 74, 0.13);
+  padding: 0.05em 0.3em;
+  border-radius: 2px;
+}
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .figure-stub { aspect-ratio: 16 / 8; }
+  figure { break-inside: avoid; }
+  .devnote { display: none; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #888;
+  }
+  .related-list a[href]::after { content: ''; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  .related-list { font-size: 0.92rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+
+/* ── Narrative-variant additions ────────────────────────────────── */
+.lede-meta {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--ink-faint);
+  margin: -2rem 0 2.8rem;
+}
+section ul { margin: 0 0 1.1rem; padding-left: 1.25rem; }
+section li { margin: 0.4rem 0; padding-left: 0.15rem; }
+.box {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-faint);
+  padding: 1rem 1.25rem;
+  margin: 1.2rem 0;
+  border-radius: 0 3px 3px 0;
+}
+.box .box-title {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  margin: 0 0 0.55rem;
+}
+.box p { margin: 0 0 0.7rem; }
+.box p:last-child { margin-bottom: 0; }
+.closing {
+  font-size: 1.12rem;
+  line-height: 1.55;
+  font-style: italic;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.35rem 0 0.35rem 1.4rem;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Theme Narrative · Public</span>
+  </header>
+
+  <div class="eyebrow">Rivers and Salmon · Public Narrative</div>
+  <h1>Rivers and Salmon</h1>
+  <p class="lede-meta">Theme narrative (public). Source: "Protecting rivers and salmon.docx" (team revision, received 2026-07-18). Generated: 2026-07-18.</p>
+
+  <div class="devnote">v0_2 rebuilt from the latest team document, which is substantially expanded (winter-run life-cycle detail, McCloud reintroduction, "-R" scenario variants). Published title stays "Rivers and Salmon" — one public display name per theme is an open decision (the team document title is "Protecting rivers and salmon"; the conventions doc's canonical form is "Rivers, salmon and the Delta ecosystem"). Two findings marked XX in the team document are carried as stubs in §6.</div>
+
+  <section>
+    <p>California's rivers are defined by their natural seasonality in flow patterns. In the winter and spring, river channels swell with water, spilling onto floodplains and moving sediment, nutrients, plants, and animals across the river network. In the dry summer season, flows recede and as waters warm, organisms grow and seek refuge, while people enjoy swimming, boating, and fishing. All of California's native freshwater species are adapted to the high seasonal and interannual variation in river flows. This is particularly true for salmon, which depend on different river conditions at different stages of their life cycle.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">1.</span> The core question</h2>
+    <p>Can California's rivers support healthy ecosystems and salmon populations, while also providing water for people and farms?</p>
+    <p>Rivers are essential sources of water, but they are more than channels that move water from mountains to farms and cities. They are also living systems supporting a great diversity of species. Salmon depend on cold water in rivers for spawning and rearing, and to migrate to and from the ocean. Wetlands, birds, other fish, and other wildlife depend on rivers too.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span> Why this matters</h2>
+    <p>California's rivers begin in the mountains and flow through valleys to the Delta and ocean. Along the way, they sustain ecosystems and provide water for farms and communities. Rivers are deeply interconnected to our water management system. Reservoir operations and water deliveries disrupt the natural flow patterns on which species depend. Decisions about how much water to store and how much to release for use by farms and cities, and to meet environmental flow and water quality standards, create trade-offs, where changes in one part of the system can ripple elsewhere.</p>
+    <p>Salmon are among California's most iconic species. Different salmon runs migrate between rivers and the ocean at different times of the year, supporting Tribal cultural practices, recreational and commercial fisheries, local economies, and ecosystem health. Because salmon depend on river conditions throughout multiple life stages, they are often used as indicators of the overall health of river ecosystems and the effectiveness of environmental flow management.</p>
+    <p>The tension between California water operations and salmon is perhaps greatest in the Sacramento River, where winter-run Chinook salmon are on the brink of extinction. Winter-run salmon face unique challenges because they lost access to historic cold-water habitats by the construction of Shasta Dam. The species now spawns below Shasta during the hottest part of the year and the survival of their eggs depends entirely on cold water released from the dam. The population also depends on maintaining sufficient river flows for juvenile fish to migrate to the ocean. In addition to cold-water management of Shasta Reservoir, efforts to provide fish access to cold, spring-fed rivers above the dam, such as the McCloud River, through intensive relocation programs are also being considered.</p>
+    <p>Restoring natural flow dynamics to California's rivers is expected to help all runs of salmon, as well as improve the overall health of freshwater ecosystems upon which both wildlife and people depend. Yet, integrating needed environmental flows into our highly managed water system is difficult. Climate change adds new pressures. Snowpack is shrinking, snow melts earlier, and droughts and heat waves are intensifying. These changes affect how much cold water is available and when it moves through the system.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span> What this theme focuses on</h2>
+    <p>River flows help shape habitat conditions for many native species and ecosystem processes. COEQWAL evaluates environmental flow conditions across river systems, and specifically explores outcomes for winter-run Chinook salmon.</p>
+    <p>Strategies to improve river ecosystem health include establishing minimum environmental flow requirements in Central Valley rivers that preserve key aspects of natural flow patterns, as well as the year-to-year variation in flow conditions.</p>
+    <p>Strategies that specifically focus on the recovery of winter-run salmon consider whether there are sufficient cold-water releases from Shasta Reservoir (or access to cool spring-fed rivers upstream of Shasta) to protect eggs and young fish during warm months, as well as adequate flows to provide habitat for young salmon as they grow and develop and successfully migrate to the ocean.</p>
+    <p>Because winter-run Chinook require all of these conditions to be met to complete their life cycle, improving one condition without the other may not positively affect the population. It is also important to acknowledge that while restoring more natural flow patterns is expected to provide broad benefits to salmon populations, it may not help winter-run Chinook if improved river flows deplete cold-water storage in Shasta.</p>
+    <div class="box">
+      <span class="box-title">Box 1: Seasonal flow, ecosystem rhythms and interannual variability</span>
+      <p>Wild rivers follow natural seasonal patterns. Winter and spring rains and snowmelt increase flows, sometimes spreading onto floodplains and creating habitat for fish and other species. In summer and fall, flows decrease and water temperatures rise. These seasonal rhythms support native ecosystems, including many salmon species, which evolved to depend on these changing conditions.</p>
+      <p>California rivers are also characterized by strong variability across years. Wet years, dry years, floods, and droughts naturally create changing conditions across the landscape. Native species evolved with this variability, but modern water systems often dampen these fluctuations to improve water supply reliability. Understanding both seasonal rhythms and year-to-year variability helps explain how rivers, ecosystems, and salmon respond to management decisions and climate change. Many environmental flow strategies are designed to better mimic these natural patterns and sources of variability.</p>
+    </div>
+    <div class="box">
+      <span class="box-title">Box 2: Winter-run Chinook &amp; cold-water refuges</span>
+      <p>Winter-run Chinook salmon are different from most other California salmon runs. They spawn during summer, when river temperatures are naturally warm, and historically relied on cold spring-fed habitats at higher elevations. Today, dams block access to much of this habitat, making winter-run salmon dependent on cold-water releases from reservoirs such as Shasta.</p>
+      <p>As a result, reservoir storage is not only a water supply issue, it is also a fish survival issue. If the cold-water pool from Shasta Reservoir becomes depleted during hot months, eggs may experience high mortality even when flow targets are achieved. For winter-run salmon, maintaining adequate cold-water storage is as important as maintaining river flows.</p>
+      <p>There have been recent programs to reintroduce winter-run to historical cool-water spring-fed rivers above Shasta Reservoir to improve egg survival. However, the reintroduction program is not consistently funded so it currently is not a reliable option. Nevertheless, reintroduction to upstream habitats remains a high priority for winter-run recovery and there are multiple efforts underway to support future reintroduction programs.</p>
+      <p>Because of the current reliance on cold-water storage from Shasta Reservoir, and the future possibility of a consistent reintroduction program, we evaluated the winter-run salmon key outcome metric for all scenarios assuming no reintroduction (current management practices) and with reintroduction (a potential future management practice). Note that although only a subset of scenarios including reintroduction (indicated with "-R" at the end of the scenario ID) are available on the Exploratory Tools on the COEQWAL website, the data for all scenarios with reintroduction are included in the data download section.</p>
+    </div>
+    <div class="box">
+      <span class="box-title">Box 3: System connections &amp; trade-offs</span>
+      <p>Rivers are deeply interconnected with California's water supply system. Limited water means that decisions about reservoir storage, environmental flows, and water deliveries create trade-offs across multiple outcomes. Efforts to create more natural flow patterns, such as seasonal pulse flows, can improve habitat but may also change the timing and availability of water for other uses. Choices in one part of the system can create ripple effects elsewhere.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span> What to keep in mind as you explore this theme</h2>
+    <ul>
+      <li>Rivers are shaped not only by how much water flows, but by when it flows and water temperature. Timing and water temperature can be as important as quantity.</li>
+      <li>Reservoirs improve water storage for people and farms, but they also alter natural flow patterns, temperatures, and habitat conditions.</li>
+      <li>Many rivers have minimum environmental flow requirements, but these generally fail to preserve key elements of natural flow seasonality.</li>
+      <li>All salmon depend on different conditions at different life stages, including cold water, sufficient flow, and connected habitat.</li>
+      <li>Because of the construction of dams that block access to historic habitats, winter-run Chinook salmon on the Sacramento River are uniquely dependent on cold-water releases at Shasta Reservoir to protect their eggs and juveniles.</li>
+      <li>Future management actions including reintroduction of winter-run to spring-fed rivers such as the McCloud would provide additional cool-water habitat to support egg survival.</li>
+      <li>Improving flows alone does not fully restore ecosystems. Habitat conditions, landscape changes, and invasive species also play a role.</li>
+      <li>This theme focuses on flow-management actions, so scenarios that perform poorly here could achieve better outcomes when paired with habitat restoration or other management actions.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span> What management strategies are explored</h2>
+    <p>This theme allows you to explore how different water management choices affect:</p>
+    <ul>
+      <li>Seasonal flow patterns in rivers</li>
+      <li>Storage in reservoirs</li>
+      <li>Winter-run Chinook salmon survival</li>
+      <li>Outflows to the Bay-Delta estuary</li>
+      <li>Water deliveries for communities and farms</li>
+    </ul>
+    <p>Looking at these factors together shows how river systems respond under different climate and water use conditions.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span> What the models show</h2>
+    <div class="devnote">Open decision (flagged 2026-07-18): §6 across all five theme narratives reports model findings in evaluative vocabulary (improve / benefit / better outcomes). The prose-style rules disallow these verbs in public COEQWAL text; the team is to decide whether narratives follow the same rule as briefs. Team wording is kept unedited below. Two placeholders marked XX in the team document are shown as stubs.</div>
+    <p>Environmental flow strategies can improve river conditions by creating flow patterns that more closely resemble natural seasonal rhythms. These can support ecosystem processes and are expected to broadly benefit native freshwater fish, wildlife, and plants, as well as people who depend on healthy freshwater ecosystems for drinking water, fishing, recreation, and cultural uses. For winter-run Chinook salmon, however, environmental flows alone are insufficient for increasing their abundance.</p>
+    <p>Scenarios that preserve cold-water storage in Shasta Reservoir generally produce better outcomes for winter-run Chinook salmon. Furthermore, access to cool spring-fed rivers above Shasta through reintroduction appears to provide additional benefits. Scenarios that increase spring flows also improve juvenile outmigration and survival. The strongest winter-run salmon outcomes typically occur when all conditions are achieved together. Environmental flows alone often provide limited benefits if sufficient cold-water storage is not maintained or reintroduction is not assumed.</p>
+    <p><strong>Trade-offs:</strong> Environmental flow management often involves balancing river ecosystem needs with competing demands for water storage and deliveries. <span class="stub">[XX — finding to come from team]</span></p>
+    <p>Winter-run Chinook salmon depend on two critical resources that often compete for the same water supply: access to cold water from Shasta reservoir storage in the dry season and wet season flow releases that support juvenile outmigration. Storing water in reservoirs can help preserve cold-water pools needed for egg survival, while releasing water can improve outmigration survival for smolts. In dry and warm years, it becomes increasingly difficult to achieve both objectives simultaneously. Reintroduction of salmon above Shasta limits the severity of these tradeoffs.</p>
+    <p><strong>Equity:</strong> River conditions affect communities differently. Tribal nations, fishing communities, farmers, and downstream towns may experience changes in river ecosystem health in distinct ways. In particular, salmon declines can impact cultural practices, subsistence, and local economies.</p>
+    <p>Environmental flow improvements are not distributed evenly across the river system. Some tributaries experience larger changes in flow conditions than major river mainstems because they are more directly influenced by reservoir operations and environmental flow releases. As a result, ecological benefits and trade-offs may be concentrated in certain watersheds and communities. This spatial variation highlights an important dimension of distributional equity: where environmental benefits occur can be just as important as how much benefit is produced overall.</p>
+    <p><strong>Resilience:</strong> Resilience means rivers can withstand droughts, floods, and warming while maintaining ecosystem health. <span class="stub">[XX — finding to come from team]</span></p>
+    <p>Winter-run Chinook salmon are particularly sensitive to climate change because their survival depends on both cold-water storage and river flows. Warmer temperatures increase pressure on reservoir cold-water pools, while drier conditions also reduce water available for environmental flows. As climate conditions become warmer and more variable, maintaining both requirements simultaneously becomes increasingly difficult, reducing resilience across multiple salmon life stages. In more extreme hydroclimates, only scenarios with reintroduction of winter-run to the McCloud River support abundances of winter-run above critical levels that require increasingly restrictive ocean harvest control measures to mitigate the risk of extinction.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">7.</span> How to explore this theme further</h2>
+    <p>Explore how different water management choices shape seasonal river flows, water temperature, salmon survival, and habitat conditions across regions and climate futures.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span> Closing line</h2>
+    <p class="closing">Together, these views make trade-offs, equity, and resilience visible, providing a shared, data-grounded basis for comparison, discussion, and learning.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Version 0.2 (narrative prototype)</span>
+      <span>Updated 2026-07-18</span>
+    </div>
+  </footer>
+
+</article>
+
+<p class="print-hint">
+  Save this narrative as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>
