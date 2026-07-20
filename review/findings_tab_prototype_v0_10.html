@@ -10,6 +10,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_10 (2026-07-20, fifth pass): the combined "About COEQWAL and
+   *   the scenario library" card split into two cards on one row
+   *   (picker-grid layout), one per orientation brief, each with its
+   *   own read link — per Eric, who missed the links on the single
+   *   card when reviewing the published page. Same two targets; no
+   *   staging changes needed.
+   *
    * v0_10 (2026-07-20, fourth pass): project background + scenario
    *   library reference briefs added. Both were drafted 2026-07-20 as
    *   v0_1 prototypes (per Eric — no team decision required; see
@@ -1052,21 +1059,33 @@
     Reference briefs describe the project and the pieces the scenario library is built from, and contain no model results. Two orientation briefs cover the project itself and how the library is constructed. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The pickers will hold a short reference brief for each strategy and each hydroclimate — what the strategy does, or what the climate model assumes. One worked strategy example is built (functional environmental flows); the rest are to come. Technical descriptions of how each sector's tiers are calculated will also live here.
   </p>
 
-  <!-- v0_10 fourth pass (2026-07-20): project orientation card. Both briefs
-       drafted 2026-07-20 (v0_1); filenames staged in build_review.py CORE
-       the same pass so these relative links resolve once published. -->
-  <div class="card">
-    <div class="card-eyebrow">The project</div>
-    <h2 class="card-title">About COEQWAL and the scenario library</h2>
-    <p class="card-body">
-      Two orientation briefs for readers arriving cold. The first describes the project itself — why COEQWAL exists, the participatory scenario planning approach, and the CalSim model behind every scenario. The second describes how the scenario library is built: what a scenario is, the 24 management strategies, the five hydroclimates, and the role of current operations as the comparison anchor.
-    </p>
-    <div class="card-foot">
-      <span class="card-stats"><span><em>2</em>briefs</span></span>
-      <span class="foot-links">
-        <a class="read-link" href="project_background_brief_prototype_v0_1.html" target="_blank" rel="noopener">The COEQWAL project →</a>
-        <a class="read-link" href="scenario_library_brief_prototype_v0_1.html" target="_blank" rel="noopener">The scenario library →</a>
-      </span>
+  <!-- v0_10 fourth pass (2026-07-20): project orientation briefs added.
+       Both drafted 2026-07-20 (v0_1); filenames staged in build_review.py
+       CORE the same pass so these relative links resolve once published.
+       Fifth pass (2026-07-20, per Eric): the single combined card was easy
+       to miss — split into two cards on one row (picker-grid layout), one
+       per brief, each with its own read link. -->
+  <div class="picker-grid" style="margin-bottom: 22px;">
+    <div class="card">
+      <div class="card-eyebrow">The project</div>
+      <h2 class="card-title">The COEQWAL project</h2>
+      <p class="card-body">
+        What COEQWAL is and how it works — why the project exists, the participatory scenario planning approach, and the CalSim model behind every scenario. Written for readers arriving cold.
+      </p>
+      <div class="card-foot arrow-only">
+        <a class="read-link" href="project_background_brief_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">The scenario library</div>
+      <h2 class="card-title">The COEQWAL scenario library</h2>
+      <p class="card-body">
+        How the scenario library is built — what a scenario is, the 24 management strategies, the five hydroclimates, and the role of current operations as the comparison anchor.
+      </p>
+      <div class="card-foot">
+        <span class="card-stats"><span><em>24</em>strategies</span><span><em>5</em>hydroclimates</span></span>
+        <a class="read-link" href="scenario_library_brief_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief →</a>
+      </div>
     </div>
   </div>
 
