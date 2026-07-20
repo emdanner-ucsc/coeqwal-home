@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The five COEQWAL hydroclimates — reference brief (prototype v0_1)</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --rule: #ccc;
+    --accent: #1f4e79;
+    --bg: #fdfdfc;
+  }
+  html { font-size: 17px; }
+  body {
+    margin: 0;
+    padding: 3rem 1.5rem 5rem;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.55;
+  }
+  main { max-width: 46rem; margin: 0 auto; }
+  h1, h2, h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  h1 { font-size: 1.7rem; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.25rem; margin: 2.2rem 0 0.6rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; }
+  header.doc p.provenance {
+    font-style: italic;
+    color: var(--muted);
+    margin: 0.15rem 0;
+    font-size: 0.95rem;
+  }
+  header.doc { border-bottom: 2px solid var(--accent); padding-bottom: 0.9rem; margin-bottom: 1.6rem; }
+  .classtag {
+    display: inline-block;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 0.1rem 0.45rem;
+    margin-bottom: 0.5rem;
+  }
+  .devnote {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: #f4f3f0;
+    border: 1px dashed #b9b6ae;
+    border-radius: 4px;
+    padding: 0.7rem 0.9rem;
+    margin: 1.2rem 0;
+  }
+  .devnote strong { color: #7a4a12; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  th, td { border: 1px solid var(--rule); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: #f0efec; font-weight: 600; }
+  p.stock {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.8rem;
+    color: var(--ink);
+  }
+  .refnote { font-size: 0.9rem; color: var(--muted); }
+  a { color: var(--accent); }
+  @media print {
+    body { padding: 0; background: #fff; font-size: 11pt; }
+    a { color: inherit; text-decoration: none; }
+    h2 { break-after: avoid; }
+    table { break-inside: avoid; }
+    .devnote { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="doc">
+    <div class="classtag">Reference brief</div>
+    <h1>The five COEQWAL hydroclimates</h1>
+    <p class="provenance">A reference brief describing the five modeled climate and hydrology conditions used in COEQWAL scenarios — where each comes from, how it was constructed, and how the five relate to one another. This brief describes model inputs; it reports no modeled tier results.</p>
+    <p class="provenance">Prototype v0_1 · Drafted 2026-07-20</p>
+  </header>
+
+  <div class="devnote">
+    <strong>Dev note (not for publication).</strong> Content drafted from two team
+    documents: the hydroclimate website description and the Levy et al. hydroclimate
+    documentation (Scripps, 2026). Pending items: (1) runoff/flow-change percentages
+    follow the documentation's Table 2 (+3.5% / −1% / −6.5% / −19.2%); the website
+    summary lines and <code>coeqwal_conventions.md</code> carry +7% / −1% / −7% / −19%,
+    and the Moderate value (+7% vs +3.5%) is a conflict flagged to the hydroclimate
+    team, not a rounding. (2) The Historical description is drafted here because the
+    source document has a placeholder — needs hydroclimate-team confirmation.
+    (3) The Extreme level-of-concern percentile appears three ways across sources
+    (&gt;&gt;99.99th / &gt;99.9th / 99th); &gt;99.9th used pending confirmation.
+    (4) To be ported onto the house brief shell in coeqwal-briefs and staged in
+    build_review.py. (5) The "What this doesn't say" stock block reads "modeled
+    conditions" where the canonical results-brief text reads "modeled outcomes" —
+    a deliberate adaptation for the reference class (this brief reports no results);
+    confirm whether the reference class gets its own stock variant.
+  </div>
+
+  <h2 id="what-this-is">What this is</h2>
+  <p>Every COEQWAL scenario pairs two ingredients: a <em>strategy</em> — a set of water
+  management rules that people could choose to implement — and a <em>hydroclimate</em> —
+  the climate and hydrology conditions the system experiences, which no one chooses.
+  A hydroclimate is a modeled realization of precipitation, air temperature, and river
+  flow that serves as input to the CalSim 3 water operations model. COEQWAL uses five
+  hydroclimates: one historical and four representing possible future conditions. Each
+  of the 23 strategies in the scenario library is modeled under all five, producing the
+  115 scenarios COEQWAL reports.</p>
+  <p>The four future hydroclimates are not forecasts. They are a sample of physically
+  plausible future conditions, selected to span a range from somewhat wetter to
+  substantially drier than the historical record. COEQWAL does not assign likelihoods
+  to them or treat any one as expected. Comparisons between strategies are made within
+  a single hydroclimate — a strategy's results are compared against current operations
+  under the same climate conditions — so that differences reflect management choices
+  rather than climate differences.</p>
+
+  <h2 id="the-five">The five hydroclimates</h2>
+
+  <h3 id="historical">Historical hydroclimate</h3>
+  <p>Temperature, precipitation, and streamflow patterns reflect historical conditions.
+  The Historical hydroclimate uses the 100-year climate and hydrologic record developed
+  for CalSim 3 modeling, the same historical basis used in the California Department of
+  Water Resources' 2023 State Water Project Delivery Capability Report. It carries the
+  observed variability of the historical period — wet years, dry years, and multi-year
+  droughts — without adjustment for future climate change, and serves as the reference
+  against which the four future hydroclimates can be read.</p>
+  <div class="devnote"><strong>Dev note:</strong> the source document's description field
+  for Historical is a placeholder ("[enter description of and source of historical
+  hydroclimate dataset for CalSim3]"). The paragraph above is drafted from the
+  documentation's general description of the 100-year CalSim3 record and needs
+  hydroclimate-team confirmation, including the exact dataset citation.</div>
+
+  <h3 id="moderate">Moderate climate stress</h3>
+  <p>Slightly warmer and moderately wetter conditions. This hydroclimate reflects a
+  moderate temperature increase of +1.1&nbsp;°C and a 4% increase in precipitation over
+  Central Valley inflow basins, which together result in a 3.5% increase in modeled
+  Central Valley inflows. It is derived from a physical climate model simulation
+  (LOCA2-downscaled CMIP6, EC-Earth3-Veg model, SSP3-7.0 emissions pathway) and
+  represents a physically plausible future in which precipitation increases are larger,
+  and conditions more variable, than in the statistically generated hydroclimates below.
+  These conditions correspond approximately to a 40th percentile "level of concern" for
+  April–July runoff across major water supply basins (see <a href="#construction">How
+  the hydroclimates were constructed</a> for what this measure means).</p>
+
+  <h3 id="moderate-high">Moderate-high climate stress</h3>
+  <p>Moderately warmer conditions with little change in precipitation. This hydroclimate
+  reflects a temperature increase of +1.5&nbsp;°C and a slight 1.5% increase in
+  precipitation over Central Valley inflow basins, which together result in a small
+  decrease — about 1% — in modeled Central Valley inflows. It is based on the Department of Water Resources' statistical weather
+  generator at the 50th percentile "level of concern" for April–July runoff across major
+  water supply basins — the middle of the distribution DWR uses to characterize
+  potential stress on the water supply system.</p>
+
+  <h3 id="high">High climate stress</h3>
+  <p>Much warmer and moderately drier conditions. This hydroclimate reflects a
+  substantial temperature increase of +1.8&nbsp;°C and a 1.8% decrease in precipitation
+  over Central Valley inflow basins, which together result in a 6.5% decrease in modeled
+  Central Valley inflows. It is based on the Department of Water Resources' statistical
+  weather generator at the 95th percentile "level of concern" for April–July runoff
+  across major water supply basins.</p>
+
+  <h3 id="extreme">Extreme climate stress</h3>
+  <p>Much warmer and much drier conditions. This hydroclimate reflects a substantial
+  temperature increase of +1.9&nbsp;°C and a 5.8% decrease in precipitation, which
+  together result in a 19.2% decrease in modeled Central Valley inflows. It is derived
+  from a physical climate model simulation (LOCA2-downscaled CMIP6, TaiESM1 model,
+  SSP3-7.0 emissions pathway) with stronger and more variable warming than the
+  statistically generated hydroclimates. These conditions correspond to a level of
+  hydroclimatic change with an exceedingly low modeled probability — beyond the 99.9th
+  percentile "level of concern" for April–July runoff. It was purposefully included to
+  represent climate extremes, to the extent possible within the CalSim 3 modeling
+  framework: a representation of physically plausible, if not probable, future
+  conditions.</p>
+
+  <h3 id="summary-table">Summary</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Hydroclimate</th>
+        <th>Source data</th>
+        <th>Temperature change</th>
+        <th>Precipitation change</th>
+        <th>Flow change</th>
+        <th>Level of concern</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Historical hydroclimate</td>
+        <td>100-year historical record for CalSim 3 (DWR)</td>
+        <td>—</td><td>—</td><td>—</td><td>—</td>
+      </tr>
+      <tr>
+        <td>Moderate climate stress</td>
+        <td>LOCA2 CMIP6, EC-Earth3-Veg, SSP3-7.0</td>
+        <td>+1.1 °C</td><td>+4.0%</td><td>+3.5%</td><td>~40th</td>
+      </tr>
+      <tr>
+        <td>Moderate-high climate stress</td>
+        <td>DWR WGEN, 50th percentile level of concern</td>
+        <td>+1.5 °C</td><td>+1.5%</td><td>−1%</td><td>50th</td>
+      </tr>
+      <tr>
+        <td>High climate stress</td>
+        <td>DWR WGEN, 95th percentile level of concern</td>
+        <td>+1.8 °C</td><td>−1.8%</td><td>−6.5%</td><td>95th</td>
+      </tr>
+      <tr>
+        <td>Extreme climate stress</td>
+        <td>LOCA2 CMIP6, TaiESM1, SSP3-7.0</td>
+        <td>+1.9 °C</td><td>−5.8%</td><td>−19.2%</td><td>&gt;99.9th</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="refnote">Changes are calculated over CalSim 3 inflow basins for a 30-year
+  period centered on 2043 (2028–2057 relative to 1992–2021): annual average daily
+  temperature (°C), total annual precipitation (%), and total annual flow (%).
+  "Level of concern" is defined under <a href="#construction">How the hydroclimates
+  were constructed</a>; values are reported directly for the two WGEN-based
+  hydroclimates and as approximations for the two CMIP6-based hydroclimates.</p>
+
+  <h2 id="construction">How the hydroclimates were constructed</h2>
+
+  <h3>Two sources of climate data</h3>
+  <p>The four future hydroclimates draw on two different kinds of climate modeling.
+  Two are based on <em>physical</em> climate model simulations: global climate model
+  output from CMIP6 (the Coupled Model Intercomparison Project, Phase 6), downscaled
+  and bias-corrected for California at roughly 3&nbsp;km resolution through LOCA2
+  (Localized Constructed Analogs, version 2), under the SSP3-7.0 emissions pathway.
+  These simulations are transient — they carry trends and variability over time through
+  2100 — and were generated for California's Fifth Climate Change Assessment. The other
+  two are based on <em>statistical</em> simulations from the Department of Water
+  Resources' Weather Generator (WGEN), developed for DWR's 2023 State Water Project
+  Delivery Capability Report. WGEN produces stationary 100-year simulations — stable
+  conditions rather than trends — corresponding to statistically derived "levels of
+  concern" for the state's water supply.</p>
+
+  <h3>From climate to river flow</h3>
+  <p>Precipitation and temperature from both sources were used to drive the Variable
+  Infiltration Capacity (VIC) hydrologic model, which simulates land surface conditions
+  and estimates river discharge. Monthly discharge for each CalSim 3 inflow basin was
+  computed from the VIC output as an area-weighted average, an approach validated
+  against historical observed discharge at representative basins and consistent with
+  the methodology of the 2023 Delivery Capability Report.</p>
+
+  <h3>From simulations to CalSim 3 inputs</h3>
+  <p>The climate and hydrology simulations are not fed to CalSim 3 directly. Instead,
+  the statistical distributions of each simulation over a 30-year mid-century period
+  centered on 2043 are used to adjust a common 100-year climate and hydrologic record
+  developed specifically for CalSim 3, through a quantile-mapping procedure. The result
+  is that each future hydroclimate is a statistically adjusted version of the same
+  underlying 100-year record: the magnitudes of temperature, precipitation, and flow
+  are modified to reflect the modeled future conditions, while the timing and sequence
+  of wet and dry periods remain the same. This construction is what makes CalSim 3
+  results directly comparable across all five hydroclimates, whichever source a
+  hydroclimate came from.</p>
+
+  <h3>"Level of concern"</h3>
+  <p>"Level of concern" is a measure defined by the Department of Water Resources: the
+  modeled statistical probability of a given level of April–July runoff, summed across
+  eight major Central Valley rivers (the Eight River Index). A 95th percentile level of
+  concern, for example, describes April–July runoff conditions at the 95th percentile
+  of the modeled distribution of potential stress on the water supply system. It
+  describes this one runoff statistic only — it is not a statement about the overall
+  likelihood of a future, or about how the water system would perform. Levels of
+  concern are reported directly for the two WGEN-based hydroclimates, which were
+  generated at specified percentiles. For the two CMIP6-based hydroclimates, approximate
+  levels of concern were estimated by extrapolating from DWR's published risk analysis.</p>
+
+  <h3>Why these five</h3>
+  <p>The five hydroclimates were selected by the COEQWAL hydroclimate modeling team
+  based on iterative feedback from the project team, Advisory Cohort, and Steering
+  Committee. The two WGEN-based hydroclimates anchor the set, representing the 50th and
+  95th percentile levels of concern from DWR's framework; their stationary structure
+  also matches how CalSim 3 inputs are constructed. The two CMIP6-based hydroclimates
+  were selected to represent conditions that differ from the WGEN pair in ways the
+  COEQWAL community identified as salient: one wetter future with larger precipitation
+  increases, and one substantially drier future with stronger warming. The Extreme
+  climate stress hydroclimate carries an exceedingly low modeled probability and was
+  included deliberately, in response to community interest in seeing climate extremes
+  represented. The CMIP6-based hydroclimates are not simple extensions of the WGEN
+  pair: even where summary statistics are similar, the physical simulations can produce
+  different spatial and seasonal patterns of climate and hydrology.</p>
+
+  <h2 id="not-say">What this doesn't say</h2>
+  <p class="stock">This brief reports modeled conditions from a specific ensemble. It
+  does not predict what will happen, evaluate whether outcomes are acceptable, or
+  recommend any course of action. The tier framework provides definitional categories;
+  the meaning of those categories for any individual reader, community, or decision is
+  not specified by COEQWAL.</p>
+  <p>Specific to hydroclimates: the four future hydroclimates are a sample of plausible
+  modeled futures, not a complete set of possibilities and not a probability-weighted
+  forecast. All four derive in full or in part from a single emissions pathway
+  (SSP3-7.0), so the set does not span uncertainty in future emissions. The "level of
+  concern" percentiles describe one modeled runoff statistic, not overall system risk.
+  And because each future hydroclimate preserves the timing and sequence of the
+  historical 100-year record, the hydroclimates change the magnitude of wet and dry
+  conditions but do not introduce new drought sequences that have no historical
+  analogue.</p>
+
+  <h2 id="references">References note</h2>
+  <p class="refnote">Public labels and internal keys: Historical hydroclimate (BL,
+  API id 2); Moderate climate stress (HC4, API id 7, <code>cqlECV</code>); Moderate-high
+  climate stress (HC1, API id 3, CC50-2043); High climate stress (HC2, API id 4,
+  CC95-2043); Extreme climate stress (HC3, API id 5, <code>cqlTAI</code>). Display
+  order is by severity: Historical → Moderate → Moderate-high → High → Extreme.</p>
+  <p class="refnote">Sources: COEQWAL Hydroclimate Documentation (Levy, Cayan,
+  Mukhopadhyay, Swain, and Su; Scripps Institution of Oceanography, UC San Diego);
+  Pierce et al. (2023) for LOCA2; Najibi et al. (2024a, 2024b) and CDWR (2023) for
+  WGEN; CDWR 2023 State Water Project Delivery Capability Report; Schwarz et al.
+  (2023) for the risk analysis underlying "level of concern"; Bass et al. (2023) for
+  VIC routing validation. Full citations live in the hydroclimate documentation.</p>
+  <p class="refnote">Drafted 2026-07-20 · COEQWAL reference brief prototype v0_1 ·
+  Not yet team-reviewed.</p>
+
+</main>
+</body>
+</html>

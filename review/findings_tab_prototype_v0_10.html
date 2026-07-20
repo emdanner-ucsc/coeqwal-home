@@ -10,6 +10,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_10 (2026-07-20, sixth pass): hydroclimate reference brief wired
+   *   in. hydroclimates_brief_prototype_v0_1.html drafted 2026-07-20
+   *   (from the hydroclimate team's website description + Levy et al.
+   *   documentation) as ONE brief with five anchored sections — per
+   *   Eric the one-brief unit is final, no later split into five;
+   *   anchors give each hydroclimate a citable address. Changes here:
+   *   hydroclimate picker card body rewritten from "A short brief for
+   *   each modeled hydroclimate" to the one-brief language; the inert
+   *   "to come" read-link replaced with a live link to the brief;
+   *   reference-band intro updated to match. Filename added to
+   *   build_review.py CORE the same pass. The brief is a v0_1 draft on
+   *   the reference-doc shell (not yet the house brief shell); its flow
+   *   numbers follow the technical documentation's Table 2 and carry
+   *   dev notes on two conflicts flagged to the hydroclimate team.
+   *
    * v0_10 (2026-07-20, fifth pass): the combined "About COEQWAL and
    *   the scenario library" card split into two cards on one row
    *   (picker-grid layout), one per orientation brief, each with its
@@ -1049,14 +1064,17 @@
      Fourth pass 2026-07-20: three reference briefs now built — the two
      project orientation briefs (card below) and the functional environmental
      flows worked example. The hydroclimate picker's read-links remain
-     to-come. -->
+     to-come.
+     Sixth pass 2026-07-20: four reference briefs built — the hydroclimate
+     reference brief (one brief, five anchored sections) is drafted and
+     linked from the hydroclimate picker card below. -->
 <section class="band-navy section">
   <div class="layer-header on-navy class-header">
     <div class="layer-label">Reference briefs</div>
     <div class="layer-meta">Describe the COEQWAL process — no results</div>
   </div>
   <p class="layer-intro">
-    Reference briefs describe the project and the pieces the scenario library is built from, and contain no model results. Two orientation briefs cover the project itself and how the library is constructed. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The pickers will hold a short reference brief for each strategy and each hydroclimate — what the strategy does, or what the climate model assumes. One worked strategy example is built (functional environmental flows); the rest are to come. Technical descriptions of how each sector's tiers are calculated will also live here.
+    Reference briefs describe the project and the pieces the scenario library is built from, and contain no model results. Two orientation briefs cover the project itself and how the library is constructed. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The strategy picker will hold a short reference brief for each strategy — what the strategy changes about system operations; one worked example is built (functional environmental flows), the rest are to come. The five hydroclimates are described in a single reference brief, with a section for each. Technical descriptions of how each sector's tiers are calculated will also live here.
   </p>
 
   <!-- v0_10 fourth pass (2026-07-20): project orientation briefs added.
@@ -1289,7 +1307,7 @@
       <div class="card-eyebrow">Climate</div>
       <h2 class="card-title">Hydroclimate models</h2>
       <p class="card-body">
-        A short brief for each modeled hydroclimate — historical baseline and projected futures. Describes the climate assumptions and how the hydrology was derived.
+        One reference brief describing the five modeled climate and hydrology conditions used in COEQWAL scenarios — where each comes from, how the hydrology was derived, and a linkable section for each hydroclimate.
       </p>
       <div class="picker">
         <select aria-label="Select a hydroclimate">
@@ -1303,7 +1321,7 @@
       </div>
       <div class="card-foot">
         <span class="card-stats"><span><em>5</em>hydroclimates</span></span>
-        <span class="read-link">Hydroclimate reference briefs to come</span>
+        <a class="read-link" href="hydroclimates_brief_prototype_v0_1.html" target="_blank" rel="noopener">Read: The five COEQWAL hydroclimates →</a>
       </div>
     </div>
   </div>
