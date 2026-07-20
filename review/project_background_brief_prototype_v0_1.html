@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The COEQWAL project — COEQWAL Findings</title>
+<meta name="description" content="A COEQWAL reference brief describing the project: what the Collaboratory for Equity in Water Allocation is, why it exists, and how its participatory scenario planning approach works. Background only — no modeled results.">
+
+<!--
+  COEQWAL project background brief — PROTOTYPE v0_1 (2026-07-20)
+
+  Reference brief (class per decisions 2026-07-19): describes the
+  project itself — purpose, approach, model — and carries no modeled
+  results. Drafted per Eric 2026-07-20 after review of the searchable
+  content of dev.coeqwal.org (the About page is the deepest indexable
+  description of the project; see COEQWAL_Briefs_Concept.md, brief
+  classes section). Companion draft: the scenario library brief
+  (scenario_library_brief_prototype_v0_1.html) — open question whether
+  the two merge into one page.
+
+  Shell: strategy_brief_prototype_functional-environmental-flows_v0_4
+  (cream-paper masthead, brief-article tokens). Title tag keeps
+  "— COEQWAL Findings" pending the page-name decision (provisionally
+  "COEQWAL Summaries").
+
+  Content sources: shared/COEQWAL_project_description.md (team text),
+  shared/coeqwal_core_concepts.md (concepts 1–7, 10), dev.coeqwal.org
+  About page (fetched 2026-07-20), coeqwal_conventions.md (2026-07-16
+  revision). Prose per COEQWAL_Prose_Style.md; checked against
+  coeqwal_framing_invariants.md. Staged in build_review.py and linked
+  from the findings mock-up v0_10 fourth pass (both 2026-07-20);
+  publishes to the review folder on the next publish.py run + push.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for devnote/[TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+h1 .subtitle {
+  display: block;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  font-weight: 400;
+  margin-top: 0.55rem;
+}
+
+/* ── Section structure ──────────────────────────────────────────── */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.9em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Identity sentence (follows the TL;DR) ──────────────────────── */
+p.identity { margin-top: 1.6rem; color: var(--ink-soft); }
+
+/* ── §3 Configuration table ─────────────────────────────────────── */
+table.config {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  margin: 0.4rem 0 0.2rem;
+}
+table.config thead th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink-soft);
+}
+table.config tbody td {
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+table.config tbody tr.match td { color: var(--ink-faint); }
+table.config tbody tr.diff td {
+  color: var(--ink);
+  font-weight: 500;
+  background: var(--accent-faint);
+}
+table.config tbody tr.diff td:first-child { border-left: 3px solid var(--accent); }
+table.config tbody tr.match td:first-child { border-left: 3px solid transparent; }
+
+/* ── §5 Related strategies ──────────────────────────────────────── */
+.related h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0.4rem 0 0.7rem;
+}
+ul.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+ul.related-list li { margin: 0.5rem 0; color: var(--ink-soft); }
+ul.related-list .sname {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ── References note (run-ID table, footer-adjacent) ────────────── */
+.refs-intro {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+}
+table.refs {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  margin: 0.4rem 0 0.2rem;
+}
+table.refs thead th {
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  font-weight: 700;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink-soft);
+}
+table.refs tbody td {
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+table.refs td.runid {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow { display: inline-block; margin-left: 0.3em; transition: transform 0.2s; }
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer code { font-family: var(--mono); color: var(--ink-soft); }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Devnotes (build-time annotations, hidden in print) ─────────── */
+.devnote {
+  margin: 1.2rem 0;
+  padding: 0.8rem 1.1rem;
+  background: var(--stub-bg);
+  border-left: 3px solid var(--stub);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--stub);
+}
+.devnote .label {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-right: 0.6em;
+}
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .devnote { display: none; }
+  table.config { font-size: 0.78rem; break-inside: avoid; }
+  table.config thead { display: table-header-group; }
+  table.config tr { break-inside: avoid; }
+  table.refs { font-size: 0.74rem; break-inside: avoid; }
+  table.refs thead { display: table-header-group; }
+  table.refs tr { break-inside: avoid; }
+  ul.related-list li { break-inside: avoid; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after { content: ' (' attr(href) ')'; font-size: 0.8em; color: #888; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  ul.related-list { font-size: 0.92rem; }
+  table.config { font-size: 0.78rem; }
+  table.refs { font-size: 0.74rem; }
+  h1 .subtitle { font-size: 1rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <!-- ─── MASTHEAD ─────────────────────────────────────────────── -->
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Reference Brief · Background</span>
+  </header>
+
+  <div class="devnote">
+    <span class="label">DEVNOTE — PROTOTYPE v0_1</span>
+    Project background reference brief, drafted 2026-07-20 (Eric's direction; no team decision required). Carries no modeled results. Open items: whether this merges with the scenario library brief into one page; placement on the findings page (reference band); location counts deliberately omitted pending reconciliation (the Learn text's 140 CWS vs. the platform's 74). Devnote boxes are hidden in print.
+  </div>
+
+  <!-- ─── §1 HEADLINE ──────────────────────────────────────────── -->
+  <div class="eyebrow">Reference Brief · The Project</div>
+  <h1>
+    The COEQWAL project
+    <span class="subtitle">What the Collaboratory for Equity in Water Allocation is, and how it works</span>
+  </h1>
+  <p class="tldr">
+    COEQWAL — the Collaboratory for Equity in Water Allocation — is a publicly funded, community-engaged research project that opens up the water planning tools used for California's Central Valley. Using CalSim, the same model state and federal agencies use for actual planning, the project simulates a broad range of water management strategies under a range of modeled climate conditions, and makes the resulting scenarios and their results public.
+  </p>
+  <p class="identity">
+    This brief describes the COEQWAL project itself: why it exists, how it works, and what it produces. It is a reference brief — part of the project's background material — and carries no modeled results. For results, see the results briefs on the findings page.
+  </p>
+
+  <!-- ─── §2 WHY THE PROJECT EXISTS ────────────────────────────── -->
+  <section>
+    <h2><span class="num">§2</span> Why the project exists</h2>
+    <p>
+      The water planning tools used by the State of California have been inaccessible to most communities, especially those historically excluded from water decision-making. The models are technical, the data are large, and the results have circulated mainly among agencies and specialists. COEQWAL's founding purpose is to open that information up.
+    </p>
+    <p>
+      The project's stated goals are to make the data used in water planning and decision-making more accessible, to help users understand the nature of trade-offs among management objectives, and to provide data that communities can use in shaping water decisions. The project does not advocate for any particular strategy: it reports what the model produces under each scenario and leaves evaluation to the reader.
+    </p>
+  </section>
+
+  <!-- ─── §3 THE APPROACH ──────────────────────────────────────── -->
+  <section>
+    <h2><span class="num">§3</span> The approach: participatory scenario planning</h2>
+    <p>
+      COEQWAL's work is structured around a participatory scenario planning approach. It is an iterative process. The team develops a set of alternative water management strategies and runs each one through CalSim, simulating how the strategy shapes the patterns and amounts of water allocated to different water users and the environment under a range of modeled climate conditions.
+    </p>
+    <p>
+      The results are then brought to community partners in workshops, and feedback on the scenarios — which ones were run, and how they are interpreted — shapes the next round of work. The scenario library is the product of this loop, not a one-time modeling exercise. The process has involved engagement with over 60 representatives from state and federal agencies, water districts, non-governmental organizations, community-based organizations, academic institutions, and Native American Tribes.
+    </p>
+  </section>
+
+  <!-- ─── §4 THE MODEL ─────────────────────────────────────────── -->
+  <section>
+    <h2><span class="num">§4</span> The model: CalSim</h2>
+    <p>
+      CalSim is the water resources planning model used by the U.S. Bureau of Reclamation and the California Department of Water Resources for planning the Central Valley water system. It represents the system as a network: how much water flows into reservoirs, how much is stored or released, and where it is delivered — from the Sacramento and San Joaquin rivers, through the Delta, to cities and farms across the Valley and along the coast.
+    </p>
+    <p>
+      COEQWAL runs CalSim 3 many times, changing two things between runs: the management strategy (the rules, priorities, and policies for allocating water) and the hydroclimate (the temperature, rain, and snow that determine how much water there is). Each strategy-and-hydroclimate pairing is one scenario, simulated over a 100-year period. How the pairings are constructed is described in the companion brief on the scenario library.
+    </p>
+  </section>
+
+  <!-- ─── §5 WHAT THE PROJECT PRODUCES ─────────────────────────── -->
+  <section>
+    <h2><span class="num">§5</span> What the project produces</h2>
+    <p>
+      The project's central product is the scenario library: 24 management strategies, each simulated under five hydroclimates. On the COEQWAL website, visitors can learn how water in the Central Valley is managed, explore how modeled results shift across scenarios, and share scenarios of interest.
+    </p>
+    <p>
+      Results on the website are reported in three forms. The explore tools report results on a four-tier scale — Optimal, Acceptable, At-risk, Critical — that translates each of nine sectors of the water system onto a common scale. The In-depth section serves the raw model record behind those tiers for users who need full resolution. The data download section provides the underlying data. Briefs — curated, printable summaries like this one — sit alongside the tools and report either background (reference briefs) or modeled tier results (results briefs).
+    </p>
+  </section>
+
+  <!-- ─── §6 WHAT THIS DOESN'T SAY ─────────────────────────────── -->
+  <section>
+    <h2><span class="num">§6</span> What this doesn't say</h2>
+    <p class="disclaimer">
+      COEQWAL reports modeled results from specific simulations. It does not predict what will happen, evaluate whether results are acceptable, or recommend any course of action. Scenarios are simulations, not forecasts and not policy proposals; the project does not identify a best strategy. The tier framework provides definitional categories; the meaning of those categories for any individual reader, community, or decision is not specified by COEQWAL.
+    </p>
+  </section>
+
+  <!-- ─── §7 WHERE TO GO NEXT ──────────────────────────────────── -->
+  <section>
+    <h2><span class="num">§7</span> Where to go next</h2>
+    <p>
+      For how the scenarios are constructed — strategies, hydroclimates, and the runs behind them — see the companion reference brief, <em>The COEQWAL scenario library</em>. For modeled results, start with the baseline brief or a theme brief on the findings page.
+    </p>
+    <p>
+      <a class="explore-link" href="/explore">
+        Open the data explorer
+        <span class="arrow">→</span>
+      </a>
+    </p>
+  </section>
+
+  <!-- ─── FOOTER (metadata) ────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Supported by the California Climate Action Initiative · UC Grant <code>R02CM7222</code></span>
+      <span>Brief v0.1</span>
+      <span>Updated July 20, 2026</span>
+    </div>
+  </footer>
+
+</article>
+
+<!-- ─── PRINT HINT (screen-only) ──────────────────────────────── -->
+<p class="print-hint">
+  Save this brief as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>

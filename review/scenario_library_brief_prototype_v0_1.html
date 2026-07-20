@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The COEQWAL scenario library — COEQWAL Findings</title>
+<meta name="description" content="A COEQWAL reference brief describing how the scenario library is built: 24 water management strategies, five hydroclimates, and the CalSim runs behind them. Background only — no modeled results.">
+
+<!--
+  COEQWAL scenario library brief — PROTOTYPE v0_1 (2026-07-20)
+
+  Reference brief (class per decisions 2026-07-19): describes how the
+  scenario library is constructed — what a scenario is, the strategy
+  families, the five hydroclimates, the baseline's role — and carries
+  no modeled results. Drafted per Eric 2026-07-20; companion draft:
+  project_background_brief_prototype_v0_1.html. Open question whether
+  the two merge into one page.
+
+  Shell: strategy_brief_prototype_functional-environmental-flows_v0_4
+  (cream-paper masthead, brief-article tokens). Title tag keeps
+  "— COEQWAL Findings" pending the page-name decision.
+
+  Content sources: coeqwal_conventions.md (2026-07-16 revision:
+  hydroclimate labels + one-line descriptions verbatim, strategy
+  public names per the 2026-07-15 naming decision),
+  shared/coeqwal_core_concepts.md (concepts 4–7, 14–15),
+  shared/COEQWAL_project_description.md. Library arithmetic: 24
+  strategies x 5 hydroclimates = 120 designed; 115 served (the 4.2
+  family, s0036, is not served — run IDs stay in devnotes per the
+  naming decision). Prose per COEQWAL_Prose_Style.md; checked against
+  coeqwal_framing_invariants.md. Staged in build_review.py and linked
+  from the findings mock-up v0_10 fourth pass (both 2026-07-20);
+  publishes to the review folder on the next publish.py run + push.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #fdfbf5;
+  --ink:          #1a1a1a;
+  --ink-soft:     #4a4a4a;
+  --ink-faint:    #8a8a8a;
+  --rule:         #d8d4c8;
+  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
+  --accent-faint: #e8eef5;
+  --stub:         #b0824a;   /* warm amber for devnote/[TBD] markers */
+  --stub-bg:      #fbf3e6;
+  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
+  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
+  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --measure:      38rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brief {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
+.masthead .meta  { color: var(--ink-faint); }
+
+/* ── Eyebrow + Title ────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.05rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0 0 3rem;
+  color: var(--ink);
+}
+h1 .subtitle {
+  display: block;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  font-weight: 400;
+  margin-top: 0.55rem;
+}
+
+/* ── Section structure ──────────────────────────────────────────── */
+section { margin: 3.2rem 0; }
+
+h2 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+}
+h2 .num {
+  display: inline-block;
+  width: 1.9em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+p { margin: 0 0 1.1rem; }
+em { font-style: italic; color: var(--ink); }
+
+/* ── TL;DR pull-quote ───────────────────────────────────────────── */
+.tldr {
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ── Identity sentence (follows the TL;DR) ──────────────────────── */
+p.identity { margin-top: 1.6rem; color: var(--ink-soft); }
+
+/* ── §3 Configuration table ─────────────────────────────────────── */
+table.config {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  margin: 0.4rem 0 0.2rem;
+}
+table.config thead th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink-soft);
+}
+table.config tbody td {
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+table.config tbody tr.match td { color: var(--ink-faint); }
+table.config tbody tr.diff td {
+  color: var(--ink);
+  font-weight: 500;
+  background: var(--accent-faint);
+}
+table.config tbody tr.diff td:first-child { border-left: 3px solid var(--accent); }
+table.config tbody tr.match td:first-child { border-left: 3px solid transparent; }
+
+/* ── §5 Related strategies ──────────────────────────────────────── */
+.related h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0.4rem 0 0.7rem;
+}
+ul.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+ul.related-list li { margin: 0.5rem 0; color: var(--ink-soft); }
+ul.related-list .sname {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ── References note (run-ID table, footer-adjacent) ────────────── */
+.refs-intro {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+}
+table.refs {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  margin: 0.4rem 0 0.2rem;
+}
+table.refs thead th {
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  font-weight: 700;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink-soft);
+}
+table.refs tbody td {
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+table.refs td.runid {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+.disclaimer {
+  font-size: 0.96rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* ── Explore further link ───────────────────────────────────────── */
+.explore-link {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.explore-link .arrow { display: inline-block; margin-left: 0.3em; transition: transform 0.2s; }
+.explore-link:hover .arrow { transform: translateX(3px); }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  line-height: 1.7;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.footer code { font-family: var(--mono); color: var(--ink-soft); }
+.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; }
+
+/* ── Devnotes (build-time annotations, hidden in print) ─────────── */
+.devnote {
+  margin: 1.2rem 0;
+  padding: 0.8rem 1.1rem;
+  background: var(--stub-bg);
+  border-left: 3px solid var(--stub);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--stub);
+}
+.devnote .label {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-right: 0.6em;
+}
+
+/* ── Print hint (screen-only) ──────────────────────────────────── */
+.print-hint {
+  max-width: var(--measure);
+  margin: 1rem auto 0;
+  padding: 0.85rem 2.5rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+.print-hint kbd {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #faf6ec;
+  color: var(--ink-soft);
+}
+
+/* ── Print ──────────────────────────────────────────────────────── */
+@media print {
+  @page { size: letter; margin: 0.7in 0.85in; }
+  html, body { background: white; }
+  .brief { max-width: none; padding: 0; margin: 0; }
+  .masthead { margin-bottom: 1.5rem; padding-bottom: 0.7rem; }
+  h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  section { margin: 1.6rem 0; break-inside: avoid; }
+  h1, h2 { break-after: avoid; }
+  .tldr { font-size: 1.05rem; }
+  p { orphans: 3; widows: 3; }
+  .devnote { display: none; }
+  table.config { font-size: 0.78rem; break-inside: avoid; }
+  table.config thead { display: table-header-group; }
+  table.config tr { break-inside: avoid; }
+  table.refs { font-size: 0.74rem; break-inside: avoid; }
+  table.refs thead { display: table-header-group; }
+  table.refs tr { break-inside: avoid; }
+  ul.related-list li { break-inside: avoid; }
+  .print-hint { display: none; }
+  .footer { margin-top: 2.5rem; }
+  a[href]::after { content: ' (' attr(href) ')'; font-size: 0.8em; color: #888; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .brief { padding: 2.5rem 1.4rem 4rem; }
+  body { font-size: 17px; }
+  h1 { font-size: 1.55rem; }
+  .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
+  ul.related-list { font-size: 0.92rem; }
+  table.config { font-size: 0.78rem; }
+  table.refs { font-size: 0.74rem; }
+  h1 .subtitle { font-size: 1rem; }
+  .footer { flex-direction: column; }
+  .masthead { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<article class="brief">
+
+  <!-- ─── MASTHEAD ─────────────────────────────────────────────── -->
+  <header class="masthead">
+    <span class="brand">COEQWAL</span>
+    <span class="meta">Reference Brief · Background</span>
+  </header>
+
+  <div class="devnote">
+    <span class="label">DEVNOTE — PROTOTYPE v0_1</span>
+    Scenario library reference brief, drafted 2026-07-20 (Eric's direction; no team decision required). Carries no modeled results. The §4 hydroclimate table uses the permanent public labels (2026-07-16/19) and the adopted one-line descriptions verbatim. Strategy family counts checked against the naming proposal's 24-row table. Open items: merge with the project background brief; findings-page placement (reference band); whether the served/designed distinction (115 of 120) needs a footnote once strategy 4.2's status is settled. Devnote boxes are hidden in print.
+  </div>
+
+  <!-- ─── §1 HEADLINE ──────────────────────────────────────────── -->
+  <div class="eyebrow">Reference Brief · The Scenario Library</div>
+  <h1>
+    The COEQWAL scenario library
+    <span class="subtitle">How the scenarios are built: strategies, hydroclimates, and the model runs behind them</span>
+  </h1>
+  <p class="tldr">
+    The scenario library pairs 24 water management strategies with five hydroclimates. Each pairing is one scenario — one CalSim 3 simulation over a 100-year period. Of the 120 designed combinations, 115 are currently served on the website. Every tier result COEQWAL reports traces to one of these runs.
+  </p>
+  <p class="identity">
+    This brief describes how the scenario library is constructed. It is a reference brief — part of the project's background material — and carries no modeled results. For what the runs produce, see the results briefs on the findings page.
+  </p>
+
+  <!-- ─── §2 WHAT A SCENARIO IS ────────────────────────────────── -->
+  <section>
+    <h2><span class="num">§2</span> What a scenario is</h2>
+    <p>
+      Every scenario pairs one water management strategy with one hydroclimate. The strategy describes the decisions, priorities, and policies that determine how water is allocated — the part of the system that can be controlled. The hydroclimate describes the temperature and the patterns of rain and snow that determine how much water is available — the part that cannot.
+    </p>
+    <p>
+      The pairing is the unit of analysis. A result belongs to the pair, never to a strategy alone: the same strategy can produce different results under different hydroclimates, and comparing a strategy across hydroclimates is one of the central readings the library is structured to support.
+    </p>
+  </section>
+
+  <!-- ─── §3 THE STRATEGIES ────────────────────────────────────── -->
+  <section>
+    <h2><span class="num">§3</span> The 24 strategies</h2>
+    <p>
+      The strategies span the main levers of Central Valley water management, in seven families: five current-operations variants (differing in agency rule set, land use, and drought provisions); four groundwater pumping limits reflecting SGMA compliance, with and without reduced crop acreage; five river flow configurations, including functional environmental flows, salmon-friendly flows, and a no-minimum-flows variant; three community water system delivery priorities; four Delta outflow levels, from 35% to 65% of unimpaired flow; two storage and salinity operations; and the Delta Conveyance Project.
+    </p>
+    <p>
+      A strategy's public identity is its descriptive name — for example, <em>functional environmental flows</em> or <em>groundwater pumping limits in the San Joaquin Valley</em>. Each strategy is described in its own reference brief; the full set is listed in the strategies-at-a-glance table on the findings page.
+    </p>
+  </section>
+
+  <!-- ─── §4 THE HYDROCLIMATES ─────────────────────────────────── -->
+  <section>
+    <h2><span class="num">§4</span> The five hydroclimates</h2>
+    <p>
+      Each strategy is simulated once under each of five hydroclimates: the historical record, and four projected climates named by their level of stress on the water system. The four projections are a sample of possible futures drawn from state planning studies and downscaled global climate models — they are not predictions, and they are not stages of a single timeline. Each is a complete simulation period in its own right.
+    </p>
+    <table class="config">
+      <thead>
+        <tr>
+          <th>Hydroclimate</th>
+          <th>Conditions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="match"><td>Historical hydroclimate</td><td>Temperature, precipitation, and streamflow patterns reflect historical conditions</td></tr>
+        <tr class="match"><td>Moderate climate stress</td><td>Slightly warmer and wetter conditions (+7% runoff change)</td></tr>
+        <tr class="match"><td>Moderate-high climate stress</td><td>Warmer and slightly drier conditions (−1% runoff change)</td></tr>
+        <tr class="match"><td>High climate stress</td><td>Much warmer and much drier conditions (−7% runoff change)</td></tr>
+        <tr class="match"><td>Extreme climate stress</td><td>Warmer and substantially drier conditions (−19% runoff change)</td></tr>
+      </tbody>
+    </table>
+    <div class="devnote">
+      <span class="label">DEVNOTE — HYDROCLIMATE TABLE</span>
+      Public labels permanent per 2026-07-19; one-line descriptions adopted 2026-07-16, verbatim from coeqwal_conventions.md. Severity order shown (Historical → Moderate → Moderate-high → High → Extreme). Internal keys and model sources (BL/HC1–HC4; CC50, CC95, TaiESM1, EC-Earth3-Veg) stay out of the reader-facing table — they belong to the planned hydroclimate briefs' references notes.
+    </div>
+  </section>
+
+  <!-- ─── §5 CURRENT OPERATIONS AND THE BASELINE ───────────────── -->
+  <section>
+    <h2><span class="num">§5</span> Current operations and the baseline</h2>
+    <p>
+      One strategy — <em>current operations</em> — represents existing operational rules as specified by the California Department of Water Resources in 2023, with recent (2020) land use and drought provisions. It is simulated under all five hydroclimates, like every other strategy, and it is the reference every other strategy is compared against.
+    </p>
+    <p>
+      Comparisons are always matched by hydroclimate: an alternative strategy under a given hydroclimate is compared with current operations under that same hydroclimate. Current operations under the historical hydroclimate is the baseline — the scenario that represents the lived status quo. Current operations under a projected hydroclimate is a climate-projected baseline: an independent model run showing where current management would land if the climate changed but the rules did not. It is a full simulation, not an adjustment applied to the historical run.
+    </p>
+  </section>
+
+  <!-- ─── §6 WHAT THIS DOESN'T SAY ─────────────────────────────── -->
+  <section>
+    <h2><span class="num">§6</span> What this doesn't say</h2>
+    <p class="disclaimer">
+      The library is a sample, not a census. The 24 strategies do not cover every possible way of managing Central Valley water, and the five hydroclimates do not cover every possible climate; the absence of a combination from the library is not evidence about that combination. No scenario is a prediction of what will happen, and the library does not identify a best strategy. Strategies as modeled are idealized representations in CalSim, not policy proposals or implementation plans.
+    </p>
+  </section>
+
+  <!-- ─── §7 WHERE TO GO NEXT ──────────────────────────────────── -->
+  <section>
+    <h2><span class="num">§7</span> Where to go next</h2>
+    <p>
+      For what the project is and why the library exists, see the companion reference brief, <em>The COEQWAL project</em>. For any single strategy, see its strategy brief. For the full strategy × hydroclimate matrix, see the strategies-at-a-glance table on the findings page. For modeled results, start with the baseline brief.
+    </p>
+    <p>
+      <a class="explore-link" href="/explore">
+        Browse the scenario library in the data explorer
+        <span class="arrow">→</span>
+      </a>
+    </p>
+  </section>
+
+  <!-- ─── REFERENCES NOTE ──────────────────────────────────────── -->
+  <section class="refs-note">
+    <h2>References — model runs</h2>
+    <p class="refs-intro">
+      Every scenario is one CalSim 3 run. The run identifiers for each strategy, under each of the five hydroclimates, are listed in the references note of that strategy's brief and in the strategies-at-a-glance table's records, so any result can be traced to a specific model run.
+    </p>
+  </section>
+
+  <!-- ─── FOOTER (metadata) ────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="meta-row">
+      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
+    </div>
+    <div class="meta-row">
+      <span>Library: 24 strategies × 5 hydroclimates · 115 of 120 served</span>
+      <span>Brief v0.1</span>
+      <span>Updated July 20, 2026</span>
+    </div>
+  </footer>
+
+</article>
+
+<!-- ─── PRINT HINT (screen-only) ──────────────────────────────── -->
+<p class="print-hint">
+  Save this brief as a PDF — open your browser's print menu
+  (<kbd>⌘P</kbd> on Mac, <kbd>Ctrl</kbd>+<kbd>P</kbd> on Windows)
+  and choose "Save as PDF" as the destination.
+</p>
+
+</body>
+</html>

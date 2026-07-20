@@ -36,10 +36,10 @@
 <body>
 <header>
   <h1>COEQWAL terminology and conventions</h1>
-  <p>Canonical names and definitions — hydroclimates, scenarios, themes, sectors, tiers — for anyone writing or reviewing COEQWAL material. Source document last updated 2026-07-17 08:45 AM PDT. <a href="index.html">Back to working pages</a>.</p>
+  <p>Canonical names and definitions — hydroclimates, scenarios, themes, sectors, tiers — for anyone writing or reviewing COEQWAL material. Source document last updated 2026-07-20 07:59 AM PDT. <a href="index.html">Back to working pages</a>.</p>
 </header>
 <main>
-<p><em>Generated from COEQWAL_Platform_Content_Summary. Source of truth: COEQWAL Platform Content Summary Google Sheet.</em> <em>Last updated: 2026-07-16 — public hydroclimate names adopted (climate-stress scale); Hydroclimates section revised accordingly. Previous revision 2026-07-15 (five-hydroclimate, 23-strategy served library).</em></p>
+<p><em>Generated from COEQWAL_Platform_Content_Summary. Source of truth: COEQWAL Platform Content Summary Google Sheet.</em> <em>Last updated: 2026-07-20 — hydroclimate public titles declared PERMANENT (Eric, 2026-07-19); previously adopted 2026-07-16 (climate-stress scale; Hydroclimates section revised accordingly). Previous revision 2026-07-15 (five-hydroclimate, 23-strategy served library).</em></p>
 <hr>
 <h2 id="terminology">Terminology</h2>
 <blockquote><p><strong>Dispreferred term: "outcome."</strong> Avoid "outcome" in new writing for this project. Apply this preference going forward. The production codebase still uses "outcome" as its umbrella term — see § Codebase outcome codes below for the one-to-one mapping to editorial sector codes.</p></blockquote>
@@ -59,7 +59,7 @@
 <tr><td>3 (HC3, internal)</td><td>5</td><td>Extreme climate stress</td><td>99th</td><td>−19%</td><td>LOCA2 CMIP6 TaiESM1 SSP370</td><td><strong>Served</strong> (2026-06-25)</td></tr>
 <tr><td>4 (HC4, internal)</td><td>7</td><td>Moderate climate stress</td><td>40th</td><td>+7%</td><td>LOCA2 CMIP6 EC-Earth3-Veg SSP370</td><td><strong>Served</strong> (2026-06-25)</td></tr>
 </tbody></table>
-<p><em>Served HC set (authority: live API; TaiESM1 and EC-Earth3-Veg landed 2026-06-25): <strong>all five hydroclimates</strong>, each paired with all 23 strategies — 115 served scenario codes (strategy s0036 removed; see § Scenarios). The API exposes the five as <code>hydroclimate_id</code> 2 / 3 / 4 / 5 / 7; that numbering is distinct from the editorial index in the first column, and HC3/HC4 are internal keys (builder and data pipeline), not public labels. Public short titles adopted 2026-07-16 (climate-stress scale, replacing the "Warmer and Drier I/II" and draft "Warmer and Drier III" labels): Historical hydroclimate; Moderate climate stress (EC-Earth3-Veg, <code>cqlECV</code>, s0133–s0157, 40th percentile level of concern); Moderate-high climate stress (CC50, 50th); High climate stress (CC95, 95th); Extreme climate stress (TaiESM1, <code>cqlTAI</code>, s0107–s0131, 99th). Public severity/figure order runs Historical → Moderate → Moderate-high → High → Extreme — note this differs from the editorial index order, since HC4 (Moderate) sits between BL and HC1 in severity. See <code>coeqwal_brief_build_pipeline.md</code>, § "Data evolution and the lock". CESM2-LENS / "Warmer and Drier IV" remains explored-only and is not in the run set.</em></p>
+<p><em>Served HC set (authority: live API; TaiESM1 and EC-Earth3-Veg landed 2026-06-25): <strong>all five hydroclimates</strong>, each paired with all 23 strategies — 115 served scenario codes (strategy s0036 removed; see § Scenarios). The API exposes the five as <code>hydroclimate_id</code> 2 / 3 / 4 / 5 / 7; that numbering is distinct from the editorial index in the first column, and HC3/HC4 are internal keys (builder and data pipeline), not public labels. Public short titles adopted 2026-07-16 and declared <strong>permanent</strong> 2026-07-19 (Eric; no longer provisional) — climate-stress scale, replacing the "Warmer and Drier I/II" and draft "Warmer and Drier III" labels: Historical hydroclimate; Moderate climate stress (EC-Earth3-Veg, <code>cqlECV</code>, s0133–s0157, 40th percentile level of concern); Moderate-high climate stress (CC50, 50th); High climate stress (CC95, 95th); Extreme climate stress (TaiESM1, <code>cqlTAI</code>, s0107–s0131, 99th). Public severity/figure order runs Historical → Moderate → Moderate-high → High → Extreme — note this differs from the editorial index order, since HC4 (Moderate) sits between BL and HC1 in severity. See <code>coeqwal_brief_build_pipeline.md</code>, § "Data evolution and the lock". CESM2-LENS / "Warmer and Drier IV" remains explored-only and is not in the run set.</em></p>
 <p><strong>CalSim 3 HC labels (coeqwal_cs3_scenario_listing):</strong></p>
 <ul>
 <li>0 (API id 2): <code>2023 DWR Historical Adjusted</code></li>
@@ -195,7 +195,7 @@
 </main>
 <footer>
 Generated from the project's conventions reference document; that document remains authoritative. Questions: Eric Danner.<br>
-Page generated 2026-07-19 05:51 PM PDT.
+Page generated 2026-07-20 09:53 AM PDT.
 </footer>
 </body>
 </html>

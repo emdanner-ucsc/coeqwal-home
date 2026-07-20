@@ -10,6 +10,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_10 (2026-07-20, fourth pass): project background + scenario
+   *   library reference briefs added. Both were drafted 2026-07-20 as
+   *   v0_1 prototypes (per Eric — no team decision required; see
+   *   COEQWAL_Briefs_Concept.md, brief-classes section): the project
+   *   brief (what COEQWAL is, the participatory approach, CalSim) and
+   *   the scenario library brief (scenario = strategy × hydroclimate,
+   *   24 strategies, five hydroclimates, the baseline's role). New
+   *   "About COEQWAL and the scenario library" card at the head of
+   *   the REFERENCE BRIEFS band with two foot links (baseline-card
+   *   two-link pattern); band intro updated (three reference briefs
+   *   now built). Both filenames added to build_review.py CORE the
+   *   same pass, so the links resolve on the published review copy.
+   *
    * v0_10 (2026-07-19, third pass): page renamed COEQWAL Findings →
    *   "COEQWAL Summaries" (title, tab label, hero, subtitle) per Eric
    *   2026-07-19 — with both results and reference briefs on the page,
@@ -1026,16 +1039,36 @@
 
 <!-- ===================== BRIEF CLASS 2: REFERENCE BRIEFS ===================== -->
 <!-- (v0_10) Class band replaces the v0_9 "Background reading" layer label.
-     No true reference briefs are built yet — the pickers are illustrative
-     and their read-links are labeled as to-come. -->
+     Fourth pass 2026-07-20: three reference briefs now built — the two
+     project orientation briefs (card below) and the functional environmental
+     flows worked example. The hydroclimate picker's read-links remain
+     to-come. -->
 <section class="band-navy section">
   <div class="layer-header on-navy class-header">
     <div class="layer-label">Reference briefs</div>
     <div class="layer-meta">Describe the COEQWAL process — no results</div>
   </div>
   <p class="layer-intro">
-    Reference briefs describe the pieces the scenario library is built from and contain no model results. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The pickers will hold a short reference brief for each strategy and each hydroclimate — what the strategy does, or what the climate model assumes. One worked example is built (functional environmental flows); the rest are to come. Technical descriptions of how each sector's tiers are calculated will also live here.
+    Reference briefs describe the project and the pieces the scenario library is built from, and contain no model results. Two orientation briefs cover the project itself and how the library is constructed. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The pickers will hold a short reference brief for each strategy and each hydroclimate — what the strategy does, or what the climate model assumes. One worked strategy example is built (functional environmental flows); the rest are to come. Technical descriptions of how each sector's tiers are calculated will also live here.
   </p>
+
+  <!-- v0_10 fourth pass (2026-07-20): project orientation card. Both briefs
+       drafted 2026-07-20 (v0_1); filenames staged in build_review.py CORE
+       the same pass so these relative links resolve once published. -->
+  <div class="card">
+    <div class="card-eyebrow">The project</div>
+    <h2 class="card-title">About COEQWAL and the scenario library</h2>
+    <p class="card-body">
+      Two orientation briefs for readers arriving cold. The first describes the project itself — why COEQWAL exists, the participatory scenario planning approach, and the CalSim model behind every scenario. The second describes how the scenario library is built: what a scenario is, the 24 management strategies, the five hydroclimates, and the role of current operations as the comparison anchor.
+    </p>
+    <div class="card-foot">
+      <span class="card-stats"><span><em>2</em>briefs</span></span>
+      <span class="foot-links">
+        <a class="read-link" href="project_background_brief_prototype_v0_1.html" target="_blank" rel="noopener">The COEQWAL project →</a>
+        <a class="read-link" href="scenario_library_brief_prototype_v0_1.html" target="_blank" rel="noopener">The scenario library →</a>
+      </span>
+    </div>
+  </div>
 
   <div class="card strategy-table-card">
     <div class="card-eyebrow">Orientation</div>
