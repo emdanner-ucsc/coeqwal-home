@@ -31,6 +31,18 @@
   coeqwal_framing_invariants.md. Staged in build_review.py and linked
   from the findings mock-up v0_10 fourth pass (both 2026-07-20);
   publishes to the review folder on the next publish.py run + push.
+
+  Revision 2026-07-21 (Eric's direction, discussed in session): §5
+  rewritten around the three levels of CalSim results — tiers (most
+  summarized, COEQWAL-specific, covers sectors and per-sector LOIs;
+  stub link to the planned per-sector "How tiers are calculated"
+  reference briefs), In-depth (monthly time
+  step, views such as exceedance plots and year-to-year variability,
+  subset of the model record — replaces the inaccurate "full
+  resolution" sentence), and raw (Data and Downloads: native DSS +
+  accessible CSV subset, plus the data API for machine-readable
+  access). "Raw model record" phrasing moved from In-depth down to
+  the downloads level, where it belongs.
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -256,6 +268,15 @@ table.refs td.runid {
   line-height: 1.65;
 }
 
+/* ── Inline prose links ─────────────────────────────────────────── */
+section p a:not(.explore-link) {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+section p a:not(.explore-link):hover { color: var(--ink); }
+
 /* ── Explore further link ───────────────────────────────────────── */
 .explore-link {
   display: inline-block;
@@ -382,7 +403,7 @@ table.refs td.runid {
 
   <div class="devnote">
     <span class="label">DEVNOTE — PROTOTYPE v0_1</span>
-    Project background reference brief, drafted 2026-07-20 (Eric's direction; no team decision required). Carries no modeled results. Open items: whether this merges with the scenario library brief into one page; placement on the findings page (reference band); location counts deliberately omitted pending reconciliation (the Learn text's 140 CWS vs. the platform's 74). Devnote boxes are hidden in print.
+    Project background reference brief, drafted 2026-07-20 (Eric's direction; no team decision required). Carries no modeled results. Open items: whether this merges with the scenario library brief into one page; placement on the findings page (reference band); location counts deliberately omitted pending reconciliation (the Learn text's 140 CWS vs. the platform's 74). Revised 2026-07-21: §5 expanded to describe the three levels of CalSim results (tiers / In-depth / raw + API), with tiers covering sectors and the LOIs within each sector; the "tier-calculation briefs" link is a stub (href="#") — the per-sector "How tiers are calculated" reference briefs are planned but not yet built; retarget when they exist. Devnote boxes are hidden in print.
   </div>
 
   <!-- ─── §1 HEADLINE ──────────────────────────────────────────── -->
@@ -438,7 +459,16 @@ table.refs td.runid {
       The project's central product is the scenario library: 24 management strategies, each simulated under five hydroclimates. On the COEQWAL website, visitors can learn how water in the Central Valley is managed, explore how modeled results shift across scenarios, and share scenarios of interest.
     </p>
     <p>
-      Results on the website are reported in three forms. The explore tools report results on a four-tier scale — Optimal, Acceptable, At-risk, Critical — that translates each of nine sectors of the water system onto a common scale. The In-depth section serves the raw model record behind those tiers for users who need full resolution. The data download section provides the underlying data. Briefs — curated, printable summaries like this one — sit alongside the tools and report either background (reference briefs) or modeled tier results (results briefs).
+      The website reports the CalSim results at three levels of detail. The first level is the tiers: the explore tools report every result on a four-tier scale — Optimal, Acceptable, At-risk, Critical — that places each of nine sectors of the water system, and the individual locations of interest (LOIs) within each sector, on a common scale. The tier summarization was developed by the COEQWAL project, and it is the most efficient path to a general understanding of the patterns and trade-offs across scenarios, and to comparing one scenario with another. How the tiers are computed is described in the <a href="#">tier-calculation briefs</a>.
+    </p>
+    <p>
+      The second level is the In-depth section, which reports selected model variables at the model's monthly time step, summarized in views such as exceedance plots and year-to-year variability. It serves part of the model record, not all of it; variables and detail beyond what the In-depth tools expose are in the downloads.
+    </p>
+    <p>
+      The third level is the raw model output. The Data and Downloads section provides the CalSim output files themselves, in two forms: the model's native DSS files, which carry the complete record and require specialized tools to read, and CSV files, which are easier to work with and carry a subset of what the DSS files contain. The same results are also available through the COEQWAL data API, which serves scenario metadata, tier results, and summary statistics in machine-readable form for users building their own analyses.
+    </p>
+    <p>
+      Briefs — curated, printable summaries like this one — sit alongside these levels and report either background (reference briefs) or modeled tier results (results briefs).
     </p>
   </section>
 
@@ -472,7 +502,7 @@ table.refs td.runid {
     <div class="meta-row">
       <span>Supported by the California Climate Action Initiative · UC Grant <code>R02CM7222</code></span>
       <span>Brief v0.1</span>
-      <span>Updated July 20, 2026</span>
+      <span>Updated July 21, 2026</span>
     </div>
   </footer>
 
