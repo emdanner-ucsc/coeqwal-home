@@ -2,507 +2,1433 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>COEQWAL Briefs — Team Review Hub</title>
-<meta name="description" content="A single landing page linking every COEQWAL brief prototype going to team review, grouped by type, with a short note on the decisions we need from reviewers.">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COEQWAL Summaries — team review mock-up</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;700&family=DM+Sans:wght@500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --paper:        #fdfbf5;
-  --ink:          #1a1a1a;
-  --ink-soft:     #4a4a4a;
-  --ink-faint:    #8a8a8a;
-  --rule:         #d8d4c8;
-  --accent:       #3a4574;   /* canonical blue.darkest, per COEQWAL_Visual_Design_Spec */
-  --accent-faint: #e8eef5;
-  --stub:         #b0824a;   /* warm amber for caveats / placeholders */
-  --stub-bg:      #fbf3e6;
-  --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
-  --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
-  --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
-  --measure:      44rem;
-}
+  /*
+   * v0_10 (2026-07-22, eighth pass): this page repurposed as the team's
+   *   brief-sharing + editing hub, replacing home/review/index.html (which
+   *   is archived). Changes: the v0_9 team-review banner removed (it pointed
+   *   at the now-archived review index); small "✎ Suggest edits" links added
+   *   next to the three briefs that have editable Google Docs — Baselines
+   *   (baseline card foot), Folsom (its featured-place row, restructured to
+   *   an inner place-link + trailing edit link), and Functional environmental
+   *   flows (its strategies-table cell). Doc URLs are the existing team docs
+   *   carried over from the old review index. NOTE: the Baselines Doc is the
+   *   synthetic v0_8 brief's copy deck; the baseline card links the real-data
+   *   build — the reader-facing prose is shared. Remaining briefs get edit
+   *   links as their Docs are created (fresh, in the ucsc team-review Drive
+   *   folder). Once this becomes review/index.html, build_review.py must
+   *   emit it as index.html.
+   *
+   * v0_10 (2026-07-22, seventh pass): strategy picker wired to the full
+   *   24-brief set. strategy-briefs/strategy_brief_{slug}_v0_1.html
+   *   (generated 2026-07-22 by generate_strategy_briefs.py in this
+   *   repo; slugs from the naming-proposal public names) — each picker
+   *   option now carries its brief path and a small change-handler
+   *   opens the selected brief in a new tab. Card body/foot updated;
+   *   REVIEW note flags the set as v0_1 first drafts with devnoted
+   *   open decisions. Reference-band intro updated ("the rest are to
+   *   come" retired). The v0_4 worked example stays the foot link (the
+   *   team-edited reference); the picker links the uniform v0_1 set,
+   *   including its regenerated 3.2. The strategy-briefs/ folder must
+   *   be staged by build_review.py for these links to resolve on the
+   *   published copy.
+   *
+   * v0_10 (2026-07-20, sixth pass): hydroclimate reference brief wired
+   *   in. hydroclimates_brief_prototype_v0_1.html drafted 2026-07-20
+   *   (from the hydroclimate team's website description + Levy et al.
+   *   documentation) as ONE brief with five anchored sections — per
+   *   Eric the one-brief unit is final, no later split into five;
+   *   anchors give each hydroclimate a citable address. Changes here:
+   *   hydroclimate picker card body rewritten from "A short brief for
+   *   each modeled hydroclimate" to the one-brief language; the inert
+   *   "to come" read-link replaced with a live link to the brief;
+   *   reference-band intro updated to match. Filename added to
+   *   build_review.py CORE the same pass. The brief is a v0_1 draft on
+   *   the reference-doc shell (not yet the house brief shell); its flow
+   *   numbers follow the technical documentation's Table 2 and carry
+   *   dev notes on two conflicts flagged to the hydroclimate team.
+   *
+   * v0_10 (2026-07-20, fifth pass): the combined "About COEQWAL and
+   *   the scenario library" card split into two cards on one row
+   *   (picker-grid layout), one per orientation brief, each with its
+   *   own read link — per Eric, who missed the links on the single
+   *   card when reviewing the published page. Same two targets; no
+   *   staging changes needed.
+   *
+   * v0_10 (2026-07-20, fourth pass): project background + scenario
+   *   library reference briefs added. Both were drafted 2026-07-20 as
+   *   v0_1 prototypes (per Eric — no team decision required; see
+   *   COEQWAL_Briefs_Concept.md, brief-classes section): the project
+   *   brief (what COEQWAL is, the participatory approach, CalSim) and
+   *   the scenario library brief (scenario = strategy × hydroclimate,
+   *   24 strategies, five hydroclimates, the baseline's role). New
+   *   "About COEQWAL and the scenario library" card at the head of
+   *   the REFERENCE BRIEFS band with two foot links (baseline-card
+   *   two-link pattern); band intro updated (three reference briefs
+   *   now built). Both filenames added to build_review.py CORE the
+   *   same pass, so the links resolve on the published review copy.
+   *
+   * v0_10 (2026-07-19, third pass): page renamed COEQWAL Findings →
+   *   "COEQWAL Summaries" (title, tab label, hero, subtitle) per Eric
+   *   2026-07-19 — with both results and reference briefs on the page,
+   *   "Findings" described only half of it. The name is PROVISIONAL:
+   *   candidates (Briefs, Summaries, Reports, split-structure
+   *   alternative) are laid out in the combined options note of
+   *   2026-07-19 for team discussion. Hero subtitle rewritten
+   *   class-neutral; "Where to start" intro now says "Results can be
+   *   viewed…". Other briefs' title tags still say "COEQWAL Findings"
+   *   (e.g. the strategy brief v0_4) — rename those only after the
+   *   team settles the name.
+   *
+   * v0_10 (2026-07-19, second pass): correction per Eric — the
+   *   Functional environmental flows strategy brief (v0_4) is a
+   *   REFERENCE brief, not a results brief: it describes the
+   *   operational configuration and carries no modeled results (its
+   *   own header devnote says so; its subtitle is deliberately in the
+   *   background register). The first pass had moved it into the
+   *   results band on a mistaken line in the 2026-07-19 decision
+   *   record. Reverted: the "Results for a single strategy" card is
+   *   removed from the results band and the worked-example link is
+   *   restored on the strategy-picker card, where it belongs as the
+   *   one built strategy reference brief. Footer and band intros
+   *   adjusted to match. Open question raised by Eric same day, not
+   *   yet decided: whether to generate a results brief for every
+   *   individual scenario (one per strategy × hydroclimate cell) —
+   *   which would give the strategies-table cells destinations and
+   *   would need its own naming and template conventions.
+   *
+   * v0_10 (2026-07-19): page divided into two labeled brief classes,
+   *   per the 2026-07-19 decision — "results briefs" (report modeled
+   *   tier results) and "reference briefs" (part of the COEQWAL
+   *   process; contain no results). v0_9 stays live and unchanged as
+   *   the team-review page (link continuity).
+   *   - RESULTS BRIEFS class band added above "Where to start". It
+   *     covers the baseline card, the four theme cards, the sector
+   *     tiles, and the featured places. The Functional environmental
+   *     flows worked-example strategy brief (v0_4) moved into this
+   *     band as its own card — its link is removed from the strategy-
+   *     picker card, whose stated purpose is descriptive while that
+   *     brief reports results. (The strategies-table row link to the
+   *     same brief is kept as a cross-reference.)
+   *   - REFERENCE BRIEFS class band replaces the "Background reading"
+   *     layer label. Contains the strategies-at-a-glance table (still
+   *     collapsible; run IDs still shown — where run IDs surface
+   *     publicly is an open decision) and the two pickers. No true
+   *     reference briefs are built yet, so both picker read-links are
+   *     labeled "to come" and inert. A "How tiers are calculated"
+   *     placeholder card added below the pickers (per Eric 2026-07-19):
+   *     one technical tier-calculation reference brief per sector is
+   *     planned; none built yet.
+   *   - Baseline card: converted from a single anchor to a card with
+   *     two labeled links (per Eric 2026-07-19): results brief
+   *     (builder/output/baselines_dev.html) + baseline narrative v0_2,
+   *     which was previously unreachable from this page.
+   *   - DEVNOTE added under the theme grid: the theme narratives are
+   *     hybrids (their §6 reports findings), so their classification
+   *     as results briefs interacts with the open §6 evaluative-verb
+   *     policy decision.
+   *   - Footer expanded to define both brief classes.
+   *
+   * v0_9 (2026-07-18, fourth pass): four theme cards repointed
+   *   narrative v0_1 → v0_2 (rebuilt same day from the latest team
+   *   docx; open decisions flagged inline in the narratives). The
+   *   baseline card still points at the results brief; the baseline
+   *   narrative v0_2 is not yet linked from this page. Publishing
+   *   requires adding the five v0_2 filenames to build_review.py's
+   *   staging list in the home repo.
+   *
+   * v0_9 (2026-07-18, third pass): strategies table made collapsible
+   *   (<details>, collapsed by default) so the Background reading
+   *   section stays compact; card body now defines a scenario as one
+   *   strategy combined with one hydroclimate (24 × 5 = 120 scenarios,
+   *   115 served). Conceptual correction from Eric: the table is the
+   *   scenario matrix (cell = scenario), not a second copy of the
+   *   strategy list — the pickers describe the components, the table
+   *   shows their combinations. Single worked-example row link kept.
+   *
+   * v0_9 (2026-07-18, second pass): "The 24 strategies at a glance"
+   *   table added to Background reading, above the two pickers.
+   *   Public names per the 2026-07-15 naming decision, grouped by the
+   *   six picker families; run IDs for all five hydroclimates in the
+   *   public column order adopted 2026-07-16 (Historical → Moderate →
+   *   Moderate-high → High → Extreme; note this reorders the naming-
+   *   proposal table, whose columns are in internal order). Run IDs
+   *   retained per Eric 2026-07-18 — the team has not settled where
+   *   run IDs surface publicly; flagged in a REVIEW note on the card.
+   *   Strategy 4.2 row marked not in the served library (s0036
+   *   removed; its EC-Earth3-Veg twin never run). The Functional
+   *   environmental flows name links to the worked-example brief.
+   *
+   * v0_9 (2026-07-18): fully populated for the colleague walk-through.
+   *   - Team-review banner added above the site header: layout is
+   *     illustrative (not the production design system — see the v0_7
+   *     DRIFT notes below), every link opens a real prototype, and the
+   *     two open review questions are named with a link to the review
+   *     index.
+   *   - Baseline featured card repointed v0_8 (synthetic) →
+   *     builder/output/baselines_dev.html (real-data build from the
+   *     locked 2026-07-02 snapshot). Card body + stats updated to
+   *     5 hydroclimates / 9 areas to match that build. The synthetic
+   *     v0_8 brief remains in review/ as the alternative target.
+   *   - All four theme cards wired to their theme-narrative v0_1
+   *     prototypes; placeholder teaser bodies replaced with drafted
+   *     teasers (checked against COEQWAL_Prose_Style.md — observational,
+   *     allowed change verbs only).
+   *   - Featured places filled: 8 rows, every built LOI brief —
+   *     Shasta / Oroville / Folsom (RES), Yuba–Marysville /
+   *     Trinity–Lewiston / Vernalis (ENV), Stockton (CWS), Kern (GW).
+   *     Dev builds carry their own [DEV] banners; Folsom is v0_6,
+   *     Stockton/Kern/Vernalis are the synthetic format-test v0_1s.
+   *   - Sector tiles annotated with prototype counts ("briefs to come"
+   *     where none exist yet) — honest placeholders, not dead links.
+   *   - Strategy picker populated with the 24 public strategy names
+   *     per the 2026-07-15 naming decision (claude/
+   *     COEQWAL_Strategy_Naming_Proposal.md; API serves 23 — strategy
+   *     4.2 pending). Read-link labeled as the one worked example.
+   *   - Hydroclimate picker updated 4 → 5 entries using the public
+   *     names adopted 2026-07-16 (Historical / Moderate / Moderate-high
+   *     / High / Extreme climate stress). No hydroclimate briefs are
+   *     linked yet; read-link left inert.
+   *
+   * v0_8 (2026-06-01): demo click-throughs repointed to the clean,
+   * dev-note-free example briefs — baseline card → baselines v0.7,
+   * Folsom Reservoir row → LOI v0.4. No design/palette change from v0_7.
+   * 2026-06-07: LOI example row switched Folsom → Shasta, pointing at
+   * the real-data dev build (builder/output/shasta-loi_dev.html) —
+   * Shasta's varied real data makes the better demo (NOTES 2026-06-07).
+   * (Folsom row had been repointed v0_4 → v0_6 on 2026-06-06.)
+   *
+   * v0_7 (2026-05-29): palette cross-checked against the live token
+   * source `apps/main/public/design-system.html`
+   * (berkeley-gif/coeqwal-website @ dev). Tokens marked CANON match
+   * the live theme; tokens marked DRIFT are intentionally kept for
+   * the warm-editorial findings shell and are flagged for review.
+   *
+   *   --text-on-navy  was #f5efde   → #fcfbfa (CANON common.white)
+   *   .new-pill text #fff hard-code → #fcfbfa (CANON common.white)
+   *   picker bg #ede4cd hard-code   → var(--cream-page)
+   *   theme cards now use per-theme canonical bg/text pairs (CANON
+   *   waterThemes.{cws,ag_gw,eco,delta})
+   *   theme card display names updated to canonical strings
+   *
+   * Open for review (recorded in OPEN_ITEMS.md):
+   *   - navy stack runs darker than canonical (canonical anchor is
+   *     brand.panelDark #193D6B; v0_7 keeps #122849 .. #5a7194)
+   *   - cream stack is warmer than canonical brand.panelLight #EDE9E4
+   *   - gold stack is amber vs canonical waterThemes.baseline #ffd87e
+   *   - font stack is Source Serif / Source Sans vs canonical
+   *     Neue Haas Grotesk Display / Text
+   */
+  :root {
+    --cream:        #efe7d3;          /* DRIFT vs canon #EDE9E4 */
+    --cream-card:   #f5efde;          /* DRIFT */
+    --cream-page:   #ece4d0;          /* DRIFT */
 
-* { box-sizing: border-box; }
-html { background: var(--paper); }
-body {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1.65;
-  color: var(--ink);
-  background: var(--paper);
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    --navy-deepest: #122849;          /* DRIFT (canon panelDark #193D6B) */
+    --navy-deep:    #1d3460;          /* DRIFT */
+    --navy-mid:     #2b4071;          /* DRIFT */
+    --navy-soft:    #3d5482;          /* DRIFT */
+    --navy-light:   #5a7194;          /* DRIFT */
 
-.page {
-  max-width: var(--measure);
-  margin: 0 auto;
-  padding: 4rem 2.5rem 6rem;
-}
+    --text-dark:    #1d3a5c;          /* DRIFT (canon text.primary #193D6B) */
+    --text-mid:     #4a5566;
+    --text-eyebrow: #3a6aa0;          /* near canon brand.panelMedium #3D7DB5 */
+    --text-on-navy: #fcfbfa;          /* CANON common.white */
 
-/* ── Masthead ───────────────────────────────────────────────────── */
-.masthead {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  padding-bottom: 1.1rem;
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 3rem;
-}
-.masthead .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.2em; }
-.masthead .meta  { color: var(--ink-faint); }
+    --rule-on-navy:  rgba(245, 239, 222, 0.22);
+    --rule-on-cream: rgba(29, 58, 92, 0.16);
+    --rule-strong:   #4a78ad;         /* near canon brand.panelMedium */
 
-/* ── Eyebrow + Title ────────────────────────────────────────────── */
-.eyebrow {
-  font-family: var(--sans);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-h1 {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: 2.05rem;
-  line-height: 1.2;
-  letter-spacing: -0.012em;
-  margin: 0 0 1.4rem;
-  color: var(--ink);
-}
-.lede {
-  font-size: 1.12rem;
-  line-height: 1.55;
-  color: var(--ink-soft);
-  margin: 0 0 2.6rem;
-}
+    --gold:      #c89a3a;             /* DRIFT */
+    --gold-mid:  #d4a85c;             /* DRIFT */
+    --gold-pale: #ecc97e;             /* DRIFT (canon baseline #ffd87e) */
 
-/* ── Section headings ───────────────────────────────────────────── */
-h2 {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin: 3rem 0 0.4rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--rule);
-}
-.group-note {
-  font-family: var(--sans);
-  font-size: 0.82rem;
-  color: var(--ink-faint);
-  margin: 0 0 1.4rem;
-}
+    --note-bg:    #fdf3c8;
+    --note-text:  #6a5418;
+    --note-label: #9a7a1c;
 
-/* ── Brief cards ────────────────────────────────────────────────── */
-.card {
-  margin: 0 0 1.2rem;
-  padding-left: 1.1rem;
-  border-left: 2px solid var(--rule);
-}
-.card a.title {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--accent);
-  text-decoration: none;
-}
-.card a.title:hover { text-decoration: underline; }
-.card .ver {
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  color: var(--ink-faint);
-  margin-left: 0.5em;
-}
-.card .status {
-  font-size: 0.96rem;
-  color: var(--ink-soft);
-  margin: 0.2rem 0 0;
-}
-.card .extra-links {
-  font-family: var(--sans);
-  font-size: 0.84rem;
-  margin: 0.35rem 0 0;
-}
-.card .extra-links a { color: var(--accent); }
+    --new-pill:   #c84a3a;
 
-/* ── Caveat tag ─────────────────────────────────────────────────── */
-.caveat {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  background: var(--stub-bg);
-  color: var(--stub);
-  padding: 0.05em 0.5em;
-  border-radius: 2px;
-  margin-top: 0.35rem;
-}
+    /* Per-theme palettes (CANON waterThemes — bg / text pairs). */
+    --theme-cws-bg:    #ffe5cc;
+    --theme-cws-text:  #7a3000;
+    --theme-aggw-bg:   #d0ebd7;
+    --theme-aggw-text: #2d6a4f;
+    --theme-eco-bg:    #cddff1;
+    --theme-eco-text:  #1e4f6e;
+    --theme-delta-bg:  #ded6f0;
+    --theme-delta-text:#3a2888;
 
-/* ── "Before you start" guidance box ────────────────────────────── */
-.before-note {
-  background: var(--stub-bg);
-  border: 1px solid #e7d5b8;
-  border-radius: 4px;
-  padding: 1.4rem 1.8rem 1.5rem;
-  margin: 0 0 1.8rem;
-}
-.before-note h2 {
-  border: none;
-  padding: 0;
-  margin: 0 0 0.8rem;
-  color: var(--stub);
-}
-.before-note ul { margin: 0; padding-left: 1.2rem; }
-.before-note li { margin: 0 0 0.8rem; font-size: 1rem; line-height: 1.55; }
-.before-note li:last-child { margin-bottom: 0; }
-.before-note .q { font-weight: 700; }
+    --serif: "Source Serif 4", Georgia, serif;          /* DRIFT vs canon Neue Haas Grotesk Display */
+    --sans:  "Source Sans 3", -apple-system, BlinkMacSystemFont, sans-serif;  /* DRIFT vs canon Neue Haas Grotesk Text */
+    --mono:  "IBM Plex Mono", ui-monospace, monospace;
+  }
 
-/* ── "What we need your input on" callout ───────────────────────── */
-.input-box {
-  background: var(--accent-faint);
-  border: 1px solid #cdd9ea;
-  border-radius: 4px;
-  padding: 1.5rem 1.8rem 1.6rem;
-  margin: 0 0 1rem;
-}
-.input-box h2 {
-  border: none;
-  padding: 0;
-  margin: 0 0 0.8rem;
-  color: var(--accent);
-}
-.input-box ol { margin: 0; padding-left: 1.2rem; }
-.input-box li { margin: 0 0 1rem; }
-.input-box li:last-child { margin-bottom: 0; }
-.input-box .q { font-weight: 700; }
-.input-box a { color: var(--accent); }
+  * { box-sizing: border-box; }
 
-/* ── Proposed-edits blocks (folded-in wording suggestions) ──────── */
-.edit { margin: 0 0 1.7rem; padding-left: 1.1rem; border-left: 2px solid var(--rule); }
-.edit h3 {
-  font-family: var(--sans); font-weight: 700; font-size: 0.96rem;
-  color: var(--accent); margin: 0 0 0.5rem; line-height: 1.4;
-}
-.edit h3 .loc {
-  font-family: var(--mono); font-size: 0.72rem; color: var(--ink-faint);
-  margin-left: 0.5em; font-weight: 400; letter-spacing: 0;
-}
-.edit p { margin: 0.5rem 0 0; font-size: 0.96rem; }
-.edit .newtext {
-  background: var(--accent-faint); border-left: 3px solid var(--accent);
-  border-radius: 0 3px 3px 0; padding: 0.7rem 1rem; margin: 0.5rem 0 0;
-  font-size: 1rem; line-height: 1.55;
-}
-.edit .oldtext {
-  color: var(--ink-faint); text-decoration: line-through;
-  font-size: 0.96rem; margin: 0.5rem 0 0; padding: 0 0 0 1rem;
-  border-left: 3px solid var(--rule);
-}
-.edit .why {
-  font-family: var(--sans); font-size: 0.84rem; color: var(--ink-soft);
-  margin: 0.6rem 0 0; line-height: 1.55;
-}
-.edit .why strong { color: var(--ink); }
-.tag {
-  font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase;
-  letter-spacing: 0.06em; padding: 0.05em 0.5em; border-radius: 2px;
-  vertical-align: middle; margin-right: 0.2em;
-}
-.tag.add     { background: var(--accent-faint); color: var(--accent); }
-.tag.replace { background: var(--stub-bg);      color: var(--stub); }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cream-page);
+    color: var(--text-dark);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+  }
 
-/* ── Footer ─────────────────────────────────────────────────────── */
-.footer {
-  margin-top: 4rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--rule);
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--ink-faint);
-}
-.footer .meta-row { display: flex; gap: 1.4em; flex-wrap: wrap; margin-bottom: 0.4rem; }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(29,58,92,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(29,58,92,0.06) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
 
-@media (max-width: 640px) {
-  .page { padding: 2.5rem 1.4rem 4rem; }
-  .footer { flex-direction: column; }
-  .masthead { font-size: 0.65rem; }
-}
+  /* ---------- Top header ---------- */
+  .site-header {
+    background: var(--cream);
+    padding: 22px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rule-on-cream);
+  }
+  .wordmark {
+    font-family: var(--serif);
+    color: var(--text-dark);
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+  .top-nav {
+    display: flex;
+    gap: 38px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dark);
+  }
+  .top-nav span { cursor: pointer; }
+  .top-nav span::after {
+    content: " ›";
+    color: var(--text-mid);
+  }
+  .top-nav span:last-child::after { content: ""; }
+
+  /* ---------- Tab bar ---------- */
+  .tab-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .tab {
+    padding: 22px 24px;
+    color: var(--text-on-navy);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+  }
+  .tab:nth-child(1) { background: var(--navy-light); }
+  .tab:nth-child(2) { background: var(--navy-mid); }
+  .tab:nth-child(3) { background: var(--navy-soft); }
+  .tab:nth-child(4) { background: var(--navy-deepest); }
+  .tab.active { background: var(--navy-deep); }
+  .new-pill {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 8px;
+    background: var(--new-pill);
+    color: #fcfbfa;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    border-radius: 2px;
+    vertical-align: 1px;
+  }
+
+  /* ---------- Page bands ---------- */
+  .band-navy {
+    background: var(--navy-deep);
+    color: var(--text-on-navy);
+    padding: 36px 56px;
+  }
+  .band-navy-darker {
+    background: var(--navy-deepest);
+    color: var(--text-on-navy);
+    padding: 36px 56px;
+  }
+  .band-cream {
+    background: var(--cream-page);
+    padding: 36px 56px;
+  }
+  .page-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 40px;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.005em;
+  }
+  .page-subtitle {
+    font-size: 14.5px;
+    color: var(--text-on-navy);
+    opacity: 0.92;
+    max-width: 880px;
+    margin: 0;
+  }
+
+  /* ---------- Layer headers ---------- */
+  .layer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--rule-on-cream);
+    padding-bottom: 10px;
+    margin: 0 0 18px 0;
+  }
+  .layer-header.on-navy { border-bottom-color: var(--rule-on-navy); }
+  .layer-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  .layer-header.on-navy .layer-label { color: var(--text-on-navy); }
+  .layer-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .layer-intro {
+    font-size: 14.5px;
+    color: var(--text-on-navy);
+    opacity: 0.9;
+    margin: 0 0 18px 0;
+    max-width: 920px;
+  }
+
+  /* Brief-class headers (v0_10): the two class labels — RESULTS BRIEFS
+     and REFERENCE BRIEFS — reuse the layer-header band pattern with a
+     stronger rule and larger tracking so they read one level above the
+     ordinary layer labels. */
+  .layer-header.class-header {
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 12px;
+  }
+  .layer-header.class-header .layer-label {
+    font-size: 13px;
+    letter-spacing: 0.28em;
+  }
+  .layer-header.class-header .layer-meta { opacity: 0.85; }
+
+  /* Baseline card foot with two labeled links (v0_10) */
+  .foot-links {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  /* ============================================================
+     Findings page content
+     ============================================================ */
+
+  /* Cards (cream on navy) */
+  .card {
+    background: var(--cream-card);
+    color: var(--text-dark);
+    padding: 24px 26px;
+    border-radius: 2px;
+  }
+  /* Per-theme card variants (CANON waterThemes). The four theme
+     cards in the "Where to start" grid each take the canonical bg
+     + ink pair for their theme. Eyebrow, title, body, and arrow all
+     inherit the theme ink so the card reads as one piece. */
+  .card.theme-cws    { background: var(--theme-cws-bg);    color: var(--theme-cws-text); }
+  .card.theme-aggw   { background: var(--theme-aggw-bg);   color: var(--theme-aggw-text); }
+  .card.theme-eco    { background: var(--theme-eco-bg);    color: var(--theme-eco-text); }
+  .card.theme-delta  { background: var(--theme-delta-bg);  color: var(--theme-delta-text); }
+  .card.theme-cws   .card-eyebrow,
+  .card.theme-cws   .card-title,
+  .card.theme-cws   .card-body,
+  .card.theme-cws   .read-link,
+  .card.theme-aggw  .card-eyebrow,
+  .card.theme-aggw  .card-title,
+  .card.theme-aggw  .card-body,
+  .card.theme-aggw  .read-link,
+  .card.theme-eco   .card-eyebrow,
+  .card.theme-eco   .card-title,
+  .card.theme-eco   .card-body,
+  .card.theme-eco   .read-link,
+  .card.theme-delta .card-eyebrow,
+  .card.theme-delta .card-title,
+  .card.theme-delta .card-body,
+  .card.theme-delta .read-link { color: inherit; }
+  .card-eyebrow {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-eyebrow);
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.25;
+    margin: 0 0 10px 0;
+    color: var(--text-dark);
+  }
+  .card-title.lg { font-size: 26px; }
+  .card-body {
+    font-size: 14.5px;
+    color: var(--text-mid);
+    margin: 0;
+    line-height: 1.55;
+  }
+  .card-foot {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-on-cream);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--text-mid);
+  }
+  .card-foot.arrow-only { justify-content: flex-end; }
+  .card-foot .read-link {
+    color: var(--text-eyebrow);
+    font-weight: 600;
+  }
+  .card-stats {
+    display: flex;
+    gap: 18px;
+  }
+  .card-stats span { color: var(--text-mid); }
+  .card-stats em {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-right: 4px;
+  }
+
+  /* Reference picker grid */
+  .picker-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .picker-card .picker {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--cream-page);
+    border-radius: 2px;
+    border: 1px solid var(--rule-on-cream);
+  }
+  .picker select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--text-dark);
+    outline: none;
+  }
+
+  /* Strategies-at-a-glance table (v0_9 second pass; collapsible third pass) */
+  .strategy-table-card { margin-bottom: 22px; }
+  .strategy-details { margin-top: 14px; }
+  .strategy-details summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-eyebrow);
+    padding: 10px 14px;
+    background: var(--cream-page);
+    border: 1px solid var(--rule-on-cream);
+    border-radius: 2px;
+    list-style: none;
+    user-select: none;
+  }
+  .strategy-details summary::-webkit-details-marker { display: none; }
+  .strategy-details summary::before { content: "▸  "; }
+  .strategy-details[open] summary::before { content: "▾  "; }
+  .strategy-table-wrap { margin-top: 12px; overflow-x: auto; }
+  table.strategy-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .strategy-table th, .strategy-table td {
+    text-align: left;
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--rule-on-cream);
+  }
+  .strategy-table thead th {
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-eyebrow);
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+  .strategy-table thead tr:last-child th {
+    border-bottom: 2px solid var(--rule-strong);
+  }
+  .strategy-table thead th.span-head {
+    font-weight: 600;
+    color: var(--text-mid);
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .strategy-table td.run-id {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-mid);
+    white-space: nowrap;
+  }
+  .strategy-table td.strategy-name { min-width: 240px; }
+  .strategy-table tr.family-row td {
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-dark);
+    background: var(--cream-page);
+    padding-top: 9px;
+  }
+  .strategy-table a {
+    color: var(--text-eyebrow);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .table-footnote {
+    font-size: 12px;
+    color: var(--text-mid);
+    margin: 10px 0 0 0;
+  }
+
+  /* Featured */
+  .featured-baseline {
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 0 1px var(--gold-pale);
+    margin-bottom: 22px;
+  }
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  /* Browse all */
+  .browse-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .browse-panel {
+    background: var(--navy-mid);
+    color: var(--text-on-navy);
+    padding: 22px 24px;
+    border-radius: 2px;
+  }
+  .browse-panel-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-on-navy);
+    margin-bottom: 8px;
+  }
+  .browse-panel-desc {
+    font-size: 13.5px;
+    color: var(--text-on-navy);
+    opacity: 0.85;
+    margin: 0 0 16px 0;
+  }
+  .sector-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .sector-tile {
+    background: var(--navy-soft);
+    padding: 14px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 120ms;
+  }
+  .sector-tile:hover { background: var(--navy-light); }
+  .sector-name {
+    font-family: var(--serif);
+    font-size: 14.5px;
+    color: var(--text-on-navy);
+  }
+  .place-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .place-search-wrap { margin-bottom: 16px; }
+  .place-search {
+    background: var(--navy-deepest);
+    padding: 12px 14px;
+    border-radius: 2px;
+    font-size: 13px;
+    color: var(--text-on-navy);
+    opacity: 0.65;
+  }
+  .featured-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-on-navy);
+    opacity: 0.65;
+    margin-bottom: 10px;
+  }
+  .featured-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .featured-row {
+    padding: 10px 12px;
+    background: var(--navy-soft);
+    border-radius: 2px;
+    border: 1px solid var(--rule-on-navy);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;                       /* v0_9: keep long place names off the sector tag */
+    cursor: pointer;
+    transition: border-color 120ms;
+  }
+  .featured-row span { white-space: nowrap; }
+  .featured-row:hover { border-color: var(--rule-strong); }
+  .featured-row em {
+    font-style: normal;
+    font-family: var(--serif);
+    color: var(--text-on-navy);
+  }
+  .featured-row span {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+  .map-pane {
+    background:
+      repeating-linear-gradient(
+        135deg,
+        var(--navy-mid) 0px,
+        var(--navy-mid) 8px,
+        var(--navy-soft) 8px,
+        var(--navy-soft) 16px
+      );
+    border: 1px dashed var(--rule-on-navy);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 18px;
+    min-height: 100%;
+  }
+  .map-pane-inner {
+    color: var(--text-on-navy);
+    opacity: 0.85;
+  }
+  .map-pane-inner .ttl {
+    font-family: var(--serif);
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .map-pane-inner .sub {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* Team-review banner (v0_9) */
+  .review-banner {
+    background: var(--note-bg);
+    color: var(--note-text);
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.55;
+    padding: 12px 56px;
+    border-bottom: 1px solid rgba(154, 122, 28, 0.35);
+  }
+  .review-banner b {
+    color: var(--note-label);
+    letter-spacing: 0.16em;
+    margin-right: 8px;
+    font-weight: 600;
+  }
+  .review-banner a {
+    color: var(--note-text);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  /* Sector tile counts (v0_9) */
+  .sector-count {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-on-navy);
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+
+  /* Note boxes */
+  .note {
+    background: var(--note-bg);
+    color: var(--note-text);
+    border-radius: 2px;
+    padding: 14px 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.55;
+    margin-top: 18px;
+  }
+  .note b {
+    color: var(--note-label);
+    letter-spacing: 0.16em;
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  /* Footer */
+  .footer-explain {
+    background: var(--navy-deep);
+    border-top: 4px solid var(--rule-strong);
+    color: var(--text-on-navy);
+    padding: 36px 56px 48px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 36px;
+  }
+  .footer-explain h3 {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0;
+    opacity: 0.9;
+  }
+  .footer-explain p {
+    margin: 0 0 12px 0;
+    font-size: 14.5px;
+    max-width: 780px;
+    line-height: 1.55;
+  }
+  .footer-explain p:last-child { margin-bottom: 0; }
+  .footer-explain em {
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* spacing helper */
+  .section { padding-top: 8px; }
+
+  /* Click-through anchors (wired entry points) */
+  a.card { display: block; }
+  a.featured-row { display: flex; }  /* v0_9: keep the row's flex layout on anchors */
+  a.card, a.featured-row, a.read-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  a.read-link { color: var(--text-eyebrow); }
+
+  /* Suggest-edits links (2026-07-22): a small secondary link opening a
+     brief's editable Google Doc. Shown only for briefs currently open for
+     wording edits; kept visually quieter than the "Read" link. */
+  a.edit-link {
+    color: var(--text-eyebrow);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+    opacity: 0.85;
+  }
+  a.edit-link:hover { opacity: 1; text-decoration: underline; }
+
+  /* A featured-place row that also carries an edit link: the name + badge
+     become an inner link, the edit link sits at the far right on the
+     navy ink. */
+  .featured-row .place-link {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    color: inherit;
+    text-decoration: none;
+  }
+  .featured-row .place-link em { white-space: nowrap; }
+  .featured-row a.edit-link {
+    color: var(--text-on-navy);
+    opacity: 0.7;
+    font-size: 14px;
+    line-height: 1;
+    border-left: 1px solid var(--rule-on-navy);
+    padding-left: 10px;
+  }
+  .featured-row a.edit-link:hover { opacity: 1; }
+
+  /* In the strategy table the edit link trails the strategy name. */
+  .strategy-table a.edit-link { font-size: 11px; opacity: 0.75; }
+
+  /* Sub-section heading inside a layer (e.g. above the theme grid) */
+  .sub-heading {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--text-on-navy);
+    margin: 6px 0 14px 0;
+  }
+  .sub-heading-sub {
+    font-size: 13.5px;
+    color: var(--text-on-navy);
+    opacity: 0.8;
+    margin: -8px 0 14px 0;
+    max-width: 780px;
+  }
 </style>
 </head>
-<body>
-<div class="page">
+<body class="grid-bg">
 
-  <header class="masthead">
-    <span class="brand">COEQWAL</span>
-    <span class="meta">Brief prototypes · Team review</span>
-  </header>
+<!-- ===================== TOP HEADER ===================== -->
+<header class="site-header">
+  <div class="wordmark">COEQWAL</div>
+  <nav class="top-nav">
+    <span>Guides</span>
+    <span>Water themes</span>
+    <span>Get data</span>
+    <span>About COEQWAL</span>
+  </nav>
+</header>
 
-  <p style="font-family:var(--sans);font-size:0.8rem;margin:0 0 1.6rem;"><a href="../index.html" style="color:var(--accent);text-decoration:none;">← COEQWAL working pages</a></p>
-
-  <p class="eyebrow">Team Review</p>
-  <h1>Brief prototypes for review</h1>
-  <p class="lede">
-    Every brief prototype that is ready for the team to read, in one place. Each link opens
-    the live prototype in a new tab. Below the list is a short note on the decisions we still
-    need from reviewers. The numbers in most of the briefs are stand-ins, not real model
-    results, and a few of the location briefs also use stand-in places — see the notes on
-    each. The exceptions are the "real data" location briefs below and the Shasta example
-    reached through the findings page: those are built from real model results from the
-    essentially complete dataset (July 2026), pending a final verification pass.
-  </p>
-
-  <!-- ── Before you start ───────────────────────────────────────── -->
-  <div class="before-note">
-    <h2>Before you read and edit</h2>
-    <ul>
-      <li>
-        <span class="q">These are stand-alone documents.</span> Each brief should make sense on
-        its own, to a reader who has not seen the others, the website, or any of our meetings.
-        When editing, please don't add wording that assumes that background — no "as discussed,"
-        no references to a sibling brief. If something needs context, the brief has to supply it.
-      </li>
-      <li>
-        <span class="q">These are format prototypes, not final copy.</span> The most useful
-        feedback right now is on structure, flow, and whether the framing works for a general
-        reader — not polishing every sentence. The layout may still change.
-      </li>
-      <li>
-        <span class="q">Most numbers are stand-ins.</span> Please don't fact-check the figures
-        or react to specific values in the prototype briefs; their real model results are
-        not wired in yet, and the briefs flagged with a caveat also use stand-in locations.
-        The exceptions are the "real data" location briefs (Oroville, Yuba, Trinity) and the
-        Shasta example linked from the findings page: those are built from real model
-        results from the essentially complete dataset (July 2026). A final verification
-        pass is still to come, so treat specific values as near-final rather than citable.
-      </li>
-      <li>
-        <span class="q">Written for the public.</span> Plain language is the goal. Flag anything
-        that reads as jargon or assumes the reader already knows the modeling.
-      </li>
-      <li>
-        <span class="q">The full set of sections is deliberate.</span> Every brief keeps its
-        complete structure; a section that does not apply to a given place is kept on purpose
-        with a short note, rather than dropped. No need to flag those as missing.
-      </li>
-    </ul>
-  </div>
-
-  <!-- ── What we need your input on ─────────────────────────────── -->
-  <div class="input-box">
-    <h2>What we need your input on</h2>
-    <ol>
-      <li>
-        <span class="q">What should the headline figure look like?</span>
-        Two candidate forms for the lead figure on a brief. One is a trade-off plot: two
-        measures on two axes (for example, water for farms left-to-right and water for the
-        environment bottom-to-top), so each scenario is a point and you can see what is
-        traded against what. The other is a radial (wheel-shaped) plot, where each spoke is
-        one of the nine sectors and the distance out the spoke shows how that sector
-        scores. This choice affects all four themes, and the figures stay as placeholders
-        until it is settled.
-      </li>
-      <li>
-        <span class="q">Does the one location-brief format hold across different kinds of place?</span>
-        The Folsom brief is a reservoir. The three new location briefs apply the same nine-part
-        format to a city (community water), a groundwater basin, and a river reach. Tell us where
-        the shared structure works, and where a particular kind of place needs its own wording or a
-        different figure.
-      </li>
-    </ol>
-  </div>
-
-  <p class="group-note" style="margin-top:1.4rem;">
-    <strong>How to give feedback.</strong> For general reactions, reply to the email this link
-    came with, or leave a comment in the brief's Google Doc. To suggest specific wording, open
-    the brief's Google Doc — linked under the three core briefs below — and edit it directly;
-    turn on <em>Suggesting</em> mode so changes show as tracked suggestions. Several people can
-    edit the same doc at once, so there is no file to send back.
-  </p>
-
-  <!-- ── Core briefs ────────────────────────────────────────────── -->
-  <h2>Core briefs</h2>
-  <p class="group-note">The most developed prototypes — one of each brief type.</p>
-
-  <div class="card">
-    <a class="title" href="loi_brief_prototype_v0_6.html" target="_blank" rel="noopener">Location brief · Folsom Reservoir</a><span class="ver">v0.6</span>
-    <p class="status">A brief for a single location (one reservoir or delivery point). The most finished example of the layout and voice.</p>
-    <span class="caveat">Figure numbers are synthetic — not real CalSim output</span>
-    <p class="extra-links"><a href="https://docs.google.com/document/d/1GemQfH8dXJ86yQqX2E2JdK5ciEkY5zZ7/edit" target="_blank" rel="noopener">✎ Suggest wording edits (Google Doc)</a></p>
-  </div>
-
-  <div class="card">
-    <a class="title" href="baselines_brief_prototype_v0_8.html" target="_blank" rel="noopener">Reference brief · Baselines</a><span class="ver">v0.8</span>
-    <p class="status">How today's water rules perform across the historical baseline and three drier future climates. Our reference point for the other briefs. Wording round of July 15 applied (headline, model description, tiers explanation).</p>
-    <span class="caveat">Figure numbers are synthetic — not real CalSim output</span>
-    <p class="extra-links"><a href="https://docs.google.com/document/d/1aOP2_BANX6ubDcvFF66U_BmKbqRHiba-/edit" target="_blank" rel="noopener">✎ Suggest wording edits (Google Doc)</a></p>
-  </div>
-
-  <div class="card">
-    <a class="title" href="builder/output/baselines_dev.html" target="_blank" rel="noopener">Reference brief · Baselines (real data)</a><span class="ver">dev</span>
-    <p class="status">The same Baselines brief regenerated by the automated pipeline from real model results, now across all five modeled climates. The real pattern differs from the prototype above: eight of nine areas shift tier, and the largest changes are in freshwater for Delta exports and environmental flows. Wording suggestions go in the v0.8 Google Doc above — the two share their language.</p>
-    <span class="caveat">Real model results, essentially complete dataset — final verification pass pending; area tier labels use an interim rule awaiting data-team confirmation</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="strategy_brief_prototype_functional-environmental-flows_v0_4.html" target="_blank" rel="noopener">Strategy brief · Functional environmental flows</a><span class="ver">v0.4</span>
-    <p class="status">A worked example for one management strategy. Renamed July 15: a strategy is now identified by its descriptive name alone, with the model-run IDs moved to a references note at the end of the brief. Content drawn from the live scenario listing.</p>
-    <p class="extra-links"><a href="https://docs.google.com/document/d/1j8_DOZ0w4MOvoERqHm83xfnIu8zIFLB1/edit" target="_blank" rel="noopener">✎ Suggest wording edits (Google Doc)</a></p>
-  </div>
-
-  <div class="card">
-    <a class="title" href="findings_tab_prototype_v0_10.html#strategy-picker" target="_blank" rel="noopener">Strategy briefs · all 24 strategies</a><span class="ver">v0.1</span>
-    <p class="status">The full set of strategy reference briefs, one per management strategy, generated July 22 from the scenario descriptions document and the strategy naming table on the v0.4 worked-example template. Each describes what its strategy changes about system operations — no model results. Browse them through the strategy picker on the Findings page (this link lands on the picker), or open any brief directly under <code>strategy-briefs/</code>.</p>
-    <span class="caveat">First drafts — open decisions (flagged names, the current-operations family framing, related-list length) are marked with dev notes inside each brief</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="hydroclimates_brief_prototype_v0_1.html" target="_blank" rel="noopener">Hydroclimate brief · The five COEQWAL hydroclimates</a><span class="ver">v0.1</span>
-    <p class="status">One brief describing the five modeled climate and hydrology conditions used in the scenarios — where each comes from, how the hydrology was derived, and how the five relate — with a linkable section for each hydroclimate. Drafted July 20 from the hydroclimate team's website description and technical documentation.</p>
-    <span class="caveat">First draft — a few numbers and the Historical description are awaiting hydroclimate-team confirmation (flagged in the brief's dev notes)</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="findings_tab_prototype_v0_10.html" target="_blank" rel="noopener">Findings page</a><span class="ver">v0.10</span>
-    <p class="status">The landing page that routes a reader to briefs by place, by sector, or by theme. Now divided into two labeled classes: results briefs, which report modeled tier results, and reference briefs, which describe the parts the scenarios are built from and contain no results. The page opens under the provisional title "COEQWAL Summaries" — the name is under discussion now that the page holds both classes. Some pickers are still visual stand-ins. The v0.9 layout remains at its previous link.</p>
-  </div>
-
-  <!-- ── Location briefs · more sectors ─────────────────────────── -->
-  <h2>Location briefs · more sectors</h2>
-  <p class="group-note">The same location-brief format applied to three other kinds of place — a city, a groundwater basin, and a river reach — so we can check the format holds beyond reservoirs (see question 2 above). Locations and figures are stand-ins; these are for reviewing the format, not the results. A note on wording: every location brief is built from one shared set of template sentences, with each place's own sector, values, and details filled into the slots — the surrounding language is identical across sectors. So there is no separate edit doc for each brief: a wording suggestion made in the Folsom brief's Google Doc applies to that shared language in all location briefs at once. For these three, we are mainly after format feedback (question 2).</p>
-
-  <div class="card">
-    <a class="title" href="loi_brief_cws_stockton_prototype_v0_1.html" target="_blank" rel="noopener">Location brief · City of Stockton (community water)</a><span class="ver">v0.1</span>
-    <p class="status">A city, measured by how much of its water demand is met. Tests the location format for a community-water place.</p>
-    <span class="caveat">Synthetic figures and a stand-in location — for format review, not results</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="loi_brief_gw_kern_prototype_v0_1.html" target="_blank" rel="noopener">Location brief · Kern County Subbasin (groundwater)</a><span class="ver">v0.1</span>
-    <p class="status">A groundwater basin in the southern San Joaquin Valley, measured by its groundwater storage trend. Tests the format for a groundwater place.</p>
-    <span class="caveat">Synthetic figures and a stand-in location — for format review, not results</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="loi_brief_env_vernalis_prototype_v0_1.html" target="_blank" rel="noopener">Location brief · Lower San Joaquin River at Vernalis (environmental flows)</a><span class="ver">v0.1</span>
-    <p class="status">A river reach, measured by how well its flows meet environmental targets. Tests the format for a flowing-water place. (The river point itself is real; the figures are stand-ins.)</p>
-    <span class="caveat">Synthetic figures — for format review, not results</span>
-  </div>
-
-  <!-- ── Location briefs · real data (dev builds) ───────────────── -->
-  <h2>Location briefs · real data</h2>
-  <p class="group-note">Three locations built by the automated pipeline from real model results, chosen because they tell different stories: a reservoir where climate drives the outcome, a river where climate matters, and a river where the choice of operating strategy matters most. Unlike everything above, the figures here are real, drawn from the essentially complete dataset (July 2026); a final verification pass is still to come, so treat specific values as near-final rather than citable. These briefs now show all five modeled future climates — the two newest columns (TaiESM1 and EC-Earth3-Veg, added July 2026) carry their climate-model names until the project settles public labels. They are built from the same shared template sentences as the other location briefs (see the wording note above — suggestions go in the Folsom brief's Google Doc); here we are after your reaction to the real variation: do the figures and the story they tell read clearly?</p>
-
-  <div class="card">
-    <a class="title" href="builder/output/oroville-loi_dev.html" target="_blank" rel="noopener">Location brief · Oroville Reservoir (reservoir storage)</a><span class="ver">dev</span>
-    <p class="status">The State Water Project's main reservoir. A climate-sensitive place: only 16% of scenarios keep their tier label under warmer-drier climates — the counterpoint to Folsom's relative stability.</p>
-    <span class="caveat">Real model results, essentially complete dataset — final verification pass pending</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="builder/output/yuba-marysville-loi_dev.html" target="_blank" rel="noopener">Location brief · Yuba River at Marysville (environmental flows)</a><span class="ver">dev</span>
-    <p class="status">The lower Yuba just above its confluence with the Feather River. About half the scenarios shift tier under warmer-drier climates; both climate and strategy leave a visible mark.</p>
-    <span class="caveat">Real model results, essentially complete dataset — final verification pass pending</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="builder/output/trinity-lewiston-loi_dev.html" target="_blank" rel="noopener">Location brief · Trinity River at Lewiston (environmental flows)</a><span class="ver">dev</span>
-    <p class="status">The Trinity below Lewiston Dam, where water either continues toward the Klamath or is diverted to the Central Valley. An operations-driven place: strategies spread across nearly the full tier range under every climate.</p>
-    <span class="caveat">Real model results, essentially complete dataset — final verification pass pending</span>
-  </div>
-
-  <!-- ── Theme narratives ───────────────────────────────────────── -->
-  <h2>Theme narratives</h2>
-  <p class="group-note">The five themes, each as an eight-part public narrative — the format we settled on. The baseline theme is the explainer that sits above the Baselines reference brief.</p>
-
-  <div class="card">
-    <a class="title" href="water-themes/theme_baseline_understanding-todays-water-system_narrative_prototype_v0_1.html" target="_blank" rel="noopener">Understanding Today's Water System</a><span class="ver">v0.1</span>
-    <p class="status">The baseline / current-operations theme — the explainer that sits above the Baselines reference brief.</p>
-  </div>
-
-  <div class="card">
-    <a class="title" href="water-themes/theme_eco_rivers-and-salmon_narrative_prototype_v0_1.html" target="_blank" rel="noopener">Rivers and salmon</a><span class="ver">v0.1</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="water-themes/theme_ag_gw_farms-and-groundwater_narrative_prototype_v0_1.html" target="_blank" rel="noopener">Farms and groundwater</a><span class="ver">v0.1</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="water-themes/theme_cws_community-water-systems_narrative_prototype_v0_1.html" target="_blank" rel="noopener">Community water systems</a><span class="ver">v0.1</span>
-  </div>
-
-  <div class="card">
-    <a class="title" href="water-themes/theme_delta_balancing-needs_narrative_prototype_v0_1.html" target="_blank" rel="noopener">Balancing needs in the Delta</a><span class="ver">v0.1</span>
-  </div>
-
-  <!-- ── Proposed edits to the baseline theme ───────────────────── -->
-  <h2>Proposed edits to the baseline theme</h2>
-  <p class="group-note">
-    Three small wording changes to the <em>Understanding Today's Water System</em> theme that
-    keep it consistent with the Baselines reference brief above. The theme is the explainer
-    that sits above the brief, so it carries the shared framing. These are suggested for the
-    theme's source document.
-  </p>
-
-  <div class="edit">
-    <h3>Add a baseline-terminology paragraph <span class="loc">§3, Box 3</span></h3>
-    <p><span class="tag add">Add</span> to the end of Box 3:</p>
-    <div class="newtext">Current operations carries two names, depending on the climate it runs in. Paired with the historical hydroclimate, it is <em>the baseline</em> — today's conditions as actually experienced. Paired with a future hydroclimate, it becomes a <em>climate-projected baseline</em> — where current operations would land if the climate changed but management did not. Both are the same operations; only the climate differs.</div>
-    <p class="why"><strong>Why:</strong> "Baseline" is used two ways across the project — today's actual conditions, and the projected runs under future climates. Naming both here lets every page below use the short forms without confusion.</p>
-  </div>
-
-  <div class="edit">
-    <h3>Add a "two senses of trade-off" paragraph <span class="loc">§6, after Trade-offs</span></h3>
-    <p><span class="tag add">Add</span> immediately after the existing Trade-offs paragraph:</p>
-    <div class="newtext">Two senses of "trade-off" run through COEQWAL, and it helps to keep them apart. One is the <em>standing</em> trade-off — competing uses that exist at any moment, visible even when nothing about management changes. The other is the <em>strategy</em> trade-off — the cost of one management choice measured against another, which only becomes readable when you compare strategies. Current operations on its own shows the standing trade-offs and how climate sharpens them; reading a strategy trade-off requires the briefs where the management strategy changes.</div>
-    <p class="why"><strong>Why:</strong> The Baselines brief states it shows no <em>strategy</em> trade-offs, because the strategy is held fixed there. Without this distinction, that looks like it contradicts the theme. Naming the two senses once makes both pages agree.</p>
-  </div>
-
-  <div class="edit">
-    <h3>Point the reader to the Baselines brief <span class="loc">§7, final paragraph</span></h3>
-    <p><span class="tag replace">Replace</span> the current closing sentence:</p>
-    <div class="oldtext">Understanding today's water system provides a foundation for interpreting every scenario explored throughout COEQWAL.</div>
-    <p><span class="tag add">With</span></p>
-    <div class="newtext">The modeled results for current operations — each of nine areas of the water system, across the historical baseline and the drier hydroclimates — are laid out in the Baselines brief; start there to see the pattern this theme describes. Understanding today's water system provides a foundation for interpreting every scenario explored throughout COEQWAL.</div>
-    <p class="why"><strong>Why:</strong> It points the reader from the explainer to the page with the actual numbers, so the two are explicitly linked.</p>
-  </div>
-
-  <div class="edit">
-    <h3>For reference — matching changes already in the brief</h3>
-    <p class="why">Two changes to the Baselines brief itself, already applied: a short opening paragraph naming this theme as its explainer and linking to it; and the line "there are no tradeoffs to read here" rewritten to "no <em>strategy</em> trade-offs… standing trade-offs among competing uses are still present," matching the §6 change above. One caveat: the brief's fourth column (Warmer &amp; Drier III) is still a stand-in, so the theme&rarr;brief link does not yet vouch for that specific result.</p>
-  </div>
-
-  <!-- ── Orientation (reading-frame) section removed 2026-06-22 — to return later ── -->
-
-  <!-- ── Footer ─────────────────────────────────────────────────── -->
-  <footer class="footer">
-    <div class="meta-row">
-      <span>COEQWAL · Collaboratory for Equity in Water Allocation</span>
-    </div>
-    <div class="meta-row">
-      <span>Briefs for review · part of the COEQWAL working pages</span>
-      <span>Not indexed (internal review)</span>
-      <span>Page published 2026-07-22 08:34 AM</span>
-    </div>
-  </footer>
-
+<!-- ===================== TAB BAR ===================== -->
+<div class="tab-bar">
+  <div class="tab">Learn</div>
+  <div class="tab active">Summaries <span class="new-pill">New</span></div>
+  <div class="tab">Explore</div>
+  <div class="tab">Share</div>
 </div>
+
+<!-- ===================== HERO ===================== -->
+<section class="band-navy">
+  <h1 class="page-title">COEQWAL Summaries</h1>
+  <p class="page-subtitle">
+    Short, citable documents: reports of modeled results for California's water system under different management choices and future climates, and descriptions of the strategies, hydroclimates, and methods behind them.
+  </p>
+</section>
+
+<!-- ===================== BRIEF CLASS 1: RESULTS BRIEFS ===================== -->
+<!-- (v0_10) Class band per the 2026-07-19 decision. Covers this section
+     and the "Browse all briefs" section below it. -->
+<section class="band-navy section">
+  <div class="layer-header on-navy class-header">
+    <div class="layer-label">Results briefs</div>
+    <div class="layer-meta">Report modeled tier results</div>
+  </div>
+  <p class="layer-intro">
+    Results briefs report modeled tier results from the scenario library — for the baseline, for each water theme, and for individual sectors and places.
+  </p>
+
+  <div class="layer-header on-navy">
+    <div class="layer-label">Where to start</div>
+  </div>
+  <p class="layer-intro">
+    Results can be viewed by theme, sector, or individual Locations of Interest (LOIs). All results are compared to the baseline.
+  </p>
+
+  <!-- v0_10: card is no longer a single anchor — two labeled links in the
+       foot (per Eric 2026-07-19): the results brief plus the baseline
+       narrative v0_2, previously unreachable from this page. -->
+  <div class="card featured-baseline">
+    <div class="card-eyebrow">Baseline</div>
+    <h2 class="card-title lg">The baseline: what current operations look like under historical and future hydroclimates</h2>
+    <p class="card-body">
+      Reports modeled tiers under today's water management strategy under the historical baseline and four projected hydroclimates, across all nine system areas. Every other brief is grounded against this one.
+    </p>
+    <div class="card-foot">
+      <span class="card-stats">
+        <span><em>1</em>strategy</span>
+        <span><em>5</em>hydroclimates</span>
+        <span><em>9</em>areas</span>
+      </span>
+      <span class="foot-links">
+        <a class="read-link" href="builder/output/baselines_dev.html" target="_blank" rel="noopener">Read the results brief →</a>
+        <a class="read-link" href="water-themes/theme_baseline_understanding-todays-water-system_narrative_prototype_v0_2.html" target="_blank" rel="noopener">Read the baseline narrative →</a>
+        <a class="edit-link" href="https://docs.google.com/document/d/1aOP2_BANX6ubDcvFF66U_BmKbqRHiba-/edit" target="_blank" rel="noopener">✎ Suggest edits ↗</a>
+      </span>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">Results for each of the water themes</h3>
+
+  <div class="theme-grid">
+    <a class="card theme-cws" href="water-themes/theme_cws_community-water-systems_narrative_prototype_v0_2.html" target="_blank" rel="noopener">
+      <div class="card-eyebrow">Theme</div>
+      <h3 class="card-title">Community water systems</h3>
+      <p class="card-body">Millions of Californians depend on community water systems for drinking water. This theme reports how modeled outcomes for those systems differ across strategies and hydroclimates, including strategies that prioritize community-water deliveries at different levels.</p>
+      <div class="card-foot arrow-only">
+        <span class="read-link">→</span>
+      </div>
+    </a>
+    <a class="card theme-aggw" href="water-themes/theme_ag_gw_farms-and-groundwater_narrative_prototype_v0_2.html" target="_blank" rel="noopener">
+      <div class="card-eyebrow">Theme</div>
+      <h3 class="card-title">Farms, groundwater &amp; food systems</h3>
+      <p class="card-body">Farms draw on connected surface water and groundwater supplies. This theme reports modeled outcomes under groundwater pumping limits and changes in irrigated land use, compared with current operations.</p>
+      <div class="card-foot arrow-only">
+        <span class="read-link">→</span>
+      </div>
+    </a>
+    <a class="card theme-eco" href="water-themes/theme_eco_rivers-and-salmon_narrative_prototype_v0_2.html" target="_blank" rel="noopener">
+      <div class="card-eyebrow">Theme</div>
+      <h3 class="card-title">Rivers, salmon &amp; ecosystems</h3>
+      <p class="card-body">Rivers support salmon and a diversity of other species alongside water deliveries. This theme reports modeled outcomes under functional-flow and salmon-focused strategies, compared with current operations.</p>
+      <div class="card-foot arrow-only">
+        <span class="read-link">→</span>
+      </div>
+    </a>
+    <a class="card theme-delta" href="water-themes/theme_delta_balancing-needs_narrative_prototype_v0_2.html" target="_blank" rel="noopener">
+      <div class="card-eyebrow">Theme</div>
+      <h3 class="card-title">The Delta as a living place</h3>
+      <p class="card-body">The Delta sends water to much of the state and is a living place in its own right. This theme reports modeled outcomes under strategies that change Delta outflows, conveyance, and salinity standards, compared with current operations.</p>
+      <div class="card-foot arrow-only">
+        <span class="read-link">→</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="note">
+    <b>DEVNOTE</b>
+    The theme narratives are hybrids: sections 1–5 are descriptive, but their
+    section 6 reports modeled findings, which is why they sit under results
+    briefs. Their section-6 wording is team text pending the open
+    evaluative-verb policy decision (prose-style rules vs. a stated
+    carve-out) — that decision also bears on whether this classification
+    holds.
+  </div>
+</section>
+
+<!-- ===================== LAYER 2: BROWSE ALL (results briefs, continued) ===================== -->
+<section class="band-navy-darker section">
+  <div class="layer-header on-navy">
+    <div class="layer-label">Browse all briefs</div>
+    <div class="layer-meta">Results briefs</div>
+  </div>
+
+  <div class="browse-grid">
+    <div class="browse-panel">
+      <div class="browse-panel-eyebrow">By sector</div>
+      <p class="browse-panel-desc">
+        Results for one area of the water system.
+      </p>
+      <div class="sector-grid">
+        <div class="sector-tile">
+          <div class="sector-name">Community water systems</div>
+          <div class="sector-count">1 prototype brief</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Agricultural water</div>
+          <div class="sector-count">Briefs to come</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Environmental flows</div>
+          <div class="sector-count">3 prototype briefs</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Bay-Delta estuary ecology</div>
+          <div class="sector-count">Briefs to come</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Winter-run Chinook salmon</div>
+          <div class="sector-count">Briefs to come</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Delta exports</div>
+          <div class="sector-count">Briefs to come</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">In-Delta freshwater</div>
+          <div class="sector-count">Briefs to come</div>
+        </div>
+        <div class="sector-tile">
+          <div class="sector-name">Reservoir storage</div>
+          <div class="sector-count">3 prototype briefs</div>
+        </div>
+        <div class="sector-tile" style="grid-column: 1 / span 2; max-width: calc(50% - 5px);">
+          <div class="sector-name">Groundwater storage</div>
+          <div class="sector-count">1 prototype brief</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="browse-panel">
+      <div class="browse-panel-eyebrow">By place</div>
+      <p class="browse-panel-desc">
+        Results at one specific location — a city, reservoir, river reach, basin, or Delta stretch.
+      </p>
+      <div class="place-inner">
+        <div>
+          <div class="place-search-wrap">
+            <div class="place-search">Search places (e.g. Folsom Reservoir, Stockton…)</div>
+          </div>
+          <div class="featured-label">Featured places</div>
+          <div class="featured-list">
+            <a class="featured-row" href="builder/output/shasta-loi_dev.html" target="_blank" rel="noopener"><em>Shasta Reservoir</em><span>RES</span></a>
+            <a class="featured-row" href="builder/output/oroville-loi_dev.html" target="_blank" rel="noopener"><em>Oroville Reservoir</em><span>RES</span></a>
+            <div class="featured-row"><a class="place-link" href="loi_brief_prototype_v0_6.html" target="_blank" rel="noopener"><em>Folsom Reservoir</em><span>RES</span></a><a class="edit-link" href="https://docs.google.com/document/d/1GemQfH8dXJ86yQqX2E2JdK5ciEkY5zZ7/edit" target="_blank" rel="noopener" title="Suggest edits (Google Doc)" aria-label="Suggest edits">✎</a></div>
+            <a class="featured-row" href="builder/output/yuba-marysville-loi_dev.html" target="_blank" rel="noopener"><em>Yuba River at Marysville</em><span>ENV</span></a>
+            <a class="featured-row" href="builder/output/trinity-lewiston-loi_dev.html" target="_blank" rel="noopener"><em>Trinity River at Lewiston</em><span>ENV</span></a>
+            <a class="featured-row" href="loi_brief_env_vernalis_prototype_v0_1.html" target="_blank" rel="noopener"><em>Lower San Joaquin River at Vernalis</em><span>ENV</span></a>
+            <a class="featured-row" href="loi_brief_cws_stockton_prototype_v0_1.html" target="_blank" rel="noopener"><em>City of Stockton</em><span>CWS</span></a>
+            <a class="featured-row" href="loi_brief_gw_kern_prototype_v0_1.html" target="_blank" rel="noopener"><em>Kern County Subbasin</em><span>GW</span></a>
+          </div>
+        </div>
+        <div class="map-pane">
+          <div class="map-pane-inner">
+            <div class="ttl">California place map</div>
+            <div class="sub">LOI dots · click to open brief</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BRIEF CLASS 2: REFERENCE BRIEFS ===================== -->
+<!-- (v0_10) Class band replaces the v0_9 "Background reading" layer label.
+     Fourth pass 2026-07-20: three reference briefs now built — the two
+     project orientation briefs (card below) and the functional environmental
+     flows worked example. The hydroclimate picker's read-links remain
+     to-come.
+     Sixth pass 2026-07-20: four reference briefs built — the hydroclimate
+     reference brief (one brief, five anchored sections) is drafted and
+     linked from the hydroclimate picker card below. -->
+<section class="band-navy section">
+  <div class="layer-header on-navy class-header">
+    <div class="layer-label">Reference briefs</div>
+    <div class="layer-meta">Describe the COEQWAL process — no results</div>
+  </div>
+  <p class="layer-intro">
+    Reference briefs describe the project and the pieces the scenario library is built from, and contain no model results. Two orientation briefs cover the project itself and how the library is constructed. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The strategy picker holds a short reference brief for each strategy — what the strategy changes about system operations; all 24 are drafted (v0_1, generated 2026-07-22), with functional environmental flows as the team-edited worked example. The five hydroclimates are described in a single reference brief, with a section for each. Technical descriptions of how each sector's tiers are calculated will also live here.
+  </p>
+
+  <!-- v0_10 fourth pass (2026-07-20): project orientation briefs added.
+       Both drafted 2026-07-20 (v0_1); filenames staged in build_review.py
+       CORE the same pass so these relative links resolve once published.
+       Fifth pass (2026-07-20, per Eric): the single combined card was easy
+       to miss — split into two cards on one row (picker-grid layout), one
+       per brief, each with its own read link. -->
+  <div class="picker-grid" style="margin-bottom: 22px;">
+    <div class="card">
+      <div class="card-eyebrow">The project</div>
+      <h2 class="card-title">The COEQWAL project</h2>
+      <p class="card-body">
+        What COEQWAL is and how it works — why the project exists, the participatory scenario planning approach, and the CalSim model behind every scenario. Written for readers arriving cold.
+      </p>
+      <div class="card-foot arrow-only">
+        <a class="read-link" href="project_background_brief_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">The scenario library</div>
+      <h2 class="card-title">The COEQWAL scenario library</h2>
+      <p class="card-body">
+        How the scenario library is built — what a scenario is, the 24 management strategies, the five hydroclimates, and the role of current operations as the comparison anchor.
+      </p>
+      <div class="card-foot">
+        <span class="card-stats"><span><em>24</em>strategies</span><span><em>5</em>hydroclimates</span></span>
+        <a class="read-link" href="scenario_library_brief_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card strategy-table-card">
+    <div class="card-eyebrow">Orientation</div>
+    <h2 class="card-title">The 24 strategies at a glance</h2>
+    <p class="card-body">
+      COEQWAL models 24 management strategies, each simulated once under each of five hydroclimates. A scenario is one strategy combined with one hydroclimate: 24 strategies × 5 hydroclimates gives 120 scenarios, of which 115 are currently in the served library. Each code in the table identifies one scenario; hydroclimate columns run from historical conditions to extreme climate stress.
+    </p>
+    <details class="strategy-details">
+      <summary>See the full table — all 24 strategies and their scenario codes</summary>
+    <div class="strategy-table-wrap">
+      <table class="strategy-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Strategy</th>
+            <th colspan="5" class="span-head">Model run under each hydroclimate</th>
+          </tr>
+          <tr>
+            <th>Historical</th>
+            <th>Moderate</th>
+            <th>Moderate-high</th>
+            <th>High</th>
+            <th>Extreme</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="family-row"><td colspan="6">Current operations and variants</td></tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_current-operations_v0_1.html" target="_blank" rel="noopener">Current operations →</a></td>
+            <td class="run-id">s0020</td><td class="run-id">s0134</td><td class="run-id">s0047</td><td class="run-id">s0056</td><td class="run-id">s0108</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_current-operations-with-historical-land-use_v0_1.html" target="_blank" rel="noopener">Current operations with historical land use →</a></td>
+            <td class="run-id">s0011</td><td class="run-id">s0133</td><td class="run-id">s0048</td><td class="run-id">s0057</td><td class="run-id">s0107</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_current-operations-without-tucps_v0_1.html" target="_blank" rel="noopener">Current operations without TUCPs →</a></td>
+            <td class="run-id">s0021</td><td class="run-id">s0135</td><td class="run-id">s0049</td><td class="run-id">s0058</td><td class="run-id">s0109</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_current-usbr-operations_v0_1.html" target="_blank" rel="noopener">Current USBR operations →</a></td>
+            <td class="run-id">s0024</td><td class="run-id">s0137</td><td class="run-id">s0050</td><td class="run-id">s0059</td><td class="run-id">s0111</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_current-usbr-operations-without-tucps_v0_1.html" target="_blank" rel="noopener">Current USBR operations without TUCPs →</a></td>
+            <td class="run-id">s0023</td><td class="run-id">s0136</td><td class="run-id">s0051</td><td class="run-id">s0060</td><td class="run-id">s0110</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Groundwater management</td></tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_groundwater-pumping-limits-in-the-san-joaquin-valley_v0_1.html" target="_blank" rel="noopener">Groundwater pumping limits in the San Joaquin Valley →</a></td>
+            <td class="run-id">s0025</td><td class="run-id">s0138</td><td class="run-id">s0067</td><td class="run-id">s0087</td><td class="run-id">s0112</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_groundwater-pumping-limits-and-reduced-crop-acreage-in-the-san-joaquin-valley_v0_1.html" target="_blank" rel="noopener">Groundwater pumping limits and reduced crop acreage in the San Joaquin Valley →</a></td>
+            <td class="run-id">s0026</td><td class="run-id">s0139</td><td class="run-id">s0068</td><td class="run-id">s0088</td><td class="run-id">s0113</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_groundwater-pumping-limits-in-the-central-valley_v0_1.html" target="_blank" rel="noopener">Groundwater pumping limits in the Central Valley →</a></td>
+            <td class="run-id">s0027</td><td class="run-id">s0140</td><td class="run-id">s0062</td><td class="run-id">s0063</td><td class="run-id">s0114</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_groundwater-pumping-limits-and-reduced-crop-acreage-in-the-central-valley_v0_1.html" target="_blank" rel="noopener">Groundwater pumping limits and reduced crop acreage in the Central Valley →</a></td>
+            <td class="run-id">s0028</td><td class="run-id">s0141</td><td class="run-id">s0069</td><td class="run-id">s0089</td><td class="run-id">s0115</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Environmental flows</td></tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_no-minimum-flow-requirements_v0_1.html" target="_blank" rel="noopener">No minimum flow requirements →</a></td>
+            <td class="run-id">s0030</td><td class="run-id">s0143</td><td class="run-id">s0071</td><td class="run-id">s0091</td><td class="run-id">s0117</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy_brief_prototype_functional-environmental-flows_v0_4.html" target="_blank" rel="noopener">Functional environmental flows →</a> <a class="edit-link" href="https://docs.google.com/document/d/1j8_DOZ0w4MOvoERqHm83xfnIu8zIFLB1/edit" target="_blank" rel="noopener">✎ Edit</a></td>
+            <td class="run-id">s0046</td><td class="run-id">s0156</td><td class="run-id">s0084</td><td class="run-id">s0104</td><td class="run-id">s0130</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_functional-environmental-flows-with-groundwater-regulations_v0_1.html" target="_blank" rel="noopener">Functional environmental flows with groundwater regulations →</a></td>
+            <td class="run-id">s0032</td><td class="run-id">s0145</td><td class="run-id">s0073</td><td class="run-id">s0093</td><td class="run-id">s0119</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_salmon-friendly-flows_v0_1.html" target="_blank" rel="noopener">Salmon-friendly flows →</a></td>
+            <td class="run-id">s0031</td><td class="run-id">s0144</td><td class="run-id">s0072</td><td class="run-id">s0092</td><td class="run-id">s0118</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_salmon-friendly-flows-with-groundwater-regulations_v0_1.html" target="_blank" rel="noopener">Salmon-friendly flows with groundwater regulations →</a></td>
+            <td class="run-id">s0033</td><td class="run-id">s0146</td><td class="run-id">s0074</td><td class="run-id">s0094</td><td class="run-id">s0120</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Community water systems</td></tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_prioritizing-human-health-delivery-levels-to-community-water-systems_v0_1.html" target="_blank" rel="noopener">Prioritizing human health delivery levels to community water systems →</a></td>
+            <td class="run-id">s0035</td><td class="run-id">s0147</td><td class="run-id">s0075</td><td class="run-id">s0095</td><td class="run-id">s0121</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_prioritizing-functional-delivery-levels-to-community-water-systems_v0_1.html" target="_blank" rel="noopener">Prioritizing functional delivery levels to community water systems →</a>&thinsp;*</td>
+            <td class="run-id">s0036</td><td class="run-id">s0148</td><td class="run-id">s0076</td><td class="run-id">s0096</td><td class="run-id">s0122</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_prioritizing-full-demands-of-community-water-systems_v0_1.html" target="_blank" rel="noopener">Prioritizing full demands of community water systems →</a></td>
+            <td class="run-id">s0037</td><td class="run-id">s0149</td><td class="run-id">s0077</td><td class="run-id">s0097</td><td class="run-id">s0123</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Delta outflows</td></tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_reduce-delta-outflows-35-of-unimpaired-flow_v0_1.html" target="_blank" rel="noopener">Reduce Delta outflows (35% of unimpaired flow) →</a></td>
+            <td class="run-id">s0040</td><td class="run-id">s0151</td><td class="run-id">s0079</td><td class="run-id">s0099</td><td class="run-id">s0125</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_maintain-delta-outflows-45-of-unimpaired-flow_v0_1.html" target="_blank" rel="noopener">Maintain Delta outflows (45% of unimpaired flow) →</a></td>
+            <td class="run-id">s0041</td><td class="run-id">s0152</td><td class="run-id">s0080</td><td class="run-id">s0100</td><td class="run-id">s0126</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_increase-delta-outflows-55-of-unimpaired-flow_v0_1.html" target="_blank" rel="noopener">Increase Delta outflows (55% of unimpaired flow) →</a></td>
+            <td class="run-id">s0042</td><td class="run-id">s0153</td><td class="run-id">s0081</td><td class="run-id">s0101</td><td class="run-id">s0127</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_increase-delta-outflows-65-of-unimpaired-flow_v0_1.html" target="_blank" rel="noopener">Increase Delta outflows (65% of unimpaired flow) →</a></td>
+            <td class="run-id">s0039</td><td class="run-id">s0150</td><td class="run-id">s0078</td><td class="run-id">s0098</td><td class="run-id">s0124</td>
+          </tr>
+          <tr class="family-row"><td colspan="6">Storage, salinity &amp; conveyance</td></tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_increase-shasta-carry-over-storage_v0_1.html" target="_blank" rel="noopener">Increase Shasta carry-over storage →</a></td>
+            <td class="run-id">s0044</td><td class="run-id">s0154</td><td class="run-id">s0082</td><td class="run-id">s0102</td><td class="run-id">s0128</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_relax-delta-salinity-standards_v0_1.html" target="_blank" rel="noopener">Relax Delta salinity standards →</a></td>
+            <td class="run-id">s0045</td><td class="run-id">s0155</td><td class="run-id">s0083</td><td class="run-id">s0103</td><td class="run-id">s0129</td>
+          </tr>
+          <tr>
+            <td class="strategy-name"><a href="strategy-briefs/strategy_brief_delta-conveyance-project_v0_1.html" target="_blank" rel="noopener">Delta Conveyance Project →</a></td>
+            <td class="run-id">s0065</td><td class="run-id">s0157</td><td class="run-id">s0085</td><td class="run-id">s0105</td><td class="run-id">s0131</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-footnote">* Not currently in the served scenario library; planned run codes shown.</p>
+    <div class="note">
+      <b>REVIEW</b>
+      Run IDs are shown in this table for team review. Where (or whether) run IDs
+      appear on public pages is an open team decision — the 2026-07-15 naming
+      proposal confines them to each brief's references note.
+    </div>
+    </details>
+  </div>
+
+  <div class="picker-grid">
+    <div class="card picker-card" id="strategy-picker">
+      <div class="card-eyebrow">Operations</div>
+      <h2 class="card-title">Operational strategies</h2>
+      <p class="card-body">
+        A short reference brief for each operational strategy — what the strategy changes about reservoir operations, conveyance, demand, or environmental flows. Pick a strategy to open its brief.
+      </p>
+      <div class="picker">
+        <select id="strategy-picker-select" aria-label="Select an operational strategy">
+          <option value="">Select a strategy to read about…</option>
+          <optgroup label="Current operations and variants">
+            <option value="strategy-briefs/strategy_brief_current-operations_v0_1.html">Current operations</option>
+            <option value="strategy-briefs/strategy_brief_current-operations-with-historical-land-use_v0_1.html">Current operations with historical land use</option>
+            <option value="strategy-briefs/strategy_brief_current-operations-without-tucps_v0_1.html">Current operations without TUCPs</option>
+            <option value="strategy-briefs/strategy_brief_current-usbr-operations_v0_1.html">Current USBR operations</option>
+            <option value="strategy-briefs/strategy_brief_current-usbr-operations-without-tucps_v0_1.html">Current USBR operations without TUCPs</option>
+          </optgroup>
+          <optgroup label="Groundwater management">
+            <option value="strategy-briefs/strategy_brief_groundwater-pumping-limits-in-the-san-joaquin-valley_v0_1.html">Groundwater pumping limits in the San Joaquin Valley</option>
+            <option value="strategy-briefs/strategy_brief_groundwater-pumping-limits-and-reduced-crop-acreage-in-the-san-joaquin-valley_v0_1.html">Groundwater pumping limits and reduced crop acreage in the San Joaquin Valley</option>
+            <option value="strategy-briefs/strategy_brief_groundwater-pumping-limits-in-the-central-valley_v0_1.html">Groundwater pumping limits in the Central Valley</option>
+            <option value="strategy-briefs/strategy_brief_groundwater-pumping-limits-and-reduced-crop-acreage-in-the-central-valley_v0_1.html">Groundwater pumping limits and reduced crop acreage in the Central Valley</option>
+          </optgroup>
+          <optgroup label="Environmental flows">
+            <option value="strategy-briefs/strategy_brief_no-minimum-flow-requirements_v0_1.html">No minimum flow requirements</option>
+            <option value="strategy-briefs/strategy_brief_functional-environmental-flows_v0_1.html">Functional environmental flows</option>
+            <option value="strategy-briefs/strategy_brief_functional-environmental-flows-with-groundwater-regulations_v0_1.html">Functional environmental flows with groundwater regulations</option>
+            <option value="strategy-briefs/strategy_brief_salmon-friendly-flows_v0_1.html">Salmon-friendly flows</option>
+            <option value="strategy-briefs/strategy_brief_salmon-friendly-flows-with-groundwater-regulations_v0_1.html">Salmon-friendly flows with groundwater regulations</option>
+          </optgroup>
+          <optgroup label="Community water systems">
+            <option value="strategy-briefs/strategy_brief_prioritizing-human-health-delivery-levels-to-community-water-systems_v0_1.html">Prioritizing human health delivery levels to community water systems</option>
+            <option value="strategy-briefs/strategy_brief_prioritizing-functional-delivery-levels-to-community-water-systems_v0_1.html">Prioritizing functional delivery levels to community water systems</option>
+            <option value="strategy-briefs/strategy_brief_prioritizing-full-demands-of-community-water-systems_v0_1.html">Prioritizing full demands of community water systems</option>
+          </optgroup>
+          <optgroup label="Delta outflows">
+            <option value="strategy-briefs/strategy_brief_reduce-delta-outflows-35-of-unimpaired-flow_v0_1.html">Reduce Delta outflows (35% of unimpaired flow)</option>
+            <option value="strategy-briefs/strategy_brief_maintain-delta-outflows-45-of-unimpaired-flow_v0_1.html">Maintain Delta outflows (45% of unimpaired flow)</option>
+            <option value="strategy-briefs/strategy_brief_increase-delta-outflows-55-of-unimpaired-flow_v0_1.html">Increase Delta outflows (55% of unimpaired flow)</option>
+            <option value="strategy-briefs/strategy_brief_increase-delta-outflows-65-of-unimpaired-flow_v0_1.html">Increase Delta outflows (65% of unimpaired flow)</option>
+          </optgroup>
+          <optgroup label="Storage, salinity &amp; conveyance">
+            <option value="strategy-briefs/strategy_brief_increase-shasta-carry-over-storage_v0_1.html">Increase Shasta carry-over storage</option>
+            <option value="strategy-briefs/strategy_brief_relax-delta-salinity-standards_v0_1.html">Relax Delta salinity standards</option>
+            <option value="strategy-briefs/strategy_brief_delta-conveyance-project_v0_1.html">Delta Conveyance Project</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="note">
+        <b>REVIEW</b>
+        All 24 strategy briefs are first drafts (v0_1, generated 2026-07-22
+        from the scenario descriptions document and the naming-proposal
+        table). Open decisions — flagged names, the 1.x family framing,
+        §5 list length — are marked with devnotes inside each brief.
+      </div>
+      <div class="card-foot">
+        <span class="card-stats"><span><em>24</em>strategies</span></span>
+      </div>
+    </div>
+
+    <div class="card picker-card">
+      <div class="card-eyebrow">Climate</div>
+      <h2 class="card-title">Hydroclimate models</h2>
+      <p class="card-body">
+        One reference brief describing the five modeled climate and hydrology conditions used in COEQWAL scenarios — where each comes from, how the hydrology was derived, and a linkable section for each hydroclimate.
+      </p>
+      <div class="picker">
+        <select aria-label="Select a hydroclimate">
+          <option>Select a hydroclimate to read about…</option>
+          <option>Historical hydroclimate</option>
+          <option>Moderate climate stress</option>
+          <option>Moderate-high climate stress</option>
+          <option>High climate stress</option>
+          <option>Extreme climate stress</option>
+        </select>
+      </div>
+      <div class="card-foot">
+        <span class="card-stats"><span><em>5</em>hydroclimates</span></span>
+        <a class="read-link" href="hydroclimates_brief_prototype_v0_1.html" target="_blank" rel="noopener">Read: The five COEQWAL hydroclimates →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- v0_10: placeholder for tier-calculation reference briefs (Eric
+       2026-07-19). One technical reference brief per sector is planned;
+       none are built yet. -->
+  <div class="card" style="margin-top: 22px;">
+    <div class="card-eyebrow">Methods</div>
+    <h2 class="card-title">How tiers are calculated</h2>
+    <p class="card-body">
+      A technical reference brief for each sector, describing how that sector's indicator is computed from model output and how indicator values map onto the common tier scale (Tier 1, optimal, through Tier 4, critical). Each sector uses its own indicator and its own mapping.
+    </p>
+    <div class="card-foot">
+      <span class="card-stats"><span><em>9</em>sectors</span></span>
+      <span class="read-link">Tier-calculation briefs to come</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER: WHAT IS A BRIEF ===================== -->
+<section class="footer-explain">
+  <h3>What is a brief?</h3>
+  <div>
+    <p>A brief is a short, citable document. Briefs on this page fall into two classes.</p>
+    <p><em>Results briefs</em> report modeled tier results from a fixed set of simulations — for a theme, a sector, or a place. They report what the model produces; they do not predict what will happen, judge whether results are acceptable, or recommend any course of action.</p>
+    <p><em>Reference briefs</em> describe the pieces the simulations are built from — what a strategy changes about system operations, or what a hydroclimate model assumes. They are part of the COEQWAL process and contain no model results.</p>
+  </div>
+</section>
+
+
+<!-- v0_10 seventh pass: the strategy picker now navigates — each option
+     carries its v0_1 brief path; selection opens the brief in a new tab
+     (matching the page's other links) and the picker resets. -->
+<script>
+  (function () {
+    var sel = document.getElementById('strategy-picker-select');
+    sel.addEventListener('change', function () {
+      if (this.value) {
+        window.open(this.value, '_blank', 'noopener');
+        this.selectedIndex = 0;
+      }
+    });
+  })();
+</script>
 </body>
 </html>

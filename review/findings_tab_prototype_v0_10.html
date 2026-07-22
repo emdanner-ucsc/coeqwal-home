@@ -10,6 +10,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_10 (2026-07-22, eighth pass): this page repurposed as the team's
+   *   brief-sharing + editing hub, replacing home/review/index.html (which
+   *   is archived). Changes: the v0_9 team-review banner removed (it pointed
+   *   at the now-archived review index); small "✎ Suggest edits" links added
+   *   next to the three briefs that have editable Google Docs — Baselines
+   *   (baseline card foot), Folsom (its featured-place row, restructured to
+   *   an inner place-link + trailing edit link), and Functional environmental
+   *   flows (its strategies-table cell). Doc URLs are the existing team docs
+   *   carried over from the old review index. NOTE: the Baselines Doc is the
+   *   synthetic v0_8 brief's copy deck; the baseline card links the real-data
+   *   build — the reader-facing prose is shared. Remaining briefs get edit
+   *   links as their Docs are created (fresh, in the ucsc team-review Drive
+   *   folder). Once this becomes review/index.html, build_review.py must
+   *   emit it as index.html.
+   *
    * v0_10 (2026-07-22, seventh pass): strategy picker wired to the full
    *   24-brief set. strategy-briefs/strategy_brief_{slug}_v0_1.html
    *   (generated 2026-07-22 by generate_strategy_briefs.py in this
@@ -841,6 +856,47 @@
   }
   a.read-link { color: var(--text-eyebrow); }
 
+  /* Suggest-edits links (2026-07-22): a small secondary link opening a
+     brief's editable Google Doc. Shown only for briefs currently open for
+     wording edits; kept visually quieter than the "Read" link. */
+  a.edit-link {
+    color: var(--text-eyebrow);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+    opacity: 0.85;
+  }
+  a.edit-link:hover { opacity: 1; text-decoration: underline; }
+
+  /* A featured-place row that also carries an edit link: the name + badge
+     become an inner link, the edit link sits at the far right on the
+     navy ink. */
+  .featured-row .place-link {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    color: inherit;
+    text-decoration: none;
+  }
+  .featured-row .place-link em { white-space: nowrap; }
+  .featured-row a.edit-link {
+    color: var(--text-on-navy);
+    opacity: 0.7;
+    font-size: 14px;
+    line-height: 1;
+    border-left: 1px solid var(--rule-on-navy);
+    padding-left: 10px;
+  }
+  .featured-row a.edit-link:hover { opacity: 1; }
+
+  /* In the strategy table the edit link trails the strategy name. */
+  .strategy-table a.edit-link { font-size: 11px; opacity: 0.75; }
+
   /* Sub-section heading inside a layer (e.g. above the theme grid) */
   .sub-heading {
     font-family: var(--serif);
@@ -859,17 +915,6 @@
 </style>
 </head>
 <body class="grid-bg">
-
-<!-- ===================== TEAM REVIEW BANNER (v0_9) ===================== -->
-<div class="review-banner">
-  <b>TEAM REVIEW MOCK-UP</b>
-  Every link on this page opens a real prototype brief. The page layout is
-  illustrative — it shows how briefs could be organized on the COEQWAL
-  website, not the production site design. Two decisions still need your
-  input: the headline figure format, and whether one location-brief
-  structure works across place types —
-  <a href="index.html">details on the review page</a>.
-</div>
 
 <!-- ===================== TOP HEADER ===================== -->
 <header class="site-header">
@@ -935,6 +980,7 @@
       <span class="foot-links">
         <a class="read-link" href="builder/output/baselines_dev.html" target="_blank" rel="noopener">Read the results brief →</a>
         <a class="read-link" href="water-themes/theme_baseline_understanding-todays-water-system_narrative_prototype_v0_2.html" target="_blank" rel="noopener">Read the baseline narrative →</a>
+        <a class="edit-link" href="https://docs.google.com/document/d/1aOP2_BANX6ubDcvFF66U_BmKbqRHiba-/edit" target="_blank" rel="noopener">✎ Suggest edits ↗</a>
       </span>
     </div>
   </div>
@@ -1054,7 +1100,7 @@
           <div class="featured-list">
             <a class="featured-row" href="builder/output/shasta-loi_dev.html" target="_blank" rel="noopener"><em>Shasta Reservoir</em><span>RES</span></a>
             <a class="featured-row" href="builder/output/oroville-loi_dev.html" target="_blank" rel="noopener"><em>Oroville Reservoir</em><span>RES</span></a>
-            <a class="featured-row" href="loi_brief_prototype_v0_6.html" target="_blank" rel="noopener"><em>Folsom Reservoir</em><span>RES</span></a>
+            <div class="featured-row"><a class="place-link" href="loi_brief_prototype_v0_6.html" target="_blank" rel="noopener"><em>Folsom Reservoir</em><span>RES</span></a><a class="edit-link" href="https://docs.google.com/document/d/1GemQfH8dXJ86yQqX2E2JdK5ciEkY5zZ7/edit" target="_blank" rel="noopener" title="Suggest edits (Google Doc)" aria-label="Suggest edits">✎</a></div>
             <a class="featured-row" href="builder/output/yuba-marysville-loi_dev.html" target="_blank" rel="noopener"><em>Yuba River at Marysville</em><span>ENV</span></a>
             <a class="featured-row" href="builder/output/trinity-lewiston-loi_dev.html" target="_blank" rel="noopener"><em>Trinity River at Lewiston</em><span>ENV</span></a>
             <a class="featured-row" href="loi_brief_env_vernalis_prototype_v0_1.html" target="_blank" rel="noopener"><em>Lower San Joaquin River at Vernalis</em><span>ENV</span></a>
@@ -1189,7 +1235,7 @@
             <td class="run-id">s0030</td><td class="run-id">s0143</td><td class="run-id">s0071</td><td class="run-id">s0091</td><td class="run-id">s0117</td>
           </tr>
           <tr>
-            <td class="strategy-name"><a href="strategy_brief_prototype_functional-environmental-flows_v0_4.html" target="_blank" rel="noopener">Functional environmental flows →</a></td>
+            <td class="strategy-name"><a href="strategy_brief_prototype_functional-environmental-flows_v0_4.html" target="_blank" rel="noopener">Functional environmental flows →</a> <a class="edit-link" href="https://docs.google.com/document/d/1j8_DOZ0w4MOvoERqHm83xfnIu8zIFLB1/edit" target="_blank" rel="noopener">✎ Edit</a></td>
             <td class="run-id">s0046</td><td class="run-id">s0156</td><td class="run-id">s0084</td><td class="run-id">s0104</td><td class="run-id">s0130</td>
           </tr>
           <tr>
