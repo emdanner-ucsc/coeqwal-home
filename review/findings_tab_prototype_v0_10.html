@@ -10,6 +10,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_10 (2026-07-22, seventh pass): strategy picker wired to the full
+   *   24-brief set. strategy-briefs/strategy_brief_{slug}_v0_1.html
+   *   (generated 2026-07-22 by generate_strategy_briefs.py in this
+   *   repo; slugs from the naming-proposal public names) — each picker
+   *   option now carries its brief path and a small change-handler
+   *   opens the selected brief in a new tab. Card body/foot updated;
+   *   REVIEW note flags the set as v0_1 first drafts with devnoted
+   *   open decisions. Reference-band intro updated ("the rest are to
+   *   come" retired). The v0_4 worked example stays the foot link (the
+   *   team-edited reference); the picker links the uniform v0_1 set,
+   *   including its regenerated 3.2. The strategy-briefs/ folder must
+   *   be staged by build_review.py for these links to resolve on the
+   *   published copy.
+   *
    * v0_10 (2026-07-20, sixth pass): hydroclimate reference brief wired
    *   in. hydroclimates_brief_prototype_v0_1.html drafted 2026-07-20
    *   (from the hydroclimate team's website description + Levy et al.
@@ -1074,7 +1088,7 @@
     <div class="layer-meta">Describe the COEQWAL process — no results</div>
   </div>
   <p class="layer-intro">
-    Reference briefs describe the project and the pieces the scenario library is built from, and contain no model results. Two orientation briefs cover the project itself and how the library is constructed. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The strategy picker will hold a short reference brief for each strategy — what the strategy changes about system operations; one worked example is built (functional environmental flows), the rest are to come. The five hydroclimates are described in a single reference brief, with a section for each. Technical descriptions of how each sector's tiers are calculated will also live here.
+    Reference briefs describe the project and the pieces the scenario library is built from, and contain no model results. Two orientation briefs cover the project itself and how the library is constructed. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The strategy picker holds a short reference brief for each strategy — what the strategy changes about system operations; all 24 are drafted (v0_1, generated 2026-07-22), with functional environmental flows as the team-edited worked example. The five hydroclimates are described in a single reference brief, with a section for each. Technical descriptions of how each sector's tiers are calculated will also live here.
   </p>
 
   <!-- v0_10 fourth pass (2026-07-20): project orientation briefs added.
@@ -1247,59 +1261,66 @@
   </div>
 
   <div class="picker-grid">
-    <div class="card picker-card">
+    <div class="card picker-card" id="strategy-picker">
       <div class="card-eyebrow">Operations</div>
       <h2 class="card-title">Operational strategies</h2>
       <p class="card-body">
-        A short brief for each alternative operational strategy — what the strategy changes about reservoir operations, conveyance, demand, or environmental flows.
+        A short reference brief for each operational strategy — what the strategy changes about reservoir operations, conveyance, demand, or environmental flows. Pick a strategy to open its brief.
       </p>
       <div class="picker">
-        <select aria-label="Select an operational strategy">
-          <option>Select a strategy to read about…</option>
+        <select id="strategy-picker-select" aria-label="Select an operational strategy">
+          <option value="">Select a strategy to read about…</option>
           <optgroup label="Current operations and variants">
-            <option>Current operations</option>
-            <option>Current operations with historical land use</option>
-            <option>Current operations without TUCPs</option>
-            <option>Current USBR operations</option>
-            <option>Current USBR operations without TUCPs</option>
+            <option value="strategy-briefs/strategy_brief_current-operations_v0_1.html">Current operations</option>
+            <option value="strategy-briefs/strategy_brief_current-operations-with-historical-land-use_v0_1.html">Current operations with historical land use</option>
+            <option value="strategy-briefs/strategy_brief_current-operations-without-tucps_v0_1.html">Current operations without TUCPs</option>
+            <option value="strategy-briefs/strategy_brief_current-usbr-operations_v0_1.html">Current USBR operations</option>
+            <option value="strategy-briefs/strategy_brief_current-usbr-operations-without-tucps_v0_1.html">Current USBR operations without TUCPs</option>
           </optgroup>
           <optgroup label="Groundwater management">
-            <option>Groundwater pumping limits in the San Joaquin Valley</option>
-            <option>Groundwater pumping limits and reduced crop acreage in the San Joaquin Valley</option>
-            <option>Groundwater pumping limits in the Central Valley</option>
-            <option>Groundwater pumping limits and reduced crop acreage in the Central Valley</option>
+            <option value="strategy-briefs/strategy_brief_groundwater-pumping-limits-in-the-san-joaquin-valley_v0_1.html">Groundwater pumping limits in the San Joaquin Valley</option>
+            <option value="strategy-briefs/strategy_brief_groundwater-pumping-limits-and-reduced-crop-acreage-in-the-san-joaquin-valley_v0_1.html">Groundwater pumping limits and reduced crop acreage in the San Joaquin Valley</option>
+            <option value="strategy-briefs/strategy_brief_groundwater-pumping-limits-in-the-central-valley_v0_1.html">Groundwater pumping limits in the Central Valley</option>
+            <option value="strategy-briefs/strategy_brief_groundwater-pumping-limits-and-reduced-crop-acreage-in-the-central-valley_v0_1.html">Groundwater pumping limits and reduced crop acreage in the Central Valley</option>
           </optgroup>
           <optgroup label="Environmental flows">
-            <option>No minimum flow requirements</option>
-            <option>Functional environmental flows</option>
-            <option>Functional environmental flows with groundwater regulations</option>
-            <option>Salmon-friendly flows</option>
-            <option>Salmon-friendly flows with groundwater regulations</option>
+            <option value="strategy-briefs/strategy_brief_no-minimum-flow-requirements_v0_1.html">No minimum flow requirements</option>
+            <option value="strategy-briefs/strategy_brief_functional-environmental-flows_v0_1.html">Functional environmental flows</option>
+            <option value="strategy-briefs/strategy_brief_functional-environmental-flows-with-groundwater-regulations_v0_1.html">Functional environmental flows with groundwater regulations</option>
+            <option value="strategy-briefs/strategy_brief_salmon-friendly-flows_v0_1.html">Salmon-friendly flows</option>
+            <option value="strategy-briefs/strategy_brief_salmon-friendly-flows-with-groundwater-regulations_v0_1.html">Salmon-friendly flows with groundwater regulations</option>
           </optgroup>
           <optgroup label="Community water systems">
-            <option>Prioritizing human health delivery levels to community water systems</option>
-            <option>Prioritizing functional delivery levels to community water systems</option>
-            <option>Prioritizing full demands of community water systems</option>
+            <option value="strategy-briefs/strategy_brief_prioritizing-human-health-delivery-levels-to-community-water-systems_v0_1.html">Prioritizing human health delivery levels to community water systems</option>
+            <option value="strategy-briefs/strategy_brief_prioritizing-functional-delivery-levels-to-community-water-systems_v0_1.html">Prioritizing functional delivery levels to community water systems</option>
+            <option value="strategy-briefs/strategy_brief_prioritizing-full-demands-of-community-water-systems_v0_1.html">Prioritizing full demands of community water systems</option>
           </optgroup>
           <optgroup label="Delta outflows">
-            <option>Reduce Delta outflows (35% of unimpaired flow)</option>
-            <option>Maintain Delta outflows (45% of unimpaired flow)</option>
-            <option>Increase Delta outflows (55% of unimpaired flow)</option>
-            <option>Increase Delta outflows (65% of unimpaired flow)</option>
+            <option value="strategy-briefs/strategy_brief_reduce-delta-outflows-35-of-unimpaired-flow_v0_1.html">Reduce Delta outflows (35% of unimpaired flow)</option>
+            <option value="strategy-briefs/strategy_brief_maintain-delta-outflows-45-of-unimpaired-flow_v0_1.html">Maintain Delta outflows (45% of unimpaired flow)</option>
+            <option value="strategy-briefs/strategy_brief_increase-delta-outflows-55-of-unimpaired-flow_v0_1.html">Increase Delta outflows (55% of unimpaired flow)</option>
+            <option value="strategy-briefs/strategy_brief_increase-delta-outflows-65-of-unimpaired-flow_v0_1.html">Increase Delta outflows (65% of unimpaired flow)</option>
           </optgroup>
           <optgroup label="Storage, salinity &amp; conveyance">
-            <option>Increase Shasta carry-over storage</option>
-            <option>Relax Delta salinity standards</option>
-            <option>Delta Conveyance Project</option>
+            <option value="strategy-briefs/strategy_brief_increase-shasta-carry-over-storage_v0_1.html">Increase Shasta carry-over storage</option>
+            <option value="strategy-briefs/strategy_brief_relax-delta-salinity-standards_v0_1.html">Relax Delta salinity standards</option>
+            <option value="strategy-briefs/strategy_brief_delta-conveyance-project_v0_1.html">Delta Conveyance Project</option>
           </optgroup>
         </select>
       </div>
       <!-- v0_10 second pass: worked-example link restored here — the brief
            describes the operational configuration and carries no modeled
            results (its own header devnote), so it is a reference brief. -->
+      <div class="note">
+        <b>REVIEW</b>
+        All 24 strategy briefs are first drafts (v0_1, generated 2026-07-22
+        from the scenario descriptions document and the naming-proposal
+        table). Open decisions — flagged names, the 1.x family framing,
+        §5 list length — are marked with devnotes inside each brief.
+      </div>
       <div class="card-foot">
         <span class="card-stats"><span><em>24</em>strategies</span></span>
-        <a class="read-link" href="strategy_brief_prototype_functional-environmental-flows_v0_4.html" target="_blank" rel="noopener">Worked example: Functional environmental flows →</a>
+        <a class="read-link" href="strategy_brief_prototype_functional-environmental-flows_v0_4.html" target="_blank" rel="noopener">Worked example (team-edited v0_4): Functional environmental flows →</a>
       </div>
     </div>
 
@@ -1352,5 +1373,20 @@
   </div>
 </section>
 
+
+<!-- v0_10 seventh pass: the strategy picker now navigates — each option
+     carries its v0_1 brief path; selection opens the brief in a new tab
+     (matching the page's other links) and the picker resets. -->
+<script>
+  (function () {
+    var sel = document.getElementById('strategy-picker-select');
+    sel.addEventListener('change', function () {
+      if (this.value) {
+        window.open(this.value, '_blank', 'noopener');
+        this.selectedIndex = 0;
+      }
+    });
+  })();
+</script>
 </body>
 </html>
