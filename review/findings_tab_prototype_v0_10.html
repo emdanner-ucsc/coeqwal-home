@@ -10,6 +10,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_10 (2026-07-23, tenth pass): the results-band "Baseline" card had
+   *   bundled two different documents under one card — the baseline RESULTS
+   *   brief (builder/output/baselines_dev.html) and the baseline background
+   *   NARRATIVE ("Understanding today's water system") — with a single edit
+   *   link that only covered the results brief. Split per Eric: the results
+   *   card keeps the results brief + its edit link; the narrative moves to a
+   *   new card in the REFERENCE BRIEFS band as background reading, with its
+   *   own copy-deck Google Doc (generated 2026-07-23, uploaded to the
+   *   "Website briefs" Drive folder) wired as its edit link. Doc-link record:
+   *   team-review/brief_edit_links.md. NOTE: the narrative is structurally a
+   *   hybrid (its §6 reports modeled findings), so this reclassification
+   *   pre-empts the open §6 evaluative-verb decision — flagged in a visible
+   *   devnote on the new card and in the results-band hybrid devnote.
+   *
    * v0_10 (2026-07-22, ninth pass): "Suggest edits" links added to all
    *   24 strategy rows in the strategies table. 23 new copy decks were
    *   generated from the strategy briefs by make_copy_deck.py, uploaded to
@@ -976,9 +990,9 @@
     Results can be viewed by theme, sector, or individual Locations of Interest (LOIs). All results are compared to the baseline.
   </p>
 
-  <!-- v0_10: card is no longer a single anchor — two labeled links in the
-       foot (per Eric 2026-07-19): the results brief plus the baseline
-       narrative v0_2, previously unreachable from this page. -->
+  <!-- v0_10 (tenth pass 2026-07-23): the baseline narrative link was removed
+       from this card and given its own card in the REFERENCE band (per Eric);
+       this card is now purely the baseline RESULTS brief. -->
   <div class="card featured-baseline">
     <div class="card-eyebrow">Baseline</div>
     <h2 class="card-title lg">The baseline: what current operations look like under historical and future hydroclimates</h2>
@@ -993,7 +1007,6 @@
       </span>
       <span class="foot-links">
         <a class="read-link" href="builder/output/baselines_dev.html" target="_blank" rel="noopener">Read the results brief →</a>
-        <a class="read-link" href="water-themes/theme_baseline_understanding-todays-water-system_narrative_prototype_v0_2.html" target="_blank" rel="noopener">Read the baseline narrative →</a>
         <a class="edit-link" href="https://docs.google.com/document/d/1aOP2_BANX6ubDcvFF66U_BmKbqRHiba-/edit" target="_blank" rel="noopener">✎ Suggest edits ↗</a>
       </span>
     </div>
@@ -1027,11 +1040,14 @@
   <div class="note">
     <b>DEVNOTE</b>
     The theme narratives are hybrids: sections 1–5 are descriptive, but their
-    section 6 reports modeled findings, which is why they sit under results
+    section 6 reports modeled findings, which is why these four sit under results
     briefs. Their section-6 wording is team text pending the open
     evaluative-verb policy decision (prose-style rules vs. a stated
     carve-out) — that decision also bears on whether this classification
-    holds.
+    holds. The fifth theme narrative, "Understanding today's water system," has
+    been placed in the Reference band below as baseline background reading (per
+    Eric, 2026-07-23) even though it shares the same §6 hybrid structure — see
+    the note on that card.
   </div>
 </section>
 
@@ -1136,7 +1152,7 @@
     <div class="layer-meta">Describe the COEQWAL process — no results</div>
   </div>
   <p class="layer-intro">
-    Reference briefs describe the project and the pieces the scenario library is built from, and contain no model results. Two orientation briefs cover the project itself and how the library is constructed. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The strategy picker holds a short reference brief for each strategy — what the strategy changes about system operations; all 24 are drafted (v0_1, generated 2026-07-22), with functional environmental flows as the team-edited worked example. The five hydroclimates are described in a single reference brief, with a section for each. Technical descriptions of how each sector's tiers are calculated will also live here.
+    Reference briefs describe the project and the pieces the scenario library is built from, and contain no model results. Two orientation briefs cover the project itself and how the library is constructed, and a background narrative, Understanding today's water system, sets the context for the baseline. The table shows how the library is put together — each scenario pairs one strategy with one hydroclimate. The strategy picker holds a short reference brief for each strategy — what the strategy changes about system operations; all 24 are drafted (v0_1, generated 2026-07-22), with functional environmental flows as the team-edited worked example. The five hydroclimates are described in a single reference brief, with a section for each. Technical descriptions of how each sector's tiers are calculated will also live here.
   </p>
 
   <!-- v0_10 fourth pass (2026-07-20): project orientation briefs added.
@@ -1173,6 +1189,34 @@
         </span>
       </div>
     </div>
+  </div>
+
+  <!-- v0_10 (tenth pass 2026-07-23): baseline background narrative, split out
+       of the results-band baseline card (which had bundled the RESULTS brief
+       and this narrative under one card), per Eric. New copy-deck Google Doc
+       generated 2026-07-23 and wired as its edit link. -->
+  <div class="card" style="margin-bottom: 22px;">
+    <div class="card-eyebrow">Baseline context</div>
+    <h2 class="card-title">Understanding today's water system</h2>
+    <p class="card-body">
+      Background reading for the baseline: how California's current water management system works, and why current operations serves as the comparison anchor for every scenario. The companion baseline results brief, under Results briefs above, reports the modeled tiers.
+    </p>
+    <div class="card-foot arrow-only">
+      <span class="foot-links">
+        <a class="read-link" href="water-themes/theme_baseline_understanding-todays-water-system_narrative_prototype_v0_2.html" target="_blank" rel="noopener">Read the brief →</a>
+        <a class="edit-link" href="https://docs.google.com/document/d/1K-3GIxKC7W8R05rtDmwK3uOKC1m3X_lQ9uxn-ZnzAjw/edit" target="_blank" rel="noopener">✎ Suggest edits ↗</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>DEVNOTE</b>
+    "Understanding today's water system" is placed here as background reading,
+    but it is structurally a hybrid theme narrative — its section 6 reports
+    modeled findings in evaluative vocabulary. Its four sibling theme narratives
+    stay under Results briefs for that reason. This split (baseline narrative →
+    reference; the other four → results) is provisional and interacts with the
+    open section-6 evaluative-verb policy decision.
   </div>
 
   <div class="card strategy-table-card">
