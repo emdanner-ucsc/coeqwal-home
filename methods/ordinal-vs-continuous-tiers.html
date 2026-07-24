@@ -36,11 +36,11 @@
 <body>
 <header>
   <h1>Ordinal vs. continuous tiers</h1>
-  <p>Methods note — in use · last updated 2026-06-07 10:28 AM PDT. Source: <code style="color:#fff">projects/coeqwal-viz/docs/ordinal_vs_continuous_tiers.md</code>. <a href="index.html">Back to working pages</a>.</p>
+  <p>Methods note — in use · last updated 2026-07-24 01:16 PM PDT. Source: <code style="color:#fff">projects/coeqwal-viz/docs/ordinal_vs_continuous_tiers.md</code>. <a href="index.html">Back to working pages</a>.</p>
 </header>
 <main>
 <p><em>Methods note for the sector tier teams: how to convert integer tier assignments into continuous tier values.</em></p>
-<p><em>Provenance: recovered 2026-06-07 from a chat-generated PDF, saved as-is beside this file (<code>ordinal_vs_continuous_tiers.pdf</code>). This markdown file is the living copy; it applies the 2026-06-07 review fixes (current tier labels, two added subsections, harmonized notation). Companions: <code>tier_continuous_conversion.xlsx</code> (the per-sector worksheet applying this framework — its Decision column is still unfilled) and <code>coeqwal_framing_invariants.md</code> (the axis rules as used by visualization work). Status: the COEQWAL API serves integer tier levels only; the data-platform team has per-location continuous tiers in progress, and the briefs and visualizations are built to consume them as a data-only change.</em></p>
+<p><em>Provenance: recovered 2026-06-07 from a chat-generated PDF, saved as-is beside this file (<code>ordinal_vs_continuous_tiers.pdf</code>). This markdown file is the living copy; it applies the 2026-06-07 review fixes (current tier labels, two added subsections, harmonized notation). Companions: <code>tier_continuous_conversion.xlsx</code> (the per-sector worksheet applying this framework — its Decision column is still unfilled) and <code>shared/coeqwal_framing_invariants.md</code> (the axis rules as used by visualization work; promoted out of this repo on 2026-07-24). Status: the COEQWAL API serves integer tier levels only; the data-platform team has per-location continuous tiers in progress, and the briefs and visualizations are built to consume them as a data-only change.</em></p>
 <h2 id="the-task">The task</h2>
 <p>Tiers are currently defined by integers (1–4), but are calculated from continuous data. Rather than binning tiers into the four integer values, we want to preserve the continuous nature of the underlying values used in tier calculations and generate continuous tier values ranging between 1 and 4.99. The tier definitions and thresholds remain the same, but the thresholds — the values where the teams judged that qualitative character changes — now become anchor points on that continuous axis.</p>
 <p><strong>The task for each tier team is to modify their tier calculations to allow variation in values within each tier.</strong> This will make it possible for the axes on which tier values are plotted to include tick marks, like a ruler, instead of being separated into categorical bins.</p>
@@ -110,7 +110,7 @@
 </main>
 <footer>
 Working material; the cited repository documents remain canonical. Questions: Eric Danner.<br>
-Page generated 2026-07-23 07:20 AM PDT.
+Page generated 2026-07-24 03:18 PM PDT.
 </footer>
 </body>
 </html>

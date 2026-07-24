@@ -41,10 +41,11 @@
 <main>
 <h2 id="coeqwal-the-landscape">COEQWAL — The Landscape</h2>
 <p><em>2026-04-04</em></p>
-<blockquote><p><strong>Status note (2026-06-09):</strong> the served hydroclimate set is <strong>BL + HC1 + HC2 only</strong> (per <code>coeqwal_conventions.md</code>, corrected 2026-06-09). There is no served HC3 — TaiESM1 (the model previously carrying the editorial "HC3" label) and EC-Earth3-Veg are run but not yet served. Where this doc enumerates "HC1, HC2, HC3", read "every served non-historical hydroclimate"; the concepts apply unchanged as new climates come online.</p></blockquote>
+<p><em>Last updated: 2026-07-24 — status note brought current to the five served hydroclimates; HC enumerations generalised. Previous revision 2026-07-17 (hydroclimate public names).</em></p>
+<blockquote><p><strong>Status note (2026-06-25, revised 2026-07-24):</strong> <strong>all five hydroclimates are served</strong> — Historical hydroclimate plus Moderate, Moderate-high, High, and Extreme climate stress (per <code>coeqwal_conventions.md</code> § Hydroclimates). HC1–HC4 are internal keys, not public labels. Where this doc enumerates "HC1, HC2, HC3", read "every served non-historical hydroclimate"; the concepts apply unchanged.  <em>Superseded, kept as the record — the 2026-06-09 note read: "the served hydroclimate set is <strong>BL + HC1 + HC2 only</strong> … There is no served HC3 — TaiESM1 (the model previously carrying the editorial 'HC3' label) and EC-Earth3-Veg are run but not yet served." Both landed 2026-06-25.</em></p></blockquote>
 <hr>
 <h2 id="the-problem">The problem</h2>
-<p>The word "baseline" currently refers to two conceptually distinct things in the project: the lived status quo (s0020 × Historical HC), and the counterfactual reference points produced by running current operations through alternative climate futures (s0020 × HC1, HC2, HC3). Calling both "baselines" collapses a distinction that is load-bearing for interpretation: one is empirical and grounded in current experience; the others are forward-looking projections of what would happen if climate changed but operations didn't. When the modifier gets dropped in conversation, workshop notes, or memory — and it will — the grounding is lost.</p>
+<p>The word "baseline" currently refers to two conceptually distinct things in the project: the lived status quo (s0020 × Historical HC), and the counterfactual reference points produced by running current operations through alternative climate futures (s0020 × each served non-historical hydroclimate). Calling both "baselines" collapses a distinction that is load-bearing for interpretation: one is empirical and grounded in current experience; the others are forward-looking projections of what would happen if climate changed but operations didn't. When the modifier gets dropped in conversation, workshop notes, or memory — and it will — the grounding is lost.</p>
 <hr>
 <h2 id="terminology">Terminology</h2>
 <h3 id="the-baseline">The baseline</h3>
@@ -61,7 +62,7 @@
 </tbody></table>
 <hr>
 <h3 id="climate-projected-baselines">Climate-projected baselines</h3>
-<p><strong>Definition:</strong> s0020 (current operations) × any non-historical hydroclimate (HC1, HC2, HC3). Full CalSim simulation runs that project current operations forward into alternative climate futures. These are not corrections or adjustments applied to the primary baseline — they are independent model runs with different climate inputs. They exist to isolate what climate contributes from what operational strategy contributes.</p>
+<p><strong>Definition:</strong> s0020 (current operations) × any served non-historical hydroclimate. Full CalSim simulation runs that project current operations forward into alternative climate futures. These are not corrections or adjustments applied to the primary baseline — they are independent model runs with different climate inputs. They exist to isolate what climate contributes from what operational strategy contributes.</p>
 <p><strong>Visual encoding:</strong> Hollow circles on the diagonal in the All HC view, colored by hydroclimate. Each sits at <code>(B(s, h), B(s, h))</code> for its respective HC.</p>
 <p><strong>Why "projected":</strong> The HC-paired references are forward-looking simulations — projections of where current operations would land under climates that haven't arrived yet. "Projected" conveys that a model was run, not that a number was corrected. It avoids the connotation of "adjusted" (which implies a mathematical transformation of existing data) and "reference" (which understates the structural role these points play as the denominators of the Δop calculation).</p>
 <p><strong>Why "baseline" is retained:</strong> These points represent unchanged operations. Dropping "baseline" from the label risks implying that something about the strategy has changed. Retaining it communicates that these are still current operations — the same policy, the same rules — just operating in a different climate. The modifier "climate-projected" carries the distinction from the primary baseline; the shared word "baseline" carries the shared structural role (the thing operational impact is measured from).</p>
@@ -88,7 +89,7 @@
 <p>The complete naming system:</p>
 <table><thead><tr><th>Term</th><th>What it is</th><th>Operations</th><th>Climate</th><th>Role in decomposition</th></tr></thead><tbody>
 <tr><td><strong>Baseline</strong></td><td>s0020 × Historical</td><td>Current</td><td>Historical</td><td>Fixed visual origin on diagonal; departure point for all comparisons</td></tr>
-<tr><td><strong>Climate-projected baseline</strong></td><td>s0020 × HC1/HC2/HC3</td><td>Current</td><td>Projected future</td><td>HC-matched reference for computing Δop; encodes ΔHC relative to primary baseline</td></tr>
+<tr><td><strong>Climate-projected baseline</strong></td><td>s0020 × any served non-historical HC</td><td>Current</td><td>Projected future</td><td>HC-matched reference for computing Δop; encodes ΔHC relative to primary baseline</td></tr>
 <tr><td><strong>Scenario outcome</strong></td><td>Alternative × any HC</td><td>Alternative</td><td>Any</td><td>The evaluated outcome; Δop = scenario outcome − matched baseline</td></tr>
 </tbody></table>
 <p>Every scenario outcome is compared to <em>a</em> baseline. For Historical HC, that's the baseline. For any other HC, it's the climate-projected baseline for that HC. The word "baseline" appears in both because both play the same structural role — the denominator in the Δop calculation. The modifier tells you which climate context the reference lives in.</p>
@@ -132,7 +133,7 @@
 </main>
 <footer>
 Working material; the cited repository documents remain canonical. Questions: Eric Danner.<br>
-Page generated 2026-07-23 07:20 AM PDT.
+Page generated 2026-07-24 03:18 PM PDT.
 </footer>
 </body>
 </html>
