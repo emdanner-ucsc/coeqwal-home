@@ -10,6 +10,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /*
+   * v0_10 (2026-07-25, eleventh pass): scenario-results briefs reach the
+   *   page for the first time. A "Results for individual strategies" row
+   *   of four cards added to the RESULTS band, under the theme grid.
+   *   Twenty-three results briefs are built (builder/build.py render
+   *   --brief results, from the locked 2026-07-02 snapshot); four are
+   *   staged — 1.1 current operations (the reference), 4.3 prioritizing
+   *   full demands of community water systems, 5.1 reduce Delta outflows
+   *   to 35% of unimpaired flow, and 7.4 Delta Conveyance Project — the
+   *   sample the 2026-07-25 read review covered. The selection is stated
+   *   in the sub-heading rather than left implicit: the four cover the
+   *   reference strategy and three different reporting situations, not a
+   *   pick by what the results show. The other nineteen are built and
+   *   verified but unread by anything except the verifier, so they are
+   *   deliberately not linked; 4.2 has no brief at all (run family absent
+   *   from the snapshot, skipped and logged, never imputed). The four
+   *   filenames were added to build_review.py CORE the same pass so the
+   *   relative links resolve; each brief's cross-link to its strategy
+   *   reference brief resolves through the existing strategy-briefs glob.
+   *
    * v0_10 (2026-07-23, tenth pass): the results-band "Baseline" card had
    *   bundled two different documents under one card — the baseline RESULTS
    *   brief (builder/output/baselines_dev.html) and the baseline background
@@ -1054,6 +1073,58 @@
     been placed in the Reference band below as baseline background reading (per
     Eric, 2026-07-23) even though it shares the same §6 hybrid structure — see
     the note on that card.
+  </div>
+
+  <!-- v0_10 (eleventh pass 2026-07-25): scenario-results briefs reach the page.
+       Twenty-three are built (builder/build.py render --brief results, from the
+       locked 2026-07-02 snapshot); four are staged for review here — the sample
+       covered by the 2026-07-25 read review. The selection rule is stated in the
+       sub-heading, per the prose-guard selection-neutrality rule: the four were
+       chosen to cover the reference strategy and three different reporting
+       situations, not for what their results show. The four filenames are in
+       build_review.py CORE so these relative links resolve once published; the
+       remaining nineteen are deliberately not staged. Each brief cross-links to
+       its strategy reference brief at strategy-briefs/..., which is already
+       staged by glob, so that link resolves too. -->
+  <h3 class="sub-heading">Results for individual strategies</h3>
+  <p class="sub-heading-sub">
+    Each brief reports modeled tier results for one management strategy across all five hydroclimates, and separates how much of each difference from today is the hydroclimate and how much is the strategy. Twenty-three strategies have a brief built; four are staged here for review, chosen to cover the reference strategy and three different reporting situations rather than for what their results show.
+  </p>
+
+  <div class="theme-grid">
+    <div class="card">
+      <div class="card-eyebrow">Strategy · reference</div>
+      <h3 class="card-title">Current operations</h3>
+      <p class="card-body">The strategy every other one is measured against. Reports modeled tier results for today's operations across the five hydroclimates, where the whole difference from today is the hydroclimate contribution and the strategy contribution is zero by construction.</p>
+      <div class="card-foot arrow-only"><span class="foot-links"><a class="read-link" href="scenario_results_brief_current-operations_prototype_v0_3.html" target="_blank" rel="noopener">Read the results brief →</a></span></div></div>
+    <div class="card">
+      <div class="card-eyebrow">Strategy</div>
+      <h3 class="card-title">Prioritizing full demands of community water systems</h3>
+      <p class="card-body">Reports modeled tier results for the strategy that gives municipal and industrial contract deliveries top priority for CVP and SWP surface supplies, across the five hydroclimates, with the hydroclimate and strategy contributions separated for each of the nine areas of the water system.</p>
+      <div class="card-foot arrow-only"><span class="foot-links"><a class="read-link" href="scenario_results_brief_prioritizing-full-demands-of-community-water-systems_prototype_v0_3.html" target="_blank" rel="noopener">Read the results brief →</a></span></div></div>
+    <div class="card">
+      <div class="card-eyebrow">Strategy</div>
+      <h3 class="card-title">Reduce Delta outflows (35% of unimpaired flow)</h3>
+      <p class="card-body">Reports modeled tier results for the strategy that sets the December–May Delta outflow requirement at roughly 35% of unimpaired flow, the lowest of the four Delta-outflow strategies in the library, across the five hydroclimates and all nine areas.</p>
+      <div class="card-foot arrow-only"><span class="foot-links"><a class="read-link" href="scenario_results_brief_reduce-delta-outflows-35-of-unimpaired-flow_prototype_v0_3.html" target="_blank" rel="noopener">Read the results brief →</a></span></div></div>
+    <div class="card">
+      <div class="card-eyebrow">Strategy</div>
+      <h3 class="card-title">Delta Conveyance Project</h3>
+      <p class="card-body">Reports modeled tier results for the strategy representing the Delta Conveyance Project — a tunnel around the Delta — across the five hydroclimates. Its runs cover eight of the nine areas; winter-run Chinook salmon carries no tier in them and is shown as an explicit placeholder rather than dropped from the page.</p>
+      <div class="card-foot arrow-only"><span class="foot-links"><a class="read-link" href="scenario_results_brief_delta-conveyance-project_prototype_v0_3.html" target="_blank" rel="noopener">Read the results brief →</a></span></div></div>
+  </div>
+
+  <div class="note">
+    <b>DEVNOTE</b>
+    Four of the twenty-three built results briefs are staged. The other
+    nineteen are built and verified but have not been read by anything other
+    than the verifier, so they are deliberately not linked here. Strategy 4.2,
+    prioritizing functional delivery levels to community water systems, has no
+    brief at all: its run family is absent from the 2026-07-02 snapshot, and it
+    is skipped and logged by the builder rather than imputed. These four are
+    prototype v0_3 pages; the read review of 2026-07-25 lists open items
+    against them, including the tier band names appearing only inside the
+    figure and never in prose.
   </div>
 </section>
 
