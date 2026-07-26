@@ -41,9 +41,40 @@
   table.grid thead th{background:var(--frame); font-weight:600; font-size:.72rem;}
   table.grid thead th .pin{text-decoration:none; color:var(--accent); margin-right:.15rem;}
   table.grid th[scope="row"]{font-weight:600; width:10rem;}
-  td.n{text-align:right; font-family:"SF Mono",Menlo,Consolas,monospace; font-size:.76rem; white-space:nowrap;}
+  td.n{text-align:right; font-family:"SF Mono",Menlo,Consolas,monospace; font-size:.76rem;
+     white-space:nowrap; vertical-align:bottom;}
   table.grid td span{display:block; font-family:"SF Mono",Menlo,Consolas,monospace;
      font-size:.74rem; white-space:nowrap;}
+  /* Value cells: every number right-aligned in a shared column, so with the fixed
+     two-decimal format every decimal point lines up — down a column and across the
+     three lines within a cell. Tier badges sit in a fixed column of their own.
+     td.n aligns to the bottom so today reads on the same line as the five scenario
+     values beside it rather than floating mid-cell (2026-07-26). */
+  table.grid td:not(.flag) span:not(.bt){display:grid; grid-template-columns:1fr 1.9rem;
+     text-align:right; column-gap:0;}
+  table.grid td:not(.flag) .sc .bt{justify-self:end; margin-left:0;}
+  /* Single-value areas print whole numbers among two-decimal ones. Widening the
+     badge column by the width of ".00" moves the number column's right edge left by
+     exactly three monospace characters, so their units digit lands in the same place;
+     the badge does not move. Keyed off .svtag rather than a new row class so the
+     markup — and therefore every check in verify() — is untouched. */
+  table.grid tr:has(.svtag) td:not(.flag) span:not(.bt){grid-template-columns:1fr calc(1.9rem + 3ch);}
+  table.grid tr:has(.svtag) td.n .bt{margin-left:calc(.22rem + 3ch);}
+  /* The numbers table is disclosed, not deleted: it is the only text alternative
+     to the figure that carries the values, and the five citable column anchors
+     live on its header cells. Closed by default keeps 135 numbers out of the
+     default reading path (Eric, 2026-07-26). */
+  details.numbers{margin:.2rem 0 1.4rem;}
+  details.numbers > summary{cursor:pointer; display:inline-flex; align-items:center;
+     gap:.4rem; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+     font-size:.8rem; color:var(--accent); padding:.3rem .6rem .3rem .5rem;
+     border:1px solid var(--line); border-radius:4px; background:var(--frame);
+     list-style:none; user-select:none;}
+  details.numbers > summary::-webkit-details-marker{display:none;}
+  details.numbers > summary::before{content:"\25B8"; font-size:.7rem;}
+  details.numbers[open] > summary::before{content:"\25BE";}
+  details.numbers > summary:hover{border-color:var(--accent);}
+  details.numbers > summary:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
   .cl{color:#8a5c14; font-weight:700;} .op{color:#2c5f8d; font-weight:700;}
   .sc{color:var(--ink);}
   td.opp{background:#fbf4ee;}
@@ -67,6 +98,10 @@
     body{background:#fff; font-size:11pt;} .wrap{max-width:none; padding:0;}
     a{color:inherit; text-decoration:none;}
     figure, table.grid, .tldr{break-inside:avoid;} h2{break-after:avoid;}
+    /* A printed brief carries the numbers whether or not the reader opened the
+       disclosure: the control itself is meaningless on paper. */
+    details.numbers > summary{display:none;}
+    details.numbers > .numbers-body{display:block !important; content-visibility:visible !important;}
   }
 </style>
 </head>
@@ -81,7 +116,7 @@
       modeled tier results for one management strategy read across the five
       hydroclimates, each difference from today split into the two contributions that
       produce it.</p>
-    <p class="prov">Snapshot 2026-07-02 &middot; verification: pass &middot; built 2026-07-25T21:42:17Z</p>
+    <p class="prov">Snapshot 2026-07-02 &middot; verification: pass &middot; built 2026-07-26T02:45:14Z</p>
   </header>
 
   <p class="tldr"><strong>TL;DR.</strong> Compared with today &mdash; current operations
@@ -387,6 +422,9 @@
   </figure>
 
   <h2>The same 45 results as numbers</h2>
+  <details class="numbers">
+    <summary>Show the values</summary>
+    <div class="numbers-body">
   <p>Each cell reads top to bottom: the hydroclimate contribution, the strategy
     contribution, and the resulting value with its band. The two contributions add to
     the difference between the scenario and today. Shaded cells are those where the two
@@ -401,6 +439,8 @@
       <tr><th scope="row">Community water systems</th><td class="n">1.79<span class="bt t1">T1</span></td><td><span class="cl">+0.00</span><span class="op">+0.13</span><span class="sc">1.92<span class="bt t1">T1</span></span></td><td><span class="cl">+0.18</span><span class="op">+0.13</span><span class="sc">2.10<span class="bt t2">T2</span></span></td><td><span class="cl">+0.20</span><span class="op">+0.04</span><span class="sc">2.03<span class="bt t2">T2</span></span></td><td class="opp"><span class="cl">+0.52</span><span class="op">−0.05</span><span class="sc">2.25<span class="bt t2">T2</span></span></td><td><span class="cl">+0.77</span><span class="op">+0.13</span><span class="sc">2.68<span class="bt t2">T2</span></span></td><td class="flag">crosses zero<br><span class="rng">−0.05 to +0.13</span></td></tr><tr><th scope="row">Agriculture</th><td class="n">2.33<span class="bt t2">T2</span></td><td><span class="cl">+0.00</span><span class="op">+0.14</span><span class="sc">2.47<span class="bt t2">T2</span></span></td><td><span class="cl">+0.47</span><span class="op">+0.08</span><span class="sc">2.88<span class="bt t2">T2</span></span></td><td><span class="cl">+0.45</span><span class="op">+0.09</span><span class="sc">2.86<span class="bt t2">T2</span></span></td><td><span class="cl">+0.58</span><span class="op">+0.10</span><span class="sc">3.00<span class="bt t2">T2</span></span></td><td><span class="cl">+0.65</span><span class="op">+0.11</span><span class="sc">3.09<span class="bt t3">T3</span></span></td><td class="flag">one direction<br><span class="rng">+0.08 to +0.14</span></td></tr><tr><th scope="row">Environmental flows</th><td class="n">2.75<span class="bt t2">T2</span></td><td><span class="cl">+0.00</span><span class="op">+1.03</span><span class="sc">3.78<span class="bt t3">T3</span></span></td><td><span class="cl">+1.04</span><span class="op">+0.03</span><span class="sc">3.82<span class="bt t3">T3</span></span></td><td><span class="cl">+0.20</span><span class="op">+0.89</span><span class="sc">3.83<span class="bt t3">T3</span></span></td><td><span class="cl">+0.32</span><span class="op">+0.91</span><span class="sc">3.98<span class="bt t3">T3</span></span></td><td class="opp"><span class="cl">+1.42</span><span class="op">−0.02</span><span class="sc">4.15<span class="bt t4">T4</span></span></td><td class="flag">one direction<br><span class="rng">−0.02 to +1.03</span></td></tr><tr><th scope="row">Bay-Delta estuary ecology<br><span class="svtag">single tier value</span></th><td class="n">3<span class="bt t3">T3</span></td><td><span class="cl">+0</span><span class="op">+0</span><span class="sc">3<span class="bt t3">T3</span></span></td><td><span class="cl">−1</span><span class="op">+0</span><span class="sc">2<span class="bt t2">T2</span></span></td><td><span class="cl">+0</span><span class="op">+0</span><span class="sc">3<span class="bt t3">T3</span></span></td><td><span class="cl">+0</span><span class="op">+0</span><span class="sc">3<span class="bt t3">T3</span></span></td><td><span class="cl">+0</span><span class="op">+0</span><span class="sc">3<span class="bt t3">T3</span></span></td><td class="flag">no change at the 0.05 threshold<br><span class="rng">+0 to +0</span></td></tr><tr><th scope="row">Winter-run Chinook salmon<br><span class="svtag">single tier value</span></th><td class="n">4<span class="bt t4">T4</span></td><td><span class="cl">+0</span><span class="op">−1</span><span class="sc">3<span class="bt t3">T3</span></span></td><td><span class="cl">−1</span><span class="op">+0</span><span class="sc">3<span class="bt t3">T3</span></span></td><td><span class="cl">+0</span><span class="op">+0</span><span class="sc">4<span class="bt t4">T4</span></span></td><td><span class="cl">+0</span><span class="op">+0</span><span class="sc">4<span class="bt t4">T4</span></span></td><td><span class="cl">+0</span><span class="op">+0</span><span class="sc">4<span class="bt t4">T4</span></span></td><td class="flag">one direction<br><span class="rng">−1 to +0</span></td></tr><tr><th scope="row">Freshwater for Delta exports<br><span class="svtag">single tier value</span></th><td class="n">2<span class="bt t2">T2</span></td><td><span class="cl">+0</span><span class="op">+2</span><span class="sc">4<span class="bt t4">T4</span></span></td><td><span class="cl">+1</span><span class="op">+1</span><span class="sc">4<span class="bt t4">T4</span></span></td><td><span class="cl">+1</span><span class="op">+1</span><span class="sc">4<span class="bt t4">T4</span></span></td><td><span class="cl">+1</span><span class="op">+1</span><span class="sc">4<span class="bt t4">T4</span></span></td><td><span class="cl">+2</span><span class="op">+0</span><span class="sc">4<span class="bt t4">T4</span></span></td><td class="flag">one direction<br><span class="rng">+0 to +2</span></td></tr><tr><th scope="row">Freshwater for in-Delta uses<br><span class="svtag">single tier value</span></th><td class="n">2<span class="bt t2">T2</span></td><td><span class="cl">+0</span><span class="op">−1</span><span class="sc">1<span class="bt t1">T1</span></span></td><td class="opp"><span class="cl">+1</span><span class="op">−1</span><span class="sc">2<span class="bt t2">T2</span></span></td><td class="opp"><span class="cl">+1</span><span class="op">−1</span><span class="sc">2<span class="bt t2">T2</span></span></td><td class="opp"><span class="cl">+1</span><span class="op">−1</span><span class="sc">2<span class="bt t2">T2</span></span></td><td><span class="cl">+1</span><span class="op">+0</span><span class="sc">3<span class="bt t3">T3</span></span></td><td class="flag">one direction<br><span class="rng">−1 to +0</span></td></tr><tr><th scope="row">Reservoir storage</th><td class="n">2.45<span class="bt t2">T2</span></td><td><span class="cl">+0.00</span><span class="op">−0.26</span><span class="sc">2.19<span class="bt t2">T2</span></span></td><td><span class="cl">−0.05</span><span class="op">−0.13</span><span class="sc">2.28<span class="bt t2">T2</span></span></td><td><span class="cl">−0.13</span><span class="op">−0.03</span><span class="sc">2.29<span class="bt t2">T2</span></span></td><td class="opp"><span class="cl">+0.18</span><span class="op">−0.10</span><span class="sc">2.54<span class="bt t2">T2</span></span></td><td class="opp"><span class="cl">+1.06</span><span class="op">−0.12</span><span class="sc">3.39<span class="bt t3">T3</span></span></td><td class="flag">one direction<br><span class="rng">−0.26 to −0.03</span></td></tr><tr><th scope="row">Groundwater storage</th><td class="n">2.85<span class="bt t2">T2</span></td><td><span class="cl">+0.00</span><span class="op">+0.25</span><span class="sc">3.10<span class="bt t3">T3</span></span></td><td class="opp"><span class="cl">−0.16</span><span class="op">+0.25</span><span class="sc">2.95<span class="bt t2">T2</span></span></td><td><span class="cl">+0.04</span><span class="op">+0.33</span><span class="sc">3.22<span class="bt t3">T3</span></span></td><td><span class="cl">+0.22</span><span class="op">+0.43</span><span class="sc">3.50<span class="bt t3">T3</span></span></td><td><span class="cl">+0.48</span><span class="op">+0.18</span><span class="sc">3.51<span class="bt t3">T3</span></span></td><td class="flag">one direction<br><span class="rng">+0.18 to +0.43</span></td></tr>
     </tbody>
   </table>
+    </div>
+  </details>
 
   <h2>How many places a strategy reaches</h2>
   <p>A strategy changes results only where its rules apply, and an area&rsquo;s value is the unweighted mean of its locations. This strategy changes results at 28–40 of the 74 Community water systems locations, 62–73 of the 132 Agriculture locations, as few as 8 and as many as all 17 Environmental flows locations, 6–7 of the 8 Reservoir storage locations and 37–40 of the 42 Groundwater storage locations, depending on the hydroclimate &mdash; 156 to 175 of the 273 locations reported here. An area where few locations change therefore shows a small area-level difference even when the locations that do change move by a full tier or more. The remaining four areas (Bay-Delta estuary ecology, Winter-run Chinook salmon, Freshwater for Delta exports, Freshwater for in-Delta uses) are served as a single area-level value with no separate locations.</p>
