@@ -733,7 +733,9 @@
     cursor: default;
     transition: background-color 120ms;
   }
-  a.sector-tile { display: block; text-decoration: none; cursor: pointer; }
+  .sector-tile-linked { background: var(--navy-light); }
+  .sector-links { display: block; margin-top: 8px; }
+  .sector-links a { display: inline-block; margin-right: 12px; }
   .sector-tile:hover { background: var(--navy-light); }
   .sector-name {
     font-family: var(--serif);
@@ -1185,10 +1187,11 @@
           <div class="sector-name">In-Delta freshwater</div>
           <div class="sector-count">Briefs to come</div>
         </div>
-        <a class="sector-tile" href="sector_brief_reservoir-storage_prototype_v0_1.html" target="_blank" rel="noopener">
+        <div class="sector-tile sector-tile-linked">
           <div class="sector-name">Reservoir storage</div>
           <div class="sector-count">1 prototype brief</div>
-        </a>
+          <span class="foot-links sector-links"><a class="read-link" href="sector_brief_reservoir-storage_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/14F2PXYP9nMuMUqXZ_EtfB8YwZj7sfueucMwEThGW-2c/edit" target="_blank" rel="noopener">&#9998; Suggest edits &#8599;</a></span>
+        </div>
         <div class="sector-tile" style="grid-column: 1 / span 2; max-width: calc(50% - 5px);">
           <div class="sector-name">Groundwater storage</div>
           <div class="sector-count">Briefs to come</div>
