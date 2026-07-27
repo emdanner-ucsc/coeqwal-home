@@ -53,6 +53,10 @@
   table.grid td:not(.flag) span:not(.bt){display:grid; grid-template-columns:1.9rem 1fr;
      text-align:right; column-gap:0;}
   table.grid td:not(.flag) .sc .bt{justify-self:start; margin-left:0;}
+  /* Contribution lines carry no badge, so they must be told to use the number
+     column rather than auto-placing into the badge column (2026-07-27). */
+  table.grid td:not(.flag) .cl, table.grid td:not(.flag) .op{display:block;}
+
   /* Single-value areas print whole numbers among two-decimal ones. Widening the
      badge column by the width of ".00" moves the number column's right edge left by
      exactly three monospace characters, so their units digit lands in the same place;
@@ -129,7 +133,7 @@
 <header class="doc">
   <p class="kicker">COEQWAL &middot; Results brief &middot; by sector</p>
   <h1>Reservoir storage: modeled tier results span Tier 1 (optimal) to Tier 3 (at-risk) across 23 management strategies and five hydroclimates</h1>
-  <p class="prov">A by-sector results brief &mdash; one area of the water system, every strategy that has a brief. Prototype v0_1, 2026-07-26. Internal, for the COEQWAL team.</p>
+  <p class="prov">A by-sector results brief &mdash; one area of the water system, every strategy that has a brief. Prototype v0_1, 2026-07-27. Internal, for the COEQWAL team.</p>
 <p class="tldr">Across 23 management strategies and five modeled hydroclimates, modeled tier values for reservoir storage span Tier 1 (optimal) to Tier 3 (at-risk), from 1.9 to 3.9. Reservoir storage today &mdash; current operations under the historical hydroclimate &mdash; sits at 2.5, in Tier 2 (acceptable). Each strategy is compared to current operations under the same hydroclimate.</p>
 </header>
 
