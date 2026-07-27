@@ -730,9 +730,10 @@
     background: var(--navy-soft);
     padding: 14px 14px;
     border-radius: 2px;
-    cursor: pointer;
+    cursor: default;
     transition: background-color 120ms;
   }
+  a.sector-tile { display: block; text-decoration: none; cursor: pointer; }
   .sector-tile:hover { background: var(--navy-light); }
   .sector-name {
     font-family: var(--serif);
@@ -1158,7 +1159,7 @@
       <div class="sector-grid">
         <div class="sector-tile">
           <div class="sector-name">Community water systems</div>
-          <div class="sector-count">1 prototype brief</div>
+          <div class="sector-count">Briefs to come</div>
         </div>
         <div class="sector-tile">
           <div class="sector-name">Agricultural water</div>
@@ -1166,7 +1167,7 @@
         </div>
         <div class="sector-tile">
           <div class="sector-name">Environmental flows</div>
-          <div class="sector-count">3 prototype briefs</div>
+          <div class="sector-count">Briefs to come</div>
         </div>
         <div class="sector-tile">
           <div class="sector-name">Bay-Delta estuary ecology</div>
@@ -1184,14 +1185,28 @@
           <div class="sector-name">In-Delta freshwater</div>
           <div class="sector-count">Briefs to come</div>
         </div>
-        <div class="sector-tile">
+        <a class="sector-tile" href="sector_brief_reservoir-storage_prototype_v0_1.html" target="_blank" rel="noopener">
           <div class="sector-name">Reservoir storage</div>
-          <div class="sector-count">3 prototype briefs</div>
-        </div>
+          <div class="sector-count">1 prototype brief</div>
+        </a>
         <div class="sector-tile" style="grid-column: 1 / span 2; max-width: calc(50% - 5px);">
           <div class="sector-name">Groundwater storage</div>
-          <div class="sector-count">1 prototype brief</div>
+          <div class="sector-count">Briefs to come</div>
         </div>
+      </div>
+    </div>
+
+      <div class="note">
+        <b>DEVNOTE</b>
+        Counts corrected 2026-07-26. Four tiles previously reported prototype
+        briefs for a sector — Community water systems 1, Environmental flows 3,
+        Reservoir storage 3, Groundwater storage 1 — and none of them opened
+        anything. Those counts were the eight place briefs re-tallied by their
+        sector tag: Shasta, Oroville and Folsom were the three "Reservoir
+        storage" briefs, Stockton the one "Community water systems" brief. No
+        by-sector brief existed. One does now, and it is the only tile that
+        links. The place briefs are unchanged and still reachable under
+        <em>By place</em>.
       </div>
     </div>
 
