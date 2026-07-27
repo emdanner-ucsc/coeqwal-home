@@ -51,8 +51,8 @@
      td.n aligns to the bottom so today reads on the same line as the five scenario
      values beside it rather than floating mid-cell (2026-07-26). */
   table.grid td:not(.flag) span:not(.bt){display:grid; grid-template-columns:1.9rem 1fr;
-     text-align:right; column-gap:0;}
-  table.grid td:not(.flag) .sc .bt{justify-self:start; margin-left:0;}
+     text-align:right; column-gap:.3rem;}
+  table.grid td:not(.flag) .bt{justify-self:start; margin-left:0;}
   /* Contribution lines carry no badge, so they must be told to use the number
      column rather than auto-placing into the badge column (2026-07-27). */
   table.grid td:not(.flag) span.cl, table.grid td:not(.flag) span.op{display:block;}
