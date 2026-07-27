@@ -55,7 +55,13 @@
   table.grid td:not(.flag) .sc .bt{justify-self:start; margin-left:0;}
   /* Contribution lines carry no badge, so they must be told to use the number
      column rather than auto-placing into the badge column (2026-07-27). */
-  table.grid td:not(.flag) .cl, table.grid td:not(.flag) .op{display:block;}
+  table.grid td:not(.flag) span.cl, table.grid td:not(.flag) span.op{display:block;}
+  /* Today is a plain cell, not a value span, so it needs the same two columns to
+     line its badge and number up with the five beside it (2026-07-27). */
+  table.grid td.n{display:grid; grid-template-columns:1.9rem 1fr; text-align:right;
+     column-gap:0; align-content:end;}
+  table.grid tr:has(.svtag) td.n{grid-template-columns:calc(1.9rem + 2ch) 1fr;}
+  table.grid td.n .bt{justify-self:start; margin:0;}
 
   /* Single-value areas print whole numbers among two-decimal ones. Widening the
      badge column by the width of the decimal part moves the number column's right edge left by
@@ -63,7 +69,6 @@
      the badge does not move. Keyed off .svtag rather than a new row class so the
      markup — and therefore every check in verify() — is untouched. */
   table.grid tr:has(.svtag) td:not(.flag) span:not(.bt){grid-template-columns:calc(1.9rem + 2ch) 1fr;}
-  table.grid tr:has(.svtag) td.n .bt{margin-right:calc(.22rem + 2ch);}
   /* The numbers table is disclosed, not deleted: it is the only text alternative
      to the figure that carries the values, and the five citable column anchors
      live on its header cells. Closed by default keeps 135 numbers out of the
@@ -120,7 +125,7 @@
       modeled tier results for one management strategy read across the five
       hydroclimates, each difference from today split into the two contributions that
       produce it.</p>
-    <p class="prov">Snapshot 2026-07-02 &middot; verification: pass &middot; built 2026-07-27T15:49:20Z</p>
+    <p class="prov">Snapshot 2026-07-02 &middot; verification: pass &middot; built 2026-07-27T15:57:25Z</p>
   </header>
 
   <p class="tldr"><strong>TL;DR.</strong> Compared with today &mdash; current operations
