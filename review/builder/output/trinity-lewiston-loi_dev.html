@@ -25,7 +25,9 @@
   --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
   --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
   --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
-  --measure:      38rem;
+  /* Matches the scenario-results set's .wrap (60rem) and the baselines brief,
+     so all three families read at the same width (Eric, 2026-07-28). */
+  --measure:      60rem;
 }
 
 * { box-sizing: border-box; }
@@ -47,7 +49,7 @@ body {
 .brief {
   max-width: var(--measure);
   margin: 0 auto;
-  padding: 4rem 2.5rem 6rem;
+  padding: 2.4rem 1.4rem 5rem;
 }
 
 /* ── Masthead ───────────────────────────────────────────────────── */
@@ -148,6 +150,12 @@ em { font-style: italic; color: var(--ink); }
   font-weight: 400;
   margin: 0;
 }
+
+/* Figures fill the column. The browser default <figure> margin (40px a side)
+   was insetting them inside prose that started further left; matched to the
+   scenario-results set and the baselines brief (2026-07-28). */
+.scenario-figure { margin: 1.2rem 0 0.4rem; }
+.scenario-figure svg { width: 100%; height: auto; display: block; }
 
 .caption {
   font-family: var(--sans);
@@ -304,6 +312,26 @@ em { font-style: italic; color: var(--ink); }
   margin: 0 0 0.4rem;
 }
 .run-note code { font-family: var(--mono); font-size: 0.72rem; color: var(--ink); }
+
+/* ── How-to-read note (same wording as the sidecar's how_to_read) ─ */
+.read-note {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--rule);
+  margin-top: 2.4rem;
+  padding-top: 0.9rem;
+}
+.read-note p { margin: 0 0 0.5rem; }
+.read-note-head {
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--ink);
+  margin: 0 0 0.4rem;
+}
 
 /* ── Explore further link ───────────────────────────────────────── */
 .explore-link {
@@ -531,7 +559,7 @@ em { font-style: italic; color: var(--ink); }
       is overlaid for reference.
     </p>
     <figure class="scenario-figure">
-      <svg viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; max-width: 680px; display: block;" role="img" font-family="inherit">
+      <svg viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; display: block;" role="img" font-family="inherit">
         <title>Trinity River at Lewiston tier outcomes across the modeled strategies and hydroclimates (dev build, continuous tier values)</title>
         <desc>Slopegraph of continuous tier values for Trinity River at Lewiston environmental flows. Tier one at top, tier four at bottom. Each gray path is one strategy traced through the hydroclimates; paths sharing identical values are drawn once and labeled with the count; the gold line is current operations; the dark line with diamond markers is the mean. Exact values are in the data tables after Figure 2.</desc>
 
@@ -799,7 +827,7 @@ BL = Historical hydroclimate; HC4 = Moderate climate stress; HC1 = Moderate-high
       the <span class="bb-val" data-key="lib.n_hydroclimates" title="Number of hydroclimates currently served by the API.">5</span> hydroclimates.
     </p>
     <figure class="scenario-figure">
-      <svg id="fig2" viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; max-width: 680px; display: block;" role="img" font-family="inherit"
+      <svg id="fig2" viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto; display: block;" role="img" font-family="inherit"
            aria-label="Hydroclimate columns for Trinity River at Lewiston environmental flows. Each column shows all modeled strategies at evenly spaced horizontal positions, placed vertically by continuous tier value. Current operations is gold.">
         <title>Trinity River at Lewiston environmental flows: operations and climate effects across the modeled strategies and hydroclimates (dev build)</title>
         <desc>Tier one (Optimal) at top, tier four (Critical) at bottom. Each dot sits at its scenario's continuous tier value. The full tier values are listed in the data tables that follow this figure.</desc>
@@ -1859,6 +1887,19 @@ strategies span
     </p>
   </section>
 
+  <!-- ─── HOW TO READ THESE NUMBERS ───────────────────────────── -->
+  <div class="read-note">
+    <p class="read-note-head">How to read these numbers</p>
+    <p>The tier scale runs from 1 to 4.99. Tier 1 is the favourable end of the scale: the tier framework names Tier 1 Optimal and Tier 4 Critical, so a smaller value sits nearer Optimal and a larger value nearer Critical. The API serves this number in a field named weighted_score; that name describes how the number is computed, and does not mean that a larger number is a more favourable result.</p>
+    <p>Two numbers describe each result. The integer tier_level is the tier label. tier_continuous is the position within the band of that label, and always falls inside it: tier_continuous is at least tier_level and less than tier_level plus one. Labels, counts and prose use tier_level; figure positions and statistics use tier_continuous.</p>
+    <p>Tier 1 is Optimal, Tier 2 is Acceptable, Tier 3 is At-risk, and Tier 4 is Critical. These are definitional category names supplied by the tier framework; what a category means for any reader, community, or decision is not specified by COEQWAL.</p>
+    <p>An area value is the unweighted mean over the locations in that area. Every location counts equally, regardless of the people, acres, or acre-feet it represents.</p>
+    <p>Any difference between two values under different hydroclimates contains both a hydroclimate contribution and a strategy contribution; the two are separable only through the decomposition, because each is defined against its own reference. A strategy is compared with current operations under the same hydroclimate. Comparing one strategy with itself across hydroclimates is a different quantity: the hydroclimate contribution plus the change in the strategy contribution.</p>
+    <p>A difference smaller than 0.05 tier units is not treated as movement.</p>
+    <p>The five hydroclimates are a purposive sample of climate stress levels. They are not a sequence, a trend, or a forecast, they carry no probabilities, and no mean is taken over them.</p>
+    <p>A run ID identifies one modeling run of one strategy under one hydroclimate. It is an internal identifier, used for citation and for tracing a value back to the data platform, not a name for the strategy; the public identity of a strategy is its descriptive name.</p>
+  </div>
+
   <!-- ─── MODEL RUNS (references note) ────────────────────────── -->
   <div class="run-note">
     <p class="run-note-head">Model runs</p>
@@ -1868,7 +1909,8 @@ strategies span
       back to the data platform:
 Functional environmental flows with groundwater regulations <code>s0032</code>; Functional environmental flows <code>s0046</code>; Groundwater pumping limits in the Central Valley <code>s0027</code>; Current operations <code>s0020</code>; Groundwater pumping limits in the San Joaquin Valley <code>s0025</code>; Current USBR operations without TUCPs <code>s0023</code>; Current USBR operations <code>s0024</code>; Reduce delta outflows (35% unimpaired flow) <code>s0040</code>; Maintain Delta outflows (45% of unimpaired flows) <code>s0041</code>; Increase Delta outflows (55% of unimpaired flows) <code>s0042</code>; Increase Delta outflows (65% of unimpaired flow) <code>s0039</code>; Increase Shasta carry-over storage <code>s0044</code>; Groundwater pumping limits and reduced crop acreage in the Central Valley <code>s0028</code>; Groundwater pumping limits and reduced crop acreage in the San Joaquin Valley <code>s0026</code>; Relax Delta salinity standards <code>s0045</code>; Current operations with historical land use <code>s0011</code>; Prioritizing full demands of community water systems <code>s0037</code>; Prioritizing human health delivery levels to community water systems <code>s0035</code>; Current operations without TUCPs <code>s0021</code>; Delta Conveyance Project <code>s0065</code>; Salmon-friendly flows with groundwater regulations <code>s0033</code>; Salmon-friendly flows <code>s0031</code>; No flow requirements <code>s0030</code>.      Each identifier names the strategy's run under historical hydroclimate;
       the same strategy under another hydroclimate is a sibling run, listed in
-      full in the companion data file.
+      full in the companion data file,
+      <code><a href="trinity-lewiston-loi_dev.json">trinity-lewiston-loi_dev.json</a></code>.
     </p>
   </div>
 
@@ -1879,7 +1921,7 @@ Functional environmental flows with groundwater regulations <code>s0032</code>; 
     </div>
     <div class="meta-row">
       <span>LOI brief DEV BUILD · builder v0.1.0</span>
-      <span>Built 2026-07-25T00:32:26Z · cache fetched 2026-07-03T15:21:37Z</span>
+      <span>Built 2026-07-28T19:04:08Z · cache fetched 2026-07-03T15:21:37Z</span>
       <span>Design reference: loi_brief_prototype_v0_6.html</span>
       <span>Dev build — not for publication or citation</span>
     </div>

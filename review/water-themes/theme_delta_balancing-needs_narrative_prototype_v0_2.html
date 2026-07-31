@@ -27,7 +27,10 @@
   --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
   --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
   --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
-  --measure:      38rem;
+  /* Matches the scenario-results set's .wrap and the builder's dev builds
+     (60rem), so every COEQWAL brief reads at the same width. The 38rem
+     reading measure predates the wide figures (Eric, 2026-07-28). */
+  --measure:      60rem;
 }
 
 * { box-sizing: border-box; }
@@ -49,7 +52,7 @@ body {
 .brief {
   max-width: var(--measure);
   margin: 0 auto;
-  padding: 4rem 2.5rem 6rem;
+  padding: 2.4rem 1.4rem 5rem;
 }
 
 /* ── Masthead ───────────────────────────────────────────────────── */
@@ -359,7 +362,7 @@ em { font-style: italic; color: var(--ink); }
 
 /* ── Mobile ─────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .brief { padding: 2.5rem 1.4rem 4rem; }
+  .brief { padding: 2.5rem 1.2rem 4rem; }
   body { font-size: 17px; }
   h1 { font-size: 1.55rem; }
   .tldr { font-size: 1.05rem; padding-left: 1.1rem; }

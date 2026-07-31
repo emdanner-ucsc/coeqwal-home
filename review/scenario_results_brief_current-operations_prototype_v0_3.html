@@ -103,6 +103,9 @@
   .doesnt{border-left:4px solid var(--muted); background:#f0ede7; padding:.7rem 1rem; margin:1rem 0;}
   .doesnt p:first-child{margin-top:0;} .doesnt p:last-child{margin-bottom:0;}
   .refs{font-size:.82rem; color:var(--muted); border-top:1px solid var(--line); margin-top:2.2rem; padding-top:.8rem;}
+  .read-note p{margin:0 0 .5rem;}
+  .read-note-head{font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    font-size:.7rem; color:var(--ink); margin:0 0 .4rem;}
   @media print{
     body{background:#fff; font-size:11pt;} .wrap{max-width:none; padding:0;}
     a{color:inherit; text-decoration:none;}
@@ -125,7 +128,7 @@
       modeled tier results for one management strategy read across the five
       hydroclimates, each difference from today split into the two contributions that
       produce it.</p>
-    <p class="prov">Snapshot 2026-07-02 &middot; verification: pass &middot; built 2026-07-27T17:23:03Z</p>
+    <p class="prov">Snapshot 2026-07-02 &middot; verification: pass &middot; built 2026-07-28T15:37:23Z</p>
   </header>
 
   <p class="tldr"><strong>TL;DR.</strong> Current operations is the reference every other results brief is measured against: a strategy&rsquo;s contribution is defined as its difference from current operations under the same hydroclimate, so for current operations itself that contribution is zero, and the whole of each difference from today &mdash; current operations under the historical hydroclimate &mdash; is the hydroclimate contribution. Read across the five hydroclimates, current operations&rsquo; modeled tier results differ from today in all nine areas of the water system under at least one hydroclimate, carried by the hydroclimate alone.</p>
@@ -442,11 +445,23 @@
     <p>Under this strategy, extreme climate stress holds the single highest of an area&rsquo;s five values in six of the nine areas. In three areas (Bay-Delta estuary ecology, Winter-run Chinook salmon, Freshwater for in-Delta uses) the highest value is shared by more than one hydroclimate.</p>
   </div>
 
+  <div class="refs read-note">
+    <p class="read-note-head">How to read these numbers</p>
+    <p>The tier scale runs from 1 to 4.99. Tier 1 is the favourable end of the scale: the tier framework names Tier 1 Optimal and Tier 4 Critical, so a smaller value sits nearer Optimal and a larger value nearer Critical. The API serves this number in a field named weighted_score; that name describes how the number is computed, and does not mean that a larger number is a more favourable result.</p>
+    <p>Two numbers describe each result. The integer tier_level is the tier label. tier_continuous is the position within the band of that label, and always falls inside it: tier_continuous is at least tier_level and less than tier_level plus one. Labels, counts and prose use tier_level; figure positions and statistics use tier_continuous.</p>
+    <p>Tier 1 is Optimal, Tier 2 is Acceptable, Tier 3 is At-risk, and Tier 4 is Critical. These are definitional category names supplied by the tier framework; what a category means for any reader, community, or decision is not specified by COEQWAL.</p>
+    <p>An area value is the unweighted mean over the locations in that area. Every location counts equally, regardless of the people, acres, or acre-feet it represents.</p>
+    <p>Any difference between two values under different hydroclimates contains both a hydroclimate contribution and a strategy contribution; the two are separable only through the decomposition, because each is defined against its own reference. A strategy is compared with current operations under the same hydroclimate. Comparing one strategy with itself across hydroclimates is a different quantity: the hydroclimate contribution plus the change in the strategy contribution.</p>
+    <p>A difference smaller than 0.05 tier units is not treated as movement.</p>
+    <p>The five hydroclimates are a purposive sample of climate stress levels. They are not a sequence, a trend, or a forecast, they carry no probabilities, and no mean is taken over them.</p>
+    <p>A run ID identifies one modeling run of one strategy under one hydroclimate. It is an internal identifier, used for citation and for tracing a value back to the data platform, not a name for the strategy; the public identity of a strategy is its descriptive name.</p>
+  </div>
+
   <div class="refs">
     <p><strong>References &mdash; model runs</strong> (this strategy&nbsp;/&nbsp;current
       operations): Historical <code>s0020</code>&nbsp;/&nbsp;<code>s0020</code>; Moderate <code>s0134</code>&nbsp;/&nbsp;<code>s0134</code>; Moderate-high <code>s0047</code>&nbsp;/&nbsp;<code>s0047</code>; High <code>s0056</code>&nbsp;/&nbsp;<code>s0056</code>; Extreme <code>s0108</code>&nbsp;/&nbsp;<code>s0108</code>. Today is current operations under the historical
       hydroclimate, <code>s0020</code>.</p>
-    <p>Companion data file: <code>scenario_results_brief_current-operations_v0_3.json</code>, holding every value in this brief
+    <p>Companion data file: <code><a href="scenario_results_brief_current-operations_v0_3.json">scenario_results_brief_current-operations_v0_3.json</a></code>, holding every value in this brief
       plus the per-location counts and the spread measures. Per-hydroclimate slices:
       Historical <code>#/areas/*/by_hydroclimate/BL</code>; Moderate <code>#/areas/*/by_hydroclimate/HC4</code>; Moderate-high <code>#/areas/*/by_hydroclimate/HC1</code>; High <code>#/areas/*/by_hydroclimate/HC2</code>; Extreme <code>#/areas/*/by_hydroclimate/HC3</code>. Built from the locked 2026-07-02 API snapshot (api.coeqwal.org v2.1.1).
       Decomposition per <code>Decomposition_Math_Quickref</code> (coeqwal-viz): the

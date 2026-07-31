@@ -27,7 +27,10 @@
   --serif:        'Spectral', 'Hoefler Text', Georgia, serif;
   --sans:         'DM Sans', 'Helvetica Neue', sans-serif;
   --mono:         'JetBrains Mono', 'SF Mono', Menlo, monospace;
-  --measure:      38rem;
+  /* Matches the scenario-results set's .wrap and the builder's dev builds
+     (60rem), so every COEQWAL brief reads at the same width. The 38rem
+     reading measure predates the wide figures (Eric, 2026-07-28). */
+  --measure:      60rem;
 }
 
 * { box-sizing: border-box; }
@@ -49,7 +52,7 @@ body {
 .brief {
   max-width: var(--measure);
   margin: 0 auto;
-  padding: 4rem 2.5rem 6rem;
+  padding: 2.4rem 1.4rem 5rem;
 }
 
 /* ── Masthead ───────────────────────────────────────────────────── */
@@ -225,7 +228,7 @@ em { font-style: italic; color: var(--ink); }
 
 /* ── Mobile ─────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .brief { padding: 2.5rem 1.4rem 4rem; }
+  .brief { padding: 2.5rem 1.2rem 4rem; }
   body { font-size: 17px; }
   h1 { font-size: 1.55rem; }
   .tldr { font-size: 1.05rem; padding-left: 1.1rem; }
@@ -357,7 +360,7 @@ section li { margin: 0.4rem 0; padding-left: 0.15rem; }
     <p><strong>Trade-offs:</strong> The current system reflects ongoing trade-offs among competing water uses and objectives. Water allocated to one purpose is often unavailable for another. These trade-offs already exist under current conditions and can become more pronounced under future climate stress.</p>
     <p>Examining current operations across different hydroclimates helps reveal which trade-offs remain relatively stable and which become more difficult to manage as water availability changes.</p>
     <p>Two senses of "trade-off" run through COEQWAL, and it helps to keep them apart. One is the <em>standing</em> trade-off — competing uses that exist at any moment, visible even when nothing about management changes. The other is the <em>strategy</em> trade-off — the cost of one management choice measured against another, which only becomes readable when you compare strategies. Current operations on its own shows the standing trade-offs and how climate sharpens them; reading a strategy trade-off requires the briefs where the management strategy changes. The baseline results — current operations across the historical and projected hydroclimates — are presented in the <a href="../builder/output/baselines_dev.html">Baselines brief</a>.</p>
-    <div class="devnote">Edit C re-applied: the "two senses of trade-off" paragraph above is the reconciliation text agreed with the Baselines brief; the link now points at the real-data baselines build rather than the synthetic v0_8 brief.</div>
+    <div class="devnote">Edit C re-applied: the "two senses of trade-off" paragraph above is the reconciliation text agreed with the Baselines brief, and the link points at the baselines dev build from the locked 2026-07-02 snapshot.</div>
     <p><strong>Equity:</strong> Current management policies do not affect all communities, regions, sectors, or ecosystems equally. Some benefit from more reliable supplies, greater storage access, stronger water rights, or diversified water sources, while others face greater vulnerability.</p>
     <p>Understanding these existing patterns provides a starting point for evaluating whether future management strategies improve or worsen distributional equity across California's water system.</p>
     <p><strong>Resilience:</strong> Resilience can be understood by examining how the current system performs across a range of hydroclimates. If outcomes remain relatively stable under hotter, drier, wetter, or more variable conditions, the system can be considered more resilient. If outcomes decline substantially as climate conditions change, the system may be more vulnerable.</p>

@@ -36,10 +36,10 @@
 <body>
 <header>
   <h1>COEQWAL terminology and conventions</h1>
-  <p>Canonical names and definitions — hydroclimates, scenarios, themes, sectors, tiers — for anyone writing or reviewing COEQWAL material. Source document last updated 2026-07-24 03:18 PM PDT. <a href="index.html">Back to working pages</a>.</p>
+  <p>Canonical names and definitions — hydroclimates, scenarios, themes, sectors, tiers — for anyone writing or reviewing COEQWAL material. Source document last updated 2026-07-30 11:18 AM PDT. <a href="index.html">Back to working pages</a>.</p>
 </header>
 <main>
-<p><em>Generated from COEQWAL_Platform_Content_Summary. Source of truth: COEQWAL Platform Content Summary Google Sheet.</em> <em>Last updated: 2026-07-24 — public one-line hydroclimate descriptions revised (team-supplied set; Moderate-high reworded to name precipitation and runoff separately, because +1.5% precipitation with −1% runoff reads as a contradiction when collapsed to "slightly wetter"). The Moderate +7% vs +3.5% runoff conflict is unchanged and still open with the data team. Previous revision 2026-07-20 — hydroclimate public titles declared PERMANENT (Eric, 2026-07-19); previously adopted 2026-07-16 (climate-stress scale; Hydroclimates section revised accordingly). Previous revision 2026-07-15 (five-hydroclimate, 23-strategy served library).</em></p>
+<p><em>Generated from COEQWAL_Platform_Content_Summary. Source of truth: COEQWAL Platform Content Summary Google Sheet.</em> <em>Last updated: 2026-07-29 — groundwater storage's sector-specific tier-2 label "Compromised" normalized to <strong>Acceptable</strong> (finding 2.18 of the 2026-07-24 staleness review, ruled 2026-07-29). A sector-specific tier-2 label rebuilds the inconsistency the retirement of "sub-optimal" was meant to remove; uniform reporting across sectors is a framing commitment. The threshold that made groundwater's tier 2 distinct is preserved as tier-definition prose. Previous revision 2026-07-24 — public one-line hydroclimate descriptions revised (team-supplied set; Moderate-high reworded to name precipitation and runoff separately, because +1.5% precipitation with −1% runoff reads as a contradiction when collapsed to "slightly wetter"). The Moderate +7% vs +3.5% runoff conflict is unchanged and still open with the data team. Previous revision 2026-07-20 — hydroclimate public titles declared PERMANENT (Eric, 2026-07-19); previously adopted 2026-07-16 (climate-stress scale; Hydroclimates section revised accordingly). Previous revision 2026-07-15 (five-hydroclimate, 23-strategy served library).</em></p>
 <hr>
 <h2 id="terminology">Terminology</h2>
 <blockquote><p><strong>Dispreferred term: "outcome."</strong> Avoid "outcome" in new writing for this project. Apply this preference going forward. The production codebase still uses "outcome" as its umbrella term — see § Codebase outcome codes below for the one-to-one mapping to editorial sector codes.</p></blockquote>
@@ -148,7 +148,8 @@
 <tr><td>3</td><td>At-risk</td><td>Water supply shortages lead to significant impacts</td></tr>
 <tr><td>4</td><td>Critical</td><td>Severe water supply shortages threaten long-term viability</td></tr>
 </tbody></table>
-<p><em>Public-facing tier labels are <strong>Optimal / Acceptable / At-risk / Critical</strong> (per AC Workshop intro deck, slide 15). Earlier draft copy used "Suboptimal" for tier 2 — that has been retired. Groundwater storage retains a sector-specific tier-2 label of "Compromised"; flag for normalization.</em></p>
+<p><em>Public-facing tier labels are <strong>Optimal / Acceptable / At-risk / Critical</strong> (per AC Workshop intro deck, slide 15). Earlier draft copy used "Suboptimal" for tier 2 — that has been retired. Groundwater storage carried a sector-specific tier-2 label of "Compromised" until <strong>2026-07-29, when it was normalized to Acceptable</strong>: the four labels are uniform across all nine sectors, and no sector holds a label of its own.</em></p>
+<p><em>The thresholds behind the labels remain sector-specific — that is the point of concept 11, tiers are calibrated within sectors, not across them. Groundwater storage reaches tier 2 when the storage trend is stable or increasing while average total storage sits below historical. That condition is what the label "Compromised" was reaching for, and it is preserved in the tier definitions in <code>COEQWAL_project_description.md</code> and <code>coeqwal_website_copy.md</code>. What is removed is the distinct label, not the distinct threshold.</em></p>
 <hr>
 <h2 id="codebase-outcome-codes-api-tier-indicators">Codebase outcome codes (API tier indicators)</h2>
 <p>The production codebase uses different short codes than the canonical sector codes above. These are the identifiers returned by the COEQWAL API and used in <code>apps/main/app/content/outcomes.ts</code>. The mapping is one-to-one with the nine canonical sectors:</p>
@@ -195,7 +196,7 @@
 </main>
 <footer>
 Generated from the project's conventions reference document; that document remains authoritative. Questions: Eric Danner.<br>
-Page generated 2026-07-27 10:43 AM PDT.
+Page generated 2026-07-31 11:56 AM PDT.
 </footer>
 </body>
 </html>
