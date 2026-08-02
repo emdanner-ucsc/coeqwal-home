@@ -1909,7 +1909,7 @@ strategies span
     <p>Tier 1 is Optimal, Tier 2 is Acceptable, Tier 3 is At-risk, and Tier 4 is Critical. These are definitional category names supplied by the tier framework; what a category means for any reader, community, or decision is not specified by COEQWAL.</p>
     <p>An area value is the unweighted mean over the locations in that area. Every location counts equally, regardless of the people, acres, or acre-feet it represents.</p>
     <p>Any difference between two values under different hydroclimates contains both a hydroclimate contribution and a strategy contribution; the two are separable only through the decomposition, because each is defined against its own reference. A strategy is compared with current operations under the same hydroclimate. Comparing one strategy with itself across hydroclimates is a different quantity: the hydroclimate contribution plus the change in the strategy contribution.</p>
-    <p>A difference smaller than 0.05 tier units is not treated as movement.</p>
+    <p>Two thresholds do different jobs here. A difference smaller than 0.1 tier units is not reported as movement. Separately, where a count of locations is reported, a location is counted as differing from its comparison at 0.05 tier units; that floor exists to locate a difference so that locations can be counted, and a difference at it is not reported as a change in result.</p>
     <p>The five hydroclimates are a purposive sample of climate stress levels. They are not a sequence, a trend, or a forecast, they carry no probabilities, and no mean is taken over them.</p>
     <p>A run ID identifies one modeling run of one strategy under one hydroclimate. It is an internal identifier, used for citation and for tracing a value back to the data platform, not a name for the strategy; the public identity of a strategy is its descriptive name.</p>
   </div>
@@ -1935,7 +1935,7 @@ No flow requirements <code>s0030</code>; Salmon-friendly flows with groundwater 
     </div>
     <div class="meta-row">
       <span>LOI brief DEV BUILD · builder v0.1.0</span>
-      <span>Built 2026-07-28T19:04:08Z · cache fetched 2026-07-03T15:21:37Z</span>
+      <span>Built 2026-08-01T21:50:14Z · cache fetched 2026-07-03T15:21:37Z</span>
       <span>Design reference: loi_brief_prototype_v0_6.html</span>
       <span>Dev build — not for publication or citation</span>
     </div>

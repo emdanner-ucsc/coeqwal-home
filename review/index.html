@@ -367,7 +367,7 @@
     <h3>Places</h3>
     <p class="section-intro">
       Results at one Location of Interest &mdash; a reservoir, river reach, basin, or
-      Delta stretch. Five place briefs are built, all from the locked 2026-07-02
+      Delta stretch. Six place briefs are built, all from the locked 2026-07-02
       snapshot; each carries its own DEV BUILD marker.
     </p>
     <ul class="brief-list">
@@ -376,12 +376,26 @@
       <li><span class="item-name">Folsom Reservoir</span><span class="item-meta">RES</span><a class="read-link" href="builder/output/folsom-loi_dev.html" target="_blank" rel="noopener">Read the brief &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/1GemQfH8dXJ86yQqX2E2JdK5ciEkY5zZ7/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a></li>
       <li><span class="item-name">Yuba River at Marysville</span><span class="item-meta">ENV</span><a class="read-link" href="builder/output/yuba-marysville-loi_dev.html" target="_blank" rel="noopener">Read the brief &rarr;</a></li>
       <li><span class="item-name">Trinity River at Lewiston</span><span class="item-meta">ENV</span><a class="read-link" href="builder/output/trinity-lewiston-loi_dev.html" target="_blank" rel="noopener">Read the brief &rarr;</a></li>
+      <li><span class="item-name">San Joaquin River at Salt Slough</span><span class="item-meta">ENV</span><span class="item-note">tier labels hold across all five hydroclimates; strategy moves them two bands</span><a class="read-link" href="builder/output/salt-slough-loi_dev.html" target="_blank" rel="noopener">Read the brief &rarr;</a></li>
     </ul>
     <div class="note">
       <b>DEVNOTE</b>
-      Five places, covering two sector tags: reservoir storage (RES) and environmental
-      flows (ENV). No community-water-system place and no groundwater place is built,
-      so neither sector has a place example here. Nothing stands in for them.
+      Six places, covering two sector tags: reservoir storage (RES, three) and
+      environmental flows (ENV, three). No community-water-system place and no
+      groundwater place is built, so neither sector has a place example here. Nothing
+      stands in for them. That gap is not an oversight: the API serves community-water,
+      agricultural, and groundwater locations as bare codes (<span class="run-id">WLDWD</span>,
+      <span class="run-id">26S_PU4</span>, WBA numbers) with no display name, so section 6
+      of those briefs cannot be written until the team supplies a public identity for the
+      locations picked.
+      <br><br>
+      Salt Slough was added 2026-07-31 as the first location whose tier label never
+      changes with hydroclimate &mdash; 92 of 92 comparisons hold. It is the first brief
+      to reach the template&rsquo;s <em>stable</em> prose branch, which had never been
+      rendered before and asserted movement &ldquo;within those bands&rdquo;; at this
+      location the labels differ by two bands across strategies, so that sentence was
+      false and has been rewritten. The five earlier briefs do not reach the branch and
+      are unchanged.
     </div>
   </section>
 
@@ -677,7 +691,7 @@
   COEQWAL &middot; Collaboratory for Equity in Water Allocation. Internal team review
   mock-up. Every brief linked here is a draft: the real-data briefs are dev builds from
   the locked 2026-07-02 snapshot and are marked DEV BUILD, not for publication or
-  citation. Page revised 2026-07-28.
+  citation. Page revised 2026-07-31.
 </footer>
 
 </div>
