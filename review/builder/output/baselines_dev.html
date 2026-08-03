@@ -342,19 +342,19 @@ table.grid-table tbody tr:hover { background: rgba(0,0,0,0.02); }
       a dashed level for today — current operations under the historical
       hydroclimate — and one lane per hydroclimate. The warm arrow in a lane
       runs from today to that hydroclimate's value, so its length is the
-      hydroclimate contribution.
+      climate effect.
     </p>
     <p>
-      The blue mark that carries the strategy contribution in COEQWAL's
+      The blue mark that carries the operations effect in COEQWAL's
       other results briefs is a flat tick in every lane here. That is not a
-      gap in the data: this brief holds the strategy fixed, so the strategy
-      contribution is zero by construction (see §4).
+      gap in the data: this brief holds the strategy fixed, so the operations
+      effect is zero by construction (see §4).
     </p>
 
     <figure class="scenario-figure">
-      <svg viewBox="0 0 932 516" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%;height:auto;display:block" font-family="inherit" aria-label="The hydroclimate contribution as vertical arrows, nine areas of the water system by five hydroclimates">
-  <title>Current operations: the hydroclimate contribution to the difference from today, nine areas &#215; five hydroclimates</title>
-  <desc>Nine areas of the water system are drawn across the figure, each holding five narrow lanes, one per hydroclimate in the order historical, moderate, moderate-high, high and extreme climate stress. The vertical axis is the continuous tier value from 1 to 4.99, Tier 1 at the top, tier bands as shaded zones. The dashed level spanning an area is today: current operations under the historical hydroclimate, the same value under every hydroclimate. In each lane a warm arrow runs from today to the value under that hydroclimate, so its length is the hydroclimate contribution. The blue mark that would carry the strategy contribution is a flat tick in every lane, because this brief holds the strategy fixed and the strategy contribution is zero by construction. The solid level in each lane is the scenario; areas measured at one or two locations are drawn as a square mark instead. A short flat warm tick means a movement smaller than 0.1 tier units. Every value is in the table that follows.</desc>
+      <svg viewBox="0 0 932 516" xmlns="http://www.w3.org/2000/svg" role="img" style="width:100%;height:auto;display:block" font-family="inherit" aria-label="The climate effect as vertical arrows, nine areas of the water system by five hydroclimates">
+  <title>Current operations: the climate effect to the difference from today, nine areas &#215; five hydroclimates</title>
+  <desc>Nine areas of the water system are drawn across the figure, each holding five narrow lanes, one per hydroclimate in the order historical, moderate, moderate-high, high and extreme climate stress. The vertical axis is the continuous tier value from 1 to 4.99, Tier 1 at the top, tier bands as shaded zones. The dashed level spanning an area is today: current operations under the historical hydroclimate, the same value under every hydroclimate. In each lane a warm arrow runs from today to the value under that hydroclimate, so its length is the climate effect. The blue mark that would carry the operations effect is a flat tick in every lane, because this brief holds the strategy fixed and the operations effect is zero by construction. The solid level in each lane is the scenario; areas measured at one or two locations are drawn as a square mark instead. A short flat warm tick means a movement smaller than 0.1 tier units. Every value is in the table that follows.</desc>
   <text x="70.0" y="21.0" font-size="9.5" fill="#5c554c">per lane: <tspan font-weight="700" fill="#c28433">warm arrow</tspan> = hydroclimate, <tspan font-weight="700" fill="#3d7db5">blue tick</tspan> = strategy, flat at zero here &nbsp;&middot;&nbsp; dashed level = today, solid level = this scenario</text>
   <rect x="60.0" y="34.00" width="864.00" height="76.69" fill="#dcefe1" opacity="0.5" data-band="1"/>
   <text x="54.0" y="75.35" text-anchor="end" font-size="10.5" font-weight="600" fill="#16774a">Tier 1</text>
@@ -582,8 +582,8 @@ table.grid-table tbody tr:hover { background: rgba(0,0,0,0.02); }
       Modeled tier value for each of nine areas of
       the water system under today's operating strategy, across a historical
       baseline and four projected hydroclimates.
-      Warm arrow: the hydroclimate contribution. Blue tick: the strategy
-      contribution, zero in every lane because the strategy is held fixed.
+      Warm arrow: the climate effect. Blue tick: the operations
+      effect, zero in every lane because the strategy is held fixed.
       Areas measured at one or two locations are drawn as a
       square mark. Every value is in the table below.
     </p>
@@ -593,10 +593,10 @@ table.grid-table tbody tr:hover { background: rgba(0,0,0,0.02); }
         <caption>
           The same nine &times; five
           results as numbers: the continuous tier value in each cell, its tier
-          band, and underneath it the hydroclimate contribution — the
+          band, and underneath it the climate effect — the
           difference from today. Current operations
           (s0020) in every cell, so the
-          strategy contribution is zero throughout and is not printed.
+          operations effect is zero throughout and is not printed.
         </caption>
         <thead>
           <tr>
@@ -885,7 +885,7 @@ table.grid-table tbody tr:hover { background: rgba(0,0,0,0.02); }
   "HC2": "s0056",
   "HC3": "s0108"
  },
- "figure_marks": "Continuous tier value on a [1, 4.99] axis with the four tier bands as shaded zones (Ordinal_vs_continuous_tiers.md). Per area a dashed level is today — current operations under the historical hydroclimate. Per lane a warm arrow runs from today to the value under that hydroclimate, so its length is the hydroclimate contribution, and a blue mark continues from there to the scenario. The blue mark is a flat tick in every lane of this brief because the strategy contribution is zero by construction.",
+ "figure_marks": "Continuous tier value on a [1, 4.99] axis with the four tier bands as shaded zones (Ordinal_vs_continuous_tiers.md). Per area a dashed level is today — current operations under the historical hydroclimate. Per lane a warm arrow runs from today to the value under that hydroclimate, so its length is the climate effect, and a blue mark continues from there to the scenario. The blue mark is a flat tick in every lane of this brief because the operations effect is zero by construction.",
  "counting_rule": "Areas are counted as moving when the modeled value differs from its historical value by at least 0.1 tier units under at least one projected hydroclimate. Band crossings — movement that changes the tier label — are counted and reported separately, because an area can move a long way inside one band or a short way across an edge.",
  "areas": [
   {
@@ -1378,7 +1378,7 @@ table.grid-table tbody tr:hover { background: rgba(0,0,0,0.02); }
     <p>Two numbers describe each result. The integer tier_level is the tier label. tier_continuous is the position within the band of that label, and always falls inside it: tier_continuous is at least tier_level and less than tier_level plus one. Labels, counts and prose use tier_level; figure positions and statistics use tier_continuous.</p>
     <p>Tier 1 is Optimal, Tier 2 is Acceptable, Tier 3 is At-risk, and Tier 4 is Critical. These are definitional category names supplied by the tier framework; what a category means for any reader, community, or decision is not specified by COEQWAL.</p>
     <p>An area value is the unweighted mean over the locations in that area. Every location counts equally, regardless of the people, acres, or acre-feet it represents.</p>
-    <p>Any difference between two values under different hydroclimates contains both a hydroclimate contribution and a strategy contribution; the two are separable only through the decomposition, because each is defined against its own reference. A strategy is compared with current operations under the same hydroclimate. Comparing one strategy with itself across hydroclimates is a different quantity: the hydroclimate contribution plus the change in the strategy contribution.</p>
+    <p>Any difference between two values under different hydroclimates contains both a climate effect and an operations effect; the two are separable only through the decomposition, because each is defined against its own reference. A strategy is compared with current operations under the same hydroclimate. Comparing one strategy with itself across hydroclimates is a different quantity: the climate effect plus the change in the operations effect.</p>
     <p>Two thresholds do different jobs here. A difference smaller than 0.1 tier units is not reported as movement. Separately, where a count of locations is reported, a location is counted as differing from its comparison at 0.05 tier units; that floor exists to locate a difference so that locations can be counted, and a difference at it is not reported as a change in result.</p>
     <p>The five hydroclimates are a purposive sample of climate stress levels. They are not a sequence, a trend, or a forecast, they carry no probabilities, and no mean is taken over them.</p>
     <p>A run ID identifies one modeling run of one strategy under one hydroclimate. It is an internal identifier, used for citation and for tracing a value back to the data platform, not a name for the strategy; the public identity of a strategy is its descriptive name.</p>
@@ -1391,7 +1391,7 @@ table.grid-table tbody tr:hover { background: rgba(0,0,0,0.02); }
     </div>
     <div class="meta-row">
       <span>Baselines brief DEV BUILD · builder v0.1.0</span>
-      <span>Built 2026-08-02T19:08:56Z</span>
+      <span>Built 2026-08-03T17:20:28Z</span>
       <span>Snapshot 2026-08-01</span>
       <span>Scenario metadata cached 2026-07-03</span>
     </div>
