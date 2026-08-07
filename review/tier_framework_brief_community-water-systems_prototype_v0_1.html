@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>How community water systems are measured and tiered &mdash; tier framework brief (prototype v0_1)</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --rule: #ccc;
+    --accent: #1f4e79;
+    --bg: #fdfdfc;
+  }
+  html { font-size: 17px; }
+  body {
+    margin: 0;
+    padding: 3rem 1.5rem 5rem;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.55;
+  }
+  main { max-width: 960px; margin: 0 auto; }
+  h1, h2, h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  h1 { font-size: 1.7rem; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.25rem; margin: 2.2rem 0 0.6rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; }
+  header.doc p.provenance {
+    font-style: italic;
+    color: var(--muted);
+    margin: 0.15rem 0;
+    font-size: 0.95rem;
+  }
+  header.doc { border-bottom: 2px solid var(--accent); padding-bottom: 0.9rem; margin-bottom: 1.6rem; }
+  .classtag {
+    display: inline-block;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 0.1rem 0.45rem;
+    margin-bottom: 0.5rem;
+  }
+  .devnote {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: #f4f3f0;
+    border: 1px dashed #b9b6ae;
+    border-radius: 4px;
+    padding: 0.7rem 0.9rem;
+    margin: 1.2rem 0;
+  }
+  .devnote strong { color: #7a4a12; }
+  .devnote ol, .devnote ul { margin: 0.5rem 0 0.2rem; padding-left: 1.2rem; }
+  .devnote li { margin-bottom: 0.4rem; }
+  .devnote table { font-size: 0.85rem; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  th, td { border: 1px solid var(--rule); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: #f0efec; font-weight: 600; }
+  td.num, th.num { text-align: center; }
+  code, pre {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: #f2f1ee;
+    border-radius: 3px;
+  }
+  code { padding: 0.05rem 0.3rem; }
+  pre { padding: 0.7rem 0.9rem; overflow-x: auto; line-height: 1.4; }
+  p.stock {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.8rem;
+    color: var(--ink);
+  }
+  .refnote { font-size: 0.9rem; color: var(--muted); }
+  figure { margin: 1.4rem 0; }
+  figcaption {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    line-height: 1.45;
+  }
+  .figslot {
+    border: 1px dashed #9aa5ad;
+    background: #f2f5f7;
+    border-radius: 4px;
+    padding: 2.2rem 1rem;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    color: #4a5b68;
+  }
+  .figslot strong { display: block; font-size: 0.95rem; margin-bottom: 0.3rem; color: #2b3b47; }
+  a { color: var(--accent); }
+  @media print {
+    body { padding: 0; background: #fff; font-size: 11pt; }
+    a { color: inherit; text-decoration: none; }
+    h2 { break-after: avoid; }
+    table, pre, figure { break-inside: avoid; }
+    .devnote { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="doc">
+    <div class="classtag">Tier framework brief</div>
+    <h1>How community water systems are measured and tiered</h1>
+    <p class="provenance">A technical reference brief describing the community water systems indicator:
+    what it measures, where it is measured, how it is computed from CalSim&nbsp;3 output, and how
+    its values map onto the COEQWAL tier scale. This brief describes a measurement method; it
+    reports no modeled tier results.</p>
+    <p class="provenance">Prototype v0_1 &middot; Drafted 2026-08-07</p>
+  </header>
+  <div class="devnote">
+    <strong>Dev note &mdash; vocabulary conversion, shown so it can be edited back.</strong>
+    The source draft uses <em>key outcome level</em> and <em>Level&nbsp;1&ndash;4</em>. This brief
+    uses the project's public vocabulary throughout. The conversion is one-to-one and mechanical:
+    <em>key outcome level</em> &rarr; <em>tier</em>; <em>Level&nbsp;N</em> &rarr;
+    <em>Tier&nbsp;N</em>, with the labels Optimal, Acceptable, At-risk, Critical; <em>key
+    outcome</em> (the thing measured) &rarr; <em>sector</em> or <em>indicator</em>. Two notes in
+    support: the production code already calls these values tiers, and
+    <code>coeqwal_conventions.md</code> dispreferences "outcome" as an umbrella noun in new
+    writing. Reverting is a find-and-replace if the team decides otherwise. This is the one draft of the nine that already carries the public tier labels
+    &mdash; its Table&nbsp;1 reads "1 (Optimal)", "2 (Acceptable)", "3 (At Risk)", "4 (Critical)".
+    Only the surrounding vocabulary changed here, and "At Risk" is set as "At-risk" to match the
+    canonical form.
+  </div>
+
+  <h2 id="what-this-is">What this is</h2>
+  <p>COEQWAL reports results for nine sectors of the California water system on a single
+  four-level scale: Tier&nbsp;1 (optimal), Tier&nbsp;2 (acceptable), Tier&nbsp;3 (at-risk),
+  Tier&nbsp;4 (critical). Lower tier numbers describe conditions closer to the Tier&nbsp;1 end
+  of each sector's scale. The nine sectors are measured in units that have nothing to do with
+  one another &mdash; revenue, delivery reliability, river flow against an ecological target,
+  salinity, storage, fish abundance &mdash; and the tier scale exists so that any of them can be
+  held beside any other, and so that each can be compared with itself across scenarios.</p>
+  <p>A tier is a COEQWAL construction. Nothing in CalSim&nbsp;3 produces one. Each sector has its
+  own indicator, computed from model output by the project's subject-area experts for that
+  sector, and its own rule for turning indicator values into tiers. The four tier labels are
+  common to all nine sectors; the thresholds behind them are not, and are calibrated within each
+  sector rather than across them. This brief documents the indicator and the thresholds for one
+  sector: community water systems. There is a companion brief for each of the other eight.</p>
+  <p>This brief describes the measurement. It reports no results. Modeled tier values for
+  community water systems are reported in the results briefs.</p>
+
+  <p>This sector's source documentation carries three measures, and only one of them produces a
+  tier. The tier-bearing indicator is <strong>community surface water reliability</strong>, and the
+  body of this brief describes it. Two further measures &mdash; <strong>M&amp;I supply
+  shortage</strong> and <strong>welfare loss from supply shortage</strong> &mdash; are reported
+  alongside it in the data explorer, cover a different set of locations, and are assigned no tiers.
+  They are documented at the end of this brief, under
+  <a href="#additional">Two additional measures, which produce no tiers</a>.</p>
+
+  <h2 id="what-it-measures">What the indicator measures</h2>
+  <p>The State Water Project supplies or recharges drinking water for some 27&nbsp;million
+  Californians, and the Central Valley Project for more than 6&nbsp;million. Beyond household use,
+  those deliveries keep schools, hospitals, and parks running. As climate changes the quantity and
+  timing of supply, deliveries to community water systems and to the wholesalers that serve them may
+  become less reliable.</p>
+  <p>The indicator measures <strong>how reliably modeled surface water deliveries cover the potable
+  demand those deliveries currently serve</strong>. It combines two things that a single average
+  would blur together:</p>
+  <ul>
+    <li><strong>Reliability</strong> &mdash; in how many of the 100 years deliveries substantially
+    cover recent potable demand;</li>
+    <li><strong>Severity</strong> &mdash; in the years they do not, how far short they fall.</li>
+  </ul>
+  <p>Both are needed because a location short by a little in many years and a location short by a
+  great deal in a few years are not in the same situation, and either can be masked by a mean.</p>
+  <p>The users counted are community water systems &mdash; under the Safe Drinking Water Act, systems
+  serving 15 or more connections or 25 or more year-round residents, including cities, special
+  districts, and investor-owned utilities &mdash; together with wholesale drinking water providers
+  that sell to those systems without serving retail customers themselves.</p>
+  <p>Only <em>direct potable use</em> is counted. Deliveries used entirely for groundwater recharge
+  or aquifer storage and recovery are excluded, along with the demands associated with them, because
+  the question is whether the water reaching a place covers what people there drink from it.</p>
+
+  <h2 id="where">Where it is measured</h2>
+  <p>The indicator is computed for <strong>74 locations</strong>: 56 CalSim&nbsp;3 demand units and
+  18 diversion nodes representing M&amp;I deliveries that leave the model's geographic area. Each was
+  confirmed to serve direct potable use by at least one community water system. Demand units
+  designated in CalSim&nbsp;3 as groundwater-only, and units whose deliveries go entirely to
+  conjunctive use, are excluded.</p>
+  <p>Results are reported at the location level and do not correspond directly to any individual
+  water system. To let a reader find results relevant to a particular community, the source
+  documentation lists every California-regulated community water system drawing on each location
+  &mdash; <strong>475 systems</strong> in all, with a system appearing more than once where it draws
+  on more than one location.</p>
+  <p>Locations are placed on a map using the service-area centroid of the largest system each serves
+  by population, because some diversion nodes fall outside the model's geographic domain and have no
+  spatial representation of their own.</p>
+  <figure>
+    <div class="figslot"><strong>Figure slot &mdash; map of the 74 locations and 475 systems</strong>
+    Statewide basemap, locations of interest marked, associated community water system service areas
+    shown. To be regenerated in the common map style.</div>
+  </figure>
+
+  <h2 id="reference">What it is measured against</h2>
+  <p>The reference is <strong>estimated recent potable demand</strong> for the specific surface
+  water sources CalSim&nbsp;3 models &mdash; not total demand, and not a projection. It is
+  reconstructed from reported data rather than modeled, in three moves.</p>
+  <p>First, the surface water sources of California community water systems were catalogued and each
+  source checked against the CalSim&nbsp;3 report to decide whether the model represents it. Springs,
+  local creeks, and independently operated reservoirs are outside the model; State Water Project and
+  Central Valley Project contracts are inside it. Each represented source was assigned to a demand
+  unit or diversion node. Purchased supplies were traced back to their originating sources, so that a
+  system's demand is allocated across every location that ultimately serves it.</p>
+  <p>Second, those allocation shares were multiplied by each system's total potable demand &mdash;
+  the volume of potable water used by residential and non-residential users in a calendar year, as
+  reported to the state, with reporting periods spanning 2022 to 2025.</p>
+  <p>Third, system-level demands were summed to each of the 74 locations.</p>
+  <p>Where a system had not reported recent demand, the median demand for its hydrologic region was
+  imputed. This affected 310 of 474 systems, and through them 63 of the 74 locations &mdash; a
+  substantial share, and one of the principal limitations of the measure.</p>
+
+  <h2 id="computed">How the indicator is computed</h2>
+  <h3>Step 1 &mdash; annual deliveries per location</h3>
+  <p>A crosswalk identifies the CalSim&nbsp;3 delivery arcs carrying M&amp;I surface water to each of
+  the 74 locations; project carryover deliveries are included where applicable. Monthly deliveries
+  are extracted for every scenario and aggregated to calendar years.</p>
+
+  <h3>Step 2 &mdash; express each year as a share of demand</h3>
+  <p>Each year's deliveries are divided by the location's estimated recent potable demand, giving a
+  percentage of demand met for every year of every scenario.</p>
+
+  <h3>Step 3 &mdash; count years at three levels</h3>
+  <p>Three counts are taken across the 100 years: the share of years in which deliveries met at least
+  <strong>90%</strong> of demand &mdash; the definition of demand being met &mdash; and the shares
+  meeting at least <strong>70%</strong> and at least <strong>50%</strong>. The 90% count is the
+  reliability measure; the 70% and 50% figures describe how deep the shortfalls run in the years
+  demand was not met.</p>
+
+  <h2 id="mapping">How indicator values map onto the tier scale</h2>
+  <p>Each tier is a conjunction of a reliability condition and a severity condition, and the
+  scenario takes the first tier whose conditions it satisfies in full.</p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%">Tier</th>
+        <th>Reliability &mdash; years with at least 90% of demand met</th>
+        <th>Severity &mdash; in the years demand was not met</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tier 1</strong><br>Optimal</td>
+        <td>at least 90% of years</td>
+        <td>deliveries stay at or above 70% of demand in every such year</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 2</strong><br>Acceptable</td>
+        <td>at least 50% of years</td>
+        <td>deliveries stay at or above 50% of demand in every such year &mdash; no critical shortfall occurs</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 3</strong><br>At-risk</td>
+        <td>at least 50% of years</td>
+        <td>critical shortfalls &mdash; deliveries below 50% of demand &mdash; in no more than 20% of years</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 4</strong><br>Critical</td>
+        <td colspan="2">none of the above</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>Tier&nbsp;2 and Tier&nbsp;3 share the same reliability condition.</strong> What
+  separates them is severity alone: a location meeting demand in at least half of years falls to
+  Tier&nbsp;3 if even one year drops below half of demand, and to Tier&nbsp;4 if more than a fifth of
+  years do. A consequence worth knowing when reading results: a Tier&nbsp;3 location can meet its
+  demand <em>more</em> often than a Tier&nbsp;2 location, and be in the lower tier because one of its
+  short years was a critical shortfall.</p>
+
+  <h2 id="continuous">The continuous tier value</h2>
+  <p>Alongside the whole-number tier, COEQWAL reports a continuous value that carries more
+  resolution: 1.00&ndash;1.99 within Tier&nbsp;1, 2.00&ndash;2.99 within Tier&nbsp;2,
+  3.00&ndash;3.99 within Tier&nbsp;3, and 4.00&ndash;4.99 within Tier&nbsp;4. That banding is
+  common to all nine sectors. <strong>How the value inside the band is constructed is not.</strong>
+  Most sectors locate a scenario within its own tier's interval, so the whole-number part is the
+  discrete tier by construction; others summarize a distribution, or measure a ratio against a
+  reference, and carry no such guarantee. A continuous value should be read against the
+  construction described below, not against another sector's.</p>
+
+  <p>For community water systems the continuous value is built from a <strong>drop risk</strong>
+  &mdash; how close a location sits to falling into the next tier &mdash; rather than from a position
+  along a single scale. It runs in three moves.</p>
+  <p><strong>Rescale each criterion.</strong> Within the assigned tier, the reliability figure is
+  rescaled to a 0-to-1 score against that tier's upper and lower reliability thresholds, and the
+  severity figure against its upper and lower severity thresholds. In Tier&nbsp;2, for example, the
+  reliability score is the percentage of years demand was met, positioned between the Tier&nbsp;2
+  threshold of 50% and the Tier&nbsp;1 threshold of 90%.</p>
+  <p><strong>Convert each score to a drop risk.</strong></p>
+  <pre>drop risk = (1 &minus; score) &times; 0.99</pre>
+  <p>so that a location scoring near the strong end of its tier has a drop risk near 0, and one near
+  the weak end has a drop risk near 0.99.</p>
+  <p><strong>Take the worse of the two, and add it to the tier.</strong> The location's continuous
+  value is its tier number plus the <em>higher</em> of the reliability and severity drop risks &mdash;
+  equivalently, the lower of the two rescaled scores. Whichever criterion is closer to failing
+  governs, which matches how the tier itself is assigned.</p>
+  <p>Worked from the source document: a Tier&nbsp;3 location meets demand in 78% of years, giving a
+  rescaled reliability score of 0.70 and a reliability drop risk of 0.297; but deliveries fall below
+  half of demand in 19% of years, against a Tier&nbsp;3 allowance of 20%, giving a rescaled severity
+  score of 0.059 and a severity drop risk of 0.93. The higher drop risk governs, so the continuous
+  value is <strong>3.93</strong> &mdash; close to Tier&nbsp;4, on the strength of severity, despite
+  reliable deliveries in most years.</p>
+  <p>The 0.99 factor holds values strictly inside the tier's band, so the whole-number part always
+  returns the discrete tier.</p>
+
+  <p class="refnote">Continuous values are not read below one decimal place. COEQWAL treats a
+  difference smaller than 0.1 as unstated: the project has not established whether such a
+  difference is meaningful, and the briefs are built not to speak about it.</p>
+
+  <h2 id="reading">How to read a community water systems tier</h2>
+  <p>A tier value near 1 describes a location whose modeled surface deliveries cover its recent
+  potable demand in almost every year, and never fall far short in the years they do not. Higher tier
+  values describe locations where demand is met in fewer years, where the shortfalls run deeper, or
+  both. Within a tier, a value near the top of the band means the location is close to falling into
+  the next one, on whichever of reliability or severity is weaker.</p>
+
+  <h3>What a community water systems tier does not resolve</h3>
+  <p><strong>Whether a community has enough water.</strong> This is the most important limit, and it
+  is easy to misread. The measure covers only the surface water deliveries CalSim&nbsp;3 models
+  &mdash; principally State Water Project and Central Valley Project supplies. Groundwater, most
+  local surface water, recycled water, and desalinated supply are all outside it, as are deliveries
+  used for recharge or aquifer storage. A system with alternative supplies or long-term storage may
+  absorb an unreliable surface source with no consequence for its customers; a system without them
+  may not. The tier describes the reliability of a source, not the reliability of a provider, and
+  emphatically not a provider's ability to serve its customers.</p>
+  <p><strong>Any individual water system.</strong> Results are computed at the location level, which
+  aggregates the systems drawing on a given delivery point. The 475 systems are listed against
+  locations so a reader can find the relevant result, but no result is a result for one system.</p>
+  <p><strong>Future demand.</strong> The reference is recent reported use, and for most systems it is
+  imputed rather than reported. Recent use is an imperfect predictor of future need: losing a well
+  raises reliance on surface water, and new wells or wellhead treatment lower it. CalSim&nbsp;3 also
+  holds demand static across each 100-year scenario.</p>
+  <p><strong>Anything within a year.</strong> The measure is annual. Deliveries meeting annual demand
+  can still arrive at the wrong time of year. Monthly deliveries are available separately in the data
+  explorer.</p>
+
+  <h2 id="additional">Two additional measures, which produce no tiers</h2>
+  <p>Because the reliability indicator above covers only modeled project deliveries, it cannot speak
+  to shortage among drinking water providers overall, or to what such shortage costs. Two further
+  measures address those gaps. Both are reported in the data explorer, both cover
+  <strong>83 locations</strong> &mdash; CalSim&nbsp;3 demand units inside the model's Central Valley
+  domain with M&amp;I demand, whether surface, groundwater, or both &mdash; and
+  <strong>neither is assigned a tier</strong>. They are documented here because these briefs are the
+  project's only account of how its measures are constructed.</p>
+
+  <h3>M&amp;I supply shortage</h3>
+  <p>This measure estimates the reduction in supply relative to <em>total</em> deliveries, surface
+  and groundwater together, so that a cut in surface deliveries is weighed against the portfolio it
+  falls on. For a provider drawing mostly on surface water a cut is consequential; for one drawing
+  mostly on groundwater the same cut may be immaterial.</p>
+  <p>The method is the same one used for agricultural revenue, applied to municipal and industrial
+  demand units. CalSim&nbsp;3 assumes demands are met even in dry years by increasing groundwater
+  pumping, so shortage does not appear in the model and must be inferred from the substitution. A
+  year counts as a shortage year when surface deliveries fall below the <strong>75th
+  percentile</strong> benchmark of that location's surface deliveries <em>and</em> groundwater
+  pumping exceeds its <strong>median</strong> &mdash; the second condition distinguishing a genuine
+  shortfall from a wet year of lower demand. Shortage is expressed as
+  <code>&Delta;SW / (SW + GW)</code>. For scenarios other than the baseline, expected deliveries are
+  taken from the baseline as surface deliveries plus shortages, and shortfalls are measured against
+  that.</p>
+  <p>The measure treats every increase in groundwater pumping as evidence of shortage, which is a
+  deliberately conservative reading: some of that pumping may be sustainable, particularly in basins
+  not in long-term overdraft. Like the reliability indicator, it is computed at the demand unit
+  scale and does not resolve local differences in groundwater access or infrastructure, and it does
+  not represent demand that actually went unmet.</p>
+
+  <h3>Welfare loss from supply shortage</h3>
+  <p>This measure converts the modeled shortage into dollars: the amount residential consumers would
+  have been willing to pay, above prevailing water rates, to avoid the reduction they face. It is
+  reported as annual residential consumer welfare loss in dollars per year, at each of the 83
+  locations.</p>
+  <p>Prevailing volumetric tier prices and fixed monthly charges were compiled from utility rate
+  schedules, available for 94 systems across 63 demand units, standardized to 2020 dollars and
+  expressed per hundred cubic feet at a 12-ccf monthly residential billing benchmark, then weighted
+  by service population to give a representative price per location. A constant price elasticity of
+  residential water demand of &epsilon;&nbsp;=&nbsp;&minus;0.4 is assumed, from California estimates.
+  These calibrate a constant-elasticity inverse demand function, which is integrated from realized
+  consumption up to full demand to give the annual welfare loss. Where there is no shortage the loss
+  is zero. The function is convex, so each additional unit of water forgone commands a sharply rising
+  willingness to pay &mdash; which is why modeled losses concentrate in a few dry years rather than
+  spreading evenly.</p>
+  <p>Two limits beyond those inherited from the shortage measure. The estimate is consumer-side only
+  and excludes producer surplus, so it is a consumer welfare loss rather than a total economic one.
+  And it concerns quantity rather than quality: it does not capture willingness to pay for safer or
+  better-tasting water, such as households buying bottled water.</p>
+
+  <h2 id="not-say">What this doesn't say</h2>
+  <p class="stock">This brief reports modeled results from a specific ensemble. It does not
+  predict what will happen, evaluate whether those results are acceptable, or recommend any
+  course of action. The tier framework provides definitional categories; the meaning of those
+  categories for any individual reader, community, or decision is not specified by COEQWAL.</p>
+
+  <p>Specific to community water systems: the reliability indicator describes one source, not a
+  water supply. It covers modeled project deliveries against the potable demand those deliveries
+  currently serve, and a location's tier says nothing about whether the communities there have enough
+  water, because it excludes every other supply they hold. The demand reference is reconstructed from
+  reported use and imputed for most systems. The tier thresholds &mdash; 90%, 70%, and 50% of demand;
+  90%, 50%, and 20% of years &mdash; are chosen categories. And the two additional measures above
+  produce no tiers and are not comparable with tier values from any sector.</p>
+
+  <h2 id="references">References note</h2>
+  <p class="refnote">Source: <em>Community water deliveries outcomes: Description and
+  methodology</em> &mdash; Kristin Dobbin, Benji Reade Malaguno, and Jenny Rempel (UC Berkeley,
+  Environmental Science, Policy and Management); Yu Cai and Josue Medell&iacute;n-Azuara (UC Merced);
+  Armen Konialian (UCLA); Alvar Escriva-Bou (UC Davis); Hope Hauptman and Erik Porse (California
+  Institute for Water Resources, UC Agriculture and Natural Resources). Draft of 2026-08.</p>
+  <p class="refnote">Source and demand data: surface water sources, sales and transfers for
+  California community water systems (Dobbin et al. 2026); SAFER clearinghouse potable demand data
+  (2025); State Water Resources Control Board System Boundary Area Layer; DWR hydrologic region
+  boundaries; CalSim&nbsp;3 Report (Department of Water Resources 2022). Welfare loss inputs: Ayres
+  et al. (2021) for the billing benchmark; Bruno &amp; Jessoe (2021) for price elasticity. Analysis
+  in Python. Model output: CalSim&nbsp;3, 100-year monthly simulation.</p>
+  <p class="refnote">Sector identifiers: community water systems is <code>CWS</code> in editorial
+  writing and <code>CWS_DEL</code> in the production codebase and API.</p>
+
+  <p class="refnote">Drafted 2026-08-07 &middot; COEQWAL tier framework brief prototype v0_1 &middot;
+  Not yet team-reviewed.</p>
+  <div class="devnote">
+    <strong>Dev note &mdash; items for the sector author.</strong>
+    <ol>
+      <li><strong>Tier&nbsp;1's severity criterion needs restating.</strong> Table&nbsp;1 gives it as
+      "For years with lower than 90% of estimated recent potable demands met, deliveries are at least
+      70% of estimated recent potable demands" &mdash; with no proportion attached, so it reads as
+      applying to every such year. Tier&nbsp;2's is parallel at 50%. Tier&nbsp;3's, by contrast,
+      carries a proportion: "no more than 20% of years". Stated here as "in every such year" for
+      Tiers&nbsp;1 and 2. If a proportion was intended for those two, it is missing.</li>
+      <li><strong>The Tier&nbsp;1 description has an unclosed parenthesis and a dropped
+      conjunction:</strong> "&hellip;(excluding demands associated with recharge or Aquifer Storage
+      and Recovery (ASR) in most years, no years with large shortfalls". Tier&nbsp;3's reads "no more
+      than 20% of year".</li>
+      <li><strong>The rescaling equations are given only for Tier&nbsp;2.</strong> Both worked
+      equations use the Tier&nbsp;1 and Tier&nbsp;2 thresholds as their bounds. The thresholds for
+      Tiers&nbsp;3 and 4 differ, and Tier&nbsp;1 and Tier&nbsp;4 each need an outer anchor the rules
+      do not supply &mdash; presumably 100% of years and 100% of demand at the strong end, and 0 at
+      the weak end, but the document does not say. This brief describes the construction without
+      asserting the outer anchors.</li>
+      <li><strong>"Lowest score" and "highest drop risk" are stated as if different.</strong> The
+      prose says the drop risk is "the lowest of these two normalized scores"; the equation says the
+      continuous value is the tier plus the "highest drop risk". These are the same operation, since
+      drop risk inverts the score, but the two sentences read as describing different ones.</li>
+      <li><strong>The additional measures' location count is inconsistent.</strong> The text says 83
+      locations; Figure&nbsp;7's caption says 82 "with one demand unit missing a spatial reference
+      point"; Figure&nbsp;8's caption says n=213 while the text says "more than 160 communities
+      associated with 150 unique water systems". This brief uses 83 and does not reproduce the
+      figure counts.</li>
+      <li><strong>Welfare loss has a section headed "Outcome levels" that contains no levels.</strong>
+      It describes the reported quantity, dollars per year. With no tiers assigned, the heading
+      should say so; this brief states plainly that neither additional measure produces a tier.</li>
+      <li><strong>Two long paragraphs are truncated mid-word</strong> in the draft &mdash; one in the
+      key outcome Description ("some providers can compensate fo"), one in Step&nbsp;1 of the
+      methodology ("This resulte"), and one in the additional-metrics interpretation ("because
+      groundwater remains "). Content may be missing rather than just the visible text.</li>
+      <li><strong>Results figures dropped.</strong> Figures&nbsp;3&ndash;6 show baseline scenario
+      results. They belong in the community water systems sector results brief.</li>
+    </ol>
+  </div>
+
+</main>
+</body>
+</html>

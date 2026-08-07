@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>How winter-run Chinook salmon are measured and tiered &mdash; tier framework brief (prototype v0_1)</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --rule: #ccc;
+    --accent: #1f4e79;
+    --bg: #fdfdfc;
+  }
+  html { font-size: 17px; }
+  body {
+    margin: 0;
+    padding: 3rem 1.5rem 5rem;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.55;
+  }
+  main { max-width: 960px; margin: 0 auto; }
+  h1, h2, h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  h1 { font-size: 1.7rem; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.25rem; margin: 2.2rem 0 0.6rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; }
+  header.doc p.provenance {
+    font-style: italic;
+    color: var(--muted);
+    margin: 0.15rem 0;
+    font-size: 0.95rem;
+  }
+  header.doc { border-bottom: 2px solid var(--accent); padding-bottom: 0.9rem; margin-bottom: 1.6rem; }
+  .classtag {
+    display: inline-block;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 0.1rem 0.45rem;
+    margin-bottom: 0.5rem;
+  }
+  .devnote {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: #f4f3f0;
+    border: 1px dashed #b9b6ae;
+    border-radius: 4px;
+    padding: 0.7rem 0.9rem;
+    margin: 1.2rem 0;
+  }
+  .devnote strong { color: #7a4a12; }
+  .devnote ol, .devnote ul { margin: 0.5rem 0 0.2rem; padding-left: 1.2rem; }
+  .devnote li { margin-bottom: 0.4rem; }
+  .devnote table { font-size: 0.85rem; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  th, td { border: 1px solid var(--rule); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: #f0efec; font-weight: 600; }
+  td.num, th.num { text-align: center; }
+  code, pre {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: #f2f1ee;
+    border-radius: 3px;
+  }
+  code { padding: 0.05rem 0.3rem; }
+  pre { padding: 0.7rem 0.9rem; overflow-x: auto; line-height: 1.4; }
+  p.stock {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.8rem;
+    color: var(--ink);
+  }
+  .refnote { font-size: 0.9rem; color: var(--muted); }
+  figure { margin: 1.4rem 0; }
+  figcaption {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    line-height: 1.45;
+  }
+  .figslot {
+    border: 1px dashed #9aa5ad;
+    background: #f2f5f7;
+    border-radius: 4px;
+    padding: 2.2rem 1rem;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    color: #4a5b68;
+  }
+  .figslot strong { display: block; font-size: 0.95rem; margin-bottom: 0.3rem; color: #2b3b47; }
+  a { color: var(--accent); }
+  @media print {
+    body { padding: 0; background: #fff; font-size: 11pt; }
+    a { color: inherit; text-decoration: none; }
+    h2 { break-after: avoid; }
+    table, pre, figure { break-inside: avoid; }
+    .devnote { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="doc">
+    <div class="classtag">Tier framework brief</div>
+    <h1>How winter-run Chinook salmon are measured and tiered</h1>
+    <p class="provenance">A technical reference brief describing the winter-run Chinook salmon indicator:
+    what it measures, where it is measured, how it is computed from CalSim&nbsp;3 output, and how
+    its values map onto the COEQWAL tier scale. This brief describes a measurement method; it
+    reports no modeled tier results.</p>
+    <p class="provenance">Prototype v0_1 &middot; Drafted 2026-08-07</p>
+  </header>
+  <div class="devnote">
+    <strong>Dev note &mdash; vocabulary conversion, shown so it can be edited back.</strong>
+    The source draft uses <em>key outcome level</em> and <em>Level&nbsp;1&ndash;4</em>. This brief
+    uses the project's public vocabulary throughout. The conversion is one-to-one and mechanical:
+    <em>key outcome level</em> &rarr; <em>tier</em>; <em>Level&nbsp;N</em> &rarr;
+    <em>Tier&nbsp;N</em>, with the labels Optimal, Acceptable, At-risk, Critical; <em>key
+    outcome</em> (the thing measured) &rarr; <em>sector</em> or <em>indicator</em>. Two notes in
+    support: the production code already calls these values tiers, and
+    <code>coeqwal_conventions.md</code> dispreferences "outcome" as an umbrella noun in new
+    writing. Reverting is a find-and-replace if the team decides otherwise.
+  </div>
+
+  <h2 id="what-this-is">What this is</h2>
+  <p>COEQWAL reports results for nine sectors of the California water system on a single
+  four-level scale: Tier&nbsp;1 (optimal), Tier&nbsp;2 (acceptable), Tier&nbsp;3 (at-risk),
+  Tier&nbsp;4 (critical). Lower tier numbers describe conditions closer to the Tier&nbsp;1 end
+  of each sector's scale. The nine sectors are measured in units that have nothing to do with
+  one another &mdash; revenue, delivery reliability, river flow against an ecological target,
+  salinity, storage, fish abundance &mdash; and the tier scale exists so that any of them can be
+  held beside any other, and so that each can be compared with itself across scenarios.</p>
+  <p>A tier is a COEQWAL construction. Nothing in CalSim&nbsp;3 produces one. Each sector has its
+  own indicator, computed from model output by the project's subject-area experts for that
+  sector, and its own rule for turning indicator values into tiers. The four tier labels are
+  common to all nine sectors; the thresholds behind them are not, and are calibrated within each
+  sector rather than across them. This brief documents the indicator and the thresholds for one
+  sector: winter-run Chinook salmon. There is a companion brief for each of the other eight.</p>
+  <p>This brief describes the measurement. It reports no results. Modeled tier values for
+  winter-run Chinook salmon are reported in the results briefs.</p>
+
+
+  <h2 id="what-it-measures">What the indicator measures</h2>
+  <p>Sacramento River winter-run Chinook salmon are endemic to the Sacramento River. The run
+  declined through the twentieth century with habitat loss, harvest, and the reconfiguration of
+  California's water infrastructure, reaching a critical point in the late 1980s; it was listed as
+  endangered by the state in 1989, as threatened federally the same year, and uplisted to endangered
+  in 1994. It remains in danger of extinction. Because winter-run spawn in summer and depend on
+  releases of cool water from Shasta Dam for their eggs to survive, they sit at the center of
+  Sacramento River water operations.</p>
+  <p>The indicator is the <strong>percentage of currently available spawning capacity filled by
+  natural-origin female spawners</strong>. Spawner abundance is one of the standard measures of
+  salmon population status, because a returning spawner has survived every stage of the life cycle;
+  females are the focus because they drive reproduction and are the group whose numbers can be
+  limited by available spawning habitat. Expressing abundance as a share of capacity rather than as a
+  count makes it a measure of how much of the available habitat the population is using.</p>
+  <p>Natural-origin fish &mdash; those from eggs laid in the river rather than raised in a hatchery
+  &mdash; are counted, because they spend their entire juvenile lives in the river system and
+  therefore respond to changes in water allocation in ways hatchery-reared fish do not. The
+  population model does account for hatchery-origin fish whose offspring, spawned in the river,
+  become part of the natural-origin population in later generations.</p>
+  <p>Unlike every other COEQWAL sector, this indicator is not computed from CalSim&nbsp;3 output
+  directly. CalSim&nbsp;3 flows and temperatures are inputs to a separate population model, and the
+  indicator is computed from that model's output.</p>
+
+  <h2 id="where">Where it is measured</h2>
+  <p>The indicator is computed for <strong>one population at one location</strong>: winter-run
+  Chinook salmon in the Sacramento River. In scenarios that include reintroduction of spawners to
+  the McCloud River, fish ultimately bound for the McCloud are counted in the Sacramento River
+  before they move upstream, so the single location holds throughout.</p>
+  <p>Scenarios were run both with and without reintroduction. A selected subset of the
+  reintroduction runs is carried in the visualization tools, identified by a trailing
+  <code>-R</code> on the scenario number; results for all runs, with and without, are available for
+  download.</p>
+
+  <h2 id="reference">What it is measured against</h2>
+  <p>The reference is <strong>current spawning habitat capacity: 34,000 female spawners</strong>,
+  the sum of capacity below Keswick Dam and in the McCloud River. The same figure is used for every
+  scenario, and for runs with and without reintroduction, so that the percentage means the same
+  thing in all of them and scenarios remain comparable.</p>
+  <p>The tier boundaries are anchored to two things. The Tier&nbsp;3 and Tier&nbsp;4 boundary at 6%
+  of capacity corresponds to an escapement of about 3,000 spawners &mdash; converted to females
+  using the observed average sex ratio of age-3 and age-4 spawners over 2003&ndash;2020 &mdash; which
+  is the level below which the winter-run harvest control rule requires changes to commercial harvest
+  practices. That is an external regulatory reference point rather than a modeling choice. The
+  boundaries at 18% and 50% describe degrees of habitat saturation and were set by the sector
+  authors.</p>
+
+  <h2 id="computed">How the indicator is computed</h2>
+  <p>The population model is a spatially explicit state-space life cycle model. It tracks
+  individuals by geographic area, life stage, and month through the freshwater phase, then annually
+  once fish enter the ocean, and propagates survival forward across generations. Submodels represent
+  egg survival, habitat capacity, river outmigration survival, and survival through the Delta; all
+  of them are driven by flow, and for COEQWAL the flow comes from CalSim&nbsp;3.</p>
+  <p>Three submodels were modified for this project. <strong>River outmigration</strong> was moved to
+  a daily timestep, because monthly CalSim&nbsp;3 volumes were disaggregated into daily hydrographs
+  that carry seasonal structure &mdash; wet season baseflows, the snowmelt recession, and
+  storm-driven peaks &mdash; and a monthly flow-survival relationship was too coarse to use them;
+  daily survival is then scaled back to the model's monthly step, weighted by the proportion of fish
+  beginning migration each day. <strong>Through-Delta survival</strong> is estimated by machine
+  learning emulators of the enhanced particle tracking model, which reproduce its behavior from
+  CalSim&nbsp;3 flows at a small fraction of the computational cost, because the full model cannot
+  run at the turnaround this project needs. A <strong>reintroduction submodel</strong> moves a
+  portion of the Sacramento River spawners to the McCloud River, where cool spring-fed water
+  year-round raises egg-to-fry survival; it accounts for adult collection, adult survival, juvenile
+  collection, and juvenile survival, and was parameterized at a high quality of implementation.</p>
+  <p>From the model's output, the indicator is assembled in four steps.</p>
+  <h3>Step 1 &mdash; convert abundance to a share of capacity</h3>
+  <p>For each year, divide the number of natural-origin female spawners by the 34,000-female
+  capacity.</p>
+  <h3>Step 2 &mdash; smooth by generation</h3>
+  <p>Take a three-year rolling average, winter-run generation time being about three years. This
+  averages across the fluctuation of individual year classes within a generation.</p>
+  <h3>Step 3 &mdash; take a conservative position on model uncertainty</h3>
+  <p>The model is run 1,000 times per scenario, drawing from the distribution of uncertainty in its
+  parameter estimates. The <strong>lower 20th percentile</strong> across those 1,000 traces is used
+  for each year &mdash; a moderately risk-averse choice, so the reported value is one the model
+  reaches or exceeds in 80% of its runs.</p>
+  <h3>Step 4 &mdash; take the maximum over the century</h3>
+  <p>The indicator is the <strong>highest</strong> value that the smoothed, 20th-percentile series
+  reaches at any point in the 100 years. Salmon populations fluctuate with hydrology, and a
+  population rebuilding from low abundance would not be expected to hold at its peak every year; a maximum asks whether
+  a scenario allows the population to reach a given level of habitat use at least once, across all
+  three dominant age-3 cohorts, rather than whether it sustains it.</p>
+
+  <h2 id="mapping">How indicator values map onto the tier scale</h2>
+  <p>The indicator is a single percentage per scenario, and the tier is the band it falls in.</p>
+  <table>
+    <thead>
+      <tr><th style="width:20%">Tier</th><th>Share of spawning capacity filled</th><th>What it describes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Tier 1</strong><br>Optimal</td><td>more than 50%</td><td>the population occupies the majority of available spawning habitat</td></tr>
+      <tr><td><strong>Tier 2</strong><br>Acceptable</td><td>18% to 50%</td><td>a substantial share of habitat occupied, with substantial capacity still unused</td></tr>
+      <tr><td><strong>Tier 3</strong><br>At-risk</td><td>6% to 18%</td><td>abundance above the harvest control rule threshold, but only a small fraction of habitat used</td></tr>
+      <tr><td><strong>Tier 4</strong><br>Critical</td><td>less than 6%</td><td>below the escapement level at which the harvest control rule requires changes to commercial harvest</td></tr>
+    </tbody>
+  </table>
+  <figure>
+    <svg viewBox="0 0 640 150" width="100%" role="img" aria-labelledby="fig1title">
+      <title id="fig1title">The four tier bands on the spawning capacity scale</title>
+      <rect x="0" y="0" width="640" height="150" fill="#fdfdfc"/>
+      <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+        <rect x="60" y="46" width="540" height="38" fill="#f4f3f0" stroke="#555" stroke-width="1"/>
+        <line x1="92" y1="46" x2="92" y2="84" stroke="#555" stroke-width="1"/>
+        <line x1="157" y1="46" x2="157" y2="84" stroke="#555" stroke-width="1"/>
+        <line x1="330" y1="46" x2="330" y2="84" stroke="#555" stroke-width="1"/>
+        <g font-size="11.5" fill="#1a1a1a" text-anchor="middle">
+          <text x="76" y="70">4</text>
+          <text x="124" y="70">3</text>
+          <text x="243" y="70">2</text>
+          <text x="465" y="70">1</text>
+        </g>
+        <g font-size="10.5" fill="#555" text-anchor="middle">
+          <text x="76" y="106">Critical</text>
+          <text x="124" y="106">At-risk</text>
+          <text x="243" y="106">Acceptable</text>
+          <text x="465" y="106">Optimal</text>
+        </g>
+        <g font-size="10.5" fill="#555">
+          <line x1="60" y1="84" x2="60" y2="30" stroke="#bbb"/>
+          <line x1="92" y1="84" x2="92" y2="30" stroke="#bbb"/>
+          <line x1="157" y1="84" x2="157" y2="30" stroke="#bbb"/>
+          <line x1="330" y1="84" x2="330" y2="30" stroke="#bbb"/>
+          <line x1="600" y1="84" x2="600" y2="30" stroke="#bbb"/>
+          <text x="60" y="24" text-anchor="middle">0%</text>
+          <text x="92" y="24" text-anchor="middle">6%</text>
+          <text x="157" y="24" text-anchor="middle">18%</text>
+          <text x="330" y="24" text-anchor="middle">50%</text>
+          <text x="600" y="24" text-anchor="middle">100%</text>
+        </g>
+        <text x="330" y="136" font-size="11" fill="#1a1a1a" text-anchor="middle">Share of the 34,000-female spawning capacity filled</text>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 1.</strong> The four tier bands on the spawning capacity scale. The
+    bands are not equal widths: Tier&nbsp;1 spans half the scale and Tier&nbsp;3 spans twelve
+    percentage points. The 6% boundary corresponds to an escapement of roughly 3,000 spawners, the
+    level at which the winter-run harvest control rule requires changes to commercial harvest.
+    Redrawn as a schematic of the tier definitions; not a modeled result.</figcaption>
+  </figure>
+
+  <h2 id="continuous">The continuous tier value</h2>
+  <p>Alongside the whole-number tier, COEQWAL reports a continuous value that carries more
+  resolution: 1.00&ndash;1.99 within Tier&nbsp;1, 2.00&ndash;2.99 within Tier&nbsp;2,
+  3.00&ndash;3.99 within Tier&nbsp;3, and 4.00&ndash;4.99 within Tier&nbsp;4. That banding is
+  common to all nine sectors. <strong>How the value inside the band is constructed is not.</strong>
+  Most sectors locate a scenario within its own tier's interval, so the whole-number part is the
+  discrete tier by construction; others summarize a distribution, or measure a ratio against a
+  reference, and carry no such guarantee. A continuous value should be read against the
+  construction described below, not against another sector's.</p>
+
+  <p>For winter-run salmon the continuous value is the indicator's <strong>linear position between
+  the two thresholds of its tier</strong>, measured from the tier's upper threshold downward, and
+  added to the tier number. A continuous value of 3.00 sits at the top of Tier&nbsp;3, closest to
+  Tier&nbsp;2; 3.99 sits at the bottom, closest to Tier&nbsp;4.</p>
+  <p>Worked from the source document: an indicator of 13% falls in Tier&nbsp;3, which runs from 18%
+  down to 6%. It lies 42% of the way from the upper threshold toward the lower one, so the continuous
+  value is <strong>3.42</strong>.</p>
+  <p>Because the tier bands differ substantially in width, an equal step in continuous value
+  corresponds to a very different change in habitat use depending on the tier: 0.1 of continuous
+  value is 1.2 percentage points of capacity in Tier&nbsp;3 and 3.2 in Tier&nbsp;2.</p>
+
+  <p class="refnote">Continuous values are not read below one decimal place. COEQWAL treats a
+  difference smaller than 0.1 as unstated: the project has not established whether such a
+  difference is meaningful, and the briefs are built not to speak about it.</p>
+
+  <h2 id="reading">How to read a winter-run salmon tier</h2>
+  <p>A tier value near 1 describes a population that, at its strongest point in the 100-year
+  simulation, filled more than half the spawning habitat available to it. Higher tier values describe
+  populations using progressively less of that habitat, down to Tier&nbsp;4, where the population
+  stays below the abundance at which harvest management changes are triggered.</p>
+  <p>Because the indicator is a maximum, it describes what a scenario permits at its best moment, not
+  what it sustains. A scenario reaching Tier&nbsp;2 did so in one three-year window somewhere in the
+  century; it does not follow that the population held there.</p>
+
+  <h3>What a winter-run salmon tier does not resolve</h3>
+  <p><strong>Which part of the life cycle a scenario supports.</strong> The tier reflects cumulative
+  survival across every stage. Winter-run depend on the Shasta cold water pool for egg survival in
+  summer, and a scenario that provides generous flows for outmigration but does not maintain that
+  cold water pool &mdash; or provide access to the cool McCloud River &mdash; will not carry those
+  flow benefits through to the tier, because the eggs did not survive to use them. Other Central
+  Valley salmonids are less dependent on summer cold water releases and may respond differently to
+  the same scenario.</p>
+  <p><strong>Actions other than water allocation.</strong> Salmon recovery depends on habitat,
+  harvest, and hatchery management as well as hydrology. Scenarios that change hydrology alone
+  operate on one of those, and the tier is bounded accordingly.</p>
+  <p><strong>The hydrologic record's particular sequence.</strong> The population is started at its
+  contemporary size and run through the CalSim&nbsp;3 1922&ndash;2021 hydrology, which opens with the
+  1930s drought. Modeled populations therefore decline at the start of every scenario, and much of
+  what distinguishes scenarios is how far they slow that decline and how the population rebuilds
+  afterward. A different sequence of wet and dry years, including droughts more severe than any in
+  the record, would produce different results.</p>
+  <p><strong>The reintroduction assumption.</strong> The reintroduction submodel assumes high-quality
+  implementation, with small losses at collection, transport, and migration. Programs with lower
+  implementation quality would not reach the same tiers; a more adaptive program, adjusting the
+  timing and number of reintroduced spawners, could exceed them.</p>
+  <p><strong>The hatchery floor.</strong> The conservation broodstock program at Livingston Stone
+  National Fish Hatchery contributes a low-level floor to the natural-origin population, because
+  hatchery-reared fish spend their rearing stages largely insulated from water management and their
+  river-spawned offspring count as natural-origin. Some scenarios therefore stay at low abundance
+  without the modeled population reaching zero.</p>
+
+
+  <h2 id="not-say">What this doesn't say</h2>
+  <p class="stock">This brief reports modeled results from a specific ensemble. It does not
+  predict what will happen, evaluate whether those results are acceptable, or recommend any
+  course of action. The tier framework provides definitional categories; the meaning of those
+  categories for any individual reader, community, or decision is not specified by COEQWAL.</p>
+
+  <p>Specific to winter-run salmon: the indicator is the maximum of a smoothed, conservatively
+  selected series, so it describes the best three-year window a scenario produced rather than typical
+  or final conditions. The 34,000-female capacity is held fixed across all scenarios, including those
+  with reintroduction, which makes the percentage comparable but means it does not register changes
+  in how much habitat exists. The 20th-percentile selection is a deliberate risk posture, not a
+  central estimate. And the tier reflects the output of a population model driven by CalSim&nbsp;3,
+  so it inherits the assumptions of both models.</p>
+
+  <h2 id="references">References note</h2>
+  <p class="refnote">Source: <em>Winter Run Salmon Methods</em> &mdash; Ann-Marie Osterback
+  (UC Santa Cruz, Institute of Marine Sciences / NOAA Southwest Fisheries Science Center), Noble
+  Hendrix (QEDA Consulting), Cyril Michel (UC Santa Cruz / NOAA SWFSC), Doug Jackson (QEDA
+  Consulting), and David Boughton (NOAA SWFSC). Draft of 2026-08.</p>
+  <p class="refnote">Population model: the winter-run Chinook salmon life cycle model (WRLCM),
+  described by Hendrix et al. (2024) and Osterback et al. (2026); Delta survival after Sridharan et
+  al. (2022); river outmigration adapted from Burford et al. (2025); flow-survival relationships
+  after Michel et al. (2021) and Henderson et al. (2019). Harvest control rule: NMFS (2018).
+  Recovery plan: NMFS (2014). Full citations live in the source document.</p>
+  <p class="refnote">Sector identifiers: winter-run Chinook salmon is <code>WRC</code> in editorial
+  writing and <code>WRC_SALMON_AB</code> in the production codebase and API.</p>
+
+  <p class="refnote">Drafted 2026-08-07 &middot; COEQWAL tier framework brief prototype v0_1 &middot;
+  Not yet team-reviewed.</p>
+  <div class="devnote">
+    <strong>Dev note &mdash; items for the sector author.</strong>
+    <ol>
+      <li><strong>Tier&nbsp;1's continuous value has no upper anchor.</strong> Tier&nbsp;1 is
+      "greater than 50%" with no stated ceiling, so the linear interpolation that produces continuous
+      values in Tiers&nbsp;2&ndash;4 has nothing to interpolate against. Is the anchor 100% of
+      capacity, or an empirical maximum across scenarios, as the Delta exports sector uses? This
+      brief describes the construction without asserting a Tier&nbsp;1 anchor.</li>
+      <li><strong>Appendix S-3 is referenced twice and does not exist.</strong> The text points to it
+      for the derivation of the 34,000-female spawning capacity and for the reintroduction submodel.
+      The document contains S-1 (river outmigration) and S-2 (Delta emulator). The capacity figure is
+      load-bearing &mdash; it is the denominator of the entire indicator &mdash; and with the source
+      documents retired at publication, its derivation needs a home.</li>
+      <li><strong>Boundary inclusivity.</strong> Tier&nbsp;2 is "between 18% and 50%" and Tier&nbsp;3
+      "between 6% and 18%". Which side each boundary falls on is unstated. Stated here as
+      6&ndash;18% and 18&ndash;50% without resolving it.</li>
+      <li><strong>Results in a methods document.</strong> The Guidelines section reports that "as of
+      the summer of 2026, all scenarios result in an outcome Level 3 or Level 4" and that most
+      scenarios outperform current operations. Those are modeled results and belong in the winter-run
+      sector results brief, not here; this brief carries none of them. The underlying point that is a
+      <em>property of the method</em> &mdash; that scenarios changing hydrology alone operate on one
+      of four recovery levers &mdash; is carried, in "What a winter-run salmon tier does not
+      resolve".</li>
+      <li><strong>A truncated sentence.</strong> In "Reintroduction and Holistic Recovery": "...will
+      also be required downstream of Keswick, in combination with the McCloud River, to reach
+      desirable key " &mdash; the sentence ends mid-phrase.</li>
+      <li><strong>Sector-specific tier labels.</strong> The draft's Table&nbsp;1 names the tiers
+      "High habitat saturation", "Moderate habitat saturation", "Low habitat saturation", and
+      "Critical Underutilization". The four public labels are uniform across all nine sectors and no
+      sector holds a label of its own &mdash; a sector-specific tier-2 label was retired elsewhere in
+      the project for this reason. The descriptions are preserved here as the third column of the
+      mapping table, which is where they belong: they describe the threshold, not the tier.</li>
+    </ol>
+  </div>
+
+</main>
+</body>
+</html>

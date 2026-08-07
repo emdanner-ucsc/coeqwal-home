@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>How groundwater storage is measured and tiered &mdash; tier framework brief (prototype v0_1)</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --rule: #ccc;
+    --accent: #1f4e79;
+    --bg: #fdfdfc;
+  }
+  html { font-size: 17px; }
+  body {
+    margin: 0;
+    padding: 3rem 1.5rem 5rem;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.55;
+  }
+  main { max-width: 960px; margin: 0 auto; }
+  h1, h2, h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  h1 { font-size: 1.7rem; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.25rem; margin: 2.2rem 0 0.6rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; }
+  header.doc p.provenance {
+    font-style: italic;
+    color: var(--muted);
+    margin: 0.15rem 0;
+    font-size: 0.95rem;
+  }
+  header.doc { border-bottom: 2px solid var(--accent); padding-bottom: 0.9rem; margin-bottom: 1.6rem; }
+  .classtag {
+    display: inline-block;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 0.1rem 0.45rem;
+    margin-bottom: 0.5rem;
+  }
+  .devnote {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: #f4f3f0;
+    border: 1px dashed #b9b6ae;
+    border-radius: 4px;
+    padding: 0.7rem 0.9rem;
+    margin: 1.2rem 0;
+  }
+  .devnote strong { color: #7a4a12; }
+  .devnote ol, .devnote ul { margin: 0.5rem 0 0.2rem; padding-left: 1.2rem; }
+  .devnote li { margin-bottom: 0.4rem; }
+  .devnote table { font-size: 0.85rem; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  th, td { border: 1px solid var(--rule); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: #f0efec; font-weight: 600; }
+  td.num, th.num { text-align: center; }
+  code, pre {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: #f2f1ee;
+    border-radius: 3px;
+  }
+  code { padding: 0.05rem 0.3rem; }
+  pre { padding: 0.7rem 0.9rem; overflow-x: auto; line-height: 1.4; }
+  p.stock {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.8rem;
+    color: var(--ink);
+  }
+  .refnote { font-size: 0.9rem; color: var(--muted); }
+  figure { margin: 1.4rem 0; }
+  figcaption {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    line-height: 1.45;
+  }
+  .figslot {
+    border: 1px dashed #9aa5ad;
+    background: #f2f5f7;
+    border-radius: 4px;
+    padding: 2.2rem 1rem;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    color: #4a5b68;
+  }
+  .figslot strong { display: block; font-size: 0.95rem; margin-bottom: 0.3rem; color: #2b3b47; }
+  a { color: var(--accent); }
+  @media print {
+    body { padding: 0; background: #fff; font-size: 11pt; }
+    a { color: inherit; text-decoration: none; }
+    h2 { break-after: avoid; }
+    table, pre, figure { break-inside: avoid; }
+    .devnote { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="doc">
+    <div class="classtag">Tier framework brief</div>
+    <h1>How groundwater storage is measured and tiered</h1>
+    <p class="provenance">A technical reference brief describing the groundwater storage indicator:
+    what it measures, where it is measured, how it is computed from CalSim&nbsp;3 output, and how
+    its values map onto the COEQWAL tier scale. This brief describes a measurement method; it
+    reports no modeled tier results.</p>
+    <p class="provenance">Prototype v0_1 &middot; Drafted 2026-08-07</p>
+  </header>
+  <div class="devnote">
+    <strong>Dev note &mdash; vocabulary conversion, shown so it can be edited back.</strong>
+    The source draft uses <em>key outcome level</em> and <em>Level&nbsp;1&ndash;4</em>. This brief
+    uses the project's public vocabulary throughout. The conversion is one-to-one and mechanical:
+    <em>key outcome level</em> &rarr; <em>tier</em>; <em>Level&nbsp;N</em> &rarr;
+    <em>Tier&nbsp;N</em>, with the labels Optimal, Acceptable, At-risk, Critical; <em>key
+    outcome</em> (the thing measured) &rarr; <em>sector</em> or <em>indicator</em>. Two notes in
+    support: the production code already calls these values tiers, and
+    <code>coeqwal_conventions.md</code> dispreferences "outcome" as an umbrella noun in new
+    writing. Reverting is a find-and-replace if the team decides otherwise. One further change: the source draft's Appendix S-1, on the relationship
+    between these tiers and the Sustainable Groundwater Management Act, is not carried into the
+    body. Its substance &mdash; that SGMA's own sustainability metrics were not usable here, because
+    no comprehensive public database covered every modeled location and because SGMA criteria rest
+    on absolute levels at indicator wells that this model does not resolve &mdash; is worth a
+    paragraph somewhere, and the sector author should say where.
+  </div>
+
+  <h2 id="what-this-is">What this is</h2>
+  <p>COEQWAL reports results for nine sectors of the California water system on a single
+  four-level scale: Tier&nbsp;1 (optimal), Tier&nbsp;2 (acceptable), Tier&nbsp;3 (at-risk),
+  Tier&nbsp;4 (critical). Lower tier numbers describe conditions closer to the Tier&nbsp;1 end
+  of each sector's scale. The nine sectors are measured in units that have nothing to do with
+  one another &mdash; revenue, delivery reliability, river flow against an ecological target,
+  salinity, storage, fish abundance &mdash; and the tier scale exists so that any of them can be
+  held beside any other, and so that each can be compared with itself across scenarios.</p>
+  <p>A tier is a COEQWAL construction. Nothing in CalSim&nbsp;3 produces one. Each sector has its
+  own indicator, computed from model output by the project's subject-area experts for that
+  sector, and its own rule for turning indicator values into tiers. The four tier labels are
+  common to all nine sectors; the thresholds behind them are not, and are calibrated within each
+  sector rather than across them. This brief documents the indicator and the thresholds for one
+  sector: groundwater storage. There is a companion brief for each of the other eight.</p>
+  <p>This brief describes the measurement. It reports no results. Modeled tier values for
+  groundwater storage are reported in the results briefs.</p>
+
+
+  <h2 id="what-it-measures">What the indicator measures</h2>
+  <p>The aquifers under the Central Valley supply irrigation and municipal water alongside surface
+  deliveries. When pumping exceeds recharge over long periods, the water stored underground
+  declines, and with it the availability of groundwater to wells, the support groundwater gives to
+  rivers, and in places the land surface itself. Groundwater and surface water are linked: surface
+  deliveries can substitute for pumping and can recharge aquifers, and when surface deliveries are
+  short &mdash; through drought or through a lack of conveyance &mdash; pumping increases to make up
+  the difference.</p>
+  <p>The indicator is a <strong>long-term trend</strong> in groundwater storage, not a level. A
+  linear regression is fitted to the modeled storage time series for each region, and the slope of
+  that line &mdash; feet of stored water gained or lost per year &mdash; is the quantity the tier is
+  built from. A trend is used rather than a storage level because groundwater behaves differently
+  from surface reservoirs: a reservoir can be emptied and refilled within a year or two, while
+  aquifer storage in much of the Central Valley changes over decades. Short-term fluctuations
+  around a trend are not what the indicator is measuring.</p>
+  <p>The term <em>groundwater storage</em> here means the water held in an aquifer across a region,
+  not the depth to water in any one well. The two are related &mdash; a regional decline is usually
+  accompanied by falling water levels in wells &mdash; but they are not the same measurement, and
+  the value reported is a volume expressed as an equivalent depth over the region's area, not a
+  depth to groundwater.</p>
+
+  <h2 id="where">Where it is measured</h2>
+  <p>The indicator is computed for <strong>42 regions</strong>, the groundwater model subregions
+  corresponding to CalSim&nbsp;3's Water Budget Areas. Each Water Budget Area covers a portion of
+  the Central Valley floor with broadly similar landscape, water source, and hydroclimatic
+  character, and is built from smaller demand units that define specific water use and
+  administrative areas. Twenty-nine are in the Sacramento basin, nine in the San Joaquin, two in
+  the Delta and eastside streams, and one in the Tulare basin.</p>
+  <p>The coupled groundwater model represents three aquifer layers of varying thickness and depth.
+  For this indicator, all three layers within a region's boundary are summed to a single total
+  storage value.</p>
+  <figure>
+    <div class="figslot"><strong>Figure slot &mdash; map of the 42 Water Budget Areas</strong>
+    Central Valley basemap with Water Budget Area boundaries, shaded by basin. To be regenerated in
+    the common map style.</div>
+  </figure>
+
+  <h2 id="reference">What it is measured against</h2>
+  <p>Groundwater is the one sector measured against <strong>another model run</strong> rather than
+  against an observed record or a fixed standard. Two reference points define the tier
+  boundaries.</p>
+  <p>The first is the <strong>baseline storage trend</strong>: the slope fitted to a CalSim&nbsp;3
+  simulation using DWR's adjusted historical hydrology, run identifier <code>s0002</code>. A
+  scenario whose regional trend is at least as positive as this reference is at the Tier&nbsp;1 end
+  of the scale. Note that this is not the COEQWAL baseline used elsewhere in the project
+  (<code>s0020</code>, current operations under the historical hydroclimate); a separate run is used
+  so that every scenario in the catalog, including the COEQWAL baseline itself, can be evaluated
+  against something external to it.</p>
+  <p>The second is the <strong>severe decline threshold</strong>, set at
+  &minus;0.015&nbsp;feet per year and applied identically in all 42 regions. It was chosen from the
+  distribution of long-term decline rates in the reference run, as the point separating more common
+  drawdown from more extreme conditions. Where that line falls is a modeler's judgment, and it
+  determines how Tier&nbsp;3 and Tier&nbsp;4 divide.</p>
+  <p>Three assertions underlie the direction of the scale, and the framework states them as
+  assertions rather than as findings. A sustained downward trend reflects a persistent imbalance
+  between use and replenishment. A stable or rising trend reflects use in balance with recharge.
+  And a scenario whose decline is less severe than the reference has moved toward balance, which the
+  scale is built to register even when the trend remains negative.</p>
+
+  <h2 id="computed">How the indicator is computed</h2>
+  <p>Groundwater storage is written to a standard output file by every CalSim&nbsp;3 simulation,
+  as a monthly time series for each subregion. The computation runs in four steps.</p>
+
+  <h3>Step 1 &mdash; one storage series per region</h3>
+  <p>Sum storage across all three aquifer layers, then convert the volume to an equivalent depth by
+  dividing by the region's surface area. A region holding 5&nbsp;million acre-feet beneath
+  1&nbsp;million acres has an equivalent depth of 5&nbsp;feet.</p>
+
+  <h3>Step 2 &mdash; restrict the period</h3>
+  <p>The series is clipped to <strong>1960&ndash;2021</strong>, discarding the first four decades of
+  the simulation. Many regions show large, sharp storage declines in the opening years, which appear
+  to be the groundwater model equilibrating from an initial condition that does not match its local
+  starting state: after roughly the first twenty years the system responds in a fundamentally
+  different way. Including those years would push regions that are stable or rising over the
+  remainder of the simulation into Tier&nbsp;3 or Tier&nbsp;4 on the strength of an artifact.</p>
+
+  <h3>Step 3 &mdash; fit a trend</h3>
+  <p>Fit a linear regression to the clipped series. The slope, in feet per year, is the indicator.</p>
+
+  <h3>Step 4 &mdash; compare against the two reference points</h3>
+  <p>Compare the scenario slope to the baseline slope for the same region, and to the severe decline
+  threshold.</p>
+
+  <h2 id="mapping">How indicator values map onto the tier scale</h2>
+  <p>The tier is assigned by comparing the scenario's slope to the two reference points. The rows
+  are evaluated in order, and the first whose condition is satisfied is the tier.</p>
+  <table>
+    <thead>
+      <tr><th style="width:22%">Tier</th><th>Condition on the fitted slope</th><th>What it describes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Tier 1</strong><br>Optimal</td><td>slope &ge; the baseline slope for that region</td><td>storage trend at least as strong as the reference run</td></tr>
+      <tr><td><strong>Tier 2</strong><br>Acceptable</td><td>slope &ge; 0, but below the baseline slope</td><td>storage stable or rising, but less so than the reference</td></tr>
+      <tr><td><strong>Tier 3</strong><br>At-risk</td><td>slope &lt; 0, but above &minus;0.015&nbsp;ft/yr</td><td>moderate long-term decline</td></tr>
+      <tr><td><strong>Tier 4</strong><br>Critical</td><td>slope &le; &minus;0.015&nbsp;ft/yr</td><td>decline beyond the severe threshold</td></tr>
+    </tbody>
+  </table>
+  <p>Because the Tier&nbsp;1 and Tier&nbsp;2 boundary is the region's own baseline slope, it sits at
+  a different value in every region. The Tier&nbsp;3 and Tier&nbsp;4 boundary does not: the severe
+  decline threshold is the same everywhere. A tier therefore mixes a locally-referenced comparison
+  at the top of the scale with an absolute one at the bottom.</p>
+  <p>The reference run itself is assigned Tier&nbsp;0 and dropped from the reported results.</p>
+
+  <h2 id="continuous">The continuous tier value</h2>
+  <p>Alongside the whole-number tier, COEQWAL reports a continuous value that carries more
+  resolution: 1.00&ndash;1.99 within Tier&nbsp;1, 2.00&ndash;2.99 within Tier&nbsp;2,
+  3.00&ndash;3.99 within Tier&nbsp;3, and 4.00&ndash;4.99 within Tier&nbsp;4. That banding is
+  common to all nine sectors. <strong>How the value inside the band is constructed is not.</strong>
+  Most sectors locate a scenario within its own tier's interval, so the whole-number part is the
+  discrete tier by construction; others summarize a distribution, or measure a ratio against a
+  reference, and carry no such guarantee. A continuous value should be read against the
+  construction described below, not against another sector's.</p>
+
+  <p>For groundwater storage the continuous value is a <strong>ratio of slopes</strong>, not a
+  position along an interval of fixed width. Each tier has its own expression, and each is built so
+  the result stays inside that tier's band:</p>
+  <table>
+    <thead><tr><th style="width:18%">Tier</th><th>Continuous value</th><th>What the ratio measures</th></tr></thead>
+    <tbody>
+      <tr><td>Tier 1</td><td><code>1 + (baseline_slope / slope)</code>, when the baseline slope is positive</td><td>how far the scenario's rise exceeds the reference</td></tr>
+      <tr><td>Tier 1</td><td><code>1 + |baseline_slope| / (|baseline_slope| &minus; baseline_slope + slope)</code>, when the baseline slope is negative</td><td>the same, where the reference is itself declining</td></tr>
+      <tr><td>Tier 2</td><td><code>2 + (1 &minus; slope / baseline_slope)</code></td><td>distance from the reference down to a flat trend</td></tr>
+      <tr><td>Tier 3</td><td><code>3 + (slope / severe_decline_threshold)</code></td><td>distance from a flat trend toward the severe threshold</td></tr>
+      <tr><td>Tier 4</td><td><code>min(4.999, 4 + (1 &minus; severe_decline_threshold / slope))</code></td><td>how far decline runs beyond the severe threshold</td></tr>
+    </tbody>
+  </table>
+  <p>Two consequences follow, and they distinguish this sector from those whose continuous value is
+  a linear position within a band.</p>
+  <p><strong>The value is not linear within a tier.</strong> A continuous value of 1.58 can be read
+  as roughly midway through Tier&nbsp;1, but it is not 58% of the way from Tier&nbsp;1 to
+  Tier&nbsp;2 in any measurable sense: the strongest Tier&nbsp;1 condition is approached
+  asymptotically rather than reached, so the interval has no far end to measure against.</p>
+  <p><strong>Tier&nbsp;4 is unbounded and is clipped.</strong> Decline can continue past any value,
+  so the expression is capped at 4.999.</p>
+  <p>The formulation also admits a documented edge case. Where the baseline slope is negative and the
+  scenario slope is positive &mdash; not a rare combination &mdash; the tier is 1 and the second
+  Tier&nbsp;1 expression applies. If the two slopes are exactly symmetrical about zero, for instance
+  a baseline of &minus;0.01 and a scenario of +0.01, the result is 1.33 regardless of how positive
+  the scenario slope is. This did not arise in the more than 140 scenarios analyzed, but it is a
+  property of the expression rather than an accident of the data.</p>
+
+  <p class="refnote">Continuous values are not read below one decimal place. COEQWAL treats a
+  difference smaller than 0.1 as unstated: the project has not established whether such a
+  difference is meaningful, and the briefs are built not to speak about it.</p>
+
+  <h2 id="reading">How to read a groundwater storage tier</h2>
+  <p>A tier value near 1 describes a region whose modeled groundwater storage is rising at least as
+  fast as under the reference run. Tier&nbsp;2 describes storage that is stable or rising, but less
+  strongly than the reference. Tier&nbsp;3 describes a moderate long-term decline, and Tier&nbsp;4 a
+  decline steeper than &minus;0.015&nbsp;feet per year. Because the values within a tier come from
+  slope ratios, they order regions and scenarios within a tier but do not measure a fixed distance.</p>
+
+  <h3>What a groundwater storage tier does not resolve</h3>
+  <p><strong>Local conditions.</strong> The indicator averages storage across a whole subregion.
+  Where pumping is clustered or uneven within a large region, areas in meaningful decline can be
+  offset by areas that are stable or rising, and the tier will be less severe than local conditions
+  warrant. The underlying groundwater model is itself coarse and approximates local water levels
+  rather than resolving them.</p>
+  <p><strong>Particular periods, and short intervals.</strong> The trend is fitted over
+  1960&ndash;2021 and identifies the long-run balance of recharge and pumping. It carries no
+  information about variation driven by individual wet or dry sequences, and it says nothing about
+  the four decades excluded from the fit.</p>
+  <p><strong>Actual water levels.</strong> A tier summarizes a numerical model, and the model may not
+  match measured conditions everywhere. The framework was designed to reduce the effect of such
+  mismatches by referencing scenarios against another run of the same model rather than against
+  absolute levels, but a tier does not translate to a water table depth at a location, or to a number
+  of wells that would go dry.</p>
+
+
+  <h2 id="not-say">What this doesn't say</h2>
+  <p class="stock">This brief reports modeled results from a specific ensemble. It does not
+  predict what will happen, evaluate whether those results are acceptable, or recommend any
+  course of action. The tier framework provides definitional categories; the meaning of those
+  categories for any individual reader, community, or decision is not specified by COEQWAL.</p>
+
+  <p>Specific to groundwater storage: the severe decline threshold at &minus;0.015&nbsp;feet per
+  year is a judgment about where moderate decline becomes severe, applied uniformly across the
+  Central Valley; a different threshold would redistribute Tier&nbsp;3 and Tier&nbsp;4 without any
+  modeled quantity changing. The 1960 start of the trend period is likewise a choice, made to
+  exclude what appears to be model equilibration. And because the Tier&nbsp;1 and Tier&nbsp;2
+  boundary is each region's own baseline trend, a Tier&nbsp;1 result means the scenario's trend is at
+  least as strong as a reference that may itself be declining &mdash; it is not a statement that
+  groundwater is being replenished.</p>
+
+  <h2 id="references">References note</h2>
+  <p class="refnote">Source: <em>Groundwater Tier Methods</em> &mdash; James Gilbert (UC Santa
+  Cruz, Institute of Marine Sciences / NOAA Southwest Fisheries Science Center), Dino Bellugi
+  (UC Berkeley), Abhinav Sharma and Khandaker Iftikhar Islam (UC Santa Cruz). Draft of 2026-08.</p>
+  <p class="refnote">Model: the C2VSim groundwater model coupled to CalSim&nbsp;3 (Brush, Dogrul
+  and Kadir 2016; Dogrul et al. 2016). Water Budget Area definitions: CalSim&nbsp;3 Report (Yin et
+  al. 2022). Reference run: <code>s0002</code>, DWR adjusted historical hydrology
+  (<code>DCR2023_9.3.1_danube_adj</code>). Implementation:
+  <a href="https://github.com/canruso/COEQWAL_V3">github.com/canruso/COEQWAL_V3</a>, extraction and
+  processing in <code>tier.py</code>, assignment in
+  <code>Tier_Assignment_Groundwater.ipynb</code>.</p>
+  <p class="refnote">Sector identifiers: groundwater storage is <code>GW</code> in editorial writing
+  and <code>GW_STOR</code> in the production codebase and API.</p>
+
+  <p class="refnote">Drafted 2026-08-07 &middot; COEQWAL tier framework brief prototype v0_1 &middot;
+  Not yet team-reviewed.</p>
+  <div class="devnote">
+    <strong>Dev note &mdash; items for the sector author.</strong>
+    <ol>
+      <li><strong>The Tier&nbsp;2 rule is stated three ways, and one carries an extra
+      condition.</strong> The narrative reads "a slope that is positive but less than the baseline
+      reference <em>(as long as the baseline is also positive)</em>". Table&nbsp;2 reads "Positive
+      slope AND lower than baseline slope". The Appendix S-2 pseudocode reads
+      <code>ELSE IF slope &gt;= 0</code>, with no condition on the sign of the baseline. The
+      parenthetical is the discrepancy: if the baseline slope is negative, any positive scenario
+      slope satisfies the Tier&nbsp;1 test first, so the parenthetical may be describing a
+      consequence rather than an additional condition &mdash; but as written it reads as a
+      condition. This brief follows the pseudocode. Confirm.</li>
+      <li><strong>Tier&nbsp;4's boundary is stated inclusively in one place and exclusively in
+      another.</strong> The narrative has Tier&nbsp;3 as "moderate negative trends" and Tier&nbsp;4
+      as "exceeding the severe decline threshold"; the pseudocode has
+      <code>slope &gt;= severe_decline_threshold</code> for Tier&nbsp;3. Stated here as
+      Tier&nbsp;3 above &minus;0.015 and Tier&nbsp;4 at or below it.</li>
+      <li><strong>Figure numbering.</strong> The example results map is captioned "Figure&nbsp;2"
+      but referred to in the text as Figure&nbsp;4; there are two figures captioned 2. Moot for this
+      brief, which drops the results map, but it should be fixed if the draft survives anywhere.</li>
+      <li><strong>The results map is dropped</strong> &mdash; it shows modeled tier values for the
+      baseline scenario, which is a result. It belongs in the groundwater storage sector results
+      brief.</li>
+      <li><strong>Region count.</strong> Table&nbsp;1 lists 42 Water Budget Areas, one of which is
+      <code>DETAW</code>. Confirm that <code>DETAW</code> is reported as a location like the others,
+      or whether the reported count is 41.</li>
+    </ol>
+  </div>
+
+</main>
+</body>
+</html>

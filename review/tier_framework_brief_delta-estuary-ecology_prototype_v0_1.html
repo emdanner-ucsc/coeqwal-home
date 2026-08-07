@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>How Delta estuary ecology is measured and tiered &mdash; tier framework brief (prototype v0_1)</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --rule: #ccc;
+    --accent: #1f4e79;
+    --bg: #fdfdfc;
+  }
+  html { font-size: 17px; }
+  body {
+    margin: 0;
+    padding: 3rem 1.5rem 5rem;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.55;
+  }
+  main { max-width: 960px; margin: 0 auto; }
+  h1, h2, h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  h1 { font-size: 1.7rem; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.25rem; margin: 2.2rem 0 0.6rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; }
+  header.doc p.provenance {
+    font-style: italic;
+    color: var(--muted);
+    margin: 0.15rem 0;
+    font-size: 0.95rem;
+  }
+  header.doc { border-bottom: 2px solid var(--accent); padding-bottom: 0.9rem; margin-bottom: 1.6rem; }
+  .classtag {
+    display: inline-block;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 0.1rem 0.45rem;
+    margin-bottom: 0.5rem;
+  }
+  .devnote {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: #f4f3f0;
+    border: 1px dashed #b9b6ae;
+    border-radius: 4px;
+    padding: 0.7rem 0.9rem;
+    margin: 1.2rem 0;
+  }
+  .devnote strong { color: #7a4a12; }
+  .devnote ol, .devnote ul { margin: 0.5rem 0 0.2rem; padding-left: 1.2rem; }
+  .devnote li { margin-bottom: 0.4rem; }
+  .devnote table { font-size: 0.85rem; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  th, td { border: 1px solid var(--rule); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: #f0efec; font-weight: 600; }
+  td.num, th.num { text-align: center; }
+  code, pre {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: #f2f1ee;
+    border-radius: 3px;
+  }
+  code { padding: 0.05rem 0.3rem; }
+  pre { padding: 0.7rem 0.9rem; overflow-x: auto; line-height: 1.4; }
+  p.stock {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.8rem;
+    color: var(--ink);
+  }
+  .refnote { font-size: 0.9rem; color: var(--muted); }
+  figure { margin: 1.4rem 0; }
+  figcaption {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    line-height: 1.45;
+  }
+  .figslot {
+    border: 1px dashed #9aa5ad;
+    background: #f2f5f7;
+    border-radius: 4px;
+    padding: 2.2rem 1rem;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    color: #4a5b68;
+  }
+  .figslot strong { display: block; font-size: 0.95rem; margin-bottom: 0.3rem; color: #2b3b47; }
+  a { color: var(--accent); }
+  @media print {
+    body { padding: 0; background: #fff; font-size: 11pt; }
+    a { color: inherit; text-decoration: none; }
+    h2 { break-after: avoid; }
+    table, pre, figure { break-inside: avoid; }
+    .devnote { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="doc">
+    <div class="classtag">Tier framework brief</div>
+    <h1>How Delta estuary ecology is measured and tiered</h1>
+    <p class="provenance">A technical reference brief describing the Delta estuary ecology indicator:
+    what it measures, where it is measured, how it is computed from CalSim&nbsp;3 output, and how
+    its values map onto the COEQWAL tier scale. This brief describes a measurement method; it
+    reports no modeled tier results.</p>
+    <p class="provenance">Prototype v0_1 &middot; Drafted 2026-08-07</p>
+  </header>
+  <div class="devnote">
+    <strong>Dev note &mdash; vocabulary conversion, shown so it can be edited back.</strong>
+    The source draft uses <em>key outcome level</em> and <em>Level&nbsp;1&ndash;4</em>. This brief
+    uses the project's public vocabulary throughout. The conversion is one-to-one and mechanical:
+    <em>key outcome level</em> &rarr; <em>tier</em>; <em>Level&nbsp;N</em> &rarr;
+    <em>Tier&nbsp;N</em>, with the labels Optimal, Acceptable, At-risk, Critical; <em>key
+    outcome</em> (the thing measured) &rarr; <em>sector</em> or <em>indicator</em>. Two notes in
+    support: the production code already calls these values tiers, and
+    <code>coeqwal_conventions.md</code> dispreferences "outcome" as an umbrella noun in new
+    writing. Reverting is a find-and-replace if the team decides otherwise.
+  </div>
+
+  <h2 id="what-this-is">What this is</h2>
+  <p>COEQWAL reports results for nine sectors of the California water system on a single
+  four-level scale: Tier&nbsp;1 (optimal), Tier&nbsp;2 (acceptable), Tier&nbsp;3 (at-risk),
+  Tier&nbsp;4 (critical). Lower tier numbers describe conditions closer to the Tier&nbsp;1 end
+  of each sector's scale. The nine sectors are measured in units that have nothing to do with
+  one another &mdash; revenue, delivery reliability, river flow against an ecological target,
+  salinity, storage, fish abundance &mdash; and the tier scale exists so that any of them can be
+  held beside any other, and so that each can be compared with itself across scenarios.</p>
+  <p>A tier is a COEQWAL construction. Nothing in CalSim&nbsp;3 produces one. Each sector has its
+  own indicator, computed from model output by the project's subject-area experts for that
+  sector, and its own rule for turning indicator values into tiers. The four tier labels are
+  common to all nine sectors; the thresholds behind them are not, and are calibrated within each
+  sector rather than across them. This brief documents the indicator and the thresholds for one
+  sector: Delta estuary ecology. There is a companion brief for each of the other eight.</p>
+  <p>This brief describes the measurement. It reports no results. Modeled tier values for
+  Delta estuary ecology are reported in the results briefs.</p>
+
+
+  <h2 id="what-it-measures">What the indicator measures</h2>
+  <p>The Sacramento&ndash;San Joaquin Delta was diked, drained, and reclaimed through the first
+  half of the twentieth century, and more than ninety percent of its historical wetland and
+  floodplain habitat was lost. What remains is a heavily altered estuary that nonetheless supports
+  native and non-native species, including Delta smelt and Chinook salmon. How much fresh water
+  flows through it shapes the conditions those species encounter.</p>
+  <p>The indicator starts from a single measured quantity: <strong>net Delta outflow</strong>, the
+  volume of fresh water leaving the Delta after everyone drawing from the system upstream and inside
+  it has taken their share. It is the closest available measure of how much fresh water remains
+  available to the estuary itself.</p>
+  <p>Net Delta outflow is not used directly as the tier value. It is translated into an ecological
+  index through four habitat conditions that respond to flow in known directions: the abundance of
+  invasive submersed and floating aquatic vegetation, salinity, turbidity, and the availability of
+  inundated microhabitat. Other conditions that matter to the Delta ecosystem &mdash; water
+  temperature, land use, sea level rise, the abundance of invasive animals, food web structure
+  &mdash; either do not respond to flow, or respond in ways too complex to represent here, and are
+  outside the indicator entirely.</p>
+
+  <figure>
+    <svg viewBox="0 0 640 300" width="100%" role="img" aria-labelledby="fig1title">
+      <title id="fig1title">Conceptual model: how four habitat conditions respond to net Delta outflow</title>
+      <rect x="0" y="0" width="640" height="300" fill="#fdfdfc"/>
+      <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+        <path d="M26,66 L38,44 L50,66 L44,66 L44,96 L32,96 L32,66 Z" fill="#e4e2dd" stroke="#555" stroke-width="1"/>
+        <text x="38" y="116" font-size="10.5" fill="#555" text-anchor="middle">increase</text>
+        <rect x="72" y="42" width="150" height="72" rx="4" fill="#e8eff6" stroke="#1f4e79" stroke-width="1.5"/>
+        <text x="147" y="72" font-size="13.5" fill="#1a1a1a" text-anchor="middle">Net Delta</text>
+        <text x="147" y="92" font-size="13.5" fill="#1a1a1a" text-anchor="middle">outflow</text>
+        <line x1="222" y1="78" x2="286" y2="78" stroke="#555" stroke-width="1.5"/>
+        <line x1="286" y1="30" x2="286" y2="258" stroke="#555" stroke-width="1.5"/>
+        <g stroke="#555" stroke-width="1.5">
+          <line x1="286" y1="30" x2="332" y2="30"/>
+          <line x1="286" y1="106" x2="332" y2="106"/>
+          <line x1="286" y1="182" x2="332" y2="182"/>
+          <line x1="286" y1="258" x2="332" y2="258"/>
+        </g>
+        <path d="M356,46 L344,26 L350,26 L350,14 L362,14 L362,26 L368,26 Z" fill="#e4e2dd" stroke="#555" stroke-width="1"/>
+        <path d="M356,122 L344,102 L350,102 L350,90 L362,90 L362,102 L368,102 Z" fill="#e4e2dd" stroke="#555" stroke-width="1"/>
+        <path d="M356,166 L344,186 L350,186 L350,198 L362,198 L362,186 L368,186 Z" fill="#e4e2dd" stroke="#555" stroke-width="1"/>
+        <path d="M356,242 L344,262 L350,262 L350,274 L362,274 L362,262 L368,262 Z" fill="#e4e2dd" stroke="#555" stroke-width="1"/>
+        <g fill="#f6f4f0" stroke="#555" stroke-width="1">
+          <rect x="392" y="8" width="238" height="44" rx="4"/>
+          <rect x="392" y="84" width="238" height="44" rx="4"/>
+          <rect x="392" y="160" width="238" height="44" rx="4"/>
+          <rect x="392" y="236" width="238" height="44" rx="4"/>
+        </g>
+        <g font-size="12.5" fill="#1a1a1a">
+          <text x="406" y="26">Invasive aquatic vegetation</text>
+          <text x="406" y="41" font-size="10.5" fill="#666">threshold response</text>
+          <text x="406" y="111">Salinity</text>
+          <text x="406" y="187">Turbidity</text>
+          <text x="406" y="256">Inundated microhabitat</text>
+          <text x="406" y="271" font-size="10.5" fill="#666">threshold response</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 1.</strong> The conceptual model behind the indicator. As net Delta
+    outflow increases, invasive aquatic vegetation and salinity decrease, while turbidity and
+    inundated microhabitat increase. Salinity and turbidity are treated as responding
+    proportionally across the range of flows; vegetation and microhabitat are treated as changing
+    only once flows reach the extreme high category. Redrawn from the source document's
+    Figure&nbsp;2.</figcaption>
+  </figure>
+
+  <h2 id="where">Where it is measured</h2>
+  <p>The indicator is computed at one location: <strong>Chipps Island</strong>, at the western
+  edge of the Delta, where fresh water leaves the system for Suisun Bay. Net Delta outflow is a
+  whole-system quantity, so a single measurement point represents the Delta as a whole rather than
+  any particular part of it. Unlike sectors with many locations of interest, this sector produces
+  one tier value per scenario.</p>
+
+  <h2 id="reference">What it is measured against</h2>
+  <p>"High" and "low" outflow are defined relative to the modeled baseline, not to an observed
+  record or an ecological target. Each year's average November-to-April outflow under current
+  operations in the historical hydroclimate &mdash; the COEQWAL baseline scenario &mdash; is ranked,
+  and the resulting distribution is cut into fifths. Those five bands are the outflow categories
+  used for every scenario:</p>
+  <table>
+    <thead>
+      <tr><th>Outflow category</th><th>Mean November&ndash;April net Delta outflow</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Extreme high</td><td>above 54,000 cubic feet per second</td></tr>
+      <tr><td>High</td><td>30,000 to 54,000 cfs</td></tr>
+      <tr><td>Normal</td><td>18,300 to 30,000 cfs</td></tr>
+      <tr><td>Low</td><td>11,300 to 18,300 cfs</td></tr>
+      <tr><td>Extreme low</td><td>below 11,300 cfs</td></tr>
+    </tbody>
+  </table>
+  <p>Two consequences follow from defining the categories this way, and both matter for reading the
+  results. First, the baseline scenario contains twenty percent of its years in each category by
+  construction &mdash; the bands were cut from its own distribution. A scenario's tier therefore
+  describes how its winter outflow years are distributed <em>relative to current operations under
+  the historical hydroclimate</em>. Second, the boundaries are volumes of water, not ecological
+  thresholds; no ecological process is known to change at 54,000&nbsp;cfs specifically.</p>
+  <p>Winter and spring flows are used because they set the conditions the estuary carries through
+  the following summer.</p>
+
+  <h2 id="computed">How the indicator is computed</h2>
+  <p>Each CalSim&nbsp;3 scenario supplies 100 years of monthly net Delta outflow at Chipps
+  Island. The computation runs in four steps.</p>
+
+  <h3>Step 1 &mdash; one outflow value per year</h3>
+  <p>Average net Delta outflow across November through April, giving 100 annual values, and assign
+  each year to one of the five outflow categories above.</p>
+
+  <h3>Step 2 &mdash; an ecological score for that year</h3>
+  <p>Each outflow category carries a score from 1 to 5 for each of the four habitat conditions,
+  assigned by the sector authors from what is known about how each condition responds to flow. A
+  score of 1 marks the end of that condition's range the framework treats as the Tier&nbsp;1 end; 5
+  marks the Tier&nbsp;4 end. The four scores are summed, so a year's raw score runs from 4 to 20.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Outflow category</th>
+        <th class="num">Invasive aquatic vegetation</th>
+        <th class="num">Salinity</th>
+        <th class="num">Turbidity</th>
+        <th class="num">Inundated microhabitat</th>
+        <th class="num">Year's raw score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Extreme high</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num"><strong>4</strong></td></tr>
+      <tr><td>High</td><td class="num">5</td><td class="num">2</td><td class="num">2</td><td class="num">4</td><td class="num"><strong>13</strong></td></tr>
+      <tr><td>Normal</td><td class="num">5</td><td class="num">3</td><td class="num">3</td><td class="num">4</td><td class="num"><strong>15</strong></td></tr>
+      <tr><td>Low</td><td class="num">5</td><td class="num">4</td><td class="num">4</td><td class="num">5</td><td class="num"><strong>18</strong></td></tr>
+      <tr><td>Extreme low</td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num"><strong>20</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="refnote">Note the direction on the first column: <em>lower</em> vegetation abundance
+  scores toward Tier&nbsp;1, because the vegetation in question is invasive &mdash; Brazilian
+  waterweed and similar species, which clear the water, choke channels, and shelter non-native fish.
+  Note also the shape of the first and fourth columns: both hold at 5 and 4 across four of the five
+  categories and change only at extreme high flow. These are the two threshold responses in
+  Figure&nbsp;1 &mdash; the framework treats vegetation as being scoured out, and floodplain
+  microhabitat as being inundated, only by the largest flows. Salinity and turbidity step evenly
+  across all five categories.</p>
+
+  <h3>Step 3 &mdash; smooth across three years</h3>
+  <p>A three-year running mean of the raw scores gives each year a <strong>final score</strong>,
+  still on the 4-to-20 range. This carries the effect of consecutive wet or dry periods, which the
+  estuary experiences differently from the same years scattered apart.</p>
+
+  <h3>Step 4 &mdash; rescale onto the tier range</h3>
+  <p>Divide the final score by four.</p>
+
+  <h2 id="mapping">How indicator values map onto the tier scale</h2>
+  <p>Dividing by four maps the 4-to-20 score range onto 1 to 5, which is the tier range directly.
+  There are no separate cutoffs to apply: the score <em>is</em> the tier value once rescaled, and the
+  whole-number part is the tier.</p>
+  <table>
+    <thead>
+      <tr><th style="width:22%">Tier</th><th>Final score (3-year mean, 4&ndash;20)</th><th>Rescaled value</th><th>Predominant outflow conditions</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Tier 1</strong><br>Optimal</td><td>4.00 to below 8</td><td>1.00&ndash;1.99</td><td>extreme high outflow in most years</td></tr>
+      <tr><td><strong>Tier 2</strong><br>Acceptable</td><td>8 to below 12</td><td>2.00&ndash;2.99</td><td>a mixture weighted toward high and extreme high outflow</td></tr>
+      <tr><td><strong>Tier 3</strong><br>At-risk</td><td>12 to below 16</td><td>3.00&ndash;3.99</td><td>predominantly high to normal outflow</td></tr>
+      <tr><td><strong>Tier 4</strong><br>Critical</td><td>16 to 20</td><td>4.00&ndash;4.99</td><td>predominantly low and extreme low outflow</td></tr>
+    </tbody>
+  </table>
+  <p>Because a year at extreme high outflow scores 4 and every other category scores 13 or more, the
+  scale is not evenly exercised. A run of nothing but High-category years &mdash; the second of five
+  categories &mdash; produces a final score of 13 and a value of 3.25, in Tier&nbsp;3. Tier&nbsp;1
+  and Tier&nbsp;2 are reachable only through extreme high outflow years appearing repeatedly. This
+  follows from the scoring matrix, where the invasive vegetation and microhabitat conditions change
+  only at the top of the flow range.</p>
+
+  <h2 id="continuous">The continuous tier value</h2>
+  <p>Alongside the whole-number tier, COEQWAL reports a continuous value that carries more
+  resolution: 1.00&ndash;1.99 within Tier&nbsp;1, 2.00&ndash;2.99 within Tier&nbsp;2,
+  3.00&ndash;3.99 within Tier&nbsp;3, and 4.00&ndash;4.99 within Tier&nbsp;4. That banding is
+  common to all nine sectors. <strong>How the value inside the band is constructed is not.</strong>
+  Most sectors locate a scenario within its own tier's interval, so the whole-number part is the
+  discrete tier by construction; others summarize a distribution, or measure a ratio against a
+  reference, and carry no such guarantee. A continuous value should be read against the
+  construction described below, not against another sector's.</p>
+
+  <p>For Delta estuary ecology the continuous value is not a position within the tier's interval.
+  It summarizes the whole distribution of the 100 rescaled final scores:</p>
+  <pre>continuous tier value = &mu; &minus; 0.25 &middot; SD</pre>
+  <p>where &mu; is the mean of the rescaled final scores across the 100 years and SD is their
+  standard deviation. The mean sets the position; the standard deviation adjusts it according to how
+  widely conditions swing between years. A scenario whose winter outflow is steady year after year
+  and one that alternates between extreme high and extreme low years can share a mean, and this term
+  separates them.</p>
+  <p>Because the value is computed from the distribution rather than from a tier's boundaries, its
+  whole-number part is not guaranteed by construction to match a separately assigned discrete tier,
+  as it is in the sectors that interpolate within an interval.</p>
+
+  <p class="refnote">Continuous values are not read below one decimal place. COEQWAL treats a
+  difference smaller than 0.1 as unstated: the project has not established whether such a
+  difference is meaningful, and the briefs are built not to speak about it.</p>
+
+  <h2 id="reading">How to read a Delta estuary ecology tier</h2>
+  <p>A tier value near 1 describes a Delta receiving extreme high winter outflow in most years,
+  relative to the distribution under current operations in the historical hydroclimate: fresher
+  water, more turbidity, inundated floodplain microhabitat, and invasive aquatic vegetation scoured
+  back. Values through Tier&nbsp;3 and Tier&nbsp;4 describe a Delta receiving progressively less
+  winter outflow, holding saltier and clearer water, with microhabitat inundated in fewer years and
+  invasive vegetation persisting.</p>
+
+  <h3>What a Delta estuary ecology tier does not resolve</h3>
+  <p>The indicator is a function of one modeled quantity, net Delta outflow, at one point, averaged
+  over one half of the year. Everything it reports about salinity, turbidity, vegetation, and
+  microhabitat is inferred from outflow through the scoring matrix &mdash; none of the four is
+  separately modeled, and none is measured. Conditions inside the Delta vary from place to place;
+  this indicator does not describe any specific channel, marsh, or island.</p>
+  <p>The four habitat conditions are weighted equally in the sum, which is a choice in the
+  construction of the index rather than a finding about their relative ecological importance. The
+  scores in the matrix are expert assignments, not fitted values.</p>
+  <p>Most importantly, the range this indicator can move over is narrow relative to what determines
+  the state of the Delta. The system's condition is set principally by things CalSim&nbsp;3 does not
+  vary: the wetlands and floodplains lost to reclamation, channelized waterways, sediment held
+  behind dams, established invasive species, rising water temperatures, and sea level rise. Water
+  management operates within those constraints. A tier value describes where a scenario sits along
+  the flow-mediated part of the problem, which is the part the model can address.</p>
+
+
+  <h2 id="not-say">What this doesn't say</h2>
+  <p class="stock">This brief reports modeled results from a specific ensemble. It does not
+  predict what will happen, evaluate whether those results are acceptable, or recommend any
+  course of action. The tier framework provides definitional categories; the meaning of those
+  categories for any individual reader, community, or decision is not specified by COEQWAL.</p>
+
+  <p>Specific to Delta estuary ecology: this indicator is a comparative index, not an ecological
+  response model. It does not quantify habitat quality, species abundance, or ecosystem health, and
+  a tier value cannot be read as a statement about how any species will fare. The outflow category
+  boundaries are cut from the baseline scenario's own distribution, so tiers describe position
+  relative to current operations rather than against any ecological standard. And because
+  CalSim&nbsp;3 carries built-in operating constraints, the scenarios represented are a subset of
+  what could be modeled, let alone of what could occur.</p>
+
+  <h2 id="references">References note</h2>
+  <p class="refnote">Source: <em>Delta Estuary Ecology Methods</em> &mdash; Elsie Platzer, Lynette
+  Williams Duman, Jay Lund, and John Durand (UC Davis, Center for Watershed Sciences). Draft of
+  2026-08.</p>
+  <p class="refnote">Implementation:
+  <a href="https://github.com/eplatzer49/COEQWAL_DeltaEco">github.com/eplatzer49/COEQWAL_DeltaEco</a>.
+  Model output: CalSim&nbsp;3 net Delta outflow at Chipps Island, 100-year monthly simulation.
+  Outflow category boundaries derived from the baseline scenario (current operations, historical
+  hydroclimate, <code>s0020</code>).</p>
+  <p class="refnote">Sector identifiers: Delta estuary ecology is <code>DELTA</code> in editorial
+  writing and <code>DELTA_ECO</code> in the production codebase and API. The editorial sector name
+  is Bay-Delta Estuary Ecology.</p>
+  <p class="refnote">Background sources cited in the source document: Whipple et al. (2012) on
+  Delta historical ecology; Brown &amp; Bauer (2010) on flow regime alteration; Hobbs et al. (2009)
+  on novel ecosystems. Full citations live in the source document.</p>
+
+  <p class="refnote">Drafted 2026-08-07 &middot; COEQWAL tier framework brief prototype v0_1 &middot;
+  Not yet team-reviewed.</p>
+  <div class="devnote">
+    <strong>Dev note &mdash; five items for the sector author, two of them substantive.</strong>
+    <ol>
+      <li><strong>The draft gives two different rules for assigning the discrete tier, and they are
+      not the same procedure.</strong> The Methodology narrative assigns tiers from the
+      three-year-mean score divided by four (the rule this brief documents). Table&nbsp;3, headed
+      "the discrete key outcome levels and their definitions," instead defines Tier&nbsp;1 as "at
+      least 65% of years receive extreme high average outflow compared to baseline," Tier&nbsp;2 as
+      50&ndash;65%, Tier&nbsp;3 as 25&ndash;50%, Tier&nbsp;4 as none of the above. The two are
+      related &mdash; extreme high years are the only ones scoring 4 &mdash; but they are not
+      equivalent, and the 65 / 50 / 25 percentages are not derived anywhere in the document. Which
+      is the operative rule? This brief follows the narrative and does not reproduce Table&nbsp;3's
+      percentages; the mapping table's fourth column paraphrases them as descriptions rather than as
+      thresholds.</li>
+      <li><strong>The continuous formula and the stated intent disagree in sign.</strong> The text
+      says the formula "penalis[es] higher variations as large swings between extreme conditions."
+      The formula is <em>&mu;&nbsp;&minus;&nbsp;0.25&nbsp;SD</em>, which <em>lowers</em> the value as
+      variation rises &mdash; and lower is the Tier&nbsp;1 direction. As written, wider swings move a
+      scenario toward Tier&nbsp;1, not away from it. There is a coherent ecological reading of that
+      (occasional extreme high years are the only ones that scour vegetation and inundate
+      microhabitat, so crediting variation is defensible), and there is the possibility of a sign
+      error. This brief describes the term neutrally pending the author's answer. Whichever it is,
+      the prose and the formula need to agree.</li>
+      <li><strong>An arithmetic slip and an out-of-range value.</strong> The draft reads: "a 'final
+      score' of 20, the worst possible score, would become Level 4 (20 / 5 = 5, essentially
+      4.9999)." The divisor is 5 there and 4 everywhere else in the same passage. With the correct
+      divisor, 20&nbsp;/&nbsp;4&nbsp;=&nbsp;5.00, which falls outside the stated 4.00&ndash;4.99
+      range, so a clipping rule must exist in the code and should be stated in the document. This
+      brief's mapping table shows the Tier&nbsp;4 band as 4.00&ndash;4.99 without asserting how 5.00
+      is handled.</li>
+      <li><strong>&mu;'s scale is not stated.</strong> The continuous formula gives &mu; as "the
+      mean of the distribution of the final scores," and final scores are defined on the 4-to-20
+      range &mdash; on which <em>&mu;&nbsp;&minus;&nbsp;0.25&nbsp;SD</em> would return a value far
+      outside 1&ndash;4.99. This brief assumes &mu; is the mean of the <em>rescaled</em> scores
+      (after division by four). Worth one sentence in the source document.</li>
+      <li><strong>Table&nbsp;4 is referenced but absent.</strong> The text points to "Table&nbsp;4.
+      Example calculations of final continuous outcome level from mean and standard deviations." The
+      document contains three tables and three figures; there is no Table&nbsp;4. Worked examples
+      would resolve items 2 and 4 at a stroke, so this is worth chasing first.</li>
+    </ol>
+    <strong>Editorial, lower stakes:</strong> the location of interest is described inside
+    Methodology rather than under its own heading (also true of the environmental flows draft); the
+    scoring matrix caption uses "1 = an ideal score and 5 = the worst possible outcome," restated
+    here as a construction choice rather than a judgment; and the draft's Figure&nbsp;3, continuous
+    tier values by hydroclimate, is dropped as a result.
+  </div>
+
+</main>
+</body>
+</html>

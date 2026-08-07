@@ -4,39 +4,43 @@
 <meta charset="UTF-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COEQWAL brief relationships — internal diagram (2026-07-20)</title>
+<title>COEQWAL brief relationships — internal diagram (rev. 2026-08-07)</title>
 <style>
-  /* Internal reference diagram, 2026-07-20. How the brief classes and
-     types relate: the scenario library in the middle, reference briefs
-     describing its pieces, results briefs reporting its outputs, the
-     baseline as the comparison anchor, and the findings page as the
-     surface that organizes both classes. Solid = built; dashed = planned;
-     yellow = open decision.
-     2026-07-20 (later same day): justification-and-description prose
-     added below the diagram (Eric's text). The prose carries the
-     relationships in text for readers and machine readers who cannot
-     see the diagram's arrows — the pairing planned in
-     COEQWAL_Discoverability_Strategy.md §3. A public rendering must
-     strip the internal status (build counts, open decisions,
-     provisional page title).
-     2026-07-20 (third pass): proposed project-background / scenario-library
-     reference briefs added as an open-decision box in the reference band
-     (per Eric + Claude review of dev.coeqwal.org searchable content; open
-     item recorded in COEQWAL_Briefs_Concept.md). Reference band extended;
-     band-to-findings arrow moved accordingly.
-     2026-07-20 (fourth pass): Eric — no team decision required; both
-     briefs drafted as v0_1 prototypes (project_background_brief_...,
-     scenario_library_brief_...). Box restyled from open-decision to
-     built prototype; open-items footer trimmed.
-     2026-07-23 (fifth pass): mirrors the findings-page tenth-pass change.
-     The baseline narrative "Understanding today's water system" is split out
-     of the results-band theme-narratives group into its own reference-band
-     box as baseline background reading (per Eric) — it stays a hybrid (§6
-     reports findings), so the placement is provisional pending the §6 verb
-     policy, flagged amber. Theme-narratives box dropped 5 → 4. Build counts
-     brought current: strategy briefs 24 built (v0.1, 2026-07-22), hydroclimate
-     brief built (v0.1, one brief / 5 sections). The two-class prose below is
-     Eric's framing text and was left unchanged. */
+  /* Internal reference diagram. How the brief classes and kinds relate: the
+     scenario library in the middle, reference briefs describing its pieces,
+     results briefs reporting its outputs, the baseline as the comparison
+     anchor, and the brief library page as the surface that carries both
+     classes.
+
+     Filename keeps its 2026-07-20 date because the published URL and the
+     build_review.py staging entry both use it. Revision history is in the
+     meta line and the footer.
+
+     2026-07-20 → 2026-07-23: original four revisions. Class split (results
+     vs. reference) per the decisions of 2026-07-19; baseline narrative moved
+     to the reference band 2026-07-23.
+
+     2026-08-07 (sixth pass): REBUILT rather than amended. Every status label
+     in the 2026-07-23 version had gone stale, and three of its boxes named
+     things that no longer exist under those names. What changed:
+       - The results band is now four named kinds emitted by one generator,
+         not five hand-maintained implementations. The generator frame is the
+         load-bearing new element: it is what makes a decision apply once.
+       - "Location (LOI) briefs" → "Place results". LOI stays the internal
+         key; place is the public label (decided 2026-08-04c).
+       - "Scenario-results briefs", carried as an open decision over three
+         candidate units, is closed: 23 strategy results briefs, one per
+         strategy, all five hydroclimates on each page.
+       - "Sector briefs · 9 sectors · to come" → 9 built.
+       - "Tier-calculation briefs · 9 planned, none built" → 9 built
+         2026-08-07 as tier framework briefs, and blocked on authorship.
+       - Theme narratives are drawn outside the generator frame, because they
+         are hand-authored and the four kinds are not. That boundary was not
+         visible before and it is now the most useful thing on the diagram.
+       - The findings page is named the brief library page, which is what the
+         2026-08-02 tracker decision made it.
+     Legend colours are unchanged. Solid = built; dashed = not built; amber =
+     blocked or open; thick gold = the comparison anchor. */
   body {
     margin: 0; padding: 32px 16px 48px;
     background: #ece4d0;
@@ -49,7 +53,7 @@
     font-weight: 700; color: #3a6aa0; margin-bottom: 6px;
   }
   h1 { font-family: "Source Serif 4", Georgia, serif; font-weight: 400; font-size: 26px; margin: 0 0 4px; }
-  .meta { font-family: ui-monospace, monospace; font-size: 11.5px; color: #4a5566; margin-bottom: 20px; }
+  .meta { font-family: ui-monospace, monospace; font-size: 11.5px; color: #4a5566; margin-bottom: 20px; text-align: center; }
   svg { max-width: 100%; height: auto; }
   .prose {
     max-width: 660px; margin-top: 44px; padding-top: 28px;
@@ -65,15 +69,19 @@
   }
   .prose ol { padding-left: 1.4em; margin: 10px 0 18px; }
   .prose li { margin-bottom: 8px; }
+  .prose .update {
+    border-left: 3px solid #9a7a1c; padding: 6px 0 6px 12px;
+    background: #f7f0d8; font-size: 13.5px; margin: 18px 0;
+  }
   @media print { body { background: #fff; } .prose { border-top-color: #999; } }
 </style>
 </head>
 <body>
-  <div class="eyebrow">COEQWAL · Internal</div>
+  <div class="eyebrow">COEQWAL &middot; Internal</div>
   <h1>How the briefs relate</h1>
-  <div class="meta">2026-07-20, rev. 2026-07-23 · reflects the 2026-07-19 class split (results vs. reference) and open decisions · not for publication</div>
+  <div class="meta">rev. 2026-08-07 &middot; rebuilt from the 2026-07-23 version, whose status labels had all gone stale &middot; not for publication</div>
 
-<svg viewBox="0 0 980 852" width="980" xmlns="http://www.w3.org/2000/svg" font-family="'Source Sans 3', -apple-system, sans-serif">
+<svg viewBox="0 0 1000 992" width="1000" xmlns="http://www.w3.org/2000/svg" font-family="'Source Sans 3', -apple-system, sans-serif">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#3a6aa0"/>
@@ -84,118 +92,128 @@
   </defs>
 
   <!-- ============ Scenario library (top center) ============ -->
-  <rect x="255" y="24" width="470" height="92" rx="3" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.5"/>
-  <text x="490" y="52" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="20" fill="#1d3a5c">The scenario library</text>
-  <text x="490" y="76" text-anchor="middle" font-size="13.5" fill="#4a5566">24 strategies × 5 hydroclimates = 120 scenarios · 115 served</text>
-  <text x="490" y="98" text-anchor="middle" font-size="12" fill="#4a5566">each scenario is one CalSim 3 simulation</text>
+  <rect x="290" y="24" width="420" height="94" rx="3" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.5"/>
+  <text x="500" y="52" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="20" fill="#1d3a5c">The scenario library</text>
+  <text x="500" y="76" text-anchor="middle" font-size="13.5" fill="#4a5566">24 strategies &#215; 5 hydroclimates = 120 scenarios &middot; 115 served</text>
+  <text x="500" y="98" text-anchor="middle" font-size="12" fill="#4a5566">each scenario is one CalSim 3 simulation</text>
 
   <!-- ============ Flow arrows library <-> bands ============ -->
-  <line x1="250" y1="182" x2="322" y2="122" stroke="#3a6aa0" stroke-width="1.6" marker-end="url(#arrow)"/>
-  <text x="212" y="150" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">describe its</text>
-  <text x="212" y="165" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">pieces</text>
+  <line x1="286" y1="184" x2="352" y2="124" stroke="#3a6aa0" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="244" y="150" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">describe its</text>
+  <text x="244" y="165" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">pieces</text>
 
-  <line x1="660" y1="122" x2="732" y2="182" stroke="#3a6aa0" stroke-width="1.6" marker-end="url(#arrow)"/>
-  <text x="768" y="150" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">its outputs are</text>
-  <text x="768" y="165" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">reported by</text>
+  <line x1="648" y1="124" x2="714" y2="184" stroke="#3a6aa0" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="756" y="150" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">its outputs are</text>
+  <text x="756" y="165" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">reported by</text>
 
-  <!-- ============ Reference band (left) ============ -->
-  <rect x="36" y="190" width="424" height="470" rx="3" fill="#efe7d3" stroke="#4a78ad" stroke-width="1.2"/>
-  <text x="58" y="216" font-size="12.5" font-weight="700" letter-spacing="2.5" fill="#1d3a5c">REFERENCE BRIEFS</text>
-  <text x="58" y="234" font-size="12" fill="#4a5566">describe the COEQWAL process · contain no results</text>
+  <!-- ================= Reference band (left) ================= -->
+  <rect x="30" y="190" width="420" height="530" rx="3" fill="#efe7d3" stroke="#4a78ad" stroke-width="1.2"/>
+  <text x="52" y="216" font-size="12.5" font-weight="700" letter-spacing="2.5" fill="#1d3a5c">REFERENCE BRIEFS</text>
+  <text x="52" y="234" font-size="12" fill="#4a5566">describe the COEQWAL process &middot; report no results</text>
 
-  <!-- strategy reference -->
-  <rect x="58" y="248" width="380" height="70" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
-  <text x="74" y="271" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Strategy briefs</text>
-  <text x="74" y="290" font-size="12" fill="#4a5566">what one strategy changes about operations</text>
-  <text x="74" y="307" font-size="11.5" fill="#4a5566">24 built (v0.1) · Functional env flows v0.4 worked example</text>
+  <!-- strategy reference briefs -->
+  <rect x="52" y="252" width="376" height="74" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
+  <text x="68" y="275" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Strategy briefs <tspan font-size="13" fill="#4a5566">(24)</tspan></text>
+  <text x="68" y="294" font-size="12" fill="#4a5566">what one strategy changes about operations</text>
+  <text x="68" y="312" font-size="11.5" fill="#4a5566">24 drafted (v0_1) &middot; paired one-to-one with strategy results</text>
 
-  <!-- hydroclimate reference (built 2026-07-20) -->
-  <rect x="58" y="326" width="380" height="70" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
-  <text x="74" y="349" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Hydroclimate brief</text>
-  <text x="74" y="368" font-size="12" fill="#4a5566">what each climate assumes; how the hydrology was derived</text>
-  <text x="74" y="385" font-size="11.5" fill="#4a5566">1 brief, 5 anchored sections · v0.1 built 2026-07-20</text>
+  <!-- hydroclimates reference brief -->
+  <rect x="52" y="340" width="376" height="74" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
+  <text x="68" y="363" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Hydroclimates brief <tspan font-size="13" fill="#4a5566">(1)</tspan></text>
+  <text x="68" y="382" font-size="12" fill="#4a5566">what each climate assumes; how the hydrology was derived</text>
+  <text x="68" y="400" font-size="11.5" fill="#4a5566">one brief, five anchored sections &middot; v0_1</text>
 
-  <!-- tier calc reference -->
-  <rect x="58" y="404" width="380" height="70" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2" stroke-dasharray="5 4"/>
-  <text x="74" y="427" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Tier-calculation briefs</text>
-  <text x="74" y="446" font-size="12" fill="#4a5566">how a sector's indicator maps onto the tier scale</text>
-  <text x="74" y="463" font-size="12" fill="#4a5566">9 planned, one per sector · none built</text>
+  <!-- tier framework briefs — BLOCKED -->
+  <rect x="52" y="428" width="376" height="92" rx="2" fill="#fdf3c8" stroke="#9a7a1c" stroke-width="1.8"/>
+  <text x="68" y="451" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#6a5418">Tier framework briefs <tspan font-size="13">(9)</tspan></text>
+  <text x="68" y="470" font-size="12" fill="#6a5418">how each sector&rsquo;s indicator maps onto the tier scale</text>
+  <text x="68" y="488" font-size="12" font-weight="700" fill="#6a5418">9 built 2026-08-07 &middot; BLOCKED on authorship</text>
+  <text x="68" y="506" font-size="11.5" fill="#6a5418">with project leadership &middot; audit: 51 items, 16 substantive</text>
 
-  <!-- project background / library reference (drafted 2026-07-20) -->
-  <rect x="58" y="482" width="380" height="70" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
-  <text x="74" y="505" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Project background &amp; library briefs</text>
-  <text x="74" y="524" font-size="12" fill="#4a5566">what COEQWAL is; how the scenario library is built</text>
-  <text x="74" y="541" font-size="12" fill="#4a5566">2 drafted 2026-07-20 (v0.1) · team review pending</text>
+  <!-- project background / scenario library -->
+  <rect x="52" y="534" width="376" height="74" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
+  <text x="68" y="557" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Project background &amp; scenario library <tspan font-size="13" fill="#4a5566">(2)</tspan></text>
+  <text x="68" y="576" font-size="12" fill="#4a5566">what COEQWAL is; how the scenario library is built</text>
+  <text x="68" y="594" font-size="11.5" fill="#4a5566">2 drafted (v0_1) &middot; both staged and published today</text>
 
-  <!-- baseline background narrative (moved from results 2026-07-23) -->
-  <rect x="58" y="560" width="380" height="76" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
-  <text x="74" y="583" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Baseline background narrative</text>
-  <text x="74" y="602" font-size="12" fill="#4a5566">“Understanding today's water system” · v0.2 built</text>
-  <text x="74" y="620" font-size="11.5" fill="#9a7a1c">moved from results 2026-07-23 · hybrid §6, placement provisional</text>
+  <!-- baseline background narrative -->
+  <rect x="52" y="622" width="376" height="78" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
+  <text x="68" y="645" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Baseline background narrative <tspan font-size="13" fill="#4a5566">(1)</tspan></text>
+  <text x="68" y="664" font-size="12" fill="#4a5566">&ldquo;Understanding today&rsquo;s water system&rdquo; &middot; v0_2</text>
+  <text x="68" y="683" font-size="11.5" fill="#9a7a1c">hybrid &sect;6 reports findings &middot; placement still provisional</text>
 
-  <!-- ============ Results band (right) ============ -->
-  <rect x="520" y="190" width="424" height="492" rx="3" fill="#efe7d3" stroke="#4a78ad" stroke-width="1.2"/>
-  <text x="542" y="220" font-size="12.5" font-weight="700" letter-spacing="2.5" fill="#1d3a5c">RESULTS BRIEFS</text>
-  <text x="542" y="240" font-size="12" fill="#4a5566">report modeled tier results</text>
+  <!-- ================= Results band (right) ================= -->
+  <rect x="550" y="190" width="420" height="530" rx="3" fill="#efe7d3" stroke="#4a78ad" stroke-width="1.2"/>
+  <text x="572" y="216" font-size="12.5" font-weight="700" letter-spacing="2.5" fill="#1d3a5c">RESULTS BRIEFS</text>
+  <text x="572" y="234" font-size="12" fill="#4a5566">report modeled tier results</text>
 
-  <!-- baseline -->
-  <rect x="542" y="258" width="380" height="82" rx="2" fill="#f5efde" stroke="#c89a3a" stroke-width="2.4"/>
-  <text x="558" y="282" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Baseline brief</text>
-  <text x="558" y="302" font-size="12" fill="#4a5566">current operations under all 5 hydroclimates, 9 areas</text>
-  <text x="558" y="320" font-size="11.5" fill="#4a5566">built (real data) · the anchor for every other result</text>
+  <!-- ---- the one-generator frame ---- -->
+  <rect x="566" y="250" width="390" height="380" rx="3" fill="#e6ecf4" stroke="#1d3a5c" stroke-width="1.6"/>
+  <text x="580" y="270" font-size="11.5" font-weight="700" letter-spacing="1.6" fill="#1d3a5c">ONE GENERATOR &middot; BUILD gen3d, 2026-08-06</text>
+  <text x="580" y="286" font-size="11" fill="#4a5566">39 briefs &middot; one data schema &middot; verifier 14,534 of 14,534, 0 findings</text>
 
-  <!-- anchor spine (in the gutter left of the results band so the label stays clear) -->
-  <line x1="542" y1="299" x2="504" y2="299" stroke="#c89a3a" stroke-width="1.6"/>
-  <line x1="504" y1="299" x2="504" y2="640" stroke="#c89a3a" stroke-width="1.6"/>
-  <line x1="504" y1="382" x2="544" y2="382" stroke="#c89a3a" stroke-width="1.6" marker-end="url(#arrowgold)"/>
-  <line x1="504" y1="478" x2="544" y2="478" stroke="#c89a3a" stroke-width="1.6" marker-end="url(#arrowgold)"/>
-  <line x1="504" y1="562" x2="544" y2="562" stroke="#c89a3a" stroke-width="1.6" marker-end="url(#arrowgold)"/>
-  <line x1="504" y1="640" x2="544" y2="640" stroke="#c89a3a" stroke-width="1.6" marker-end="url(#arrowgold)"/>
-  <text x="494" y="560" font-size="11" font-style="italic" fill="#9a7a1c" transform="rotate(-90 494 560)">compared to the baseline, HC-matched</text>
+  <!-- baseline results (the anchor) -->
+  <rect x="592" y="298" width="350" height="72" rx="2" fill="#f5efde" stroke="#c89a3a" stroke-width="2.4"/>
+  <text x="608" y="321" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Baseline results <tspan font-size="13" fill="#4a5566">(1)</tspan></text>
+  <text x="608" y="340" font-size="12" fill="#4a5566">current operations under all 5 hydroclimates, 9 areas</text>
+  <text x="608" y="358" font-size="11.5" fill="#4a5566">the anchor for every other result</text>
 
-  <!-- theme narratives -->
-  <rect x="548" y="352" width="374" height="76" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
-  <text x="564" y="374" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Theme narratives (4)</text>
-  <text x="564" y="393" font-size="12" fill="#4a5566">the 4 water themes · v0.2 built (baseline narrative → reference)</text>
-  <text x="564" y="411" font-size="11.5" fill="#9a7a1c">hybrid: §§1–5 descriptive, §6 reports findings (open §6 verb policy)</text>
+  <!-- anchor spine -->
+  <line x1="592" y1="334" x2="578" y2="334" stroke="#c89a3a" stroke-width="1.6"/>
+  <line x1="578" y1="334" x2="578" y2="580" stroke="#c89a3a" stroke-width="1.6"/>
+  <line x1="578" y1="412" x2="590" y2="412" stroke="#c89a3a" stroke-width="1.6" marker-end="url(#arrowgold)"/>
+  <line x1="578" y1="496" x2="590" y2="496" stroke="#c89a3a" stroke-width="1.6" marker-end="url(#arrowgold)"/>
+  <line x1="578" y1="580" x2="590" y2="580" stroke="#c89a3a" stroke-width="1.6" marker-end="url(#arrowgold)"/>
 
-  <!-- location briefs -->
-  <rect x="548" y="440" width="374" height="76" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
-  <text x="564" y="462" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Location (LOI) briefs</text>
-  <text x="564" y="481" font-size="12" fill="#4a5566">one place each · 8 built: 3 reservoirs (real data),</text>
-  <text x="564" y="497" font-size="12" fill="#4a5566">3 river reaches, 1 city, 1 groundwater basin</text>
+  <!-- strategy results -->
+  <rect x="592" y="382" width="350" height="72" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
+  <text x="608" y="405" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Strategy results <tspan font-size="13" fill="#4a5566">(23)</tspan></text>
+  <text x="608" y="424" font-size="12" fill="#4a5566">one strategy across all five hydroclimates</text>
+  <text x="608" y="442" font-size="11.5" fill="#4a5566">23 of 24 &middot; strategy 4.2 absent from the snapshot</text>
 
-  <!-- sector briefs -->
-  <rect x="548" y="528" width="374" height="64" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2" stroke-dasharray="5 4"/>
-  <text x="564" y="550" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Sector briefs</text>
-  <text x="564" y="569" font-size="12" fill="#4a5566">results for one system area · 9 sectors · to come</text>
+  <!-- place results -->
+  <rect x="592" y="466" width="350" height="72" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
+  <text x="608" y="489" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Place results <tspan font-size="13" fill="#4a5566">(6)</tspan></text>
+  <text x="608" y="508" font-size="12" fill="#4a5566">3 reservoirs, 2 river reaches, 1 groundwater location</text>
+  <text x="608" y="526" font-size="11.5" fill="#4a5566">LOI is the internal key; <tspan font-style="italic">place</tspan> is the public label</text>
 
-  <!-- scenario results briefs -->
-  <rect x="548" y="604" width="374" height="70" rx="2" fill="#fdf3c8" stroke="#9a7a1c" stroke-width="1.2" stroke-dasharray="5 4"/>
-  <text x="564" y="626" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#6a5418">Scenario-results briefs</text>
-  <text x="564" y="645" font-size="12" fill="#6a5418">open decision: 24 row briefs (strategy × all hydroclimates),</text>
-  <text x="564" y="661" font-size="12" fill="#6a5418">115 cell briefs (one per scenario), or row-with-anchors hybrid</text>
+  <!-- sector results -->
+  <rect x="592" y="550" width="350" height="72" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
+  <text x="608" y="573" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Sector results <tspan font-size="13" fill="#4a5566">(9)</tspan></text>
+  <text x="608" y="592" font-size="12" fill="#4a5566">one sector across the whole strategy library</text>
+  <text x="608" y="610" font-size="11.5" fill="#4a5566">8 of the 9 are new since the previous revision</text>
 
-  <!-- ============ Findings page (bottom) ============ -->
-  <line x1="248" y1="660" x2="360" y2="716" stroke="#3a6aa0" stroke-width="1.6" marker-end="url(#arrow)"/>
-  <line x1="732" y1="682" x2="620" y2="716" stroke="#3a6aa0" stroke-width="1.6" marker-end="url(#arrow)"/>
-  <text x="490" y="704" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">both classes presented in labeled bands</text>
+  <!-- theme narratives, deliberately OUTSIDE the generator frame -->
+  <rect x="566" y="644" width="390" height="66" rx="2" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
+  <text x="582" y="666" font-family="'Source Serif 4', Georgia, serif" font-size="15.5" fill="#1d3a5c">Theme narratives <tspan font-size="13" fill="#4a5566">(4)</tspan></text>
+  <text x="582" y="684" font-size="12" fill="#4a5566">the four water themes &middot; v0_2 &middot; <tspan font-weight="700">hand-authored, not generated</tspan></text>
+  <text x="582" y="701" font-size="11.5" fill="#9a7a1c">hybrid: &sect;&sect;1&ndash;5 descriptive, &sect;6 reports findings</text>
 
-  <rect x="255" y="720" width="470" height="76" rx="3" fill="#1d3460" stroke="#4a78ad" stroke-width="1.5"/>
-  <text x="490" y="748" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="18" fill="#fcfbfa">The findings page (mock-up v0.10)</text>
-  <text x="490" y="770" text-anchor="middle" font-size="12" fill="#fcfbfa" opacity="0.85">provisional public title: "COEQWAL Summaries" — name under discussion</text>
+  <!-- ============ Brief library page (bottom) ============ -->
+  <line x1="240" y1="722" x2="356" y2="784" stroke="#3a6aa0" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="760" y1="722" x2="644" y2="784" stroke="#3a6aa0" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="500" y="770" text-anchor="middle" font-size="11.5" font-style="italic" fill="#3a6aa0">both classes presented in labelled divisions</text>
+
+  <rect x="290" y="790" width="420" height="86" rx="3" fill="#1d3460" stroke="#4a78ad" stroke-width="1.5"/>
+  <text x="500" y="818" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="18" fill="#fcfbfa">The brief library page</text>
+  <text x="500" y="840" text-anchor="middle" font-size="11.5" fill="#fcfbfa" opacity="0.88">carries brief status, per the 2026-08-02 tracker decision</text>
+  <text x="500" y="860" text-anchor="middle" font-size="11.5" fill="#fcfbfa" opacity="0.88">18 briefs staged 2026-08-07, labelled In review</text>
 
   <!-- ============ Legend ============ -->
-  <rect x="36" y="736" width="16" height="12" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
-  <text x="60" y="746" font-size="11.5" fill="#4a5566">built prototype</text>
-  <rect x="36" y="758" width="16" height="12" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2" stroke-dasharray="4 3"/>
-  <text x="60" y="768" font-size="11.5" fill="#4a5566">planned, none built</text>
-  <rect x="36" y="780" width="16" height="12" fill="#fdf3c8" stroke="#9a7a1c" stroke-width="1.2" stroke-dasharray="4 3"/>
-  <text x="60" y="790" font-size="11.5" fill="#4a5566">open team decision</text>
-  <rect x="36" y="802" width="16" height="12" fill="#f5efde" stroke="#c89a3a" stroke-width="2.2"/>
-  <text x="60" y="812" font-size="11.5" fill="#4a5566">baseline: the comparison anchor</text>
+  <rect x="30" y="796" width="16" height="12" fill="#f5efde" stroke="#1d3a5c" stroke-width="1.2"/>
+  <text x="54" y="806" font-size="11.5" fill="#4a5566">built</text>
+  <rect x="30" y="818" width="16" height="12" fill="#e6ecf4" stroke="#1d3a5c" stroke-width="1.6"/>
+  <text x="54" y="828" font-size="11.5" fill="#4a5566">emitted by the one generator</text>
+  <rect x="30" y="840" width="16" height="12" fill="#fdf3c8" stroke="#9a7a1c" stroke-width="1.6"/>
+  <text x="54" y="850" font-size="11.5" fill="#4a5566">blocked, or an open decision</text>
+  <rect x="30" y="862" width="16" height="12" fill="#f5efde" stroke="#c89a3a" stroke-width="2.2"/>
+  <text x="54" y="870" font-size="11.5" fill="#4a5566">the comparison anchor;</text>
+  <text x="54" y="884" font-size="11.5" fill="#4a5566">gold arrows: compared with it</text>
 
-  <text x="944" y="836" text-anchor="end" font-size="10.5" fill="#4a5566" font-family="ui-monospace, monospace">internal · 2026-07-20, rev. 2026-07-23 · classes per decisions 2026-07-19 · open items: §6 verbs, run-ID display, scenario-brief unit, page name</text>
+  <text x="500" y="920" text-anchor="middle" font-size="11.5" fill="#4a5566">Nothing on this diagram is published. The 39 generated briefs are in reading review, round 1.</text>
+  <text x="500" y="938" text-anchor="middle" font-size="11.5" fill="#4a5566">Launch 2026-09-03. The results-brief path holds; the tier framework path has no schedule until authorship closes.</text>
+
+  <text x="970" y="976" text-anchor="end" font-size="10.5" fill="#4a5566" font-family="ui-monospace, monospace">internal &middot; rev. 2026-08-07 &middot; counts re-derived by COEQWAL_brief_status_2026-08-07_counts.py</text>
 </svg>
 
 <div class="prose">
@@ -231,12 +249,23 @@
 
   <ol>
     <li>Results briefs: report modeled tier outcomes (tiers only; briefs do not
-    report the in-depth data). These include the baselines brief, theme briefs,
-    LOI briefs, sector briefs.</li>
+    report the in-depth data). These include baseline results, strategy results,
+    place results, and sector results.</li>
     <li>Reference briefs: describe the components of the COEQWAL process without
-    reporting results. These include strategy briefs, hydroclimate briefs,
-    tier-calculation references.</li>
+    reporting results. These include strategy briefs, the hydroclimates brief,
+    and the tier framework briefs.</li>
   </ol>
+
+  <p class="update"><em>Update (2026-08-07): the two lists above carry the names
+  settled by ruling 19 on 2026-08-04. Three terms changed and the substance did
+  not. &ldquo;The baselines brief&rdquo; is now baseline results.
+  &ldquo;LOI briefs&rdquo; are place results, LOI remaining the internal key.
+  &ldquo;Tier-calculation references&rdquo; are tier framework briefs. Theme
+  narratives are dropped from the results list because they are hand-authored
+  and the four results kinds are generated, a distinction the diagram now draws
+  explicitly; their classification is still provisional and turns on the open
+  section-6 verb policy. Everything else in this section is Eric&rsquo;s text of
+  2026-07-20, unaltered.</em></p>
 </div>
 
 </body>

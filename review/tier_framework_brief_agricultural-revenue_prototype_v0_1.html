@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>How agricultural revenue is measured and tiered &mdash; tier framework brief (prototype v0_1)</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #555;
+    --rule: #ccc;
+    --accent: #1f4e79;
+    --bg: #fdfdfc;
+  }
+  html { font-size: 17px; }
+  body {
+    margin: 0;
+    padding: 3rem 1.5rem 5rem;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.55;
+  }
+  main { max-width: 960px; margin: 0 auto; }
+  h1, h2, h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  h1 { font-size: 1.7rem; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.25rem; margin: 2.2rem 0 0.6rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; }
+  header.doc p.provenance {
+    font-style: italic;
+    color: var(--muted);
+    margin: 0.15rem 0;
+    font-size: 0.95rem;
+  }
+  header.doc { border-bottom: 2px solid var(--accent); padding-bottom: 0.9rem; margin-bottom: 1.6rem; }
+  .classtag {
+    display: inline-block;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 0.1rem 0.45rem;
+    margin-bottom: 0.5rem;
+  }
+  .devnote {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: #f4f3f0;
+    border: 1px dashed #b9b6ae;
+    border-radius: 4px;
+    padding: 0.7rem 0.9rem;
+    margin: 1.2rem 0;
+  }
+  .devnote strong { color: #7a4a12; }
+  .devnote ol, .devnote ul { margin: 0.5rem 0 0.2rem; padding-left: 1.2rem; }
+  .devnote li { margin-bottom: 0.4rem; }
+  .devnote table { font-size: 0.85rem; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  th, td { border: 1px solid var(--rule); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: #f0efec; font-weight: 600; }
+  td.num, th.num { text-align: center; }
+  code, pre {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: #f2f1ee;
+    border-radius: 3px;
+  }
+  code { padding: 0.05rem 0.3rem; }
+  pre { padding: 0.7rem 0.9rem; overflow-x: auto; line-height: 1.4; }
+  p.stock {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.8rem;
+    color: var(--ink);
+  }
+  .refnote { font-size: 0.9rem; color: var(--muted); }
+  figure { margin: 1.4rem 0; }
+  figcaption {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    line-height: 1.45;
+  }
+  .figslot {
+    border: 1px dashed #9aa5ad;
+    background: #f2f5f7;
+    border-radius: 4px;
+    padding: 2.2rem 1rem;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    color: #4a5b68;
+  }
+  .figslot strong { display: block; font-size: 0.95rem; margin-bottom: 0.3rem; color: #2b3b47; }
+  a { color: var(--accent); }
+  @media print {
+    body { padding: 0; background: #fff; font-size: 11pt; }
+    a { color: inherit; text-decoration: none; }
+    h2 { break-after: avoid; }
+    table, pre, figure { break-inside: avoid; }
+    .devnote { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="doc">
+    <div class="classtag">Tier framework brief</div>
+    <h1>How agricultural revenue is measured and tiered</h1>
+    <p class="provenance">A technical reference brief describing the agricultural revenue indicator:
+    what it measures, where it is measured, how it is computed from CalSim&nbsp;3 output, and how
+    its values map onto the COEQWAL tier scale. This brief describes a measurement method; it
+    reports no modeled tier results.</p>
+    <p class="provenance">Prototype v0_1 &middot; Drafted 2026-08-07</p>
+  </header>
+  <div class="devnote">
+    <strong>Dev note &mdash; vocabulary conversion, shown so it can be edited back.</strong>
+    The source draft uses <em>key outcome level</em> and <em>Level&nbsp;1&ndash;4</em>. This brief
+    uses the project's public vocabulary throughout. The conversion is one-to-one and mechanical:
+    <em>key outcome level</em> &rarr; <em>tier</em>; <em>Level&nbsp;N</em> &rarr;
+    <em>Tier&nbsp;N</em>, with the labels Optimal, Acceptable, At-risk, Critical; <em>key
+    outcome</em> (the thing measured) &rarr; <em>sector</em> or <em>indicator</em>. Two notes in
+    support: the production code already calls these values tiers, and
+    <code>coeqwal_conventions.md</code> dispreferences "outcome" as an umbrella noun in new
+    writing. Reverting is a find-and-replace if the team decides otherwise.
+  </div>
+
+  <h2 id="what-this-is">What this is</h2>
+  <p>COEQWAL reports results for nine sectors of the California water system on a single
+  four-level scale: Tier&nbsp;1 (optimal), Tier&nbsp;2 (acceptable), Tier&nbsp;3 (at-risk),
+  Tier&nbsp;4 (critical). Lower tier numbers describe conditions closer to the Tier&nbsp;1 end
+  of each sector's scale. The nine sectors are measured in units that have nothing to do with
+  one another &mdash; revenue, delivery reliability, river flow against an ecological target,
+  salinity, storage, fish abundance &mdash; and the tier scale exists so that any of them can be
+  held beside any other, and so that each can be compared with itself across scenarios.</p>
+  <p>A tier is a COEQWAL construction. Nothing in CalSim&nbsp;3 produces one. Each sector has its
+  own indicator, computed from model output by the project's subject-area experts for that
+  sector, and its own rule for turning indicator values into tiers. The four tier labels are
+  common to all nine sectors; the thresholds behind them are not, and are calibrated within each
+  sector rather than across them. This brief documents the indicator and the thresholds for one
+  sector: agricultural revenue. There is a companion brief for each of the other eight.</p>
+  <p>This brief describes the measurement. It reports no results. Modeled tier values for
+  agricultural revenue are reported in the results briefs.</p>
+
+
+  <h2 id="what-it-measures">What the indicator measures</h2>
+  <p>The Central Valley produces more than 300 agricultural commodities across over 6.5&nbsp;million
+  acres. Farms there draw on surface water delivered through reservoirs, canals, and conveyance
+  operated by local, state, and federal agencies, and on groundwater, which in many areas
+  supplements surface supply and in some areas is the only source. How much water arrives, and how
+  reliably, is one determinant of what can be grown and what it is worth &mdash; alongside crop mix,
+  soils, climate, and the decisions growers make.</p>
+  <p>The indicator is the <strong>percentage change in average annual agricultural revenue</strong>
+  in a modeled scenario relative to conditions today. Revenue rather than water volume is measured
+  because the same shortage has very different consequences depending on what is grown and on how
+  readily a grower can adapt: fallowing low-value acreage and losing a permanent orchard are not
+  comparable in acre-feet, and are comparable in dollars.</p>
+  <p>Like winter-run salmon, this indicator is not computed from CalSim&nbsp;3 output directly.
+  CalSim&nbsp;3 deliveries are converted into a measure of water shortage, and that shortage is fed
+  to a separate agricultural production model, which estimates revenue. The tier is assigned from
+  that model's output.</p>
+
+  <h2 id="where">Where it is measured</h2>
+  <p>The indicator is computed for <strong>134 locations</strong>, the agricultural demand units
+  CalSim&nbsp;3 uses to represent water demand: 73 in the Sacramento basin, 58 in the San Joaquin,
+  and 3 in the Tulare basin. Each is a district or grouping of districts with its own supply
+  portfolio, and each is identified in the source documentation with the water agencies it
+  represents, its basin, and whether it holds surface water supplies, groundwater, or both.</p>
+  <p>Locations south of the San Joaquin hydrologic region &mdash; many Tulare basin users, and
+  agencies in Southern California such as the Metropolitan Water District &mdash; are represented in
+  CalSim&nbsp;3 only as surface water diversion nodes. Their groundwater pumping and the rest of
+  their supply portfolios are not modeled, so they cannot be evaluated the way a full demand unit
+  can, and they are excluded from this sector.</p>
+  <p>Crop acreage for each location comes from the 2020 Statewide Crop Dataset developed by
+  LandIQ.</p>
+  <figure>
+    <div class="figslot"><strong>Figure slot &mdash; map of the 134 agricultural demand units</strong>
+    Central Valley basemap with demand unit boundaries, irrigated acreage shaded within each. To be
+    regenerated in the common map style.</div>
+  </figure>
+
+  <h2 id="reference">What it is measured against</h2>
+  <p>Two reference points are involved, at two different stages, and keeping them apart matters for
+  reading the result.</p>
+  <p><strong>For shortage</strong>, the reference is each location's own delivery history within the
+  model. Full surface supply for a non-drought year is defined as the <strong>75th percentile</strong>
+  of that location's modeled surface deliveries; normal groundwater use is defined as the
+  <strong>median</strong> of its pumping. The 75th percentile is used rather than the maximum, since
+  the maximum reflects exceptionally wet years and would overstate what is typically available.</p>
+  <p><strong>For revenue</strong>, the reference is conditions today: the tier is a percentage change
+  against present-day agricultural revenue at that location, so a scenario is being compared with
+  what the location currently earns rather than with any target or optimum.</p>
+  <p>For scenarios other than the baseline, expected deliveries are computed from the baseline
+  scenario (current operations under the historical hydroclimate) as surface deliveries plus
+  shortages in each year &mdash; the deliveries that would have occurred with no shortage. Alternative
+  scenarios are then measured against that expected level.</p>
+
+  <h2 id="computed">How the indicator is computed</h2>
+  <p>The chain runs from modeled deliveries to a shortage percentage to revenue.</p>
+
+  <h3>Step 1 &mdash; annual deliveries</h3>
+  <p>CalSim&nbsp;3 provides monthly surface and groundwater deliveries for each location. These are
+  summed to annual totals, which is the resolution the production model requires.</p>
+
+  <h3>Step 2 &mdash; identify shortage</h3>
+  <p>CalSim&nbsp;3 does not itself report unmet agricultural demand. It assumes demands are met even
+  in dry years, by increasing groundwater pumping when surface deliveries fall &mdash; so within the
+  model, shortage never appears. Reconstructing it requires inferring it from the substitution.</p>
+  <p>A year is classified as a shortage year when <em>both</em> conditions hold: surface deliveries
+  fall below the 75th-percentile benchmark, <em>and</em> groundwater pumping exceeds its median. The
+  second condition is what separates a real shortage from a wet year in which demand was simply lower
+  &mdash; deliveries can fall without any pumping increase, and that is a reduction in demand rather
+  than a shortfall in supply.</p>
+  <p>The shortage is then expressed as a share of total demand:</p>
+  <pre>shortage (%) = &Delta;SW / D  =  &Delta;SW / (SW + GW)</pre>
+  <p>where &Delta;SW is the reduction in surface supply relative to the benchmark, SW and GW are
+  surface and groundwater supply, and D is total demand, taken as the sum of the two. Dividing by
+  total supply rather than by surface supply is what makes the measure sensitive to portfolio
+  composition: the same cut in surface deliveries is a large shortage for a location that depends on
+  surface water and a small one for a location that mostly pumps.</p>
+  <p>Scenarios with groundwater pumping restrictions are handled differently, because those
+  restrictions are already built into the CalSim&nbsp;3 operations and generate shortage directly.
+  For those, total shortage is the sum of shortage from reduced surface deliveries and shortage from
+  the pumping restriction, capped so that it cannot exceed what pumping would have been without the
+  restriction &mdash; which prevents the same groundwater from being counted twice.</p>
+
+  <h3>Step 3 &mdash; estimate revenue</h3>
+  <p>The annual shortage percentages are inputs to OpenAg, an agricultural production model built on
+  positive mathematical programming. Given land use, production costs, prices, yields, and applied
+  water, it finds the profit-maximizing crop pattern under the water available. Each location is
+  modeled as an independent subregion, so crop mix and revenue are estimated as a function of that
+  location's water availability, year by year. Averaging across the 100 years gives the average
+  annual revenue that the tier is assigned from.</p>
+
+  <h2 id="mapping">How indicator values map onto the tier scale</h2>
+  <p>The tier is the band that the percentage change in average annual revenue falls in.</p>
+  <table>
+    <thead>
+      <tr><th style="width:20%">Tier</th><th>Change in average annual agricultural revenue, relative to today</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Tier 1</strong><br>Optimal</td><td>revenue increases</td></tr>
+      <tr><td><strong>Tier 2</strong><br>Acceptable</td><td>revenue declines by less than 5%</td></tr>
+      <tr><td><strong>Tier 3</strong><br>At-risk</td><td>revenue declines by 5% to 20%</td></tr>
+      <tr><td><strong>Tier 4</strong><br>Critical</td><td>revenue declines by more than 20%</td></tr>
+    </tbody>
+  </table>
+  <p>Note that the Tier&nbsp;1 and Tier&nbsp;2 boundary sits at zero change. A location whose revenue
+  is unchanged from today sits at the top of Tier&nbsp;2, not in Tier&nbsp;1: Tier&nbsp;1 in this
+  sector requires an increase, which is a stricter reading of "optimal" than in sectors where
+  Tier&nbsp;1 describes conditions at or above a reference.</p>
+
+  <h2 id="continuous">The continuous tier value</h2>
+  <p>Alongside the whole-number tier, COEQWAL reports a continuous value that carries more
+  resolution: 1.00&ndash;1.99 within Tier&nbsp;1, 2.00&ndash;2.99 within Tier&nbsp;2,
+  3.00&ndash;3.99 within Tier&nbsp;3, and 4.00&ndash;4.99 within Tier&nbsp;4. That banding is
+  common to all nine sectors. <strong>How the value inside the band is constructed is not.</strong>
+  Most sectors locate a scenario within its own tier's interval, so the whole-number part is the
+  discrete tier by construction; others summarize a distribution, or measure a ratio against a
+  reference, and carry no such guarantee. A continuous value should be read against the
+  construction described below, not against another sector's.</p>
+
+  <p>For agricultural revenue the continuous value is the <strong>linear position of the revenue
+  change between the two bounds of its tier</strong>, added to the tier number:</p>
+  <pre>continuous tier = tier + (x_upper &minus; x) / (x_upper &minus; x_lower)</pre>
+  <p>where <em>x</em> is the percentage change in revenue for that location and <em>x_upper</em> and
+  <em>x_lower</em> are the less severe and more severe bounds of the tier it falls in.</p>
+  <p>Worked from the source document: a location whose revenue declines 15% falls in Tier&nbsp;3,
+  which spans declines of 5% to 20%. It lies two thirds of the way from the less severe bound toward
+  the more severe one, so the continuous value is <strong>3.67</strong> &mdash; toward the more
+  severe end of the band.</p>
+  <p>Tier&nbsp;4 is unbounded below: revenue can decline by any amount. Values are capped at 4.99, so
+  locations with declines beyond the point that produces 4.99 are not distinguished from one another.
+  In the baseline scenario only a small number of locations reach that cap.</p>
+
+  <p class="refnote">Continuous values are not read below one decimal place. COEQWAL treats a
+  difference smaller than 0.1 as unstated: the project has not established whether such a
+  difference is meaningful, and the briefs are built not to speak about it.</p>
+
+  <h2 id="reading">How to read a agricultural revenue tier</h2>
+  <p>A tier value near 1 describes a location whose modeled average annual agricultural revenue is
+  higher than today's. Increasing values describe progressively larger declines, through less than
+  5% at Tier&nbsp;2, 5&ndash;20% at Tier&nbsp;3, and more than 20% at Tier&nbsp;4.</p>
+  <p>These are averages over 100 years, not the effect of any individual drought. The measure should
+  be read as a long-term indicator of economic drought impact rather than a statement about what
+  happens in a given year. Averaging is what lets a single number carry both how often shortages
+  occur and how severe they are, without needing separate indicators for each.</p>
+
+  <h3>What an agricultural revenue tier does not resolve</h3>
+  <p><strong>Actual unmet demand.</strong> The shortage this sector measures is a reduction in
+  surface deliveries relative to total supply, inferred from groundwater substitution. It is not a
+  record of demand that went unmet, and it is shaped strongly by supply portfolio. A location that
+  pumps nearly all its water shows little modeled shortage, because a cut in surface deliveries
+  barely moves its total &mdash; this was visible in the pre-SGMA period, where groundwater-dependent
+  locations registered limited drought impact within this framework. A surface-dependent location
+  with senior water rights may likewise show small shortages, because its deliveries were not cut
+  much.</p>
+  <p><strong>Any individual farm.</strong> Results are computed at the demand unit scale, which
+  aggregates many growers and areas into one operational unit. Local differences in groundwater
+  access, conveyance, and infrastructure are not resolved, and no result here describes a particular
+  farm or grower.</p>
+  <p><strong>Feedback between water operations and farm economics.</strong> The two models are
+  coupled in one direction only: CalSim&nbsp;3 output informs OpenAg, and nothing returns. Their
+  assumptions differ as a result &mdash; crop water demand varies year to year with weather in
+  CalSim&nbsp;3, while OpenAg holds agricultural demand assumptions fixed across the simulation.</p>
+  <p><strong>Decision-making under uncertainty.</strong> OpenAg optimizes with perfect foresight: it
+  makes cropping decisions knowing the entire 100-year sequence in advance. Real growers do not know
+  what the next year holds. The modeled economic results therefore represent a well-adapted case, and
+  outcomes under realistic uncertainty would be less favorable.</p>
+
+
+  <h2 id="not-say">What this doesn't say</h2>
+  <p class="stock">This brief reports modeled results from a specific ensemble. It does not
+  predict what will happen, evaluate whether those results are acceptable, or recommend any
+  course of action. The tier framework provides definitional categories; the meaning of those
+  categories for any individual reader, community, or decision is not specified by COEQWAL.</p>
+
+  <p>Specific to agricultural revenue: the tier boundaries at 0%, &minus;5%, and &minus;20% are
+  chosen categories of economic impact, not thresholds derived from any observed break in how farms
+  respond. The shortage definition rests on two percentile choices &mdash; the 75th for normal
+  surface supply and the median for normal pumping &mdash; and treats every increase in groundwater
+  pumping as evidence of shortage, which is a conservative reading, since some of that pumping may be
+  sustainable. Revenue is modeled, not observed, by a production model coupled in one direction to
+  CalSim&nbsp;3 and optimizing with foresight no grower has.</p>
+
+  <h2 id="references">References note</h2>
+  <p class="refnote">Source: <em>Tiers Documentation: Agricultural Revenue</em> &mdash; Armen
+  Konialian (UCLA, Civil and Environmental Engineering), Josue Medell&iacute;n-Azuara (UC Merced,
+  Civil and Environmental Engineering), and Alvar Escriva-Bou (UC Davis, Civil and Environmental
+  Engineering). Draft of 2026-08.</p>
+  <p class="refnote">Production model: OpenAg, built on positive mathematical programming (Howitt
+  1995); see Medell&iacute;n-Azuara et al. (2023), OpenAg Hydroeconomic Modeling Hub. Crop acreage:
+  2020 Statewide Crop Dataset (LandIQ). Input data on costs, prices, yields, and applied water from
+  UC Davis Crop Cost and Return Studies, USDA National Agricultural Statistics Service, and the
+  California Department of Water Resources. Drought impact context: Lund et al. (2018),
+  Medell&iacute;n-Azuara et al. (2016, 2022). Model output: CalSim&nbsp;3, 100-year monthly
+  simulation.</p>
+  <p class="refnote">Sector identifiers: agricultural revenue is <code>AG</code> in editorial writing
+  and <code>AG_REV</code> in the production codebase and API. The editorial sector name is
+  Agricultural Water.</p>
+
+  <p class="refnote">Drafted 2026-08-07 &middot; COEQWAL tier framework brief prototype v0_1 &middot;
+  Not yet team-reviewed.</p>
+  <div class="devnote">
+    <strong>Dev note &mdash; items for the sector author.</strong>
+    <ol>
+      <li><strong>Tier&nbsp;1's continuous value has no upper bound.</strong> Tier&nbsp;1 is "revenue
+      increases", with no ceiling, so the interpolation that produces continuous values in
+      Tiers&nbsp;2 and 3 has no <em>x_upper</em> to work from. Tier&nbsp;4's lower bound is likewise
+      open, and the draft says values are capped at 4.99 &mdash; but says nothing about Tier&nbsp;1.
+      Is there an anchor, and if so what?</li>
+      <li><strong>"Today's outcomes" is the reference and is not defined.</strong> The tier table
+      compares revenue "with respect to today's outcomes". Elsewhere the project anchors <em>today</em>
+      to current operations under the historical hydroclimate (<code>s0020</code>). Confirm that is
+      what is meant here, and whether the comparison is against modeled baseline revenue or against
+      observed present-day revenue &mdash; the two are not the same and the distinction changes what
+      a Tier&nbsp;1 result asserts.</li>
+      <li><strong>Sector-specific tier labels.</strong> The draft's Table&nbsp;2 names the tiers
+      "Increased revenue", "Minimal impact", "Moderate impact", and "Severe impact". The four public
+      labels are uniform across all nine sectors and no sector holds a label of its own. The
+      descriptions are preserved here as the second column of the mapping table.</li>
+      <li><strong>A corrupted passage.</strong> The continuous section reads "&hellip;and are the
+      upper and lower revenue bounds of that level. For4.99. For example, a demand unit
+      with&hellip;" &mdash; text is missing between "For" and "4.99", and it appears to be the
+      sentence that states the overall 1.00&ndash;4.99 range and the Tier&nbsp;4 cap.</li>
+      <li><strong>"LOI" is used for two different things in one sentence.</strong> "Figure&nbsp;4
+      shows an example of the level-of-impact (LOI) comparison" &mdash; elsewhere LOI is location of
+      interest throughout. One of the two needs a different abbreviation.</li>
+      <li><strong>The tier boundary at zero.</strong> A location with exactly no change in revenue
+      falls in Tier&nbsp;2 rather than Tier&nbsp;1, since Tier&nbsp;1 requires an increase. Worth
+      confirming this is intended, because it makes Tier&nbsp;1 harder to reach in this sector than
+      in sectors where Tier&nbsp;1 means "at least as good as the reference" &mdash; and tiers are
+      meant to be readable side by side across sectors.</li>
+      <li><strong>Results figures dropped.</strong> The draft's Figures&nbsp;7, 8 and 9 show modeled
+      revenue impacts and tier classifications for the baseline scenario. They belong in the
+      agricultural revenue sector results brief.</li>
+    </ol>
+  </div>
+
+</main>
+</body>
+</html>

@@ -238,6 +238,15 @@
   .edit-link { font-size: 0.82rem; color: var(--ink-faint); text-decoration: none; }
   .edit-link:hover { color: var(--accent); text-decoration: underline; }
   .pending { font-size: 0.85rem; color: var(--ink-faint); font-style: italic; }
+  /* 2026-08-07: an item that exists and is staged for reading, but is not
+     published and must not be cited. Distinct from .pending, which means the
+     brief does not exist. */
+  .inreview {
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 600; color: #7a5f12; background: #fbf2cf;
+    border: 1px solid #d8c37a; border-radius: 2px; padding: 1px 6px;
+    white-space: nowrap;
+  }
 
   /* ---------- devnotes: always visible by design ---------- */
   .note {
@@ -286,6 +295,7 @@
 
 <header class="masthead">
   <div class="eyebrow">Team review mock-up &middot; not the site design</div>
+  <div class="eyebrow" style="text-transform:none;letter-spacing:0.04em">Last revised 2026-08-07 &middot; 18 briefs added, staged for reading and not published</div>
   <h1>COEQWAL briefs</h1>
   <p class="standfirst">
     Short, citable documents: reports of modeled results for California&rsquo;s water
@@ -413,20 +423,47 @@
   <section class="section">
     <h3>Sectors</h3>
     <p class="section-intro">
-      Results for one area of the water system across the scenario library. One of the
-      nine sectors has a brief built.
+      Results for one area of the water system across the scenario library. All nine
+      sectors now have a brief. They were generated on 2026-08-06 in the same pass as
+      every other results brief, from the same code path, and every value in them is
+      recomputed by the independent verifier. All nine are drafts in reading review,
+      round 1. None is published and none should be cited.
     </p>
     <ul class="brief-list">
-      <li><span class="item-name">Community water systems</span><span class="pending">Brief to come</span></li>
-      <li><span class="item-name">Agricultural water</span><span class="pending">Brief to come</span></li>
-      <li><span class="item-name">Environmental flows</span><span class="pending">Brief to come</span></li>
-      <li><span class="item-name">Bay-Delta estuary ecology</span><span class="pending">Brief to come</span></li>
-      <li><span class="item-name">Winter-run Chinook salmon</span><span class="pending">Brief to come</span></li>
-      <li><span class="item-name">Delta exports</span><span class="pending">Brief to come</span></li>
-      <li><span class="item-name">In-Delta freshwater</span><span class="pending">Brief to come</span></li>
-      <li><span class="item-name">Reservoir storage</span><a class="read-link" href="sector_brief_reservoir-storage_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/14F2PXYP9nMuMUqXZ_EtfB8YwZj7sfueucMwEThGW-2c/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a></li>
-      <li><span class="item-name">Groundwater storage</span><span class="pending">Brief to come</span></li>
+      <li><span class="item-name">Agriculture</span><a class="read-link" href="builder/output/gen3d/sector_brief_agriculture_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Bay-Delta estuary ecology</span><a class="read-link" href="builder/output/gen3d/sector_brief_bay-delta-estuary-ecology_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Community water systems</span><a class="read-link" href="builder/output/gen3d/sector_brief_community-water-systems_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Environmental flows</span><a class="read-link" href="builder/output/gen3d/sector_brief_environmental-flows_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Freshwater for Delta exports</span><a class="read-link" href="builder/output/gen3d/sector_brief_freshwater-for-delta-exports_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Freshwater for in-Delta uses</span><a class="read-link" href="builder/output/gen3d/sector_brief_freshwater-for-in-delta-uses_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Groundwater storage</span><a class="read-link" href="builder/output/gen3d/sector_brief_groundwater-storage_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Reservoir storage</span><a class="read-link" href="builder/output/gen3d/sector_brief_reservoir-storage_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Winter-run Chinook salmon</span><span class="item-meta">across 22 strategies</span><a class="read-link" href="builder/output/gen3d/sector_brief_winter-run-chinook-salmon_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
     </ul>
+    <div class="note">
+      <b>DEVNOTE</b>
+      These nine are staged from <code>builder/output/gen3d/</code>, the 2026-08-06
+      generator build, and not from the repository root. They supersede
+      <code>sector_brief_reservoir-storage_prototype_v0_1.html</code>, which was the only
+      sector brief published before today and which was produced by
+      <code>_meta/build_sector_brief.py</code> &mdash; a script since retired, and one
+      whose output disagrees with its own data file in 7 of 115 points. No reader-visible
+      value moves between the two, because all seven print the same single decimal either
+      way, but the old page should be unpublished rather than left beside its replacement.
+      <br><br>
+      Per-brief edit links are deliberately absent here. These pages are generated, so an
+      accepted wording change cannot be applied by editing HTML; it goes into the
+      generator. Edits belong in the round-1 Word documents under
+      <code>_meta/review/round1/</code>, which is the channel that reaches the generator.
+      <br><br>
+      <b style="display:inline">Sector names disagree with the Tier framework section
+      below, in three of nine.</b> This section calls them Agriculture, Freshwater for
+      Delta exports and Freshwater for in-Delta uses; that section calls the same three
+      agricultural revenue, freshwater for Delta exports and freshwater for in-Delta uses,
+      and names two others differently again. Three surfaces now name the nine sectors
+      three ways and no two agree on all nine. The disagreement is left visible rather than
+      papered over, because the decision is Eric&rsquo;s and it should be made once.
+    </div>
   </section>
 
   <section class="section">
@@ -665,11 +702,50 @@
       A technical reference brief for each sector, describing how that sector&rsquo;s
       indicator is computed from model output and how indicator values map onto the common
       tier scale (Tier 1, optimal, through Tier 4, critical). Each sector uses its own
-      indicator and its own mapping.
+      indicator and its own mapping. All nine were built on
+      2026-08-07 and are staged for reading only; see the note below.
     </p>
     <ul class="brief-list">
-      <li><span class="item-name">How tiers are calculated &mdash; one brief per sector</span><span class="item-meta">9 sectors</span><span class="pending">Briefs to come</span></li>
+      <li><span class="item-name">Agricultural revenue</span><a class="read-link" href="tier_framework_brief_agricultural-revenue_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Community water systems</span><a class="read-link" href="tier_framework_brief_community-water-systems_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Delta estuary ecology</span><a class="read-link" href="tier_framework_brief_delta-estuary-ecology_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Environmental flows</span><a class="read-link" href="tier_framework_brief_environmental-flows_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Freshwater for Delta exports</span><a class="read-link" href="tier_framework_brief_freshwater-for-delta-exports_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Freshwater for in-Delta uses</span><a class="read-link" href="tier_framework_brief_freshwater-for-in-delta-uses_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Groundwater storage</span><a class="read-link" href="tier_framework_brief_groundwater-storage_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Reservoir storage</span><a class="read-link" href="tier_framework_brief_reservoir-storage_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
+      <li><span class="item-name">Winter-run Chinook salmon</span><a class="read-link" href="tier_framework_brief_winter-run-salmon_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><span class="inreview">In review</span></li>
     </ul>
+    <div class="note">
+      <b>DEVNOTE &middot; AUTHORSHIP IS UNSETTLED</b>
+      All nine were built on 2026-08-07 from the sector method drafts the sector teams
+      supplied. They are staged here so the project can read them. <b style="display:inline">They
+      must not be circulated outside the project, and nothing further should be drafted from
+      them, until the authorship question closes.</b>
+      <br><br>
+      The sector teams objected on two grounds: authorship, and the rewriting of their text.
+      Part of that is well founded. In at least two sectors the brief resolved an ambiguity by
+      choosing between two rules the source document gives, which is an editorial judgment made
+      on someone else&rsquo;s method and was not flagged as one. By word count 58&ndash;72 per
+      cent of each brief is newly written prose and verbatim reuse is 0&ndash;6 per cent;
+      against that, 55&ndash;88 per cent of the distinct technical values in each brief come
+      from its source. The science was kept and the prose was rewritten. Four paths are with
+      project leadership: publish the source documents as they stand; keep a common structure
+      and preserve as much original language as possible; keep a common structure and name
+      COEQWAL as author with the teams credited; or publish both.
+      <br><br>
+      A cross-sector audit accompanies them &mdash;
+      <code>COEQWAL_tier_method_audit_2026-08-07.html</code>, not staged &mdash; and found 51
+      open items across the nine drafts, 16 of them substantive. Eight of the sixteen concern
+      the continuous tier value at the open end of the scale and have one cause: the continuous
+      value was designed nine times, sharing the 1.00&ndash;4.99 output band and no
+      specification of what that band means or how its ends are anchored.
+      <br><br>
+      One thing these briefs need does not exist. The provenance document that marks every
+      sentence against its source, which is what would cut each sector author&rsquo;s review
+      from hours to minutes, is described in three project documents and is not on disk.
+      Rebuilding it should precede asking the teams to review anything.
+    </div>
   </section>
 
   <section class="section">
