@@ -38,7 +38,7 @@
   figcaption{font-size:.78rem; color:var(--muted); margin-top:.6rem; line-height:1.55;}
   /* §8.6 ruling 16. Panels of one figure, stacked: they share a width and a
      tier axis, so they are spaced closely enough to read as one exhibit and
-     each is labelled with nothing but its position. */
+     each is labeled with nothing but its position. */
   .panel{margin:0 0 .5rem;}
   .panel:last-of-type{margin-bottom:0;}
   .panel-label{font-size:.72rem; color:var(--muted); margin:0 0 .15rem;
@@ -113,56 +113,56 @@
 <div class="wrap">
   <header class="doc">
     <p class="kicker">COEQWAL results brief &middot; water system</p>
-    <h1>The water system under current operations: the climate effect across nine areas and five hydroclimates</h1>
+    <h1>The water system under current operations: the hydroclimate effect across nine sectors and five hydroclimates</h1>
     <p class="prov">A results brief for a general reader &mdash;
       prototype (dev), built by the
       brief builder from the locked 2026-08-01 API
-      snapshot &mdash; reporting modeled tier results for the water system under today&rsquo;s water management, read across the five hydroclimates,
-      each difference from today
+      snapshot &mdash; reporting modeled tier results for the water system under the current water management strategy, read across the five hydroclimates,
+      each difference from the baseline
       split into the two effects that produce it. The build stamp, the run
       identifiers and the verification status are in
       <a href="#references">references</a>.</p>
   </header>
 
-  <p class="tldr"><strong>TL;DR.</strong> This brief holds today&rsquo;s water management fixed and varies the hydroclimate alone, so every difference it reports is the climate effect and the operations effect is zero in every cell by construction. Read across the five hydroclimates, the water system&rsquo;s modeled tier results differ from today in all nine areas of the water system under at least one hydroclimate, carried by the hydroclimate alone. The largest single climate effect is +1.4 tier units, at Environmental flows under extreme climate stress, and 18 of the 45 results sit in a different tier band from their own today value.</p>
+  <p class="tldr"><strong>TL;DR.</strong> This brief holds the current water management strategy fixed and varies the hydroclimate alone, so every difference it reports is the hydroclimate effect and the operations effect is zero in every cell by construction. Read across the five hydroclimates, the water system&rsquo;s modeled tier results differ from the baseline in all nine sectors of the water system under at least one hydroclimate, carried by the hydroclimate alone. The largest single hydroclimate effect is +1.4 tier units, at Environmental flows under extreme climate stress, and 18 of the 45 results sit in a different tier band from their own baseline value.</p>
 
   <h2 id="what-this-is">What this is</h2>
-  <p>This is a <em>results brief</em>: it reports the modeled tier results, and nothing else, for the water system under today&rsquo;s water management &mdash; current operations, unchanged &mdash; simulated once under each of five hydroclimates and read as a set. It is the one brief in which the management strategy does not vary, so every difference it reports is the hydroclimate&rsquo;s. The selection rule is that there is none: this brief reports
-    every area of the water system these model runs carry a tier for, across all
-    five modeled hydroclimates, and no filter is applied to either. All nine areas of the water system are reported under every hydroclimate.
+  <p>This is a <em>results brief</em>: it reports the modeled tier results, and nothing else, for the water system under the current water management strategy &mdash; current operations, unchanged &mdash; simulated once under each of five hydroclimates and read as a set. It is the one brief in which the management strategy does not vary, so every difference it reports is the hydroclimate&rsquo;s. The selection rule is that there is none: this brief reports
+    every sector of the water system these model runs carry a tier for, across all
+    five modeled hydroclimates, and no filter is applied to either. All nine sectors of the water system are reported under every hydroclimate.
     A scenario is a strategy paired with one hydroclimate; the five hydroclimates
     are a sample of stress levels, not a forecast of which will occur. For how the
     five were constructed, see the
     <a href="hydroclimates_brief_prototype_v0_1.html#construction">hydroclimates reference
     brief</a>.</p>
-  <p>This brief and <a href="scenario_results_brief_current-operations_prototype_v0_3.html">Current operations</a> report the same grid: the same areas of the water system under the same five hydroclimates, and the same values in all 45 cells, because current operations is the strategy on both sides of every comparison in it, so the operations effect is zero in every cell. The two differ in where a reader arrives from rather than in what they report &mdash; this page is the one that holds the strategy fixed, the reference for the water system as a whole; that page is a strategy in the ensemble, reached from the strategy library.</p>
+  <p>This brief and <a href="scenario_results_brief_current-operations_prototype_v0_3.html">Current operations</a> report the same grid: the same sectors of the water system under the same five hydroclimates, and the same values in all 45 cells, because current operations is the strategy on both sides of every comparison in it, so the operations effect is zero in every cell. The two differ in where a reader arrives from rather than in what they report &mdash; this page is the one that holds the strategy fixed, the reference for the water system as a whole; that page is a strategy in the ensemble, reached from the strategy library.</p>
 
   <h2 id="what-the-model-shows">What the model shows</h2>
-  <p>Across the nine areas these runs report, the modeled tier values under
-    today &mdash; current operations under the historical hydroclimate &mdash;
+  <p>Across the nine sectors these runs report, the modeled tier values under
+    the baseline &mdash; current operations under the historical hydroclimate &mdash;
     range from 1.7 to 4.2. Read across the five hydroclimates,
     the values this brief reports range from 1.7 to 4.8. Of the 45 results
-    &mdash; one area under one hydroclimate &mdash; 18 sit in a different tier band from
-    that area&rsquo;s today value and 27 sit in the same band; in eight of the nine areas
+    &mdash; one sector under one hydroclimate &mdash; 18 sit in a different tier band from
+    that sector&rsquo;s baseline value and 27 sit in the same band; in eight of the nine sectors
     the five values do not all sit in one band.</p>
-  <p>The figure below draws every one of those results beside today, with the two
+  <p>The figure below draws every one of those results beside the baseline, with the two
     effects that produce the difference shown as separate marks, so a reader can see
     how much of each difference the hydroclimate carries and how much the strategy
     does. The section that follows says what the two effects are before the figure
     draws them; what the tier values themselves mean is set out in
     <a href="#how-to-read">how to read the values</a>.</p>
 
-  <h2 id="decomposition">Today, and the two effects</h2>
-  <p><strong>Today</strong> is current operations under the historical hydroclimate. It
+  <h2 id="decomposition">The baseline, and the two effects</h2>
+  <p><strong>The baseline</strong> is current operations under the historical hydroclimate. It
     is the one reference this brief asks a reader to learn, and it is the same value in
     every column, because it does not depend on which hydroclimate a scenario pairs
     with.</p>
-  <p>Any difference between a scenario and today comes from two places, and they add
+  <p>Any difference between a scenario and the baseline comes from two places, and they add
     exactly:</p>
-  <p class="key"><b>The climate effect</b> is current operations under that
-    hydroclimate minus current operations today &mdash; the same operations, a different
-    hydroclimate. <b>The operations effect</b> is current operations minus current operations <em>under that same hydroclimate</em> &mdash; this brief holds the strategy fixed on both sides, so that effect is zero in every cell and every difference from today is the hydroclimate&rsquo;s.
-    Together they equal the difference from today.</p>
+  <p class="key"><b>The hydroclimate effect</b> is current operations under that
+    hydroclimate minus the baseline &mdash; the same operations, a different
+    hydroclimate. <b>The operations effect</b> is current operations minus current operations <em>under that same hydroclimate</em> &mdash; this brief holds the strategy fixed on both sides, so that effect is zero in every cell and every difference from the baseline is the hydroclimate&rsquo;s.
+    Together they equal the difference from the baseline.</p>
   <p>Tier results are reported as a value on a continuous axis from Tier&nbsp;1 to Tier&nbsp;4.99,
     with the four tier bands as shaded zones; the whole number below any
     value is its band. A value that lands exactly on a whole number takes that
@@ -172,14 +172,14 @@
     a modeled magnitude, neither is a judgment. The scale, the two thresholds and the
     two fields a tier value comes in are set out in
     <a href="#how-to-read">how to read the values</a>.</p>
-  <p>An area&rsquo;s tier value is the mean of the tier values at its locations. The nine areas differ in how many locations that is. Bay-Delta estuary ecology is reported at one location, Delta-Eastside Water. Winter-run Chinook salmon is reported at one location, Sacramento River at Keswick. Freshwater for Delta exports is reported at two locations, Harvey O. Banks Pumping Plant and C.W. &quot;Bill&quot; Jones Pumping Plant (formerly Tracy). Both carry the same tier value in every scenario in this ensemble. Freshwater for in-Delta uses is reported at two locations, Emmaton and Jersey Point. Both carry the same tier value in every scenario in this ensemble. The remaining five areas are reported across 8 to 132 locations. On the figure, a square mark identifies the areas reported at one or two locations. This page reports areas, not individual locations; where a place brief has been published for one of an area&rsquo;s locations, that brief reports the location&rsquo;s own values across the same scenarios.</p>
+  <p>A sector&rsquo;s tier value is the mean of the tier values at its locations. The nine sectors differ in how many locations that is. Bay-Delta estuary ecology is reported at one location, Delta-Eastside Water. Winter-run Chinook salmon is reported at one location, Sacramento River at Keswick. Freshwater for Delta exports is reported at two locations, Harvey O. Banks Pumping Plant and C.W. &quot;Bill&quot; Jones Pumping Plant (formerly Tracy). Both carry the same tier value in every scenario in this ensemble. Freshwater for in-Delta uses is reported at two locations, Emmaton and Jersey Point. Both carry the same tier value in every scenario in this ensemble. The remaining five sectors are reported across 8 to 132 locations. On the figure, a square mark identifies the sectors reported at one or two locations. This page reports sectors, not individual locations; where a place brief has been published for one of a sector&rsquo;s locations, that brief reports the location&rsquo;s own values across the same scenarios.</p>
 
-  <h2 id="figure">All nine areas, all five hydroclimates</h2>
+  <h2 id="figure">All nine sectors, all five hydroclimates</h2>
   <figure>
-    <svg viewBox="0 0 932 516" xmlns="http://www.w3.org/2000/svg" role="img" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" aria-label="Climate and operations effects as vertical arrows, nine areas by five hydroclimates">
-  <title>The water system under current operations: the climate and operations effects to the difference from today, nine areas of the water system &#215; five hydroclimates</title>
-  <desc>Nine areas of the water system are drawn across the figure, each holding five narrow lanes, one per hydroclimate in the order historical, moderate, moderate-high, high and extreme climate stress. The vertical axis is the continuous tier value from 1 to 4.99, Tier 1 at the top, tier bands as shaded zones. The dashed level spanning an area is today: current operations under the historical hydroclimate, the same value under every hydroclimate. In each lane a warm arrow runs from today to current operations under that hydroclimate, so its length is the climate effect, and a blue arrow continues to current operations again, unchanged under the same hydroclimate, so its length is the operations effect. The solid level in each lane is the scenario. A short flat tick instead of an arrow means a change smaller than 0.1 tier units. Every value is in the table that follows.</desc>
-  <text x="70.0" y="21.0" font-size="9.5" fill="#5c554c">per lane: <tspan font-weight="700" fill="#c28433">warm arrow</tspan> = hydroclimate, <tspan font-weight="700" fill="#3d7db5">blue arrow</tspan> = strategy &nbsp;&middot;&nbsp; dashed level = today, solid level = this scenario</text>
+    <svg viewBox="0 0 932 516" xmlns="http://www.w3.org/2000/svg" role="img" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" aria-label="Climate and operations effects as vertical arrows, nine sectors by five hydroclimates">
+  <title>The water system under current operations: the climate and operations effects to the difference from the baseline, nine sectors of the water system &#215; five hydroclimates</title>
+  <desc>Nine sectors of the water system are drawn across the figure, each holding five narrow lanes, one per hydroclimate in the order historical, moderate, moderate-high, high and extreme climate stress. The vertical axis is the continuous tier value from 1 to 4.99, Tier 1 at the top, tier bands as shaded zones. The dashed level spanning a sector is the baseline: current operations under the historical hydroclimate, the same value under every hydroclimate. In each lane a warm arrow runs from the baseline to current operations under that hydroclimate, so its length is the hydroclimate effect, and a blue arrow continues to current operations again, unchanged under the same hydroclimate, so its length is the operations effect. The solid level in each lane is the scenario. A short flat tick instead of an arrow means a change smaller than 0.1 tier units. Every value is in the table that follows.</desc>
+  <text x="70.0" y="21.0" font-size="9.5" fill="#5c554c">per lane: <tspan font-weight="700" fill="#c28433">warm arrow</tspan> = hydroclimate, <tspan font-weight="700" fill="#3d7db5">blue arrow</tspan> = strategy &nbsp;&middot;&nbsp; dashed level = the baseline, solid level = this scenario</text>
   <rect x="60.0" y="34.00" width="864.00" height="76.69" fill="#dcefe1" opacity="0.5" data-band="1"/>
   <text x="54.0" y="75.35" text-anchor="end" font-size="10.5" font-weight="600" fill="#16774a">Tier 1</text>
   <text x="54.0" y="87.35" text-anchor="end" font-size="8.5" fill="#5c554c">Optimal</text>
@@ -402,26 +402,26 @@
 </svg>
     <figcaption>Figure&nbsp;1. Modeled tier values for
       the water system under current operations and the two effects that produce their
-      difference from today, nine areas of the water system &times; five hydroclimates.
-      Lanes within each area run left to right: Historical (H), Moderate (M), Moderate-high (MH), High (Hi), Extreme (E) climate stress.
+      difference from the baseline, nine sectors of the water system &times; five hydroclimates.
+      Lanes within each sector run left to right: Historical (H), Moderate (M), Moderate-high (MH), High (Hi), Extreme (E) climate stress.
       Vertical axis:
       continuous tier value, Tier&nbsp;1 at top, tier bands as shaded
       zones. Dashed
-      level: today. Solid level: this scenario. A short flat tick in place of an arrow
-      is a change smaller than 0.1 tier units. Square marks are the areas reported at one or two locations. Every value is in the table that follows, and
+      level: the baseline. Solid level: this scenario. A short flat tick in place of an arrow
+      is a change smaller than 0.1 tier units. Square marks are the sectors reported at one or two locations. Every value is in the table that follows, and
       the scale is set out in <a href="#how-to-read">how to read the values</a>.</figcaption>
   </figure>
 
   <h2 id="table">The same 45 results as numbers</h2>
   <div class="numbers-body">
-  <p>Each cell reads top to bottom: the climate effect, the operations
+  <p>Each cell reads top to bottom: the hydroclimate effect, the operations
     effect, and the resulting value with its band. The two effects add to
-    the difference between the scenario and today. Shaded cells are those where the two
+    the difference between the scenario and the baseline. Shaded cells are those where the two
     run opposite ways. Each hydroclimate column carries its own address for citation,
     and its own slice of the companion data file. The operations effect is zero in all 45 cells by definition, because the strategy on both sides of the comparison is current operations under the same hydroclimate.</p>
   <table class="grid">
     <thead>
-      <tr><th scope="col">Area</th><th scope="col">Today</th><th scope="col" id="historical-hydroclimate"><a class="pin" href="#historical-hydroclimate" aria-label="Permalink to Historical hydroclimate">&para;</a>Historical</th><th scope="col" id="moderate-climate-stress"><a class="pin" href="#moderate-climate-stress" aria-label="Permalink to Moderate climate stress">&para;</a>Moderate</th><th scope="col" id="moderate-high-climate-stress"><a class="pin" href="#moderate-high-climate-stress" aria-label="Permalink to Moderate-high climate stress">&para;</a>Moderate-high</th><th scope="col" id="high-climate-stress"><a class="pin" href="#high-climate-stress" aria-label="Permalink to High climate stress">&para;</a>High</th><th scope="col" id="extreme-climate-stress"><a class="pin" href="#extreme-climate-stress" aria-label="Permalink to Extreme climate stress">&para;</a>Extreme</th>
+      <tr><th scope="col">Sector</th><th scope="col">The baseline</th><th scope="col" id="historical-hydroclimate"><a class="pin" href="#historical-hydroclimate" aria-label="Permalink to Historical hydroclimate">&para;</a>Historical</th><th scope="col" id="moderate-climate-stress"><a class="pin" href="#moderate-climate-stress" aria-label="Permalink to Moderate climate stress">&para;</a>Moderate</th><th scope="col" id="moderate-high-climate-stress"><a class="pin" href="#moderate-high-climate-stress" aria-label="Permalink to Moderate-high climate stress">&para;</a>Moderate-high</th><th scope="col" id="high-climate-stress"><a class="pin" href="#high-climate-stress" aria-label="Permalink to High climate stress">&para;</a>High</th><th scope="col" id="extreme-climate-stress"><a class="pin" href="#extreme-climate-stress" aria-label="Permalink to Extreme climate stress">&para;</a>Extreme</th>
         </tr>
     </thead>
     <tbody>
@@ -431,8 +431,8 @@
   </div>
 
   <h2 id="pattern">Pattern across the set</h2>
-  <p>Read as a grid rather than row by row: of the nine areas reported here,
-    five carry a difference from today that does not reverse direction as the
+  <p>Read as a grid rather than row by row: of the nine sectors reported here,
+    five carry a difference from the baseline that does not reverse direction as the
     hydroclimate gets harder.</p>
   <p>Of those nine, eight span more than one tier band across the five
     hydroclimates, and the widest spread between a row&rsquo;s highest and lowest
@@ -443,15 +443,15 @@
 
   <h2 id="about-the-subject">About the water system reported here</h2>
   <p>The subject of this brief is the water system as the tier framework divides
-    it: nine areas, reported together. They are Community water systems, Agriculture, Environmental flows, Bay-Delta estuary ecology, Winter-run Chinook salmon, Freshwater for Delta exports, Freshwater for in-Delta uses, Reservoir storage and Groundwater storage.</p>
-  <p>Each area is a definitional grouping of modeled locations, not a place or
-    an institution, and an area&rsquo;s value is the unweighted mean of the tier
-    values at its locations. The areas are not ranked against each other and no
+    it: nine sectors, reported together. They are Community water systems, Agriculture, Environmental flows, Bay-Delta estuary ecology, Winter-run Chinook salmon, Freshwater for Delta exports, Freshwater for in-Delta uses, Reservoir storage and Groundwater storage.</p>
+  <p>Each sector is a definitional grouping of modeled locations, not a place or
+    an institution, and a sector&rsquo;s value is the unweighted mean of the tier
+    values at its locations. The sectors are not ranked against each other and no
     total over them is reported: they measure different things, and a mean of
     nine different measurements would not be a measurement of anything.</p>
 
   <h2 id="related-briefs">Related briefs</h2>
-  <p class="rel-q"><strong>What happens when the strategy changes?</strong> The same nine areas and the same five hydroclimates are reported once per strategy, and once with the strategy held fixed:</p>
+  <p class="rel-q"><strong>What happens when the strategy changes?</strong> The same nine sectors and the same five hydroclimates are reported once per strategy, and once with the strategy held fixed:</p>
     <ul class="related">
       <li><a href="scenario_results_brief_current-operations_prototype_v0_3.html">Current operations</a></li>
       <li><a href="scenario_results_brief_current-operations-with-historical-land-use_prototype_v0_3.html">Current operations with historical land use</a></li>
@@ -478,7 +478,7 @@
       <li><a href="scenario_results_brief_salmon-friendly-flows-with-groundwater-regulations_prototype_v0_3.html">Salmon-friendly flows with groundwater regulations</a></li>
       <li><span class="here">The water system under current operations &mdash; <em>you are here</em></span></li>
     </ul>
-  <p class="rel-q"><strong>What happens to one area under every strategy?</strong> A sector brief transposes this grid &mdash; one area of the water system, every strategy, the same five hydroclimates:</p>
+  <p class="rel-q"><strong>What happens to one sector under every strategy?</strong> A sector brief transposes this grid &mdash; one sector of the water system, every strategy, the same five hydroclimates:</p>
     <ul class="related">
       <li><a href="sector_brief_agriculture_prototype_v0_1.html">Agriculture</a></li>
       <li><a href="sector_brief_bay-delta-estuary-ecology_prototype_v0_1.html">Bay-Delta estuary ecology</a></li>
@@ -503,17 +503,17 @@
       modeled values, not a causal claim about the water system, and the two are
       separable only because each is defined against its own reference. A step or a
       spread on the tier axis is a modeled magnitude, not a benefit or a cost.
-      An area&rsquo;s value is the unweighted mean of its locations, so locations count equally regardless of the people, acres, or acre-feet each represents, and a location already at either end of the scale cannot move further along it. Locations are modeled nodes, not measured conditions at a place.</p>
-    <p>Extreme climate stress holds the single highest of an area&rsquo;s five values in eight of the nine areas reported here. In one the highest falls under a different hydroclimate. So where an area&rsquo;s highest value falls is not settled by construction.</p>
+      A sector&rsquo;s value is the unweighted mean of its locations, so locations count equally regardless of the people, acres, or acre-feet each represents, and a location already at either end of the scale cannot move further along it. Locations are modeled nodes, not measured conditions at a place.</p>
+    <p>Extreme climate stress holds the single highest of a sector&rsquo;s five values in eight of the nine sectors reported here. In one the highest falls under a different hydroclimate. So where a sector&rsquo;s highest value falls is not settled by construction.</p>
   </div>
 
   <h2 id="references">References, run identifiers and the build stamp</h2>
   <div class="refs">
-    <p><strong>Model runs</strong> (current operations): Historical <code>s0020</code>; Moderate <code>s0134</code>; Moderate-high <code>s0047</code>; High <code>s0056</code>; Extreme <code>s0108</code>. The strategy is current operations on both sides of every comparison, so each hydroclimate is one run and not a pair. Today is current
+    <p><strong>Model runs</strong> (current operations): Historical <code>s0020</code>; Moderate <code>s0134</code>; Moderate-high <code>s0047</code>; High <code>s0056</code>; Extreme <code>s0108</code>. The strategy is current operations on both sides of every comparison, so each hydroclimate is one run and not a pair. The baseline is current
       operations under the historical hydroclimate,
       <code>s0020</code>.</p>
     <p><strong>Build stamp.</strong> Snapshot <code>2026-08-01</code>;
-      builder version <code>0.1.0</code>; built 2026-08-06T21:22:12Z;
+      builder version <code>0.1.0</code>; built 2026-08-09T21:57:34Z;
       snapshot data read 2026-08-01; verification: pass.
       The verification status is written by the independent check
       (<code>briefbuilder.verifier</code>), which recomputes every value in the
@@ -527,14 +527,14 @@
       Historical <code>#/rows/*/by_hydroclimate/BL</code>; Moderate <code>#/rows/*/by_hydroclimate/HC4</code>; Moderate-high <code>#/rows/*/by_hydroclimate/HC1</code>; High <code>#/rows/*/by_hydroclimate/HC2</code>; Extreme <code>#/rows/*/by_hydroclimate/HC3</code>. Built from the locked 2026-08-01 API snapshot
       (api.coeqwal.org v2.1.1 (locked dataset snapshot)).
       Decomposition per <code>Decomposition_Math_Quickref</code> (coeqwal-viz): the
-      climate effect is current operations under that hydroclimate minus
+      hydroclimate effect is current operations under that hydroclimate minus
       current operations under the historical hydroclimate; the operations effect is
       this strategy minus current operations under that same hydroclimate. Axis
       convention [1,&nbsp;4.99] per <code>Ordinal_vs_continuous_tiers.md</code>; the
       visible band is <code>floor(value)</code>. A difference of 0.1 tier units
       is required before a difference is reported as movement, before a location is
       counted as differing from its comparison, and before an effect prints as
-      anything other than 0.0. Colour semantics (warm =
+      anything other than 0.0. Color semantics (warm =
       hydroclimate, blue = operations) follow the ops-vs-climate stepper. Strategy
       identity is its descriptive name; run IDs appear only in this note and the data
       file.</p>
@@ -542,16 +542,16 @@
 
   <h2 id="explore-further">Explore further</h2>
   <p>Every value on this page comes from the tier data, and the data explorer holds
-    the same data without this brief&rsquo;s selection of it. The link below opens current operations across all five hydroclimates and all nine areas, so a reader can read the locations behind an area value directly and add the strategies this brief holds fixed.</p>
-  <p><a class="explore-link" href="/explore?strategy=current-ops&amp;amp;hydroclimates=all&amp;amp;areas=all">See this comparison in the data explorer</a>.</p>
+    the same data without this brief&rsquo;s selection of it. The link below opens current operations across all five hydroclimates and all nine sectors, so a reader can read the locations behind a sector value directly and add the strategies this brief holds fixed.</p>
+  <p><a class="explore-link" href="/explore?strategy=current-ops&amp;amp;hydroclimates=all&amp;amp;sectors=all">See this comparison in the data explorer</a>.</p>
 
   <h2 id="how-to-read">How to read the values</h2>
   <div class="refs read-note">
-    <p>The tier scale runs from 1 to 4.99. Tier 1 is the favourable end of the scale: the tier framework names Tier 1 Optimal and Tier 4 Critical, so a smaller value sits nearer Optimal and a larger value nearer Critical. The API serves this number in a field named weighted_score; that name describes how the number is computed, and does not mean that a larger number is a more favourable result.</p>
+    <p>The tier scale runs from 1 to 4.99. Tier 1 is the favorable end of the scale: the tier framework names Tier 1 Optimal and Tier 4 Critical, so a smaller value sits nearer Optimal and a larger value nearer Critical. The API serves this number in a field named weighted_score; that name describes how the number is computed, and does not mean that a larger number is a more favorable result.</p>
     <p>Two numbers describe each result. The integer tier_level is the tier label. tier_continuous is the position within the band of that label, and always falls inside it: tier_continuous is at least tier_level and less than tier_level plus one. Labels, counts and prose use tier_level; figure positions and statistics use tier_continuous.</p>
     <p>Tier 1 is Optimal, Tier 2 is Acceptable, Tier 3 is At-risk, and Tier 4 is Critical. These are definitional category names supplied by the tier framework; what a category means for any reader, community, or decision is not specified by COEQWAL.</p>
-    <p>An area value is the unweighted mean over the locations in that area. Every location counts equally, regardless of the people, acres, or acre-feet it represents.</p>
-    <p>Any difference between two values under different hydroclimates contains both a climate effect and an operations effect; the two are separable only through the decomposition, because each is defined against its own reference. A strategy is compared with current operations under the same hydroclimate. Comparing one strategy with itself across hydroclimates is a different quantity: the climate effect plus the change in the operations effect.</p>
+    <p>A sector value is the unweighted mean over the locations in that sector. Every location counts equally, regardless of the people, acres, or acre-feet it represents.</p>
+    <p>Any difference between two values under different hydroclimates contains both a hydroclimate effect and an operations effect; the two are separable only through the decomposition, because each is defined against its own reference. A strategy is compared with current operations under the same hydroclimate. Comparing one strategy with itself across hydroclimates is a different quantity: the hydroclimate effect plus the change in the operations effect.</p>
     <p>One threshold governs every claim and every count here. A difference smaller than 0.1 tier units is not reported as movement, and a location is not counted as differing from its comparison. A tier is a summary built so that results in nine sectors with no shared unit can be compared, and 0.1 tier units is the finest reading it carries; a smaller difference is left unstated rather than described.</p>
     <p>The five hydroclimates are a purposive sample of climate stress levels. They are not a sequence, a trend, or a forecast, they carry no probabilities, and no mean is taken over them.</p>
     <p>A run ID identifies one modeling run of one strategy under one hydroclimate. It is an internal identifier, used for citation and for tracing a value back to the data platform, not a name for the strategy; the public identity of a strategy is its descriptive name.</p>
