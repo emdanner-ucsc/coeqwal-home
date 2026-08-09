@@ -1,0 +1,353 @@
+[
+ {
+  "name": "FULL__baseline-results__baselines.docx",
+  "bytes": 16841,
+  "full": true,
+  "kind": "baseline-results",
+  "slug": "baselines",
+  "n_total": 83,
+  "n_unique": 18
+ },
+ {
+  "name": "FULL__place-results__folsom-loi.docx",
+  "bytes": 16989,
+  "full": true,
+  "kind": "place-results",
+  "slug": "folsom-loi",
+  "n_total": 84,
+  "n_unique": 11
+ },
+ {
+  "name": "unique__place-results__oroville-loi.docx",
+  "bytes": 11789,
+  "full": false,
+  "kind": "place-results",
+  "slug": "oroville-loi",
+  "n_total": 84,
+  "n_unique": 11
+ },
+ {
+  "name": "unique__place-results__salt-slough-loi.docx",
+  "bytes": 12430,
+  "full": false,
+  "kind": "place-results",
+  "slug": "salt-slough-loi",
+  "n_total": 84,
+  "n_unique": 13
+ },
+ {
+  "name": "FULL__strategy-results__current-operations-with-historical-land-use.docx",
+  "bytes": 16944,
+  "full": true,
+  "kind": "strategy-results",
+  "slug": "current-operations-with-historical-land-use",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__current-operations-without-tucps.docx",
+  "bytes": 11953,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "current-operations-without-tucps",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__current-operations.docx",
+  "bytes": 11257,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "current-operations",
+  "n_total": 79,
+  "n_unique": 11
+ },
+ {
+  "name": "unique__strategy-results__current-usbr-operations-without-tucps.docx",
+  "bytes": 12090,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "current-usbr-operations-without-tucps",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__current-usbr-operations.docx",
+  "bytes": 12041,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "current-usbr-operations",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__delta-conveyance-project.docx",
+  "bytes": 12783,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "delta-conveyance-project",
+  "n_total": 80,
+  "n_unique": 16
+ },
+ {
+  "name": "unique__strategy-results__functional-environmental-flows-with-groundwater-regulations.docx",
+  "bytes": 12193,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "functional-environmental-flows-with-groundwater-regulations",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__functional-environmental-flows.docx",
+  "bytes": 12155,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "functional-environmental-flows",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__groundwater-pumping-limits-and-reduced-crop-acreage-in-the-central-valley.docx",
+  "bytes": 12193,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "groundwater-pumping-limits-and-reduced-crop-acreage-in-the-central-valley",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__groundwater-pumping-limits-and-reduced-crop-acreage-in-the-san-joaquin-valley.docx",
+  "bytes": 12175,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "groundwater-pumping-limits-and-reduced-crop-acreage-in-the-san-joaquin-valley",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__groundwater-pumping-limits-in-the-central-valley.docx",
+  "bytes": 12071,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "groundwater-pumping-limits-in-the-central-valley",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__groundwater-pumping-limits-in-the-san-joaquin-valley.docx",
+  "bytes": 12094,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "groundwater-pumping-limits-in-the-san-joaquin-valley",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__increase-delta-outflows-55-of-unimpaired-flow.docx",
+  "bytes": 12199,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "increase-delta-outflows-55-of-unimpaired-flow",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__increase-delta-outflows-65-of-unimpaired-flow.docx",
+  "bytes": 12212,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "increase-delta-outflows-65-of-unimpaired-flow",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__increase-shasta-carry-over-storage.docx",
+  "bytes": 12128,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "increase-shasta-carry-over-storage",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__maintain-delta-outflows-45-of-unimpaired-flow.docx",
+  "bytes": 12213,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "maintain-delta-outflows-45-of-unimpaired-flow",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__no-minimum-flow-requirements.docx",
+  "bytes": 12119,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "no-minimum-flow-requirements",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__prioritizing-full-demands-of-community-water-systems.docx",
+  "bytes": 12137,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "prioritizing-full-demands-of-community-water-systems",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__prioritizing-human-health-delivery-levels-to-community-water-systems.docx",
+  "bytes": 12168,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "prioritizing-human-health-delivery-levels-to-community-water-systems",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__reduce-delta-outflows-35-of-unimpaired-flow.docx",
+  "bytes": 12213,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "reduce-delta-outflows-35-of-unimpaired-flow",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__relax-delta-salinity-standards.docx",
+  "bytes": 12097,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "relax-delta-salinity-standards",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__salmon-friendly-flows-with-groundwater-regulations.docx",
+  "bytes": 12186,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "salmon-friendly-flows-with-groundwater-regulations",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__strategy-results__salmon-friendly-flows.docx",
+  "bytes": 12099,
+  "full": false,
+  "kind": "strategy-results",
+  "slug": "salmon-friendly-flows",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__sector-results__agriculture.docx",
+  "bytes": 11690,
+  "full": false,
+  "kind": "sector-results",
+  "slug": "agriculture",
+  "n_total": 80,
+  "n_unique": 10
+ },
+ {
+  "name": "FULL__sector-results__bay-delta-estuary-ecology.docx",
+  "bytes": 16402,
+  "full": true,
+  "kind": "sector-results",
+  "slug": "bay-delta-estuary-ecology",
+  "n_total": 80,
+  "n_unique": 9
+ },
+ {
+  "name": "unique__sector-results__community-water-systems.docx",
+  "bytes": 11626,
+  "full": false,
+  "kind": "sector-results",
+  "slug": "community-water-systems",
+  "n_total": 80,
+  "n_unique": 9
+ },
+ {
+  "name": "unique__sector-results__environmental-flows.docx",
+  "bytes": 11714,
+  "full": false,
+  "kind": "sector-results",
+  "slug": "environmental-flows",
+  "n_total": 81,
+  "n_unique": 10
+ },
+ {
+  "name": "unique__sector-results__freshwater-for-delta-exports.docx",
+  "bytes": 11677,
+  "full": false,
+  "kind": "sector-results",
+  "slug": "freshwater-for-delta-exports",
+  "n_total": 80,
+  "n_unique": 9
+ },
+ {
+  "name": "unique__sector-results__freshwater-for-in-delta-uses.docx",
+  "bytes": 11782,
+  "full": false,
+  "kind": "sector-results",
+  "slug": "freshwater-for-in-delta-uses",
+  "n_total": 80,
+  "n_unique": 10
+ },
+ {
+  "name": "unique__sector-results__groundwater-storage.docx",
+  "bytes": 11613,
+  "full": false,
+  "kind": "sector-results",
+  "slug": "groundwater-storage",
+  "n_total": 80,
+  "n_unique": 9
+ },
+ {
+  "name": "unique__sector-results__reservoir-storage.docx",
+  "bytes": 11690,
+  "full": false,
+  "kind": "sector-results",
+  "slug": "reservoir-storage",
+  "n_total": 81,
+  "n_unique": 10
+ },
+ {
+  "name": "unique__sector-results__winter-run-chinook-salmon.docx",
+  "bytes": 11905,
+  "full": false,
+  "kind": "sector-results",
+  "slug": "winter-run-chinook-salmon",
+  "n_total": 80,
+  "n_unique": 12
+ },
+ {
+  "name": "unique__place-results__shasta-loi.docx",
+  "bytes": 11857,
+  "full": false,
+  "kind": "place-results",
+  "slug": "shasta-loi",
+  "n_total": 84,
+  "n_unique": 11
+ },
+ {
+  "name": "unique__place-results__trinity-lewiston-loi.docx",
+  "bytes": 12017,
+  "full": false,
+  "kind": "place-results",
+  "slug": "trinity-lewiston-loi",
+  "n_total": 84,
+  "n_unique": 13
+ },
+ {
+  "name": "unique__place-results__yuba-marysville-loi.docx",
+  "bytes": 12035,
+  "full": false,
+  "kind": "place-results",
+  "slug": "yuba-marysville-loi",
+  "n_total": 84,
+  "n_unique": 13
+ }
+]
