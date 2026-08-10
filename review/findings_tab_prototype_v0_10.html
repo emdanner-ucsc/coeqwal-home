@@ -12,6 +12,38 @@
   /*
    * findings_tab_prototype_v0_10.html
    *
+   * REVISION 2026-08-10 (devnote pass). Ten note boxes reduced to three. Cut
+   *   outright: the strategy-results devnote (said four of twenty-three were staged
+   *   and nineteen deliberately not linked -- superseded by the 2026-08-09d decision
+   *   to publish all 23, and contradicted by this page's own masthead); the Folsom
+   *   figure-preview note (a prototype not wired into any brief, and no longer
+   *   Folsom-only -- yuba-marysville_place_figure_dev.html was built 2026-08-03);
+   *   the sectors devnote (named builder/output/gen3d/, a path that no longer exists,
+   *   the current build being gen3e; said per-brief edit links were deliberately
+   *   absent when all nine rows carry one; and sent edits to _meta/review/round1/, a
+   *   closed round -- round 2's documents are in Drive at round2-word-gen3e); the two
+   *   theme-classification devnotes under Water themes and Project background, which
+   *   argued the same point twice and rested on an evaluative-verb policy decision
+   *   that is recorded as open nowhere in the current-state pair; the run-ID REVIEW
+   *   note inside the matrix, an internal decision rather than a reader's task; and
+   *   the hydroclimates devnote, whose one-brief unit Eric confirmed settled on
+   *   2026-08-10 and whose flow-number notes are carried inside the brief itself.
+   *   Shortened: the places devnote, to the one thing it asks of the team -- a public
+   *   name for the community-water and groundwater locations; the strategy-briefs
+   *   REVIEW note. Trimmed: the tier-framework devnote, to the authorship promise,
+   *   dropping the build script, the held COEQWAL-authored briefs, and the named
+   *   internal audit file, which put an internal filename in front of readers who
+   *   cannot open it.
+   *   PRESERVED FROM THE CUT SECTORS DEVNOTE, because it is a decision still owed and
+   *   the page was its only written home: the nine sector display names disagree
+   *   between surfaces in three of nine. The Sectors section calls them Agriculture,
+   *   Freshwater for Delta exports and Freshwater for in-Delta uses; the Tier
+   *   framework section calls the same three agricultural revenue, freshwater for
+   *   Delta exports and freshwater for in-Delta uses, and names two others differently
+   *   again. Three surfaces name the nine sectors three ways and no two agree on all
+   *   nine. Recorded 2026-08-09d as a decision owed, not blocking; the loudest
+   *   disagreeing surface is locked by the authorship decision.
+   *
    * REVISION 2026-07-28 (fourteenth pass). Results-division order changed to
    *   baseline, strategy results, places, sectors, water themes -- baseline
    *   first because everything else is grounded against it, then the strategy
@@ -350,26 +382,6 @@
       <li><span class="item-name">Reduce Delta outflows (35% of unimpaired flow)</span><a class="read-link" href="scenario_results_brief_reduce-delta-outflows-35-of-unimpaired-flow_prototype_v0_3.html" target="_blank" rel="noopener">Read the results brief &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/1CmteDd2KxxJ5W96FEMpon4hS8nFx-3jg/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a></li>
       <li><span class="item-name">Delta Conveyance Project</span><a class="read-link" href="scenario_results_brief_delta-conveyance-project_prototype_v0_3.html" target="_blank" rel="noopener">Read the results brief &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/1VRN9615YlZOKl1LBeXmO1Hvh3TNXKLBd/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a></li>
     </ul>
-    <div class="note">
-      <b>DEVNOTE</b>
-      Four of the twenty-three built results briefs are staged. The other nineteen are
-      built and verified but have not been read by anything other than the verifier, so
-      they are deliberately not linked. Strategy 4.2, prioritizing functional delivery
-      levels to community water systems, has no brief at all: its run family is absent
-      from the 2026-07-02 snapshot, and it is skipped and logged by the builder rather
-      than imputed. These four are prototype v0_3 pages; the read review of 2026-07-25
-      lists open items against them, including the tier band names appearing only inside
-      the figure and never in prose. <b>These rows are the briefs read so far, not the
-      inventory.</b> The inventory is the Results brief column of the scenario matrix,
-      under Scenario library below, where every row reads circulated, built but not yet
-      circulated, or no brief.
-      <br><br>
-      These four briefs are GENERATED. An accepted wording suggestion cannot be applied
-      by editing HTML &mdash; it has to go into the generator function in
-      builder/briefbuilder/results.py that writes that sentence, and if the sentence is a
-      registered claim, into the registry fragment too or the build refuses to write. See
-      team-review/brief_edit_links.md.
-    </div>
   </section>
 
   <section class="section">
@@ -388,34 +400,12 @@
       <li><span class="item-name">San Joaquin River at Salt Slough</span><span class="item-meta">ENV</span><a class="read-link" href="salt-slough-loi_dev.html" target="_blank" rel="noopener">Read the brief &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/1p38PIbDGrf475YquInr4pcoHMDPTTZXI/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a></li>
     </ul>
     <div class="note">
-      <b>FIGURE PREVIEW &middot; FOLSOM</b>
-      A prototype of the place figure, built for Folsom only and standing on its own page.
-      It is the sector figure with the location&rsquo;s own value in place of the mean over
-      the sector&rsquo;s locations, and a hollow diamond marking that mean, so a place can be
-      read against the average for its sector. Twenty-three strategy columns, three stacked
-      panels sharing one tier axis, five hydroclimate lanes each &mdash; the same arrow
-      grammar the results briefs use. The six briefs above are unchanged and still carry the
-      earlier dot figure; nothing here has been wired into them.
-      <a class="read-link" href="builder/output/folsom_place_figure_dev.html" target="_blank" rel="noopener">See the figure &rarr;</a>
-    </div>
-    <div class="note">
       <b>DEVNOTE</b>
-      Six places, covering two sector tags: reservoir storage (RES, three) and
-      environmental flows (ENV, three). No community-water-system place and no
-      groundwater place is built, so neither sector has a place example here. Nothing
-      stands in for them. That gap is not an oversight: the API serves community-water,
-      agricultural, and groundwater locations as bare codes (<span class="run-id">WLDWD</span>,
-      <span class="run-id">26S_PU4</span>, WBA numbers) with no display name, so section 6
-      of those briefs cannot be written until the team supplies a public identity for the
-      locations picked.
-      <br><br>
-      Salt Slough was added 2026-07-31 as the first location whose tier label never
-      changes with hydroclimate &mdash; 92 of 92 comparisons hold. It is the first brief
-      to reach the template&rsquo;s <em>stable</em> prose branch, which had never been
-      rendered before and asserted movement &ldquo;within those bands&rdquo;; at this
-      location the labels differ by two bands across strategies, so that sentence was
-      false and has been rewritten. The five earlier briefs do not reach the branch and
-      are unchanged.
+      Six place briefs are built, covering reservoir storage (RES) and environmental flows
+      (ENV) only. No community-water-system place and no groundwater place can be written
+      until the team supplies a public name for the locations picked: the API serves those
+      locations as bare codes (<span class="run-id">WLDWD</span>,
+      <span class="run-id">26S_PU4</span>, WBA numbers) with no display name.
     </div>
   </section>
 
@@ -439,30 +429,6 @@
       <li><span class="item-name">Reservoir storage</span><a class="read-link" href="sector_brief_reservoir-storage_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/1YLqpNBqfYTqeo-xWbON5NLYSbLLCpDPG/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a><span class="inreview">In review</span></li>
       <li><span class="item-name">Winter-run Chinook salmon</span><span class="item-meta">across 22 strategies</span><a class="read-link" href="sector_brief_winter-run-chinook-salmon_prototype_v0_1.html" target="_blank" rel="noopener">Read the brief &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/16aZMIya-ICkFspQVJtPioDcXqJ7Tide3/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a><span class="inreview">In review</span></li>
     </ul>
-    <div class="note">
-      <b>DEVNOTE</b>
-      These nine are staged from <code>builder/output/gen3d/</code>, the 2026-08-06
-      generator build, and not from the repository root. They supersede
-      <code>sector_brief_reservoir-storage_prototype_v0_1.html</code>, which was the only
-      sector brief published before today and which was produced by
-      <code>_meta/build_sector_brief.py</code> &mdash; a script since retired, and one
-      whose output disagrees with its own data file in 7 of 115 points. No reader-visible
-      value moves between the two, because all seven print the same single decimal either
-      way, but the old page should be unpublished rather than left beside its replacement.
-      <br><br>
-      Per-brief edit links are deliberately absent here. These pages are generated, so an
-      accepted wording change cannot be applied by editing HTML; it goes into the
-      generator. Edits belong in the round-1 Word documents under
-      <code>_meta/review/round1/</code>, which is the channel that reaches the generator.
-      <br><br>
-      <b style="display:inline">Sector names disagree with the Tier framework section
-      below, in three of nine.</b> This section calls them Agriculture, Freshwater for
-      Delta exports and Freshwater for in-Delta uses; that section calls the same three
-      agricultural revenue, freshwater for Delta exports and freshwater for in-Delta uses,
-      and names two others differently again. Three surfaces now name the nine sectors
-      three ways and no two agree on all nine. The disagreement is left visible rather than
-      papered over, because the decision is Eric&rsquo;s and it should be made once.
-    </div>
   </section>
 
   <section class="section">
@@ -474,17 +440,6 @@
       <li><span class="item-name">Rivers, salmon &amp; ecosystems</span><a class="read-link" href="water-themes/theme_eco_rivers-and-salmon_narrative_prototype_v0_2.html" target="_blank" rel="noopener">Read &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/1r_gxcgiKUkOW9g-pTNr_sgwtstEOElXN/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a></li>
       <li><span class="item-name">The Delta as a living place</span><a class="read-link" href="water-themes/theme_delta_balancing-needs_narrative_prototype_v0_2.html" target="_blank" rel="noopener">Read &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/1osUQR1zCX7ajQBvWaHCKGO1prUhILWKM/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a></li>
     </ul>
-<div class="note">
-      <b>DEVNOTE</b>
-      The theme narratives are hybrids: sections 1&ndash;5 are descriptive, but their
-      section 6 reports modeled findings, which is why these four sit under results
-      briefs. Their section-6 wording is team text pending the open evaluative-verb
-      policy decision (prose-style rules vs. a stated carve-out) &mdash; that decision
-      also bears on whether this classification holds. The fifth theme narrative,
-      &ldquo;Understanding today&rsquo;s water system,&rdquo; sits under project
-      background in the Reference division below (per Eric, 2026-07-23) even though it
-      shares the same section-6 hybrid structure.
-    </div>
   </section>
 </div>
 
@@ -511,15 +466,6 @@
         <p class="card-body">Background reading for the baseline: how California&rsquo;s current water management system works, and why current operations serves as the comparison anchor for every scenario. The companion baseline results brief, under Results briefs above, reports the modeled tiers.</p>
         <div class="card-foot"><a class="read-link" href="water-themes/theme_baseline_understanding-todays-water-system_narrative_prototype_v0_2.html" target="_blank" rel="noopener">Read the brief &rarr;</a><a class="edit-link" href="https://docs.google.com/document/d/1K-3GIxKC7W8R05rtDmwK3uOKC1m3X_lQ9uxn-ZnzAjw/edit" target="_blank" rel="noopener">&#9998;&nbsp;Suggest edits</a></div>
       </div>
-    </div>
-    <div class="note">
-      <b>DEVNOTE</b>
-      &ldquo;Understanding today&rsquo;s water system&rdquo; is placed here as background
-      reading, but it is structurally a hybrid theme narrative &mdash; its section 6
-      reports modeled findings in evaluative vocabulary. Its four sibling theme narratives
-      sit under Water themes in the Results division for that reason. This split (baseline
-      narrative &rarr; reference; the other four &rarr; results) is provisional and
-      interacts with the open section-6 evaluative-verb policy decision.
     </div>
   </section>
 
@@ -578,10 +524,9 @@
     <p class="table-footnote">* Not currently in the served scenario library; planned run codes shown in the matrix below.</p>
     <div class="note">
       <b>REVIEW</b>
-      All 24 strategy briefs are first drafts (v0_1, generated 2026-07-22 from the
-      scenario descriptions document and the naming-proposal table). Open decisions
-      &mdash; flagged names, the 1.x family framing, section 5 list length &mdash; are
-      marked with devnotes inside each brief.
+      All 24 strategy briefs are first drafts. Open decisions &mdash; flagged names, the
+      1.x family framing, section 5 list length &mdash; are marked with devnotes inside
+      each brief.
     </div>
 
     <details class="matrix">
@@ -639,12 +584,6 @@
         </table>
       </div>
       <p class="table-footnote">* Not currently in the served scenario library; planned run codes shown.</p>
-      <div class="note">
-        <b>REVIEW</b>
-        Run IDs are shown in this table for team review. Where (or whether) run IDs appear
-        on public pages is an open team decision &mdash; the 2026-07-15 naming proposal
-        confines them to each brief&rsquo;s references note.
-      </div>
     </details>
   </section>
 
@@ -666,13 +605,6 @@
       <a href="hydroclimates_brief_prototype_v0_1.html#high" target="_blank" rel="noopener">High</a> &middot;
       <a href="hydroclimates_brief_prototype_v0_1.html#extreme" target="_blank" rel="noopener">Extreme climate stress</a>
     </p>
-    <div class="note">
-      <b>DEVNOTE</b>
-      One brief with five anchored sections, not five briefs &mdash; the one-brief unit is
-      settled; the anchors give each hydroclimate a citable address. The brief is a v0_1
-      draft on the reference-doc shell rather than the house brief shell, and carries dev
-      notes on two flow-number conflicts raised with the hydroclimate team.
-    </div>
   </section>
 
   <section class="section">
@@ -712,20 +644,6 @@
       nine were checked present against their sources. One thing was added: a header naming
       the source document and the conversion date, above the document&rsquo;s own front
       matter rather than in place of it.
-      <br><br>
-      Built by <code>build_tier_method_documents.py</code> from
-      <code>tier_framework_sources/</code>, both in the briefs repository, so the conversion
-      is reproducible rather than a one-off.
-      <br><br>
-      <b style="display:inline">The nine COEQWAL-authored tier framework briefs are held.</b>
-      They were staged here on 2026-08-07 and are now unlinked and unstaged, kept in the
-      repository at <code>tier_framework_brief_*_prototype_v0_1.html</code> so the work is
-      recoverable if leadership rules differently. The authorship question that put them
-      there is still open.
-      <br><br>
-      A cross-sector audit of these nine documents exists internally at
-      <code>COEQWAL_tier_method_audit_2026-08-07.html</code> and is deliberately not linked
-      or referenced on the pages themselves.
     </div>
   </section>
 
@@ -759,7 +677,7 @@
   COEQWAL &middot; Collaboratory for Equity in Water Allocation. Internal team review
   mock-up. Every brief linked here is a draft: the real-data briefs are dev builds from
   the locked 2026-07-02 snapshot and are marked DEV BUILD, not for publication or
-  citation. Page revised 2026-07-31.
+  citation. Page revised 2026-08-10.
 </footer>
 
 </div>
